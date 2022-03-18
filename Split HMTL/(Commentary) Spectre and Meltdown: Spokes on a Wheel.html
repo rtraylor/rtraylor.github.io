@@ -1,0 +1,120 @@
+
+		
+				(Commentary) Spectre and Meltdown: Spokes on a Wheel		
+		https://www.themathcitadel.com/commentary-spectre-and-meltdown-spokes-on-a-wheel/
+		Thu, 18 Jan 2018 01:32:15 +0000
+		admin
+		http://www.themathcitadel.com/?p=1941
+		
+		
+				There has been a flurry of articles and discussions related to Intel’s Spectre and Meltdown vulnerabilities. Many good writings discuss the technical nature and implications to hardware, and you can find a selection <a href="https://www.theguardian.com/technology/2018/jan/04/meltdown-spectre-worst-cpu-bugs-ever-found-affect-computers-intel-processors-security-flaw">here</a>, <a href="https://meltdownattack.com">here</a>, and <a href="https://www.theregister.co.uk/2018/01/17/zfs_performance_hit_by_spectre_meltdown_bug_fixes/">here</a>. As of this writing, many software developers and security experts are frantically trying to create patches to protect their infrastructure and customers from those who would exploit a 20 year-old design flaw, and we obviously wish them the best of luck.
+
+The severity of the issue is in a large part due to a design flaw that dates back to 1995, when Bill Clinton was president, the DVD was first announced, eBay was founded, Braveheart won the Best Picture Academy Award, and Alanis Morissette’s <em>Jagged Little Pill</em> was released. That means that hundreds of thousands of programs, apps, and products were built on top of a fundamental design flaw that went unnoticed longer than some of our siblings have been alive. What happened?
+
+Complexity happened. Not complexity in the sense of the human body, a finely tuned machine. Complexity born of rushed thinking, continuous development cycles, and a mentality we discouraged in our students when we were still academics — the notion that &nbsp;just turning in an assignment, even if it was not well-done, was acceptable. We have been scolded in other jobs that “perfect is the enemy of good”, to "fail fast and fail often" and to "just get something delivered." We at The Math Citadel fundamentally disagree with and reject all of these strategies and attitudes. Rushed thinking and a desperation to be seen as “first done” with the most hype has led to complexity born of brute force solutions, with patches to fix holes discovered after release. When those patches inevitably break something else, more patches are applied to fix the first patches.
+<blockquote>“And on and on it spins, crushing those on the ground”, in the words of Daenerys Targaryen.</blockquote>
+Lest it be thought that we are picking only on Intel, or that this is an isolated issue, let us explore other manifestations.
+<ul>
+ 	<li>In November 2017, a developer found a <a href="http://appleinsider.com/articles/17/11/28/apple-says-fix-incoming-for-macos-high-sierra-root-access-bug">security vulnerability</a> in Apple’s High Sierra operating system that enables access to the root superuser account with a blank password on any Mac (local or remote) running OS 10.13.1. Apple <a href="http://www.zdnet.com/article/apples-patch-for-stupid-root-access-bug-breaks-file-sharing-for-some-but-the-fix-is-easy/">quickly released</a> a patch meant to fix it, but <a href="https://www.wired.com/story/macos-update-undoes-apple-root-bug-patch/">another update</a> ended up reintroducing the “root bug.”</li>
+ 	<li>When iOS 11.1 was released, <a href="http://www.businessinsider.com/how-to-fix-iphone-i-question-mark-glitch-ios-1111-2017-11">autocorrect would change</a> the letter “I” to “A” with a question mark in a box.</li>
+</ul>
+The gaming industry has had its share of problems from rushing releases that weren't complete. (One might almost be forgiven for assuming it’s a business strategy.)
+<ul>
+ 	<li><a href="https://www.rockpapershotgun.com/2016/08/17/broken-promises-of-no-mans-sky/">No Man’s Sky</a> was released to much hype, but the first release had very few of the promised features, generating a huge player backlash. The company released further features as DLC and patches, but the damage was done.</li>
+ 	<li>&nbsp;Call of Duty: WWII had server issues at launch that took the game offline, random disconnects from matches, and <a href="https://kotaku.com/after-two-patches-call-of-duty-wwii-is-still-a-mess-1820399724">some reports</a> of gamer rankings reset. <a href="https://www.vg247.com/2017/11/10/todays-call-of-duty-ww2-patch-screwed-things-up-big-time/">After two patches</a>, users reported improvements but no real fixes.</li>
+ 	<li>Batman: Arkham Night released a version for the PC, and it <a href="https://kotaku.com/arkham-knight-pc-disaster-watch-day-two-1713637876">became a disaster</a>. Players had to turn off textures and move graphics qualities to "low" to even make the game playable, regardless of how nice their graphics card was.&nbsp;</li>
+</ul>
+The machine learning/“artificial intelligence” space has quite a few examples, and these range from amusing to sinister.
+<ul>
+ 	<li>Algorithmic pricing without a sanity check leads to a <a href="http://www.cnn.com/2011/TECH/web/04/25/amazon.price.algorithm/index.html">$23 million book price</a> on Amazon</li>
+ 	<li>Automatic t-shirt slogan generator <a href="https://www.theguardian.com/technology/2013/mar/02/amazon-withdraws-rape-slogan-shirt">causes a business to fold</a> after the owner’s algorithm generates a t-shirt saying “Keep calm and rape on.”</li>
+ 	<li>&nbsp;Automated re-pricing software RePricer Express erroneously changes the prices of thousands of items on Amazon to a penny. Compounding the problem is the automatic order fulfillment from Amazon, making it impossible to retract the order. One small business owner cites a <a href="http://www.bbc.com/future/story/20150820-the-bad-things-that-happen-when-algorithms-run-online-shops">$150,000 loss.</a></li>
+ 	<li><a href="http://www.bbc.com/future/story/20150820-the-bad-things-that-happen-when-algorithms-run-online-shops">Accusations of price-gouging</a> on flights out of Florida prior to Hurricane Irma are more likely due to the automatic pricing algorithms than active price gouging. Nonetheless, it was a PR nightmare.</li>
+</ul>
+We can list many more examples, enough to provide clear evidence of a pattern. There have already been those calling for a re-examination of machine learning and data science in particular in response to these issues. The real problem, however, goes much deeper.
+
+Entire companies are based around the notion of <a href="https://www.scrum.org/resources/what-is-scrum">scrum development</a>, a continued cycle of “sprints” that last a couple weeks and end in some deliverable. The original methodology may be good for a prototype, but when scaled to company operations, it inspires a culture of “just get it done.” It leads to a toxic environment, where both leaders and individual contributors are driven by a fury to “turn it in” and release before a competitor or by the time VMWorld comes around. It means products are being built on top of other products that were just barely good enough to ship with a shiny marketing veneer.
+
+In the physical world, this would be akin to building a bridge by throwing stones wantonly into the water in order to hop across. Yes, you can get across the river quickly, but misplacement of any one of those stones can mean you may slip and fall into the water, or someone coming behind you who distributes his weight differently may fall. Worse, if the rocks seem stable enough for a long time, people begin constructing a hasty bridge using those stones as a foundation. The bridge holds for a while, but one day the cumulative effect of poor materials and high traffic volume cause the bridge to collapse, and people get hurt.
+
+If civil engineers designed and built bridges the way tech develops and releases products, people would die. If aerospace engineers rushed the design of a commercial airliner and patched issues the way tech does, people would die.
+<blockquote>If mathematicians developed their theories and equations the way tech develops and releases products, your world would crumble.</blockquote>
+Let’s run a thought experiment. Suppose George Boole, the inventor of Boolean algebra, rushed his theories out so he could beat an academic rival. He didn’t really prove everything or make sure it was airtight. There was maybe that funny edge case, but he couldn’t see it ever arising in practice, so he just ignored it. Unbeknownst to him, that edge case was a counterexample that showed all of his notions to be false overall.
+
+Boolean algebra is the fundamental theory by which your computers work today, and will be such until and unless quantum computing takes off. If what seemed like an edge case 150 years ago became the foundation for the development of computers, the ramifications would be so vast as to be unrecoverable. It would require a whole new redesign of how computers worked. Let that effect snowball in your mind.
+
+That’s one topic in mathematics. Imagine hundreds of mathematicians developing the foundations of your world the same way. But we don’t. We study the river, the banks, and the earth carefully. Only when we are sure do we begin constructing a bridge, starting with the foundation. Stone by stone, making sure the bottom ones are perfect and unbreakable. The work takes years, decades, lifetimes sometimes, but the results are built to last. Mathematics is the only discipline that has never had to “reinvent” itself upon the discovery of new knowledge. All of mathematics builds, expands, and generalizes.
+
+What does this have to do with business? To fix the attitudes that ultimately led to Spectre, Meltdown, and the patches to fix them, and the patches to fix those, companies need to think like mathematicians. To fix the ideologies that rushed out a new macOS with a serious security vulnerability, companies need to think like mathematicians. To avoid the PR nightmares from “AI gone wrong”, companies need to think like mathematicians.
+
+Leaders and individual contributors need to think like mathematicians, searching deliberately for elegant, simple solutions that are provable, explainable, and fundamentally strong. The elegance and simplicity will allow for other things to be built on top that won’t break the foundation. Even when something is built on top of a foundation, it is carefully examined as to its stability. Provable solutions mean no surprises later when something fails.
+
+This requires lateral thinking, creativity, and most importantly, a willingness to take a bit longer in product development and business decisions. It’s a difficult thing to do, when all your competitors move so fast you think you would only hear the Doppler effect as they scream by you. Adopting a mathematician’s outlook takes longer. However, the results are simpler, with less maintenance, less need for software janitors to clean up the mess from the frantic development party, and stronger, more resilient products. Every one of these things yields cost savings, long term revenue, and perhaps most importantly, customer trust.
+
+We at The Math Citadel are mathematicians, refusing the siren song of scrum-like mentalities. We’re here to help the companies who want to look past the hypes, who want to carve their own paths rather than be the leader on a paved course. We’re here for the companies who say “enough” to shortsightedness and continuous patching. Spectre and Meltdown are just spokes on a wheel. We don’t intend to stop the wheel, we intend to break it.		
+		
+						
+		1941
+		2018-01-18 01:32:15
+		2018-01-18 01:32:15
+		closed
+		open
+		commentary-spectre-and-meltdown-spokes-on-a-wheel
+		publish
+		0
+		0
+		post
+		
+		0
+										Commentary
+						
+		_da_attachments
+		a:0:{}
+		
+							
+		_edit_last
+		2
+		
+							
+		_wp_page_template
+		default
+		
+							
+		_acp_button_style
+		1
+		
+							
+		_acp_loading_type
+		1
+		
+							
+			625
+			Tortoise and Hare, &#8220;Software will devour us all!&#8221; | Ned in the Cloud
+			
+			https://nedinthecloud.com/2018/02/17/tortoise-and-hare-software-will-devour-us-all/
+			77.104.145.181
+			2018-02-17 19:50:58
+			2018-02-17 19:50:58
+			[&#8230;] disdainful  and disinterested public eye, a few things have come to my notice.  The first is a post from The Math Citadel taking Intel and the IT field at large to task for having a fundamental [&#8230;]
+			1
+			pingback
+			0
+			0
+						
+	akismet_history
+			a:3:{s:4:"time";d:1537552403.64058399200439453125;s:5:"event";s:11:"report-spam";s:4:"user";s:13:"jasonhathcock";}
+			
+						
+	akismet_user_result
+			false
+			
+						
+	akismet_user
+			jasonhathcock
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1537553454.7198750972747802734375;s:5:"event";s:10:"report-ham";s:4:"user";s:13:"jasonhathcock";}
+			
+							
+					

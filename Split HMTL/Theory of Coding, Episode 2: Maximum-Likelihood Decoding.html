@@ -1,0 +1,1604 @@
+
+		
+				Theory of Coding, Episode 2: Maximum-Likelihood Decoding		
+		https://www.themathcitadel.com/theory-of-coding-episode-2-maximum-likelihood-decoding/
+		Sun, 27 Aug 2017 20:25:46 +0000
+		admin
+		http://www.themathcitadel.com/?p=1000
+		
+		
+				The introduction to coding theory in&nbsp;<a href="https://www.themathcitadel.com/group-theory-xor-and-binary-codes-introducing-coding-theory/" target="_blank" rel="noopener noreferrer">this post</a>&nbsp;will now allow us to explore some more interesting topics in coding theory, courtesy of Pinter's <em>A Book of Abstract Algebra</em>. We'll introduce the notion of a code, informations, and parity check equations. Most communication channels are noisy to some extent, which means that a transmitted codeword may have one or more errors. If the recipient of a codeword attempts to decode a message, he needs to be able to determine first if there was a possible error in the code, and then correct it. This will lead us to one method called&nbsp;<em>maximum likelihood decoding.</em>
+
+<!--more-->
+
+&nbsp;
+
+<a href="https://www.themathcitadel.com/group-theory-xor-and-binary-codes-introducing-coding-theory/" target="_blank" rel="noopener noreferrer">Recall</a>&nbsp;that we denoted [latex]\mathbb{B}^{n}[/latex] as the set of all binary words of length [latex]n[/latex]. We will call a subset of [latex]\mathbb{B}^{n}[/latex] a code. The first code we're going to work with is a subset of [latex]\mathbb{B}^{5}[/latex]. We'll call this code [latex]C_{1}[/latex], consisting of the following binary words with length 5:
+
+[latex, display = true]C_{1} = \left\{\begin{array}{lr}00000 &amp; 10011\\00111 &amp; 10100\\01001 &amp; 11010\\01110 &amp; 11101\end{array}\right\}[/latex]
+
+This is only a subset of [latex]\mathbb{B}^{5}[/latex]. Remember that the full cardinality of [latex]\mathbb{B}^{5} = 2^{5} = 32[/latex]. The 8 words in [latex]C_{1}[/latex] are&nbsp;<em>codewords.&nbsp;</em>Anything not in [latex]C_{1}[/latex] is not a codeword. When we design a code, only these codewords are to be transmitted. That means there is an error if any word not in [latex]C_{1}[/latex] was received.
+
+If we designed the code well, then it should be very unlikely that an error in transmission results in another codeword. (Think if we transmitted 10011 but received 11010. Since 11010 is a codeword, we wouldn't actually know that's not what was meant, and the transmission error would not be detected.) This means we need a good code that makes it easy on us to detect and correct transmission errors. To do that, we're going to need some notions of weight, distance, and redundancy.
+<h2>Weight and Distance of Codewords</h2>
+&nbsp;
+
+<hr>
+
+<em><span style="text-decoration: underline;"><strong>Definition: weight of a codeword</strong></span></em>: The&nbsp;<strong>weight</strong> of a binary word is the number of 1s in the word. Alternatively, we could add the bits (using regular addition.)
+
+<hr>
+
+For example, the weight of 00111 is 3, and the weight of 01001 is 2. The position of the 1s is irrelevant; we're just counting them here.
+
+&nbsp;
+
+<hr>
+
+<em><span style="text-decoration: underline;"><strong>Definition: distance between codewords:&nbsp;</strong></span></em> The&nbsp;<strong>distance</strong> between two binary words is the number of positions in which they differ
+
+<hr>
+
+The distance between 00111 and 01001 is 3. (The two words differ in positions 2,3, and 4.)[note]The astute observer will notice that we can identify the positions in which the two words differ by using the XOR operation from the previous discussion.[/note]. We may also define the&nbsp;<em>minimum distance of a code</em> to be the smallest distance between any two words in the code. Looking up at the code [latex]C_{1}[/latex], we can make pairwise comparisons to see that the minimum distance of this code is 2.[note]There are 28 such comparisons to make. My suggestion: use the XOR operation from our previous discussion and then add bitwise to get the distance. A simple script can be written in your language of choice for good coding practice.[/note]
+
+What does this mean? When we receive a transmitted code over a potentially noisy channel, we will be able to notice we received a code with errors only if the number of errors in the transmitted code is less than this minimum distance; otherwise it is possible to receive a code word, not knowing that's not the code word that was meant.
+
+For instance, in [latex]C_{1}[/latex], we will be able to detect that we received a bad transmission if the number of bits that are in error is 1 or 0. It takes at least 2 errors in transmission before we could possibly be receiving another code word than what was sent.
+
+This gives us a way to design good codes. The more errors needed to change a codeword into another, the better the code is. Even more desirable would be a code with a minimum distance of 3, since 1 or 2 errors will always be detected, and 3 errors are highly unlikely.
+<h2>Constructing a Code</h2>
+In every codeword, certain positions are called <i>information positions, </i>and the remaining are <i>redundancy positions, </i>sometimes called <i>parity bits</i>. In [latex]C_{1}[/latex], the first three bits are information positions. Looking at the first three bits each of the eight code words, we can see that every possible 3-bit binary sequence is there:
+
+[latex, display = true]\{000,001,010,011,100,101,110,111\}[/latex]
+
+So what's up with the last two bits? How do we decide what those are? &nbsp;For that, we use <b>parity check equations.</b>
+
+<b> </b>The simplest type of parity is single bit parity, and is either odd or even. That is, only the last position is a redundancy position. For odd parity, if the number of 1s in the binary word is <i>even</i>, then the redundancy position is set to a 1, giving a binary word (with parity) that has an odd number of ones. Otherwise, the parity bit is a 0. We reverse that for even single-bit parity.
+
+So if the word is 1100, under odd single-bit parity, the word with redundancy would be 11001. Under even single-bit parity, the word with redundancy is 11000.
+
+We can also define parity check equations when we want more than one bit of redundancy. For example, in [latex]C_{1}[/latex], the parity check equations are given by
+
+[latex, display = true]a_{4} = a_{1} + a_{3} \bmod 2 \qquad a_{5} = a_{1} + a_{2} + a_{3} \bmod 2[/latex]
+
+Check [latex]C_{1}[/latex] for yourself. The redundancy positions [latex]a_{4}[/latex] and [latex]a_{5}[/latex] for 110 are given by
+
+[latex, display = true] a_{4} = 1 \oplus 0 = 1 \text{ and } a_{5} = 1\oplus 1 \oplus 0 = 0[/latex]
+
+giving the word 11010 from the code above.[note] Feel free to test the other words as well[/note]
+
+We could create an entirely new code in [latex]\mathbb{B}^{5}[/latex] using the same information positions [latex]\mathbb{B}^{3}[/latex] and different parity check equations.
+<h2>Decoding Noisy Communication: Maximum Likelihood Decoding</h2>
+Let's make some shorthand for the distance between two binary words. We'll denote [latex]d(\mathbf{a},\mathbf{b})[/latex] to be the distance between two binary words.
+
+If we receive some transmission, we know it has to be made of words from our given code (in this case, we're working with [latex]C_{1}[/latex]). We <i>decode</i>&nbsp;a received word by finding the codeword closest to our received word. That is, if we receive [latex]\mathbf{x}[/latex], we minimize [latex]d(\mathbf{a},\mathbf{x})[/latex] over all the possible codewords [latex]\mathbf{a}[/latex] in our code.
+
+This is <b>maximum likelihood decoding.</b>
+
+If we receive <b>11111</b>, then we need to find the codeword in [latex]C_{1}[/latex] closest. That is, the one that differs in the fewest positions. Likely you have already figured out that this word isn't a codeword, and thus is an erroneous transmission, and that the closest word is <b>11101. </b>You did this quickly by calculating the minimum distance between <b>11111</b>&nbsp;and all the other words.
+
+Since it is not a codeword, and the minimum distance between codewords is 2, we know there must be at least one codeword that differs from <b>11111</b>&nbsp;by one position.
+
+Taking another example, let's assume we received <b>10111. </b>This time, when you go through all the words, we actually find two codewords with a distance of 1 away: <b>10011</b>&nbsp;and <b>00111. </b>That is, either a mistake could have been made in the 3rd position or the first position, but we actually can't tell which it is if we just receive the word (assuming no other context).
+
+This actually makes [latex]C_{1}[/latex] a less desirable code. The codewords are close enough together that we cannot ensure any possible word from [latex]\mathbb{B}^{5}[/latex] received can be uniquely decoded to a single word in [latex]C_{1}[/latex]
+<h2>How do we find conditions to put on a code design to guarantee unique maximum-likelihood decoding?</h2>
+<i>[Fair warning here, we'll get a little more theoretical and math heavy. But here's where things get interesting.]</i>
+
+Now it's time to get general. Let [latex]m[/latex] be the minimum distance for some general code [latex]C[/latex].[note]Doesn't matter the length of the binary words, just any code made of binary words[/note]
+
+First, let's formally state what we've already implicitly played with: as long as there are [latex]m-1[/latex] errors or fewer, we can detect an error. For instance, in [latex]C_{1}[/latex], [latex]m=2[/latex], and thus we can detect an error in one position, but not necessarily 2, since an error in two positions may give us another codeword that wasn't intended. But since we would decode it as a codeword, we wouldn't know that word wasn't the one our partner meant to send.
+
+The goal of this section is to figure out how to separate the codewords in any code to guarantee that any word received will be "closest" to only one word. In other words, the problem with the last code [latex]C_{1}[/latex] is that we found a word in [latex]\mathbb{B}^{5}[/latex] that was equidistant from two codewords. We want to design a code that keeps that from happening.
+
+&nbsp;
+
+<a href="http://www.themathcitadel.com/wp-content/uploads/2017/08/Design.png"><img class="wp-image-1009" src="http://www.themathcitadel.com/wp-content/uploads/2017/08/Design.png" alt="" width="400" height="400"></a>
+
+<span style="color: #893b2f;">&nbsp;<strong>a</strong> and <b>b&nbsp;</b>are codewords in our general code [latex]C[/latex]. [latex]x, y, z[/latex] and [latex]w[/latex] are any other codewords of the same length as the codewords in [latex]C[/latex]. [latex]k[/latex] is the radius of the sphere drawn around each codeword. Here you can see that [latex]x[/latex] is in the sphere for <b>a</b>, and [latex]y[/latex] is in the sphere for <b>b</b>. [latex]z[/latex] and [latex]w[/latex] are outside of both. The spheres overlap, so in theory it's possible a codeword lies in both spheres.</span>
+
+As shown in the figure above, we're going to define a <b>sphere of radius <i>k</i>&nbsp;</b>around a codeword [latex]\mathbb{a}[/latex] as the set of all words in [latex]\mathbb{B}^{n}[/latex][note]where n is the length of the codewords[/note] whose distance from [latex]\mathbb{a}[/latex] is [latex]k[/latex] or smaller. We'll call this set [latex]S_{k}(\mathbb{a})[/latex]. Mathematically, we write this as
+
+[latex, display = true]S_{k}(\mathbb{a}) := \{\mathbb{x} \in \mathbb{B}^{n} : d(\mathbb{a},\mathbb{x}) \leq k \}[/latex]
+
+[Quick aside on notation. The symbol [latex]:=[/latex] indicates a definition. The curly braces denote a set. The colon stands for the phrase "such that". So the above reads:
+
+<i>The sphere of radius k around codeword <b>a</b>&nbsp;is defined as the set of all words of binary length n such that the distance from the word to <b>a</b>&nbsp;is less than or equal to the radius k.&nbsp;</i>
+
+You see here why mathematicians like our symbolic shorthand]
+
+If we want to design a good code, then we want to make sure that the spheres for all codewords are completely disjoint (not overlapping). So how big should we make these spheres in terms of the minimum distance of the code?
+
+If we let [latex]t = \frac{1}{2}(m-1)[/latex], then we can show that for any two spheres around generic codewords [latex]\mathbb{a}[/latex] and [latex]\mathbb{b}[/latex] in a generic code [latex]C[/latex] that have radius [latex]t[/latex], then the spheres will have no words in common.
+
+To show this, we'll show it by contradiction.[note]For all the mathematicians out there, bear with me. My goal is to impart intuition and a geometric reasoning, so I'm going to make a less formal proof here. The argument would center around looking at each position, via the definition of the minimum distance, but I want to relax formality here for clarity. The argument is no less correct, just less scary for non mathematicians. [/note] We'll assume that these two generic spheres have a word in common, say [latex]\mathbb{x}[/latex], and show that this assumption contradicts the notion of the minimum distance [latex]m[/latex].
+
+If [latex]\mathbb{x}[/latex] is in both [latex]S_{t}(\mathbb{a})[/latex] and [latex]S_{t}(\mathbb{b})[/latex], then it must be at most [latex]t= \frac{1}{2}(m-1)[/latex] away from both [latex]\mathbb{a}[/latex] and [latex]\mathbb{b}[/latex]. Suppose it's directly in between; that is, suppose [latex]\mathbb{x}[/latex] is [latex]t[/latex] away from both [latex]\mathbb{a}[/latex] and [latex]\mathbb{b}[/latex], but still in the intersection. We know that the minimum distance is [latex]m[/latex], so the middle point between [latex]\mathbb{a}[/latex] and [latex]\mathbb{b}[/latex] is [latex]\frac{m}{2}[/latex].
+
+But [latex]t = \frac{1}{2}(m-1)[/latex]. That means if [latex]\mathbb{x}[/latex] lies in [latex]S_{t}(\mathbb{a})[/latex], it can't be [latex]t[/latex] or less from [latex]\mathbb{b}[/latex], and vice versa. In other words, it's impossible for [latex]\mathbb{x}[/latex] to lie in the spheres of both codewords without contradicting the minimum distance [latex]m[/latex] between the two codewords.
+
+So what does this mean? This means that if we have [latex]t[/latex] or fewer errors in transmission, we will be able to uniquely decode [latex]\mathbb{x}[/latex], and won't run into the same problem we did with [latex]C_{1}[/latex].
+<h2>Conclusion</h2>
+Designing a code really relies on the parity check equations. The same information positions with different parity check equations yield totally different codes. We learned that some codes are better than others. Namely, we want a lot of "separation" between codewords, so we don't run into the issue of accidentally decoding the word incorrectly, but being unable to tell we decoded incorrectly.
+
+We want the minimum distance of the code to be as high as reasonable (3+ is considered reasonable, unless your transmission line is really bad). We also used a little geometry to view the notion of separation between codewords as spheres, and we want those spheres to not overlap each other. Overlapping spheres means that we can possibly decode a word incorrectly.
+
+Designing codes using parity check equations isn't an abstract exercise. We use it in data transmission all the time, but it requires a journey into the abstract a little bit to understand what makes some codes better than others. Score another point for algebra.
+<a href="http://creativecommons.org/licenses/by-nc-nd/4.0/" rel="license"><img style="border-width: 0;" src="https://i.creativecommons.org/l/by-nc-nd/4.0/88x31.png" alt="Creative Commons License"></a>
+This work is licensed under a <a href="http://creativecommons.org/licenses/by-nc-nd/4.0/" rel="license">Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License</a>.		
+		
+						
+		1000
+		2017-08-27 20:25:46
+		2017-08-27 20:25:46
+		open
+		open
+		theory-of-coding-episode-2-maximum-likelihood-decoding
+		publish
+		0
+		0
+		post
+		
+		0
+										Algebra
+		coding theory
+		Group Theory
+		Spines
+						
+		_da_attachments
+		a:0:{}
+		
+							
+		_edit_last
+		2
+		
+							
+		_acp_button_style
+		1
+		
+							
+		_acp_loading_type
+		1
+		
+							
+		_wp_page_template
+		default
+		
+							
+			262
+			A Partition by any Other Name &#8211; The Math Citadel
+			
+			http://www.themathcitadel.com/2017/11/14/a-partition-by-any-other-name/
+			66.226.74.70
+			2017-11-26 02:54:31
+			2017-11-26 02:54:31
+			[&#8230;] generalizes many things in basic arithmetic, leading to highly lucrative&nbsp;applications in&nbsp;coding theory&nbsp;and data protection. &nbsp;Some definitions in mathematics may not have obvious [&#8230;]
+			1
+			pingback
+			0
+			0
+						
+	akismet_history
+			a:3:{s:4:"time";d:1537552405.5474040508270263671875;s:5:"event";s:11:"report-spam";s:4:"user";s:13:"jasonhathcock";}
+			
+						
+	akismet_user_result
+			false
+			
+						
+	akismet_user
+			jasonhathcock
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1537553457.5145080089569091796875;s:5:"event";s:10:"report-ham";s:4:"user";s:13:"jasonhathcock";}
+			
+							
+					
+			292
+			Mailbox Answers: Calculating New Parity After an Overwrite &#8211; The Math Citadel
+			
+			http://www.themathcitadel.com/2017/12/07/mailbox-answers-calculating-new-parity-after-an-overwrite/
+			66.226.74.70
+			2017-12-07 16:56:47
+			2017-12-07 16:56:47
+			[&#8230;] We&#8217;ve explored the operation here and began our discussion of coding theory by looking at maximum likelihood decoding. Let&#8217;s take a brief review of the XOR (or mod 2) [&#8230;]
+			1
+			pingback
+			0
+			0
+						
+	akismet_history
+			a:3:{s:4:"time";d:1537552404.740377902984619140625;s:5:"event";s:11:"report-spam";s:4:"user";s:13:"jasonhathcock";}
+			
+						
+	akismet_user_result
+			false
+			
+						
+	akismet_user
+			jasonhathcock
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1537553456.504043102264404296875;s:5:"event";s:10:"report-ham";s:4:"user";s:13:"jasonhathcock";}
+			
+							
+					
+			14173
+			Fidel Hanus
+			Tetu18089@gmail.com
+			https://www.cnn.com
+			209.107.204.70
+			2019-03-08 06:05:32
+			2019-03-08 06:05:32
+			It’s an awesome post for all the web users; they will obtain benefitfrom it I am sure.
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1552025132
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552025132.4007129669189453125;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			b46115f57b8a245037e64d76c4e3559e
+			
+							
+					
+			14345
+			Kiersten Sellinger
+			RandiShallenberger32146@gmail.com
+			https://proxies-free.com/ranking-fluctuation-problem/
+			198.245.69.109
+			2019-03-08 17:25:13
+			2019-03-08 17:25:13
+			Hey there I am so grateful I found your blog page, I really found you by error, while I was searching on Yahoo for something else, Regardless I am here now and would just like to say many thanks for a remarkable post and a all round thrilling blog (I also love the theme/design), I don’t have time to browse it all at the moment but I have saved it and also added your RSS feeds, so when I have time I will be back to read more, Please do keep up the great work.
+			trash
+			
+			0
+			0
+						
+	akismet_error
+			1552065913
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552065913.9072949886322021484375;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+							
+					
+			14842
+			Jesenia Wicke
+			Cataldi20971@gmail.com
+			http://earllovesyou.com
+			82.103.134.120
+			2019-03-10 17:46:33
+			2019-03-10 17:46:33
+			<b><a href="http://delaware.nef6.com." rel="nofollow"> delaware finance </a> </b><b>Factory Hornady 204 ammo velocity </b><b><a href="http://france.remmont.com/author/admin/" rel="nofollow"> narpo durham </a> </b><b>204 R700 VLSS Thumbhole Accurate <a href="http://reply.remmont.com/madura-english-sinhala-dictionary-free-download-and-software-reviews-cnet-thank-you-for-your-reply-email/" rel="nofollow"> madura sinhala dictionary free download </a> </b>new prairie dog video <b><a href="http://maryland.remmont.com/sonoran-desert-institute-accredited-gunsmithing-college-nationally-accredited-college/" rel="nofollow"> sonoran desert gunsmithing school </a> Dyna Tek bore coat <i><a href="http://answer.remmont.com/tag/sms/page/2/" rel="nofollow"> kwolaclcl rearrange this word </a> “Muzzle velocity from Tikka T3X varmint 23 5″”” <b><a href="http://remmont.com/warrenton-select-diesel-truck-sales-dodge-cummins-ford-powerstroke-chevrolet-gmc-diesel-trucks-for-sale-gmc-diesel-trucks-for-sale/" rel="nofollow"> warrenton select </a>  </b></i><i>SHOOT STRAIGHT IN 2017 </i><i><a href="http://claim.remmont.com/azui-file-weekly-20-r-sultats-1-accident-claims-helpline/" rel="nofollow"> azui com file claim </a> </i></b>TC Compass in 204 Ruger <i><a href="http://design.remmont.com/feng-shui-interior-design-course-learn-feng-shui-nyiad/" rel="nofollow"> nyiad student login </a> <b>Hornady ammo 24 99 per 50 rounds <i> <b>Savage 204 VLP <i><a href="http://remmont.com/medical-transcription-jobs-transcription-work-at-home-medical-transcription-jobs-medical-transcription-jobs/" rel="nofollow"> athreon transcription pay </a> </i><i>Savage LRPV not up to expectations </i></b><b><a href="http://reply.remmont.com/how-to-check-account-balance-of-bdo-kabayan-savings-online-banking-27772-open-up-a-savings-account-online/" rel="nofollow"> bdo kabayan savings account </a>  <i><a href="http://bakersfield.nef2.com." rel="nofollow"> bakersfield finance </a></i></b></i></b></i>
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1552239993
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552239993.8663198947906494140625;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			f412f539f050c2a35995fadfdfbd6fa9
+			
+							
+					
+			15085
+			click the following article
+			EmelinaSokolik6967@gmail.com
+			https://walkerhutchens.7x.cz/blog/cash-progress-check-simple-and
+			209.197.6.164
+			2019-03-11 13:13:43
+			2019-03-11 13:13:43
+			You offer some interesting arguments within this post, but aren't you  missing something contextual?
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1552310023
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552310023.813682079315185546875;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			9bd5cc1c3f811c5512214cf53bdf5161
+			
+							
+					
+			15135
+			Violeta Prottsman
+			ToryCoughlin41508@gmail.com
+			https://proxies-free.com/take-a1-a2-a-partition-of-cf89-with-e288aan-i-1ai-cf89-and-aie288a9aj-e28885for-i-j-let-p-ai-0-for-all-i-prove-the-bayes-formula/
+			23.236.210.217
+			2019-03-11 18:16:11
+			2019-03-11 18:16:11
+			Thank you for sharing excellent informations. Your web-site is very cool. I'm impressed by the details that you’ve on this blog. It reveals how nicely you perceive this subject. Bookmarked this web page, will come back for extra articles. You, my pal, ROCK! I found just the information I already searched everywhere and just could not come across. What an ideal web-site.
+			trash
+			
+			0
+			0
+						
+	akismet_error
+			1552328171
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552328171.427280902862548828125;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+							
+					
+			16202
+			Noe Entress
+			Palmieri12555@gmail.com
+			http:/suckafatonehomo.com
+			209.107.204.65
+			2019-03-15 22:42:34
+			2019-03-15 22:42:34
+			thanks a lot ! i really dont understand how human can eat animals
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1552689754
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552689754.9880979061126708984375;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			bec6b644a59520c9b1a26089424238a8
+			
+							
+					
+			16320
+			Ardella Lassa
+			Vagt7258@gmail.com
+			http://suckafatonehomo.com
+			81.171.97.46
+			2019-03-16 04:37:53
+			2019-03-16 04:37:53
+			すべての <a href="http://mercersongwriters.org/" rel="nofollow">http://mercersongwriters.org/</a> 投稿者
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1552711073
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552711073.74551105499267578125;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			62d82d5365ef38976f508f522ebc6531
+			
+							
+					
+			16992
+			Jeanmarie Nogle
+			Lavalle24223@gmail.com
+			https://www.youcrazy.com/
+			173.245.203.124
+			2019-03-18 18:28:49
+			2019-03-18 18:28:49
+			Hello, Neat post. There’s an issue together with your web site in web explorer, might check this¡K IE nonetheless is the market leader and a large element of people will miss your wonderful writing due to this problem.
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1552933729
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552933729.91487407684326171875;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			b0e690d998000d14f57b4d3de5b11da0
+			
+							
+					
+			17612
+			Zelma Mckern
+			Tinajero32493@gmail.com
+			https://www.lickmyballs.com
+			205.185.223.155
+			2019-03-20 22:52:34
+			2019-03-20 22:52:34
+			Hi there, just became alert to your blog through Google, and found that it’s truly informative. I’m gonna watch out for brussels. I’ll appreciate if you continue this in future. Numerous people will be benefited from your writing. Cheers!
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1553122354
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1553122354.2676179409027099609375;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			ecf2369fc3e617a2bd0712560c0170bc
+			
+							
+					
+			19231
+			WOW Blog
+			
+			http://0c1fd7b5b073.com/wow.html
+			125.27.231.20
+			2019-03-27 07:06:56
+			2019-03-27 07:06:56
+			<strong>WOW</strong>
+
+Wow Content
+			1
+			trackback
+			0
+			0
+						
+	akismet_error
+			1553670416
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1553670416.725841045379638671875;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+							
+					
+			19305
+			xxlhq.top article
+			
+			https://xxlhq.top/article
+			1.20.102.56
+			2019-03-27 14:52:12
+			2019-03-27 14:52:12
+			<strong>xxlhq.top/article</strong>
+
+article
+			1
+			trackback
+			0
+			0
+						
+	akismet_error
+			1553698332
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1553698332.284185886383056640625;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+							
+					
+			19306
+			xxlhq.xyz article
+			
+			https://xxlhq.xyz/article
+			103.9.190.206
+			2019-03-27 14:55:32
+			2019-03-27 14:55:32
+			<strong>xxlhq.xyz/article</strong>
+
+article
+			1
+			trackback
+			0
+			0
+						
+	akismet_error
+			1553698532
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1553698532.8708660602569580078125;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+							
+					
+			19308
+			xxlph.xyz article
+			
+			https://xxlph.xyz/article
+			181.211.57.198
+			2019-03-27 14:58:23
+			2019-03-27 14:58:23
+			<strong>xxlph.xyz/article</strong>
+
+article
+			1
+			trackback
+			0
+			0
+						
+	akismet_error
+			1553698703
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1553698703.230845928192138671875;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+							
+					
+			19309
+			adultpics.top article
+			
+			https://adultpics.top/article
+			79.174.160.115
+			2019-03-27 15:01:28
+			2019-03-27 15:01:28
+			<strong>adultpics.top/article</strong>
+
+article
+			1
+			trackback
+			0
+			0
+						
+	akismet_error
+			1553698888
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1553698888.7717740535736083984375;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+							
+					
+			19311
+			xxxpics xyz
+			
+			https://xxxpics.xyz/
+			202.5.51.133
+			2019-03-27 15:05:38
+			2019-03-27 15:05:38
+			<strong>xxxpics.xyz</strong>
+
+xyz
+			1
+			trackback
+			0
+			0
+						
+	akismet_error
+			1553699138
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1553699138.341763973236083984375;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+							
+					
+			19313
+			xxlph xyz
+			
+			https://xxlph.xyz/
+			217.78.5.57
+			2019-03-27 15:09:36
+			2019-03-27 15:09:36
+			<strong>xxlph.xyz</strong>
+
+xyz
+			1
+			trackback
+			0
+			0
+						
+	akismet_error
+			1553699376
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1553699376.1781499385833740234375;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+							
+					
+			19314
+			pornph xyz
+			
+			https://pornph.xyz/
+			41.213.13.154
+			2019-03-27 15:12:55
+			2019-03-27 15:12:55
+			<strong>pornph.xyz</strong>
+
+xyz
+			1
+			trackback
+			0
+			0
+						
+	akismet_error
+			1553699575
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1553699575.3497788906097412109375;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+							
+					
+			19318
+			xxxpics.xyz article
+			
+			https://xxxpics.xyz/article
+			119.42.68.117
+			2019-03-27 15:16:38
+			2019-03-27 15:16:38
+			<strong>xxxpics.xyz/article</strong>
+
+article
+			1
+			trackback
+			0
+			0
+						
+	akismet_error
+			1553699798
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1553699798.23834896087646484375;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+							
+					
+			19321
+			xxxph top
+			
+			https://xxxph.top/
+			103.14.8.239
+			2019-03-27 15:20:04
+			2019-03-27 15:20:04
+			<strong>xxxph.top</strong>
+
+top
+			1
+			trackback
+			0
+			0
+						
+	akismet_error
+			1553700004
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1553700004.55885410308837890625;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+							
+					
+			19322
+			xxlph.top article
+			
+			https://xxlph.top/article
+			103.102.141.2
+			2019-03-27 15:23:35
+			2019-03-27 15:23:35
+			<strong>xxlph.top/article</strong>
+
+article
+			1
+			trackback
+			0
+			0
+						
+	akismet_error
+			1553700215
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1553700215.60375499725341796875;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+							
+					
+			19323
+			xyz
+			
+			https://adultph.xyz/adultph.xyz
+			102.176.88.66
+			2019-03-27 15:27:25
+			2019-03-27 15:27:25
+			<strong>adultph xyz</strong>
+
+none
+			1
+			trackback
+			0
+			0
+						
+	akismet_error
+			1553700445
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1553700445.98383808135986328125;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+							
+					
+			19324
+			adulthq top
+			
+			https://adulthq.top/
+			202.21.115.94
+			2019-03-27 15:31:02
+			2019-03-27 15:31:02
+			<strong>adulthq.top</strong>
+
+adulthq top
+			1
+			trackback
+			0
+			0
+						
+	akismet_error
+			1553700662
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1553700662.6124250888824462890625;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+							
+					
+			19325
+			xxxhd.top article
+			
+			https://xxxhd.top/article
+			163.172.83.12
+			2019-03-27 15:34:51
+			2019-03-27 15:34:51
+			<strong>xxxhd.top/article</strong>
+
+article
+			1
+			trackback
+			0
+			0
+						
+	akismet_error
+			1553700891
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1553700891.4666349887847900390625;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+							
+					
+			19326
+			xnxxhd top
+			
+			https://xnxxhd.top/
+			177.84.115.19
+			2019-03-27 15:38:17
+			2019-03-27 15:38:17
+			<strong>xnxxhd.top</strong>
+
+top
+			1
+			trackback
+			0
+			0
+						
+	akismet_error
+			1553701097
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1553701097.1532890796661376953125;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+							
+					
+			19329
+			xxxhq top
+			
+			https://xxxhq.top/
+			36.37.81.135
+			2019-03-27 15:42:11
+			2019-03-27 15:42:11
+			<strong>xxxhq.top</strong>
+
+top
+			1
+			trackback
+			0
+			0
+						
+	akismet_error
+			1553701331
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1553701331.0768620967864990234375;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+							
+					
+			19330
+			pornph.xyz article
+			
+			https://pornph.xyz/article
+			216.183.40.10
+			2019-03-27 15:46:05
+			2019-03-27 15:46:05
+			<strong>pornph.xyz/article</strong>
+
+article
+			1
+			trackback
+			0
+			0
+						
+	akismet_error
+			1553701565
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1553701565.6533949375152587890625;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+							
+					
+			19331
+			xxlhd xyz
+			
+			https://xxlhd.xyz/
+			186.47.82.6
+			2019-03-27 15:49:53
+			2019-03-27 15:49:53
+			<strong>xxlhd.xyz</strong>
+
+xyz
+			1
+			trackback
+			0
+			0
+						
+	akismet_error
+			1553701793
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1553701793.407083988189697265625;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+							
+					
+			19332
+			adultpics top
+			
+			https://adultpics.top/
+			177.130.206.158
+			2019-03-27 15:53:45
+			2019-03-27 15:53:45
+			<strong>adultpics.top</strong>
+
+top
+			1
+			trackback
+			0
+			0
+						
+	akismet_error
+			1553702025
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1553702025.7541100978851318359375;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+							
+					
+			19333
+			xxxhq.top article
+			
+			https://xxxhq.top/article
+			202.138.236.35
+			2019-03-27 15:57:49
+			2019-03-27 15:57:49
+			<strong>xxxhq.top/article</strong>
+
+article
+			1
+			trackback
+			0
+			0
+						
+	akismet_error
+			1553702269
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1553702269.310698032379150390625;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+							
+					
+			19334
+			xxxph xyz
+			
+			https://xxxph.xyz/
+			43.250.252.172
+			2019-03-27 16:01:38
+			2019-03-27 16:01:38
+			<strong>xxxph.xyz</strong>
+
+xyz
+			1
+			trackback
+			0
+			0
+						
+	akismet_error
+			1553702498
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1553702498.681024074554443359375;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+							
+					
+			19336
+			adulthq.xyz article
+			
+			https://adulthq.xyz/article
+			36.91.189.161
+			2019-03-27 16:05:20
+			2019-03-27 16:05:20
+			<strong>adulthq.xyz/article</strong>
+
+article
+			1
+			trackback
+			0
+			0
+						
+	akismet_error
+			1553702720
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1553702720.4069840908050537109375;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+							
+					
+			19337
+			adultph.top article
+			
+			https://adultph.top/article
+			37.52.52.17
+			2019-03-27 16:09:17
+			2019-03-27 16:09:17
+			<strong>adultph.top/article</strong>
+
+article
+			1
+			trackback
+			0
+			0
+						
+	akismet_error
+			1553702957
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1553702957.4846649169921875;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+							
+					
+			19338
+			xnxxhd.top article
+			
+			https://xnxxhd.top/article
+			178.128.167.102
+			2019-03-27 16:13:03
+			2019-03-27 16:13:03
+			<strong>xnxxhd.top/article</strong>
+
+article
+			1
+			trackback
+			0
+			0
+						
+	akismet_error
+			1553703183
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1553703183.2688510417938232421875;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+							
+					
+			19339
+			xxlhd.xyz article
+			
+			https://xxlhd.xyz/article
+			187.189.244.53
+			2019-03-27 16:17:16
+			2019-03-27 16:17:16
+			<strong>xxlhd.xyz/article</strong>
+
+article
+			1
+			trackback
+			0
+			0
+						
+	akismet_error
+			1553703436
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1553703436.5134589672088623046875;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+							
+					
+			19340
+			pornph.top article
+			
+			https://pornph.top/article
+			95.161.196.146
+			2019-03-27 16:21:00
+			2019-03-27 16:21:00
+			<strong>pornph.top/article</strong>
+
+article
+			1
+			trackback
+			0
+			0
+						
+	akismet_error
+			1553703660
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1553703660.526977062225341796875;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+							
+					
+			19343
+			xxlhq xyz
+			
+			https://xxlhq.xyz/
+			14.207.78.166
+			2019-03-27 16:24:46
+			2019-03-27 16:24:46
+			<strong>xxlhq.xyz</strong>
+
+xyz
+			1
+			trackback
+			0
+			0
+						
+	akismet_error
+			1553703886
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1553703886.0317900180816650390625;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+							
+					
+			19345
+			xxlph top
+			
+			https://xxlph.top/
+			202.166.206.9
+			2019-03-27 16:28:42
+			2019-03-27 16:28:42
+			<strong>xxlph.top</strong>
+
+top
+			1
+			trackback
+			0
+			0
+						
+	akismet_error
+			1553704122
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1553704122.08007907867431640625;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+							
+					
+			19346
+			xxxph.top article
+			
+			https://xxxph.top/article
+			95.78.174.9
+			2019-03-27 16:32:32
+			2019-03-27 16:32:32
+			<strong>xxxph.top/article</strong>
+
+article
+			1
+			trackback
+			0
+			0
+						
+	akismet_error
+			1553704352
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1553704352.236277103424072265625;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+							
+					
+			19347
+			adultph top
+			
+			https://adultph.top/
+			45.232.224.80
+			2019-03-27 16:36:44
+			2019-03-27 16:36:44
+			<strong>adultph.top</strong>
+
+top
+			1
+			trackback
+			0
+			0
+						
+	akismet_error
+			1553704604
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1553704604.6969430446624755859375;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+							
+					
+			19349
+			adulthq.top article
+			
+			https://adulthq.top/article
+			198.211.105.86
+			2019-03-27 16:40:52
+			2019-03-27 16:40:52
+			<strong>adulthq.top/article</strong>
+
+article
+			1
+			trackback
+			0
+			0
+						
+	akismet_error
+			1553704852
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1553704852.220614910125732421875;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+							
+					
+			19350
+			xxlhq top
+			
+			https://xxlhq.top/
+			181.115.168.45
+			2019-03-27 16:44:53
+			2019-03-27 16:44:53
+			<strong>xxlhq.top</strong>
+
+top
+			1
+			trackback
+			0
+			0
+						
+	akismet_error
+			1553705093
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1553705093.228106975555419921875;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+							
+					
+			19351
+			adulthd top
+			
+			https://adulthd.top/
+			105.112.84.137
+			2019-03-27 16:49:00
+			2019-03-27 16:49:00
+			<strong>adulthd.top</strong>
+
+top
+			1
+			trackback
+			0
+			0
+						
+	akismet_error
+			1553705340
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1553705340.7199490070343017578125;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+							
+					
+			19354
+			adulthd xyz
+			
+			https://adulthd.xyz/
+			91.243.97.185
+			2019-03-27 16:52:34
+			2019-03-27 16:52:34
+			<strong>adulthd.xyz</strong>
+
+xyz
+			1
+			trackback
+			0
+			0
+						
+	akismet_error
+			1553705554
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1553705554.34251308441162109375;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+							
+					
+			19356
+			pornph top
+			
+			https://pornph.top/
+			113.53.167.236
+			2019-03-27 16:56:38
+			2019-03-27 16:56:38
+			<strong>pornph.top</strong>
+
+top
+			1
+			trackback
+			0
+			0
+						
+	akismet_error
+			1553705798
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1553705798.1420309543609619140625;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+							
+					
+			19359
+			adulthd.top article
+			
+			https://adulthd.top/article
+			41.139.191.218
+			2019-03-27 17:00:55
+			2019-03-27 17:00:55
+			<strong>adulthd.top/article</strong>
+
+article
+			1
+			trackback
+			0
+			0
+						
+	akismet_error
+			1553706055
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1553706055.3188230991363525390625;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+							
+					
+			19361
+			adulthq xyz
+			
+			https://adulthq.xyz/
+			103.115.102.158
+			2019-03-27 17:05:16
+			2019-03-27 17:05:16
+			<strong>adulthq.xyz</strong>
+
+xyz
+			1
+			trackback
+			0
+			0
+						
+	akismet_error
+			1553706316
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1553706316.094934940338134765625;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+							
+					
+			19362
+			adultph.xyz article
+			
+			https://adultph.xyz/article
+			45.123.42.146
+			2019-03-27 17:08:49
+			2019-03-27 17:08:49
+			<strong>adultph.xyz/article</strong>
+
+article
+			1
+			trackback
+			0
+			0
+						
+	akismet_error
+			1553706529
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1553706529.785839080810546875;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+							
+					
+			19366
+			xxxph.xyz article
+			
+			https://xxxph.xyz/article
+			194.143.249.13
+			2019-03-27 17:13:01
+			2019-03-27 17:13:01
+			<strong>xxxph.xyz/article</strong>
+
+article
+			1
+			trackback
+			0
+			0
+						
+	akismet_error
+			1553706781
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1553706781.9196178913116455078125;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+							
+					
+			19370
+			xxxhd top
+			
+			https://xxxhd.top/
+			116.58.254.78
+			2019-03-27 17:16:49
+			2019-03-27 17:16:49
+			<strong>xxxhd.top</strong>
+
+top
+			1
+			trackback
+			0
+			0
+						
+	akismet_error
+			1553707009
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1553707009.702023983001708984375;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+							
+					
+			19371
+			adulthd.xyz article
+			
+			https://adulthd.xyz/article
+			89.237.192.174
+			2019-03-27 17:20:44
+			2019-03-27 17:20:44
+			<strong>adulthd.xyz/article</strong>
+
+article
+			1
+			trackback
+			0
+			0
+						
+	akismet_error
+			1553707244
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1553707244.7467730045318603515625;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+							
+					
+			21367
+			nod32 licence
+			Mccarrick20760@gmail.com
+			http://www.e-slots.info/eset-nod32-antivirus-licenses-key-2019-all-versions-100-working-tell-2028/
+			83.171.255.214
+			2019-04-01 23:57:43
+			2019-04-01 23:57:43
+			Hi there, just became alert to your blog through Google, and found that it is truly informative. I am gonna watch out for brussels. I’ll appreciate if you continue this in future. A lot of people will be benefited from your writing. Cheers!
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1554163063
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1554163063.781752109527587890625;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			234aa9d56c8e21a08f31eb178dacd50e
+			
+							
+					
+			21636
+			jordan 11 concord 2018
+			odsoxkp@hotmaill.com
+			http://www.jordan11concord.us.com/
+			27.153.181.53
+			2019-04-02 17:35:36
+			2019-04-02 17:35:36
+			oooqhzmwvze,Thanks a lot for providing us with this recipe of Cranberry Brisket. I've been wanting to make this for a long time but I couldn't find the right recipe. Thanks to your help here, I can now make this dish easily.
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1554226536
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1554226536.2025640010833740234375;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			15a9d242b054a390d07edf691acf0048
+			
+							
+					
+			22308
+			Yeezy 350
+			gumobnbylb@hotmaill.com
+			http://www.yeezy350.us.com/
+			27.153.182.145
+			2019-04-04 14:38:46
+			2019-04-04 14:38:46
+			bljnsomiau Yeezy 2019,Very helpful and best artical information Thanks For sharing.
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1554388727
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1554388727.01879405975341796875;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			af1286aa2281bbf14ff1477cc61b8cad
+			
+							
+					
+			23571
+			Adidas Yeezy 500
+			lomzrzj@yahoo.com
+			http://www.yeezy500utilityblack.us/
+			27.153.182.145
+			2019-04-07 20:03:16
+			2019-04-07 20:03:16
+			Yeezy Shoes http://www.yeezy.com.co/
+ Yeezy http://www.yeezys.us.com/
+ Yeezy Shoes http://www.yeezysupply.us.com/
+ Yeezy Sneakers http://www.yeezy-shoes.us.com/
+ Yeezy Boost 350 V2 http://www.yeezy-boost350.com/
+ Yeezy Boost 350 http://www.yeezyboost350.us.com/
+ Yeezy Blue Tint http://www.yeezybluetint.com/
+ Yeezy 500 Utility Black http://www.yeezy500utilityblack.com/
+ Yeezy 500 Utility Black http://www.yeezy500utilityblack.us/
+ Vapor Max http://www.vapor-max.org.uk/
+ Salomon UK http://www.salomon-shoes.org.uk/
+ Salomon http://www.salomons.me.uk/
+ Salomon Shoes http://www.salomonspeedcross4.org.uk/
+ Off White Jordan 1 http://www.offwhitejordan1.com/
+ Vapor Max http://www.nikevapormax.org.uk/
+  React Element 87 http://www.nikereactelement87.us.com/
+  React Element 87 http://www.nikereactelement87.us/
+  Nike Air Vapormax Plus http://www.nikeplus.us/
+ Nike Outlet http://www.nike--outlet.us/
+ Nike Outlet Store http://www.nikeoutletstoreonlineshopping.us/
+ Nike Outlet Store http://www.nikeoutletonlineshopping.us/
+ Nike NBA Jerseys http://www.nikenbajerseys.us/
+ Air Max 97 http://www.nikeairmax.us/
+ Nike Air Max 2017 http://www.max2017.us/
+  Air Jordan Shoes http://www.jordan-com.com/
+ Jordan 11 Concord http://www.jordan11-concord.com/
+  Cheap Yeezy Boost http://www.cs7boots1.com/
+  Cheap NBA Jerseys From China http://www.cheapnba-jerseys.us/
+ Birkenstock UK http://www.birkenstocksandalsuk.me.uk/
+ Basketball Jersey http://www.basketball-jersey.us/
+ Balenciaga http://www.balenciaga.me.uk/
+ Balenciaga http://www.balenciagauk.org.uk/
+ Balenciaga UK http://www.balenciagatriples.org.uk/
+ Balenciaga http://www.birkenstocks.me.uk/
+ Balenciaga http://www.balenciagatrainers.org.uk/
+  Nike Air Max 270 http://www.airmax270.org.uk/
+ Adidas Yeezys http://www.adidasyeezyshoes.org.uk/
+  Adidas Yeezy Shoes http://www.adidasyeezyshoes.org.uk/
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1554667396
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1554667396.3582189083099365234375;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			b249d93a99dfc454bb95e7f34646cd03
+			
+							
+					
+			23840
+			Cheap Jerseys
+			foecejtz@hotmaill.com
+			http://www.cheapoutletnfljerseys.us/
+			27.153.182.145
+			2019-04-08 14:12:52
+			2019-04-08 14:12:52
+			awwkrynq,If you want a hassle free movies downloading then you must need an app like showbox which may provide best ever user friendly interface.
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1554732772
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1554732772.1738779544830322265625;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			9ecdca474c36947d15ef8c038e007e1c
+			
+							
+					

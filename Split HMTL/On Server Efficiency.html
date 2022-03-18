@@ -1,0 +1,1156 @@
+
+		
+				On Server Efficiency		
+		https://www.themathcitadel.com/on-server-efficiency/
+		Wed, 04 Oct 2017 17:04:53 +0000
+		admin
+		http://www.themathcitadel.com/?p=1198
+		
+		
+				<h5 style="text-align: center;">For the full text of the paper, including all proofs and supplementary lemmata,&nbsp;click to download&nbsp;[download-attachment id="1246" title="thesis-ch-2"]</h5>
+[nextpage title="..."]
+<h2 style="text-align: left;">Abstract</h2>
+<em>Editor's note: This paper comprises the second chapter of the PhD dissertation by Rachel Traylor</em>. Cha and Lee defined a mathematical notion of server performance by measuring efficiency [latex]\psi[/latex] defined as the long run average number of jobs completed per unit time. The service time distribution heavily influences the shape of the server efficiency as a function of a constant arrival rate [latex]\lambda[/latex]. Various classes of distributions are studied in order to find sufficient conditions for the existence of a single maximum. The existence of a maximum allows for simple binary control policies to handle traffic and optimize performance.
+<h2>Introduction, Motivation, and Background</h2>
+Cha and Lee [1]&nbsp;studied the reliability of a single server under a constant stress workload, and also defined a notion of server efficiency [latex]\psi[/latex] for a given intensity [latex]\lambda(t)[/latex] as the long-run average number of jobs completed per unit time as a way to measure server performance. With the number of jobs completed as [latex]M[/latex], the efficiency is defined
+
+[latex, display = true]\psi := \lim\limits_{t \to \infty}\frac{E[M(t)]}{t}[/latex]
+
+Upon breakdown and rebooting, the server is assumed to be ‘as good as new’, in that performance of the server does not degrade during subsequent reboots. In addition, the model assumes the arrival process after reboot, denoted [latex]\{N^{*}(t), t \geq 0\}[/latex], is a nonhomogenous Poisson process with the same intensity function [latex]\lambda(t)[/latex] as before, and that [latex]\{N^{*}(t), t \geq 0\}[/latex] is independent of the arrival process before reboot. In a practical setting, this model assumes no ‘bottlenecking’ of arrivals occurs in the queue during server downtime that would cause an initial flood to the rebooted server. In addition, the reboot time is assumed to follow a continuous distribution [latex]H(t)[/latex] with expected value [latex]\nu[/latex]. This process is a renewal reward process, with the renewal [latex]\{R_{n}\} = \{M_{n}\}[/latex], the number of jobs completed. The length of a renewal cycle is [latex]Y_{n} + H_{n}[/latex], where [latex]Y_{n}[/latex] is the length of time the server was operational, and [latex]H_{n}[/latex] is the time to reboot after a server crash. Then, by&nbsp;[2],
+
+[latex, display = true]\psi = \frac{E[M]}{E[Y]+ \nu}[/latex]
+
+where [latex]M[/latex] is the number of jobs completed in a particular renewal cycle, [latex]\nu[/latex]
+is the mean time to reboot of the server, and [latex]Y[/latex] is the length of a particular renewal cycle. Then, using&nbsp;the definition of [latex]\psi[/latex]&nbsp;the following closed form of the efficiency of a server under all assumptions of Cha and Lee's model is derived.
+
+<hr>
+
+<em><span style="text-decoration: underline;"><strong>Theorem 1 (Server Efficiency under Cha/Lee)</strong></span></em>
+Suppose [latex]\{N(t), t \geq 0\}[/latex] is a nonhomogenous Poisson process with intensity [latex]\lambda(t)\geq 0[/latex]. Then the efficiency is given by
+
+[latex, display = true]\begin{aligned}\psi&amp;=\frac{1}{\int_{0}^{\infty}S_{Y}(t)dt + \nu}\left[\exp\left(-\int_{0}^{t}r_{0}(x)dx-\int_{0}^{t}\lambda(x)dx + a(t) + b(t)\right)\right.\\&amp;\qquad\qquad\left.\times\left(r_{0}(t)a(t)+\eta a(t)b(t) \right)\right]\end{aligned}[/latex]
+where [latex]a(t) = \int_{0}^{t}e^{-\eta v}g_{W}(v)m(t-v)dv[/latex], [latex]b(t) = \int_{0}^{t}e^{-\eta(t-r)}\bar{G}_{W}(t-r)\lambda(r)dr[/latex], [latex]\bar{G}_{W}(x) = 1-\int_{0}^{x}g_{W}(s)ds[/latex], and [latex]m(x) = \int_{0}^{x}\lambda(s)ds[/latex].
+
+<hr>
+
+&nbsp;
+<h3>Numerical Example and Control Policies</h3>
+[caption id="attachment_1200" align="aligncenter" width="300"]<a href="http://www.themathcitadel.com/wp-content/uploads/2017/10/EffRayleigh.jpg"><img class="wp-image-1200 size-medium" src="http://www.themathcitadel.com/wp-content/uploads/2017/10/EffRayleigh-300x191.jpg" alt="" width="300" height="191"></a> Figure 1: Efficiency under Rayleigh Distribution[/caption]
+
+As an illustrative example, Cha and Lee considered the case when [latex]\lambda(t) \equiv \lambda[/latex],
+[latex]r_{0}(t) \equiv r_{0} = 0.2[/latex], [latex]\eta = 0.01[/latex], [latex]\nu = 1[/latex], and [latex]g_{W}(w) = we^{-w^{2}/2}[/latex] (the PDF of the Rayleigh distribution). As shown in Figure&nbsp;1, there exists a [latex]\lambda^{*}[/latex] such that [latex]\psi(\lambda)[/latex] is maximized. Thus one may implement the obvious optimal control policy for server control to avoid server overload:
+
+&nbsp;(1) If the real time arrival rate [latex]\lambda &lt; \lambda^{*}[/latex], do not interfere with arrivals.
+
+&nbsp;(2)&nbsp;If [latex]\lambda \geq \lambda^{*}[/latex], facilitate some appropriate measure of interference.
+
+Examples of interference for a web server in particular include rejection of incoming requests or possible re-routing. Cha and Lee give an interference policy of rejection with probability [latex]1-\frac{\lambda^{*}}{\lambda}[/latex].
+
+The Rayleigh distribution used in Figure&nbsp;1&nbsp;has applications in physics, typically when the magnitude of a vector is related to its directional components. It is a special case of the Weibull distribution which is widely used in survival analysis, failure analysis, weather forecasting, and communications.&nbsp;These distributions are not typically used to model service times. The exponential distribution is the most common due to its memoryless properties, followed by the Erlang and uniform distributions.
+
+The efficiency, [latex]\psi[/latex], under the Rayleigh distribution example in Figure&nbsp;1&nbsp;shows the existence of a [latex]0 &lt; \lambda^{*} &lt; \infty[/latex] such that [latex]\psi(\lambda)[/latex] is maximized at [latex]\lambda^{*}[/latex].&nbsp;This useful feature of [latex]\psi(\lambda)[/latex] in this case allows for the implementation of a simple control policy for arrivals to the server to prevent overload, given above.&nbsp;
+
+Numerical simulations under a variety of possible distribution classes, including convex, concave, exponential, uniform, and Erlang suggest that the mathematical properties of [latex]\psi[/latex] are heavily influenced by the choice and characteristics of service time distribution [latex]g_{W}(w)[/latex]. In particular, it is of interest to seek sufficient conditions of [latex]g_{W}(w)[/latex] that will guarantee the existence of a [latex]\lambda^{*}[/latex] that maximizes [latex]\psi[/latex]. This is done for the uniform, compact support, and Erlang classes. Furthermore, it is shown under certain conditions, not only does the server efficiency lack a maximum, but [latex]\psi[/latex] increases without bound. This is not representative of real server behavior, and thus of mathematical and practical interest to note for further modeling.
+
+&nbsp;
+<h2>Efficiency of a Server under Uniform Service Life Distribution</h2>
+Suppose [latex]\lambda(x) \equiv \lambda[/latex], and suppose [latex]r_{0}(x) \equiv r_{0} = \max_{x \in (0,\infty)}r_{0}(x)[/latex]. The efficiency [latex]\psi[/latex] is given for constant [latex]\eta[/latex] and [latex]\lambda[/latex] here:
+[latex, display &nbsp;= true]\psi(\lambda) = \frac{1}{\int_{0}^{\infty}S_{Y}(t)dt + \nu}\left[\int_{0}^{\infty}\exp\left(-r_{0}t-\lambda t + a(t)+b(t)\right)(r_{0}+b(t))a(t)dt\right][/latex]
+
+where [latex]S_{Y}(t)[/latex] is the survival function of the node, [latex]a(t) = \int_{0}^{t}e^{-\eta v}g(v)(t-v)dv[/latex], [latex]b(t) = \int_{0}^{t}e^{-\eta(t-r)}\bar{G}(t-r)dr[/latex],
+[latex]g(v)[/latex] is the pdf of the service time distribution, and [latex]\bar{G}(x) = 1-\int_{0}^{x}g(s)ds[/latex].
+
+The following theorem gives sufficient conditions for the uniform distribution and [latex]\eta[/latex] that guarantee the existence of a finite maximum efficiency.
+
+<hr>
+
+<em><span style="text-decoration: underline;"><strong>Theorem 2(Efficiency under Uniform Service Distribution)</strong></span></em>
+Suppose the service life distribution is given by Uniform([latex]c,d[/latex]) for some [latex]0&lt;c&lt;d[/latex]. Then if
+[latex]\sigma &gt; \frac{ce^{-c\eta}}{\sqrt{12}\phi(-\eta)(1+\eta(c+d))+c\eta - 1}[/latex] where [latex]\phi(-\eta)[/latex] the standard deviation of the service life [latex]W[/latex], [latex]\psi(\lambda)[/latex] has a maximum on [latex](0,\infty)[/latex]&nbsp;is the moment generating function of a uniform distribution evaluated at [latex]-\eta[/latex].
+
+<hr>
+
+&nbsp;
+
+Numerical simulations suggest that [latex]\psi[/latex] increases without bound for [latex]c=0, d&gt;1[/latex]. The following lemma proves this fact.
+
+&nbsp;
+
+<hr>
+
+<em><span style="text-decoration: underline;"><strong>Lemma</strong></span></em>
+Suppose the service life distribution is given by Uniform(0,d), with [latex]d&gt;1[/latex]. Then [latex]\psi[/latex] increases without bound.
+
+<hr>
+
+This is worth discussing here. It makes no sense whatsoever for the efficiency of a server to increase forever as the arrival rate increases. So what's happening here? Notice that if the uniform distribution include 0 as an endpoint, then there is a positive probability that the service time for a job will be exactly 0 (in whatever time units you like). This is impossible in reality. A small service time is possible, but it's still strictly greater than 0. What we see here is that using distributions with positive support at 0 causes issues in the efficiency function; it's not the fault of the definition of efficiency, but rather a consequence of using distributions that cannot mirror reality. The next section explores this further with a more broad class of distributions.
+
+[/nextpage]
+
+[nextpage title="..."]
+<h2>Extension of the Uniform Distribution: Compact Support</h2>
+The ideas and techniques presented in the previous section&nbsp;yield a powerful extension to any service life distribution with compact support away from 0. Supposing [latex]g_{W}(w)[/latex] has compact support [latex][a,b][/latex], it may be bounded above by a positively scaled uniform distribution. In practice, service times are finite and nonzero, thus this extension allows for very simple control policies to be implemented for a much larger class of distributions.
+
+&nbsp;
+
+<hr>
+
+<em><span style="text-decoration: underline;"><strong>Theorem 3 (Efficiency under Compact Support)</strong></span></em>
+Let [latex]g_{W}(w)[/latex] be the pdf of the service times having compact support [latex][c,d], d &gt; 0[/latex]. Let [latex]m = \max_{w}g_{W}(w) &lt; \infty[/latex], and [latex]R = (d-c)[/latex] be the length of the support. Then [latex]\psi(\lambda)[/latex] has a maximum if [latex]m &lt; \frac{c}{R\eta +e^{-b\eta}-e^{-a\eta}+\eta e^{-a\eta}}[/latex].
+
+<hr>
+
+&nbsp;
+<h3>Comments and Illustrations</h3>
+[caption id="attachment_1206" align="aligncenter" width="640"]<a href="http://www.themathcitadel.com/wp-content/uploads/2017/10/EfficiencyIncreasing2to32.jpg"><img class="wp-image-1206 size-large" src="http://www.themathcitadel.com/wp-content/uploads/2017/10/EfficiencyIncreasing2to32-1024x784.jpg" alt="" width="640" height="490"></a> Figure 2: Efficiency under an increasing triangular service distribution[/caption]
+
+<strong>Example 1</strong>
+
+Let [latex]g_{W}(w) = \frac{2}{5}w\mathbb{1}_{[2,3]}(w)[/latex], and let [latex]r_{0} = \nu = \eta = 1[/latex]. Then [latex]m = \frac{6}{5}[/latex]. By Theorem&nbsp;2, [latex]m &lt; \frac{2}{e^{-2}+e^{-3}+1}\approx 1.678[/latex]. Thus, the existence of a maximum [latex]\psi[/latex] is guaranteed. Figure&nbsp;2&nbsp;gives the numerical result with step size of 0.1. The maximum occurs around [latex]\lambda^{*} = 0.5[/latex].&nbsp;
+
+&nbsp;
+
+[caption id="attachment_1207" align="aligncenter" width="640"]<a href="http://www.themathcitadel.com/wp-content/uploads/2017/10/EfficiencyIncreasing1to2.jpg"><img class="wp-image-1207 size-large" src="http://www.themathcitadel.com/wp-content/uploads/2017/10/EfficiencyIncreasing1to2-1024x683.jpg" alt="" width="640" height="427"></a> Figure 3: Efficiency under an increasing distribution with support on [1,2][/caption]
+<strong>Example 2: Sufficient conditions aren't always necessary conditions</strong>
+The condition given in Theorem 2 is rather weak and is only a sufficient condition. As an illustration, consider the same increasing density shifted to a support of [latex][1,2][/latex]. Thus
+[latex]g_{W}(w) = \frac{2}{3}w\mathbb{1}_{[1,2]}(w)[/latex]. Retain all other assumptions from Example&nbsp;1. Then
+[latex, display = true]m = \frac{4}{3} &gt; \frac{1}{e^{-2}+1} \approx 0.88[/latex]
+which violates the condition. However, consider Figure 3 above. Clearly [latex]\psi[/latex] has a maximum at approximately [latex]\lambda^{*} = 0.8[/latex].&nbsp;
+The condition given in Theorem&nbsp;2&nbsp;relies on overestimating [latex]g_{W}(w)[/latex] by a constant. If the variance [latex]\sigma_{W}^{2}[/latex] of [latex]g_{W}(w)[/latex] is large, the maximum of the pdf will decrease and be more comparable to the rest of the distribution. In these cases, bounding [latex]g_{W}(w)[/latex] by its max [latex]m[/latex] over the support [latex][a,b][/latex] will give a reasonable approximation. However, in the case of a small support and high enough skew compared to the size and location of the support, much of the mass is concentrated at the right end of the support, and [latex]m[/latex] will be higher. In these cases, bounding [latex]g_{W}(w)[/latex] by [latex]m[/latex] will result in a large amount of overestimation, and thus the condition may fail, but [latex]\psi[/latex] still has a maximum. The numerical example wherein [latex]g_{W}(w) = \frac{2}{3}w\mathbb{1}_{[1,2]}(w)[/latex] illustrates the conservative nature of this type of estimation.
+
+[/nextpage]
+
+[nextpage title="..."]
+<h2>Efficiency under Erlang Service Distribution</h2>
+Now suppose [latex]g(v)[/latex] is of the Erlang class but shifted [latex]\delta &gt; 0[/latex] to the right. For motivation, consider that service times can never be 0 in a practical setting. Then the PDF and the complement of the CDF are given by
+[latex, display = true]\begin{aligned}g(v;k,\gamma,\delta) &amp;= \left\{\begin{array}{lr}0, &amp; 0 \leq v \leq \delta \\\frac{\gamma^{k}(v-\delta)^{k-1}e^{-\gamma(v-\delta)}}{(k-1)!}, &amp; v\geq \delta\end{array}\right.\\\bar{G}(v;k,\gamma,\delta) &amp;= \left\{\begin{array}{lr}1, &amp; 0 \leq v \leq \delta \\e^{\gamma(\delta-v)}\sum_{j=0}^{k-1}\frac{\gamma^{j}(v-\delta)^{j}}{j!}, &amp; v\geq \delta\end{array}\right.\end{aligned}[/latex]
+
+<hr>
+
+<em><span style="text-decoration: underline;"><strong>Theorem 4 (Server Efficiency under Erlang Distribution)</strong></span></em>
+Let [latex]\delta &gt; 0, \eta &gt; 0[/latex]. Let [latex]\alpha(\delta) = \left(\frac{\gamma}{\gamma + \eta}\right)^{k}e^{-\eta\delta} + \frac{\gamma^{k}e^{\gamma\delta}(k-1)}{(\eta + \gamma)^{k-1}}[/latex], and [latex]0 &lt; \beta(\delta,\eta) &lt; 1[/latex]. If the service life distribution is of the [latex]\delta-[/latex]shifted Erlang class, then [latex]\psi(\lambda)[/latex] has a maximum in [latex]\lambda[/latex] on [latex](0,\infty)[/latex] for [latex]\delta,\eta[/latex] such that [latex]\alpha(\delta) + \beta(\delta,\eta) &lt; 1[/latex].
+
+<hr>
+
+Thus, we see that the Erlang service distribution produces a maximum as long as the support is shifted away from 0.&nbsp;
+<h2>Efficiency under Exponential Distribution</h2>
+The exponential distribution is the most common service distribution assumed for a queue. The M/M/1 queue assumes a Poisson distribution for arrival times, and an exponential distribution or service times. However, the exponential distribution has most of its mass concentrated at or near 0. As we have seen in other distributions, this becomes a problem, both in considering what makes sense in practical applications, and in its effect on the efficiency.&nbsp;
+Suppose [latex]g(v)[/latex] is of the exponential class. That is, [latex]g(v) = \gamma e^{-\gamma v}, \gamma &gt; 0[/latex]. It will be proven that under certain conditions on [latex]\eta[/latex] and [latex]\gamma[/latex], an exponential [latex]g(v)[/latex] causes [latex]\psi[/latex] to increase without bound.
+
+&nbsp;
+
+<hr>
+
+<em><span style="text-decoration: underline;"><strong>Theorem 5 (</strong></span></em><b><i><u>Efficiency under Exponential Distribution)</u></i></b>
+Suppose [latex]g(v) = \gamma e^{-\gamma v}[/latex]. Then if [latex]\frac{2\gamma}{\gamma + \eta} &gt; 1 + \frac{2}{\frac{2}{\gamma} + W\left(-\frac{\gamma}{\gamma +\eta}e^{-2-\frac{2\eta}{\gamma}}\right)}[/latex], [latex]\psi(\lambda) \to \infty[/latex], &nbsp;as [latex]\lambda \to \infty[/latex] where [latex]W(\cdot)[/latex] is the Lambert W-function.
+
+<hr>
+
+&nbsp;
+<h2>Extension to Random Stress and Nonconstant Intensity</h2>
+All the above theorems regarding the server efficiency&nbsp; assumed constant stress [latex]\eta[/latex] and constant intensity [latex]\lambda[/latex]. This section generalizes the analyses in the previous sections&nbsp;for nonconstant intensity and random stress.
+
+The stochastic reliability models in both [1] &nbsp;and <a href="http://www.themathcitadel.com/2017/06/11/stochastic-reliability-of-a-server-under-a-random-workload/" target="_blank" rel="noopener noreferrer">the previous chapter</a>&nbsp;both assumed a time-dependent intensity [latex]\lambda(t)[/latex]. By setting [latex]\lambda \equiv \max_{t}\lambda(t)[/latex], the established efficiency theorems&nbsp;provide a conservative set of conditions under which a maximum efficiency may be obtained. In these cases, [latex]\psi[/latex] is actually a function of all possible [latex]\lambda_{\max}[/latex].
+
+If the job stresses are random, as in Theorem 2 of <a href="http://www.themathcitadel.com/2017/06/11/stochastic-reliability-of-a-server-under-a-random-workload/" target="_blank" rel="noopener noreferrer">Traylor (2016)</a>, the above sections may still be utilized. Assume the sample space for [latex]\mathcal{H}[/latex] is compact and nonnegative. The efficiency is given by Theorem&nbsp;2 of&nbsp;<a href="http://www.themathcitadel.com/2017/06/11/stochastic-reliability-of-a-server-under-a-random-workload/" target="_blank" rel="noopener noreferrer">Traylor (2016)</a>.
+WLOG, again suppose the sample space of [latex]\mathcal{H}[/latex] is discrete, given by [latex]\{\eta_{1},...,\eta_{m}\}[/latex] with respective probabilities [latex]p_{i}, i =1,...,m[/latex]. Now suppose all mass is concentrated at [latex]\eta_{[m]}[/latex]. Let [latex]a_{m}(t) = \lambda\int_{0}^{t}e^{-\eta_{m}v}g(v)(t-v)dv[/latex], and [latex]b_{m}(t) = \lambda\int_{0}^{t}e^{-\eta_{m}(t-r)}\bar{G}_{W}(t-r)dr[/latex]. Then, the following are true:
+(1) [latex]E_{\mathcal{H}}[a(t)+b(t)] \leq a_{m}(t) + b_{m}(t)[/latex]&nbsp;
+
+(2)[latex]E_{\mathcal{H}}[a(t)] \leq a_{m}(t)[/latex]
+
+(3)&nbsp;[latex]E_{\mathcal{H}}[\mathcal{H} a(t)b(t)] \leq \eta_{m}a_{m}(t)b_{m}(t)[/latex]
+
+Thus, by replacing the expectations in (1)-(3) with their respective upper bounds in the efficiency theorems, analyses of the efficiency for the uniform, compact support, and Erlang classes may proceed as previously detailed. These estimates are conservative but sufficient.
+
+For an exponential service life distribution and random stress, create a lower bound for the expectations in
+(1)-(3) by concentrating all mass at [latex]\eta_{[1]}[/latex]. Then the conditions from Theorem 5 guarantee an explosion for the exponential distribution.
+
+[/nextpage]
+
+[nextpage title="..."]
+<h2>Implications and Numerical Illustrations</h2>
+<h3>Uniform Service Distribution</h3>
+[huge_it_portfolio id="7"]
+
+&nbsp;Click on an image in the&nbsp;gallery to expand and explore the efficiency of a server under different instances of the uniform service distribution.
+For the uniform service distribution, both the variance of [latex]g_{W}(w)[/latex] and the location of the support affect the efficiency itself. The gallery above&nbsp;shows [latex]\psi(\lambda)[/latex] for various uniform distributions as an illustration. In all four cases, [latex]r_{0} = \nu =\eta =1[/latex]. The variance of a uniform distribution is given by [latex]\sigma^{2} = \frac{d-c}{12}[/latex]. With the exception of the fourth gallery image, which illustrates the explosion of [latex]\psi[/latex] when the distribution has positive mass at 0, Table&nbsp;1 below&nbsp;compares possible values of [latex]\psi[/latex] for different Uniform distributions. Notice that while the variance [latex]\sigma^{2}[/latex] does affect the range of [latex]\psi[/latex] by several orders of magnitude, the location of the support has a much more powerful effect. Thus, if all service times are equally likely, a server is less efficient if it is consistently but mildly slow (Uniform[10,11]) compared to an inconsistent server (Uniform[1,500]).
+
+[latex, display = true]\begin{array}{l|rrrr}g_{W}(w) &amp; \sigma^{2}&amp;\mu&amp; \text{Approximate Range of } \psi &amp; \text{Approximate } \lambda^{*}\\\text{Uniform}[1,2] &amp; 1/12 &amp;1.5 &amp; (0,0.012) &amp; 1.3\\ \text{Uniform}[10,11] &amp; 1/12 &amp;10.5 &amp; (0, 2\times10^{-11}) &amp; 0.1 \\ \text{Uniform}[1,500] &amp; 499/12 &amp; 250.5 &amp; (0,3\times 10^{-5}) &amp; 1.6\end{array}[/latex]
+
+&nbsp;
+<h3>Increasing but Compact Service Distribution</h3>
+[huge_it_portfolio id="8"]
+
+Click to expand and explore.&nbsp;
+
+[latex, display = true]\begin{array}{l|rrrr}g_{W}(w) &amp; \sigma^{2}&amp;\mu&amp; \text{Approx. Range of } \psi &amp; \text{Approx. } \lambda^{*}\\\small{\frac{2w}{3}}\mathbb{1}_{[1,2]}(w)&amp; \approx 0.0802&amp;\approx 1.56 &amp; (0,7\times10^{-3}) &amp; 0.75\\\small{\frac{2w}{5}}\mathbb{1}_{[2,3]}(w)&amp;\approx 0.0822 &amp;\approx 2.53 &amp; (0, 7\times10^{-4}) &amp; 0.5 \\\small{\frac{2w}{500^{2}-1}}\mathbb{1}_{[1,500]}(w)&amp; \approx 13888&amp; 333.35 &amp; (0,1.3\times 10^{-7})&amp; 1.4\end{array}[/latex]
+
+As an illustration of a distribution on compact support, consider the class of increasing densities [latex]g_{W}(w) = cx\mathbb{1}_{[a,b]}(x)[/latex]. Several examples are given in the above gallery&nbsp;table. For both compact supports of length 1, the variance is approximately the same, but the mean changes, producing an order of magnitude decrease in efficiency. Compared to the compact support of length 499, with a much larger mean, the efficiency decreases by 3 orders of magnitude. Notice, however, that the decline after the maximum is much less sharp.
+
+&nbsp;
+<h3>Erlang Service Distribution</h3>
+[huge_it_portfolio id="9"]
+
+Click on an image to explore.&nbsp;
+
+&nbsp;
+
+[latex, display = true]\begin{array}{l|rrrr}g_{W}(w) &amp; \sigma^{2}&amp;\mu&amp; \text{Approx. Range of } \psi &amp; \text{Approx. } \lambda^{*}\\\text{Erlang}(2,1)&amp; 2&amp;2 &amp; (0,0.7)&amp; 9\\\text{Erlang}(9,1)&amp;9 &amp;9 &amp; (0, 4\times10^{-6}) &amp; 0.5 \\\text{Rayleigh}(1)&amp; (4-\pi)/2&amp; \sqrt{\pi/2} &amp; (0,0.9)&amp; 8\end{array}[/latex]
+The gallery above&nbsp;gives two examples of [latex]\psi[/latex] under an Erlang distribution. Notice the change in the efficiency as the mean increases. Here, since [latex]\lambda =1[/latex], [latex]\sigma^{2} = \mu[/latex], so the mean likely has the largest effect on [latex]\psi[/latex].
+<h3>Comparing all the examples</h3>
+Comparing all examples, the Rayleigh(1) service distribution imposes the highest maximum efficiency, followed closely by the Erlang(2,1) service distribution, with the Uniform[1,2] service distribution following. [latex]\lambda^{*}[/latex] under the Erlang(2,1) service distribution is larger than for the Rayleigh(1) service distribution, indicating that a server whose service times follow the former distribution can handle a larger arrival intensity before its efficiency begins to decline than the latter.
+
+The means for the Rayleigh(1), Erlang(2,1), and Uniform[1,2] distributions are similar, as shown in the tables, but the Uniform[1,2] distribution has equal probability of any service time in its support with large negative excess kurtosis. It is posulated that kurtosis, skew, and variance play large roles in the behavior and range of [latex]\psi[/latex]. Compare the efficiency under the Erlang(2,1) service distribution with the efficiency under the Erlang(9,1) service distribution. Not only is the mean much lower for the Erlang(2,1) distribution, but the distribution is more strongly positive-skewed than the Erlang(9,1). Thus, more mass is concentrated at the left side of the distribution, indicating that the service times are more often shorter.
+
+Finally, to note the effect of the typical stress level [latex]\eta[/latex] on the range of [latex]\psi[/latex],&nbsp;we compare the original Cha/Lee figure with our Rayleigh figure above. The service distribution and all other quantities remain the same, but Cha and Lee's numerical example set [latex]\eta = 0.01[/latex], whereas the third image in the Erlang gallery&nbsp;shows [latex]\psi[/latex] under [latex]\eta = 1[/latex]. The range of [latex]\psi[/latex] decreases by two orders of magnitude with a 100 fold increase in [latex]\eta[/latex], with the shape remaining similar. In addition, the location of the maximum [latex]\lambda^{*}[/latex] also inversely varies by the same magnitude.
+
+Studying the efficiency under various service distributions aids not only in deciding when to implement a server intervention, but also aids in evaluating the performance of various servers given their service times.
+
+[/nextpage]
+
+[nextpage title="..."]
+<h2>Conclusion</h2>
+Many questions have been opened up about the various effects of the service distribution and stress on the server efficiency. The conditions given above are merely sufficient conditions, and have not been proven necessary. Studying the efficiency as a function of the arrival rate under various service distributions and stress provides a way to understand the performance of a server and the various factors that can affect it mathematically.
+<a href="http://creativecommons.org/licenses/by-nc-nd/4.0/" rel="license"><img style="border-width: 0;" src="https://i.creativecommons.org/l/by-nc-nd/4.0/88x31.png" alt="Creative Commons License"></a>
+This work is licensed under a <a href="http://creativecommons.org/licenses/by-nc-nd/4.0/" rel="license">Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License</a>.
+<h2>References</h2>
+<div class="page" title="Page 15">
+<div class="layoutArea">
+<div class="column">
+<ol>
+ 	<li>&nbsp;CHA, K. H., AND LEE, E. Y. A stochastic breakdown model for an unreliable web server system and an optimal admission control policy. Journal of Applied Probability 48, 2 (2011), 453–466.</li>
+ 	<li>&nbsp;ROSS, S. Stochastic Processes, 2nd edition.</li>
+ 	<li>&nbsp;TRAYLOR, R. Stochastic reliability of a server under random workload. Ph.D. thesis (2016).</li>
+</ol>
+</div>
+</div>
+</div>
+[/nextpage]		
+		
+						
+		1198
+		2017-10-04 17:04:53
+		2017-10-04 17:04:53
+		open
+		open
+		on-server-efficiency
+		publish
+		0
+		0
+		post
+		
+		0
+										Probability Theory
+		reliability theory
+		Reliability Theory
+		server efficiency
+		server performance
+		Spire
+						
+		_da_attachments
+		a:0:{}
+		
+							
+		_edit_last
+		2
+		
+							
+		_acp_button_style
+		3
+		
+							
+		_acp_loading_type
+		1
+		
+							
+		_wp_page_template
+		default
+		
+							
+			14148
+			Mercedes Okolo
+			Layland75934@gmail.com
+			https://www.cnn.com
+			205.185.209.106
+			2019-03-08 05:35:07
+			2019-03-08 05:35:07
+			generika per paypal <a href="http://www.carlo.net.pl/wp-content/languages/apotheke/pancrelipase.html" rel="nofollow">http://www.carlo.net.pl/wp-content/languages/apotheke/pancrelipase.html</a>  Wo kaufen.
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1552023307
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552023307.0263550281524658203125;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			9179353afdd92d12267db86d46852ad8
+			
+							
+					
+			14149
+			Marcelina Aldaz
+			Allmon67200@gmail.com
+			https://www.cnn.com
+			209.107.214.208
+			2019-03-08 05:35:07
+			2019-03-08 05:35:07
+			Can I just say what a comfort to uncover a person that actually knows what they’re discussing on the internet.You certainly understand how to bring a problem to light and make it important.A lot more people need to read this and understand this sideof the story. I was surprised that you are not more popular because you most certainly possessthe gift.
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1552023307
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552023307.08747196197509765625;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			4e8d7384f4f1918ca4fce09490fdd4b5
+			
+							
+					
+			14150
+			Hsiu Pilgrim
+			Gigantino52162@gmail.com
+			https://www.cnn.com
+			209.197.20.197
+			2019-03-08 05:35:09
+			2019-03-08 05:35:09
+			<b><a href="http://delaware.nef6.com." rel="nofollow"> delaware finance </a> </b><b>Factory Hornady 204 ammo velocity </b><b><a href="http://france.remmont.com/author/admin/" rel="nofollow"> narpo durham </a> </b><b>204 R700 VLSS Thumbhole Accurate <a href="http://reply.remmont.com/madura-english-sinhala-dictionary-free-download-and-software-reviews-cnet-thank-you-for-your-reply-email/" rel="nofollow"> madura sinhala dictionary free download </a> </b>new prairie dog video <b><a href="http://maryland.remmont.com/sonoran-desert-institute-accredited-gunsmithing-college-nationally-accredited-college/" rel="nofollow"> sonoran desert gunsmithing school </a> Dyna Tek bore coat <i><a href="http://answer.remmont.com/tag/sms/page/2/" rel="nofollow"> kwolaclcl rearrange this word </a> “Muzzle velocity from Tikka T3X varmint 23 5″”” <b><a href="http://remmont.com/warrenton-select-diesel-truck-sales-dodge-cummins-ford-powerstroke-chevrolet-gmc-diesel-trucks-for-sale-gmc-diesel-trucks-for-sale/" rel="nofollow"> warrenton select </a>  </b></i><i>SHOOT STRAIGHT IN 2017 </i><i><a href="http://claim.remmont.com/azui-file-weekly-20-r-sultats-1-accident-claims-helpline/" rel="nofollow"> azui com file claim </a> </i></b>TC Compass in 204 Ruger <i><a href="http://design.remmont.com/feng-shui-interior-design-course-learn-feng-shui-nyiad/" rel="nofollow"> nyiad student login </a> <b>Hornady ammo 24 99 per 50 rounds <i> <b>Savage 204 VLP <i><a href="http://remmont.com/medical-transcription-jobs-transcription-work-at-home-medical-transcription-jobs-medical-transcription-jobs/" rel="nofollow"> athreon transcription pay </a> </i><i>Savage LRPV not up to expectations </i></b><b><a href="http://reply.remmont.com/how-to-check-account-balance-of-bdo-kabayan-savings-online-banking-27772-open-up-a-savings-account-online/" rel="nofollow"> bdo kabayan savings account </a>  <i><a href="http://bakersfield.nef2.com." rel="nofollow"> bakersfield finance </a></i></b></i></b></i>
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1552023309
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552023309.875194072723388671875;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			d1fc19032321e93dccf5eee0560a3e45
+			
+							
+					
+			14152
+			Gricelda Gideon
+			Gann11885@gmail.com
+			https://www.cnn.com
+			64.145.76.20
+			2019-03-08 05:35:19
+			2019-03-08 05:35:19
+			How do you get your blog published on the Amnesty International site?
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1552023319
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552023319.6926639080047607421875;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			5d78e6d81e63d85366ddbd7a730ac647
+			
+							
+					
+			14162
+			Arnita Quast
+			Fronek62589@gmail.com
+			https://www.cnn.com
+			205.185.223.34
+			2019-03-08 05:51:12
+			2019-03-08 05:51:12
+			billiga i Sverige, <a href="http://www.martinmuntenbruch.com/clients/irishhomestay/apotek/retin-a-gel" rel="nofollow">http://www.martinmuntenbruch.com/clients/irishhomestay/apotek/retin-a-gel</a> , dj sweden.
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1552024272
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552024272.0865418910980224609375;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			150ffd12570094e414222610b7542a43
+			
+							
+					
+			14197
+			Deandra Pezzulo
+			Vigoren83127@gmail.com
+			https://www.cnn.com
+			81.171.57.41
+			2019-03-08 06:41:40
+			2019-03-08 06:41:40
+			<a href="https://buybactrim.icu/" rel="nofollow">bactrim ds dosage</a> – bactrim coveragebactrim for urinary tract infection, <a href="https://buybactrim.icu/" rel="nofollow">bactrim ss dose</a> <a href="https://buybactrim.icu/" rel="nofollow">https://buybactrim.icu/</a>
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1552027300
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552027300.0466210842132568359375;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			cd799a3978317ee4e831cdeb3ec2bc43
+			
+							
+					
+			14373
+			Garden lighting
+			amparowarby@t-online.de
+			http://vividleds.us/app/Wall-Mounted-Lights
+			81.171.69.73
+			2019-03-08 20:47:16
+			2019-03-08 20:47:16
+			Hi! I simply wish to offer youu a huge thumbs up foor the excellent info you have got right here on this post.
+
+I will be returning to your site for morte soon.
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1552078036
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552078036.96331691741943359375;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			4889cf4d078d1232f49fc4f077883f06
+			
+							
+					
+			14634
+			car Racing stripe Kits
+			ariellerodger@gmail.com
+			http://Www.hamerguitaraddict.com/forum/viewthread.php?tid=95960
+			82.103.134.120
+			2019-03-10 00:26:53
+			2019-03-10 00:26:53
+			Artіcle writkng is also a fun, if you be fɑmiliar with then you can write or 
+else it is complex to write.
+			trash
+			
+			0
+			0
+						
+	akismet_error
+			1552177613
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552177613.0842111110687255859375;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+							
+					
+			14819
+			Tuan Spiliakos
+			Rieger15707@gmail.com
+			http://earllovesyou.com
+			85.10.50.181
+			2019-03-10 17:18:54
+			2019-03-10 17:18:54
+			I cannot thank you enough for the blog post.Really looking forward to read more. Awesome.
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1552238334
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552238334.6209690570831298828125;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			4ca767ab7d8c646ff3a0d0b35154b6c3
+			
+							
+					
+			14820
+			Harvey Hegedus
+			Repasky53985@gmail.com
+			http://earllovesyou.com
+			173.245.203.117
+			2019-03-10 17:18:55
+			2019-03-10 17:18:55
+			I simply wanted to develop a quick comment to say thanks to you for these lovely tips you are giving on this website. My prolonged internet look up has now been rewarded with awesome facts and techniques to write about with my companions. I ‘d repeat that we readers actually are definitely lucky to live in a fine place with very many awesome people with helpful tips. I feel very much grateful to have used the web site and look forward to so many more enjoyable moments reading here. Thanks once again for a lot of things.
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1552238335
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552238335.6443760395050048828125;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			b37f3ddbe6eb20ba413815d69e61f36c
+			
+							
+					
+			15709
+			Nellie
+			deannarobe@gmail.com
+			http://vividleds.us/app/Fountain-Lights
+			81.171.56.134
+			2019-03-13 22:20:08
+			2019-03-13 22:20:08
+			I think this is amon the most vital info for me. And 
+i'm glad reading your article. But wanna remark on some general things, The web site style 
+is great, the articles is really great : D. Good job, cheers
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1552515608
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552515608.3930709362030029296875;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			8c32617ac9f1aed49f4868e2f1b99df1
+			
+							
+					
+			16176
+			Armand Honsberger
+			Griffard31034@gmail.com
+			http:/suckafatonehomo.com
+			216.151.180.49
+			2019-03-15 22:08:24
+			2019-03-15 22:08:24
+			I couldn’t resist commenting. Well written!
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1552687704
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552687704.7647840976715087890625;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			0fd72a974d6f9a51aaebfcfa98de1545
+			
+							
+					
+			16177
+			Benny Poland
+			Beelar25452@gmail.com
+			http:/suckafatonehomo.com
+			64.145.76.74
+			2019-03-15 22:08:36
+			2019-03-15 22:08:36
+			With thanks! Valuable information!
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1552687716
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552687716.2372529506683349609375;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			40780ae22e2d887c393492ac0499531a
+			
+							
+					
+			16297
+			Alexis Siverly
+			Linnell14143@gmail.com
+			http://suckafatonehomo.com
+			81.171.81.247
+			2019-03-16 04:04:40
+			2019-03-16 04:04:40
+			I don’t even know how I ended up here, but I thought this post was good. I do not know who you are but certainly you’re going to a famous blogger if you are not already 😉 Cheers!
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1552709080
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552709080.5064170360565185546875;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			9be1a250f209c6fbe37db386d090b94f
+			
+							
+					
+			16298
+			Georgeann Cordonnier
+			Breitweiser25421@gmail.com
+			http://suckafatonehomo.com
+			205.185.209.139
+			2019-03-16 04:04:42
+			2019-03-16 04:04:42
+			Howdy would you mind sharing which blog platform you’re working with? I’m looking to start my own blog soon but I’m having a difficult time deciding between BlogEngine/Wordpress/B2evolution and Drupal. The reason I ask is because your layout seems different then most blogs and I’m looking for something unique.                  P.S My apologies for being off-topic but I had to ask!
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1552709082
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552709082.7038929462432861328125;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			f8b7b285a1ae53c344c13a8602b59087
+			
+							
+					
+			16952
+			Emily Heon
+			Briggman23453@gmail.com
+			https://www.youcrazy.com/
+			209.107.216.81
+			2019-03-18 16:50:02
+			2019-03-18 16:50:02
+			6. New York Academy for Acting and Film.
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1552927802
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552927802.2010419368743896484375;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			6aa6ec62f51efe76331321d224033ad6
+			
+							
+					
+			16953
+			Asa Rennie
+			Felix69726@gmail.com
+			https://www.youcrazy.com/
+			205.185.223.165
+			2019-03-18 16:50:02
+			2019-03-18 16:50:02
+			I can’t get a dialling tone <a href="http://conankun.net/15574/laptop-zeichnen/" rel="nofollow">http://conankun.net/15574/laptop-zeichnen/</a> price wellbutrin xl 150mg  Amid all the excitement, spare a thought for the people who are spending today working against the clock, under desperately high pressure, to give the country the news it&rsquo;s dying to hear. Not the Duchess of Cambridge&rsquo;s medical team &ndash; the reporters on 24-hour TV news.
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1552927802
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552927802.31939601898193359375;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			ee921d587dd6e73dd32fc38b7f3645d0
+			
+							
+					
+			16954
+			Cleveland Morland
+			Herndon21398@gmail.com
+			https://www.youcrazy.com/
+			205.185.198.202
+			2019-03-18 16:50:11
+			2019-03-18 16:50:11
+			<a href="https://buybactrim.icu/" rel="nofollow">bactrim suspension</a> – what is bactrim prescribed forbactrim and alcohol – <a href="https://buybactrim.icu/" rel="nofollow">bactrim skin rash pictures</a> <a href="https://buybactrim.icu/" rel="nofollow">https://buybactrim.icu/</a>
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1552927811
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552927811.254065990447998046875;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			66c225aee796f696e5cba2d8765fbf11
+			
+							
+					
+			17016
+			Oscar Willibrand
+			Aguado45606@gmail.com
+			https://www.youcrazy.com/
+			81.171.57.36
+			2019-03-18 20:19:46
+			2019-03-18 20:19:46
+			Insert your card <a href="http://blog.cilek.com/etiket/okul/" rel="nofollow">http://blog.cilek.com/etiket/okul/</a> staxyn price per pill  Some rebels say the delay is giving the Assad regime ample time to prepare for an attack, rearrange forces and vacate targets. These moves will likely limit the military benefits the opposition fighters could gain from a strike, they say.
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1552940386
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552940386.77674102783203125;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			351f9f8209a6d02e7ac2fc50983c63d9
+			
+							
+					
+			17574
+			Felipe Kihn
+			Morger73949@gmail.com
+			https://www.lickmyballs.com
+			69.16.147.125
+			2019-03-20 21:32:15
+			2019-03-20 21:32:15
+			online payday loans no credit check <a href="https://paydayloans2018.com/" rel="nofollow">1 hour payday loan</a> payday loans <a href="https://paydayloans2018.com/" rel="nofollow">payday loan online</a>
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1553117535
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1553117535.0376300811767578125;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			7aaedadc58a99c4535d0c2151241c55e
+			
+							
+					
+			17575
+			Chester Ives
+			Doherty31022@gmail.com
+			https://www.lickmyballs.com
+			173.245.203.100
+			2019-03-20 21:32:45
+			2019-03-20 21:32:45
+			Apteekki pori, <a href="http://verkkoapteekkisuomi.life/agulan.html" rel="nofollow">http://verkkoapteekkisuomi.life/agulan.html</a>  – luonnon oulu.
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1553117565
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1553117565.81906604766845703125;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			05b7bffb345bd7204a8aaea56f75e7d0
+			
+							
+					
+			17593
+			Dyan Penzero
+			Warmka72202@gmail.com
+			https://www.lickmyballs.com
+			205.185.209.156
+			2019-03-20 22:15:55
+			2019-03-20 22:15:55
+			Its not my first time to pay a visit this website, i am browsing thiswebsite dailly and obtain fastidious data from here everyday.
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1553120155
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1553120155.020865917205810546875;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			59b45da71ca7f072243cc3ddaf6b2432
+			
+							
+					
+			18865
+			Yeezy Shoes
+			wnucpdonmm@hotmaill.com
+			http://www.yeezy-shoes.in.net/
+			27.153.182.121
+			2019-03-25 18:15:34
+			2019-03-25 18:15:34
+			hvqlveeg,Hi there, just wanted to say, I liked this article. It was helpful. Keep on posting!
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1553537734
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1553537734.3919579982757568359375;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			5bd8ee994344b4bd68a37f0d133e0618
+			
+							
+					
+			19483
+			Yeezy 350
+			cpjijtpik@hotmaill.com
+			http://www.yeezy350.us.com/
+			27.153.181.53
+			2019-03-28 02:37:44
+			2019-03-28 02:37:44
+			gwpjjhq,If you want a hassle free movies downloading then you must need an app like showbox which may provide best ever user friendly interface.
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1553740664
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1553740664.34210109710693359375;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			df74b9bec8a5905a2a282f219ac85933
+			
+							
+					
+			19601
+			Sushi By 7-11
+			co.nce.r.nedn.ei.ghb.o.r94.95.4@gmail.com
+			http://kadenceorlando.com/
+			82.214.135.134
+			2019-03-28 13:21:46
+			2019-03-28 13:21:46
+			I feel that is one of the so much vital info for me.
+And i'm happy reading your article. But should observation on some normal issues,
+The website style is perfect, the articles is truly excellent : D.
+
+Just right activity, cheers http://kadenceorlando.com/
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1553779306
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1553779306.9809920787811279296875;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			908174a73eb6eb1ec51241283eaa815f
+			
+							
+					
+			19926
+			Jordan 11 Concord
+			zmhjceszbnv@yahoo.com
+			http://www.jordan11-concord.com/
+			27.153.181.53
+			2019-03-29 14:01:36
+			2019-03-29 14:01:36
+			rhyaegtnpuj,Wonderful one thank you so much !
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1553868096
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1553868096.346146106719970703125;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			d3d2b72627a079f41d3da48660d511a9
+			
+							
+					
+			20541
+			Balenciaga UK
+			qlwwuivj@hotmaill.com
+			http://www.birkenstocks.me.uk/
+			27.153.181.53
+			2019-03-30 19:43:35
+			2019-03-30 19:43:35
+			hfnomcasq,Very informative useful, infect very precise and to the point. I’m a student a Business Education and surfing things on Google and found your website and found it very informative.
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1553975015
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1553975015.5525009632110595703125;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			e676db4edd2e0a2ba7ddd1c7bf5f9359
+			
+							
+					
+			20569
+			Nike Air Vapormax Flyknit 2
+			iuojrjv@yahoo.com
+			http://www.nike-vapormaxplus.us/
+			27.153.181.53
+			2019-03-30 20:46:58
+			2019-03-30 20:46:58
+			Air Jordan 12 Gym Red http://www.jordan12gymred.us.com/
+ nike factory outlet store online http://www.nikefactoryoutletstoreonline.com/
+ nike factory outlet store online http://www.nikefactoryoutletstoreonline.us/
+ Nike Outlet http://www.nikestores.us.com/
+ retro jordan 33 http://www.jordan33.us/
+ cheap jerseys from china http://www.cheapjerseysfromchina.us/
+ custom nfl jerseys http://www.customnfljerseys.us/
+ jordan 11 concord 2018 http://www.jordan11concord.us.com/
+ Jordan 12 Gym Red 2018 http://www.jordan12gymred.us/
+ Jordan 12 Gym Red http://www.redjordan12.us/
+ Yeezy http://www.yeezy.com.co/
+ Yeezy Shoes http://www.yeezys.us.com/
+ Yeezy Shoes http://www.yeezysupply.us.com/
+ Yeezys Shoes http://www.yeezy-shoes.us.com/
+ Yeezy Boost 350 http://www.yeezy-boost350.com/
+ Yeezy Boost 350 http://www.yeezyboost350.us.com/
+ Yeezy Shoes http://www.yeezybluetint.com/
+  Yeezy 500 http://www.yeezy500utilityblack.com/
+ Yeezy 500 Utility Black http://www.yeezy500utilityblack.us/
+ Vapor Max http://www.vapor-max.org.uk/
+ Salomon Shoes http://www.salomon-shoes.org.uk/
+ Salomon Shoes http://www.salomons.me.uk/
+ Salomon Speedcross 4 http://www.salomonspeedcross4.org.uk/
+ Off White Jordan 1 http://www.offwhitejordan1.com/
+ Nike VaporMax http://www.nikevapormax.org.uk/
+  React Element 87 http://www.nikereactelement87.us.com/
+  React Element 87 http://www.nikereactelement87.us/
+ Nike Plus http://www.nikeplus.us/
+ Nike Outlet http://www.nike--outlet.us/
+ Nike Outlet http://www.nikeoutletstoreonlineshopping.us/
+ Nike Outlet Store http://www.nikeoutletonlineshopping.us/
+  Cheap Nike NBA Jerseys http://www.nikenbajerseys.us/
+ Air Max 97 http://www.nikeairmax.us/
+ Air Max 2017 http://www.max2017.us/
+ Jordan Shoes http://www.jordan-com.com/
+  Jordan 11 Concord 2018 http://www.jordan11-concord.com/
+ Cheap Yeezy Shoes http://www.cs7boots1.com/
+  Cheap NBA Jerseys From China http://www.cheapnba-jerseys.us/
+ Birkenstock Sandals UK http://www.birkenstocksandalsuk.me.uk/
+ Basketball Jersey http://www.basketball-jersey.us/
+ Balenciaga UK http://www.balenciaga.me.uk/
+ Balenciaga http://www.balenciagauk.org.uk/
+ Balenciaga http://www.balenciagatriples.org.uk/
+ Balenciaga UK http://www.birkenstocks.me.uk/
+ Balenciaga UK http://www.balenciagatrainers.org.uk/
+  Nike Air Max 270 http://www.airmax270.org.uk/
+ Adidas Yeezys http://www.adidasyeezyshoes.org.uk/
+  Yeezy Shoes http://www.adidasyeezyshoes.org.uk/
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1553978818
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1553978818.1761229038238525390625;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			11dd96a6534f57167dd011ca7cdf3ce8
+			
+							
+					
+			21022
+			Austepils
+			austdut@wmaill.website
+			http://buyoxys.com
+			31.184.238.129
+			2019-03-31 22:25:58
+			2019-03-31 22:25:58
+			Propecia Utopico Kamagra Jelly Usa Cephalexin 750mg  <a href="http://cialtadalaff.com" rel="nofollow">cialis 20mg for sale</a> Buy Clomid 100mg Uk
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1554071158
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1554071158.75846004486083984375;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+							
+					
+			21138
+			Nike Air Zoom Pegasus
+			xmaqdi@hotmaill.com
+			http://www.nikepegasus-35.us/
+			27.153.181.53
+			2019-04-01 06:46:55
+			2019-04-01 06:46:55
+			lcstkihy,This website truly has alll of the information and facts I wanted about this subject and didn?t know who to ask.
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1554101215
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1554101215.3314158916473388671875;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			2febe850b48db71aab3c4b3d5bf43aac
+			
+							
+					
+			22564
+			Nike Zoom
+			bkccfsljij@yahoo.com
+			http://www.nike-zoom.us/
+			27.153.182.145
+			2019-04-05 03:59:02
+			2019-04-05 03:59:02
+			Nike Vapormax Flyknit http://www.nikeairvapormaxflyknit2.us/
+ Nike VaporMax Flyknit,Nike Air Vapormax Flyknit,Nike Air Vapormax Flyknit 2 http://www.nikevapormaxflyknit.us/
+ Nike VaporMax Plus,Nike Air VaporMax Plus,VaporMax Plus,Nike Air Vapormax Flyknit,Nike Air Vapormax Flyknit 2 http://www.nike-vapormaxplus.us/
+ Nike Air Max 2019,Air Max 2019 http://www.max2019.us/
+ Nike Air Max 2019,Air Max 2019,Nike Air Max http://www.air-max2019.us/
+ Nike Air Max 2019,Air Max 2019,Nike Air Max http://www.nike-airmax2019.us/
+ Nike Air Zoom Pegasus 35,Nike Pegasus 35,Nike Air Zoom Pegasus http://www.nikeairzoompegasus35.us/
+ Nike Pegasus 35,Nike Air Zoom Pegasus 35,Nike Air Zoom Pegasus,Nike Pegasus http://www.nikepegasus-35.us/
+ Nike Zoom,Nike Air Zoom http://www.nike-zoom.us/
+ Nike Air Max 270,Air Max 270,Nike Max 270 http://www.nikemax270.us/
+ Nike Shox,Nike Shox Outlet,Cheap Nike Shox Outlet http://www.nikeshoxoutlet.us/
+ Adidas Outlet http://www.outlet-adidas.us/
+ adidas originals http://www.originalsadidas.us/
+ adidas ultra boost,ultra boost http://www.adidasultra-boost.us/
+ Adidas Shoes http://www.shoesadidas.us/
+ Pandora Rings,Pandora Ring,Pandora Rings Official Site http://www.pandorarings-jewelry.us/
+ Pandora Official Site,Pandora Jewelry Official Site,Pandora Rings Official Site http://www.pandora-officialsite.us/
+ Pandora.com,Pandora,Pandora Official Site,Pandora Jewelry Official Site http://www.pandora-com.us/
+ Pandora jewelry Outlet,pandora charms,,pandora bracelets,pandora rings,pandora outlet http://www.pandora-jewelryoutlet.us/
+ pandora outlet,pandora jewelry outlet,pandora charms outlet,pandora jewelry http://www.pandoraoutlet-jewelry.us/
+ Cheap NFL Jerseys,NFL Jerseys Cheap,Cheap Sports Jerseys http://www.cheapsportsnfljerseys.us/
+ Cheap NFL Jerseys,NFL Jerseys Outlet,Cheap Jerseys http://www.cheapoutletnfljerseys.us/
+ Cheap NFL Jerseys,NFL Jerseys Cheap,Cheap Sports JerseysNFL Jerseys,Cheap NFL Jerseys,NFL Jerseys Wholesale,Cheap Jerseys http://www.nfljerseyscheapwholesale.us/
+ Cheap NFL Jerseys,NFL Jerseys Cheap,Cheap Sports Jerseys http://www.cheapjerseyselitenfl.us/
+ NFL Jerseys,NFL Jerseys 2019,Cheap NFL Jerseys,NFL Jerseys Wholesale http://www.nfljerseys2019.us/
+ Pittsburgh Steelers Jerseys,Steelers Jerseys,Steelers Jerseys Cheap http://www.pittsburghsteelers-jerseys.us/
+ Dallas Cowboys Jerseys,Cowboys Jerseys,Cowboys Jerseys Cheap http://www.dallascowboysjerseyscheap.us/
+ NFL Jerseys,NFL Jerseys 2019,Cheap NFL Jerseys, Cheap Authentic Nfl Jerseys http://www.nflauthenticjerseys.us/
+ NFL Jerseys Wholesale,NFL Jerseys 2019,Cheap NFL Jerseys, Cheap Nfl Jerseys Wholesale http://www.wholesalenfljerseysshop.us/
+ NFL Jerseys Wholesale,Cheap Nfl Jerseys Wholesale,,Cheap NFL Jerseys,NFL Jerseys 2019 http://www.authenticnflcheapjerseys.us/
+ Pandora Sale, Pandora Jewelry, Pandora UK http://www.pandorasale.org.uk/
+ Pandora Charms,Pandora UK,Pandora Charms Sale Clearance http://www.pandoracharmssaleuk.me.uk/
+ Pandora Bracelets,Pandora Bracelet,Pandora Jewelry http://www.pandorabraceletsjewellry.me.uk/
+ Pandora UK, Pandora Sale, Pandora Jewelry UK http://www.pandorauk-sale.org.uk/
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1554436742
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1554436742.4986450672149658203125;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			c1757f1aac20c3676b6cfe4622212e19
+			
+							
+					

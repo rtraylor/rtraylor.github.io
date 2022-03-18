@@ -1,0 +1,136 @@
+
+		
+				Using Dirac Delta Formalism to Calculate Shear Force and Bending Moment		
+		https://www.themathcitadel.com/using-dirac-delta-formalism-to-calculate-shear-force-and-bending-moment/
+		Thu, 25 Jul 2019 13:58:59 +0000
+		admin
+		https://www.themathcitadel.com/?p=3040
+		
+		
+				<!-- wp:paragraph -->
+<p><em>Editor's note: This article was written by Valentin Fadeev, a physics PhD candidate in the UK. He also co-authored <a href="https://www.themathcitadel.com/equivalence-v-isomorphisms-in-category-theory/">this article</a> on equivalences and isomorphisms in category theory. You can find him on Twitter via the handle @ValFadeev.</em></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>The delta function was introduced by P.A.M. Dirac, one of the founders of quantum electrodynamics. The delta function belongs to the abstract concepts of function theory. In a rigorous sense it is a <em>functional</em> that picks a value of a given function at a given point. However, it also arises as the result of the differentiation of discontinuous functions. One of the most appealing properties of the delta function is the fact that it allows us to work with discretely and continuously distributed quantities in the same way, replacing discrete sums with integrals. Delta and its derivative meet the physical intuition in cases where we deal with quantities of large magnitude whose impact is limited to a small region of space or a very short amount of time (impulses). The inspiration for this particular article came during a course on mechanics in university. </p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>In structural mechanics, it is often desired to understand the relationship between bending moment and shear force for objects, particularly beams, under applied loads. An explanation of the typical method is given <a href="https://en.wikipedia.org/wiki/Shear_and_moment_diagram">here</a>. </p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p> In the text I was using at the time, the proof of the relation between bending moment and shear force did not make explicit use of delta function. The final result was valid, but there was a serious fault in the proof. Point forces were considered as mere constant terms in the sum and differentiated away, despite the fact their contribution was accounted for only starting form certain points (suggesting delta-terms). I gave this problem a mathematically rigorous treatment which led to some nice closed formulae applicable to a very general distribution of load.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h2>Relationship Between Shear Force and Bending Moment</h2>
+<!-- /wp:heading -->
+
+<!-- wp:image {"id":3088} -->
+<figure class="wp-block-image"><img src="https://www.themathcitadel.com/wp-content/uploads/2019/07/Screen-Shot-2019-07-24-at-10.07.18-AM.png" alt="" class="wp-image-3088"/><figcaption>A beam with various forces</figcaption></figure>
+<!-- /wp:image -->
+
+<!-- wp:paragraph -->
+<p>Consider a rigid horizontal beam of length [latex]L[/latex], and introduce a horizontal axis [latex]x[/latex] directed along it. Assume the following types of forces are applied:</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:list -->
+<ul><li>point forces [latex]F^{p}_{i}[/latex] at [latex]x_i, i=1,2,…,n[/latex], [latex]0&lt;x_i&lt;L[/latex]</li><li> distributed forces with linear density given by continuous functions [latex]\phi^{d}_{j}(x)[/latex] on intervals [latex](a_j,b_j),(j=1,2,…,m)[/latex], [latex]0&lt;a_{j-1}&lt;b_{j-1}&lt;a_j&lt;b_j&lt;L[/latex]</li><li>moments (pairs of forces) [latex]M_k[/latex] with axes of rotation at [latex]x_k, (k=1,2,…,p)[/latex], [latex]0&lt;x_k&lt;L[/latex].</li></ul>
+<!-- /wp:list -->
+
+<!-- wp:paragraph -->
+<p>Note that we ignore our own mass of the beam for the sake of clarity, although it can be easily accounted for if necessary.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":3} -->
+<h3>Point Forces</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Although the point forces [latex]F^{p}_{i}[/latex] are applied at certain points by definition, in reality the force is always applied to a certain finite area. In this case we can consider the density of the force being very large within this area and dropping to 0 outside it. Hence, it is convenient to define the distribution density as follows: [latex,display = true]\phi^{p}_{i}(x)=F^{p}_{i}\delta(x-x_i).[/latex] Shear force [latex]F[/latex] at point [latex]x[/latex] is defined as the sum of all forces applied before that point (we are moving from the left end of the beam to the right one): [latex, display = true]F=\sum_{x_i&lt;x}F_{i}[/latex]<br> Hence:<br> [latex, display = true]F^{p}(x)=\sum_{i}\int_0^x \phi^{p}_{i}(z)\mathrm{d}z=\sum_{i}F^{p}_{i}e(x-x_i),[/latex] where [latex]e(x)=\begin{cases}1,\qquad x&gt;0\\0, \qquad x\neq 0\end{cases}[/latex] is the step function.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":3} -->
+<h3>Distributed Forces</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Now we shall find the contribution from the distributed forces. [latex]\phi^{d}_j(x)[/latex] may be formally defined on the whole axis, so we must cut off the unnecessary intervals outside [latex](a_j,b_j)[/latex]. Consider the following expressions: [latex, display =true]\phi^{d}_{j}(x,a_j,b_j)=\phi^{d}_j(x)[e(x-a_j)-e(x-b_j)].[/latex] Indeed it is easy to ascertain that the right side is equal to [latex]\phi^{d}_j(x)[/latex] within [latex](a_j,b_j)[/latex] and vanishes everywhere else. Calculating shear force due to distributed forces demonstrates some useful properties of the delta function: [latex, display = true]\begin{aligned}F^d&amp;=\sum_{j}\int_{0}^{x}\phi_{j}^{d}(z)[e(z-a_j)-e(z-b_j)]\mathrm{d}z\\&amp;=\sum_{j}\left[\int_0^x\phi^{d}_j(z)e(z-a_j)\mathrm{d}z-\int_0^x \phi^{d}_j(z)e(z-b_j)\mathrm{d}z\right]\\&amp;=\sum_{j}\left[\int_{a_j}^x\phi^{d}_{j}(z)e(z-a_j)\mathrm{d}z-\int{b_j}^{x}\phi^{d}_j(z)e(z-b_j)\mathrm{d}z\right]\\&amp;=\sum_{j}\left[\left.\left(e(z-a_j)\int_{a_j}^x\phi^{d}_j(z)\mathrm{d}z\right)\right|_{a_j}^x-\int_{a_j}^x\left(\int_{a_j}^x\phi^{d}_j(z)\mathrm{d}z\right)\delta(z-a_j)\mathrm{d}z\right.\\&amp;\left.-\left.\left(e(z-b_j)\int_{b_j}^x\phi^{d}_j(z)\mathrm{d}z\right)\right|{b_j}^x+\int_{b_j}^x\left(\int_{b_j}^x\phi^{d}_j(z)\mathrm{d}z\right)\delta(z-b_j)\mathrm{d}z\right]\\&amp;=\sum_{j}\left[e(x-a_j)\int_{a_j}^x\phi^{d}_j(z)\mathrm{d}z+e(x-b_j)\int_{x}^{b_j}\phi^{d}_j(z)\mathrm{d}z\right]\end{aligned}[/latex]<br></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>Here we used the defining property of delta: [latex, display = true]f(x)\delta(x-x_0)=f(x_0)\delta(x-x_0),[/latex] from which it follows, in particular that [latex, display = true]\left(\int_{a_j}^x\phi^{d}_j(z)\mathrm{d}z\right)\delta(x-a_j)=\left(\int_{a_j}^{a_j}\phi^{d}_j(z)\mathrm{d}z\right)\delta(x-a_j)=0.[/latex]</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":3} -->
+<h3>Bending Moments</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Now we shall calculate bending moments created by all types of forces involved. Consider [latex]F^{p}_{i}[/latex] applied at [latex]x_i[/latex]. The bending moment created by this force evaluated at [latex]x&gt;x_i[/latex] can be determined as follows:</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>[latex, display = true]\begin{aligned}M_{i}^{p}(x)&amp;=F_{i}^{p}e(x-x_i)(x-x_i),\\M_{i}^{p}(x+\mathrm{d}x)&amp;=F_{i}^{p}e(x+\mathrm{d}x-x_i)(x+\mathrm{d}x-x_i)=F^{p}_{i}e(x-x_i)(x-x_i+\mathrm{d}x),\\dM_{i}^{p}&amp;=F_{i}^{p}e(x-x_i)\mathrm{d}x,\\M_{i}^{p}&amp;=F_{i}^{p}\int_0^{x}e(z-x_i)\mathrm{d}z=F^{p}_{i}\frac{x-x_i+|x-x_i|}{2}.\end{aligned}[/latex] Hence, the total moment due to point forces is [latex, display = true]M^{p}=\sum_{i}F_{i}^{p}\frac{x-x_i+|x-x_i|}{2}.[/latex]</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>To calculate moment created by the distributed forces we use the following approach adopted in mechanics. Replace the distributed force to the left of the point of summation with a point force applied at the center of gravity of the figure enclosed by the graph of [latex]\phi_j(x)[/latex] and lines [latex]x=a_j[/latex], [latex]x=b_j[/latex]. If [latex]a_j&lt;x&lt;b_j[/latex]: [latex, display = true]\begin{aligned}F^{d}_{j}(x)&amp;=\int_{a_j}^x\phi^{d}_{j}(z)\mathrm{d}z,\\ M^{d}_{j}&amp;=\int_{a_j}^x\phi^{d}{j}(z)\mathrm{d}z\left(x-\frac{\int_{a_j}^x z\phi^{d}_{j}(z)\,\mathrm{d}z}{\int_{a_j}^x\phi^{d}_{j}(z)\mathrm{d}z}\right)\\&amp;=x\int_{a_j}^x\phi^{d}_{j}(z)\mathrm{d}z-\int_{a_j}^x z\phi^{d}_{j}(z)\mathrm{d}z.\end{aligned}[/latex] Differentiating both parts with respect to [latex]x[/latex] we obtain [latex, display = true]\frac{\mathrm{d}M^{d}_{j}}{\mathrm{d}x}=\int_{a_j}^x\phi^{d}_{j}(z)\mathrm{d}z+x\phi^{d}_{j}(x)-x\phi^{d}_{j}(x)=\int_{a_j}^x\phi^{d}_{j}(z)\mathrm{d}z=F^{d}_{j}(x)[/latex]</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>In fact, we could as well include point forces in the above derivation considering total density [latex]\phi(x)=\phi^{p}(x)+\phi^{d}(x)[/latex], which is the correct way to account for point forces in this proof. We can therefore derive the general relation between shear force and bending moment: [latex, display = true]F=\frac{\mathrm{d}M}{\mathrm{d}x}.[/latex]  Now we need to calculate the contribution made by moments of pairs of forces. Each of these moments can be considered as a pair of equal large forces [latex]F[/latex] applied at a small distance [latex]h[/latex] of each other and oppositely directed. They will make the following contribution to the expression for total density [latex, display = true]\mu(x)=F\delta(x+h)-F\delta(x)=Fh\frac{\delta(x+h)-\delta(x)}{h}=M\frac{\delta(x+h)-\delta(x)}{h}.[/latex] Taking the limit as [latex]h \to 0[/latex]: [latex, display = true]\mu(x)=M\delta'(x)[/latex] </p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>Note that the derivative of [latex]\delta(x)[/latex] is called the <em>unit doublet.</em><br> This does not imply that expression for shear force will contain terms of the form [latex]M\delta(x)[/latex]. This is due to the fact that shear force consists of vertical components of all forces and for pairs of forces those components will cancel out each other.<br> Therefore, the total bending moment of the pairs of forces is expressed as follows [latex, display = true]M=\sum_{k}M_ke(x-x_k).[/latex] Finally we can write the expressions for shear force and bending moment in the most general case [latex, display = true]\begin{aligned}F(x)&amp;=\sum_{i}F^{p}_{i}e(x-x_i)\\&amp;\qquad+\sum_{j}\left[e(x-a_j)\int_{a_j}^x\phi^{d}_j(z)\mathrm{d}z+e(x-b_j)\int_{x}^{b_j}\phi^{d}_j(z)\mathrm{d}z\right],\\M(x)&amp;=\sum_{k}M_ke(x-x_k)+\sum_{i}F^{p}_{i}\frac{x-x_i+|x-x_i|}{2}\\&amp;\qquad+\sum_{j}\int_0^x\left[e(t-a_j)\int_{a_j}^t \phi^{d}_j(z)\mathrm{d}z+e(t-b_j)\int_{t}^{b_j}\phi^{d}_j(z)\mathrm{d}z\right]\mathrm{d}t.\end{aligned}[/latex] In an important particular case where [latex]\phi^{d}_j(x)\equiv \phi^{d}_j[/latex]=const these expressions reduce to the following [latex, display = true]\begin{aligned}F(x)&amp;=\sum_{i}F^{p}_{i}e(x-x_i)+\sum_{j}\phi^{d}_j\left[(x-a_j)e(x-a_j)+(x-b_j)e(x-b_j)\right], \\ M(x)&amp;=\sum_{k}M_ke(x-x_k)+\sum_{i}F^{p}_{i}\frac{x-x_i+|x-x_i|}{2}\\ &amp;\qquad+\sum_{j}\frac{\phi^{d}_j}{2}\left[(x-a_j)^2e(x-a_j)+(x-b_j)^2e(x-b_j)\right].\end{aligned}[/latex]</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h2>Conclusion</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>In this example we have demonstrated the application of Dirac delta and the related functions to a problem where the input data has a combination of continuous and discrete distributions. Singular functions allow us to work with this data in a uniform and relatively rigorous way. The advantage is that we get the final results in the closed form, as opposed to an algorithmic step-by-step method of solution. We can also obtain concise proofs, such as that for the relation between shear force and bending moment, and extend the results to very general inputs.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:image {"linkDestination":"custom"} -->
+<figure class="wp-block-image"><a href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img src="https://i.creativecommons.org/l/by-nc-nd/4.0/88x31.png" alt="Creative Commons License"/></a></figure>
+<!-- /wp:image -->
+
+<!-- wp:paragraph -->
+<p>This work is licensed under a <a href="http://creativecommons.org/licenses/by-nc-nd/4.0/">Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License</a>.</p>
+<!-- /wp:paragraph -->		
+		
+						
+		3040
+		2019-07-25 13:58:59
+		2019-07-25 13:58:59
+		closed
+		closed
+		using-dirac-delta-formalism-to-calculate-shear-force-and-bending-moment
+		publish
+		0
+		0
+		post
+		
+		0
+										Applied Mathematics
+						
+		_da_attachments
+		a:0:{}
+		
+							
+		_edit_last
+		1
+		
+							
+		_acp_button_style
+		2
+		
+							
+		_acp_loading_type
+		1
+		
+							

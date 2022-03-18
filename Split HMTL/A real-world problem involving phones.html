@@ -1,0 +1,58 @@
+
+		
+				A real-world problem involving phones		
+		https://www.themathcitadel.com/__trashed/
+		Mon, 16 Mar 2020 15:10:20 +0000
+		
+		http://www.themathcitadel.com/?p=2075
+		
+		
+				People sometimes ask when we ever use "any of this stuff" in real life. So here is an example of something I was asked in real life that involved maths of, I'd say, about high school level.
+
+I was asked how I would choose the "best" offer from a collection of offers all of the form "We will charge you $a$ pence as soon a phone call call starts, and if it lasts at most $b$ seconds that will be it. If the call lasts more than $b$ seconds then any extra time will cost $c$ pence per second." The context here is that we are talking about the phone system of a large organization: internal and incoming calls are free, but outgoing calls cost money.
+
+The graph of cost vs time for a call according to one of these offers will look like this:
+(example graph)
+
+It's fairly easy to see that if two tariffs look this this:
+(one always more expensive)
+the upper one can be rejected.
+
+But in cases like these
+(one crossing, two crossings) it's not clear.
+
+How can we decide which offer is better? We need more information. Specifically, we need to know how many calls of various lengths the organization makes. That is, we need to know the probability distribution of call lengths.
+
+Given that, and the values $a$, $b$ and $c$, what can we do? All calls cost a basic $a$ immediately, and those that last more than $b$ will cost extra. How much extra? $c$ pence per second for the average excess time past $b$. We can write down a formula with an integral in it. These integrals might be quite hard to work out. If we have a log of the actual lengths of calls made by the organization we can get a program to work out which tariff would have been cheapest for those calls.
+
+However, there is probability distribution where the average excess call time past $b$ is easy to work out as it's just the average of the distribution. This is the exponential distribution.
+
+There are of course possible objections here: do we know what the probability distribution of call lengths is for this or any organization? If we have enough information about past call lengths to say what we think the distribution is, why not just use that to work out the cost for those calls? Just because the exponential distribution has		
+		
+						
+		2075
+		2020-03-16 15:10:20
+		2020-03-16 15:10:20
+		closed
+		open
+		__trashed
+		trash
+		0
+		0
+		post
+		
+		0
+										Uncategorized
+						
+		_da_attachments
+		a:0:{}
+		
+							
+		_edit_last
+		3
+		
+							
+		_wp_desired_post_slug
+		
+		
+							

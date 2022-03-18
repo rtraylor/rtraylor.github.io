@@ -1,0 +1,134 @@
+
+		
+				Isomorphisms: Making Mathematics More Convenient		
+		https://www.themathcitadel.com/isomorphisms-making-mathematics-more-convenient/
+		Fri, 02 Mar 2018 23:23:17 +0000
+		admin
+		http://www.themathcitadel.com/?p=2192
+		
+		
+				Much of pure mathematics exists to simplify our world, even if it means entering an abstract realm (or creating one) to do it. The&nbsp;<em>isomorphism</em> is one of the most powerful tools for discovering structural similarities (or that two groups are identical structurally) between two groups that on the surface look completely unrelated. In this post, we'll look at what an isomorphism is.
+
+<!--more-->
+<h2>What's an isomorphism?</h2>
+<a href="https://www.themathcitadel.com/book-reviews/a-book-of-abstract-algebra-2nd-edition-charles-c-pinter/">Pinter's</a>&nbsp;<em>Abstract Algebra&nbsp;</em>gives a fantastic motivation for studying&nbsp;<em>isomorphic</em> things: we want to know if two objects we're looking at are really just the same object with, say, different outfits on. Take the two palindromes MADAM and ROTOR. They're two different words, but if we replace M with R, A with O, and D with T, we can transform MADAM into ROTOR. This tells us that these two palindromes have the same structure. In this case, that they are essentially a "word reflection" about the middle letter. MADAM and ROTOR are just wearing two different outfits. We can replace the letters "M", "A", "D" with any three other letters, then reflect the first two about the third to create another word palindrome with the same structure. (Now, picking any three letters at random might not guarantee the palindrome you make is an English word.)&nbsp;
+
+Let's take this into a mathematical realm now. We could create a function [latex]f[/latex] that maps the three letters "M", "A", "D" with the structure of the palindrome MADAM onto three new letters, maintaining that structure. So the function
+
+[latex, display = true]f = \begin{pmatrix}M&amp;A&amp;D\\\downarrow&amp;\downarrow&amp;\downarrow\\R&amp;O&amp;T\end{pmatrix}[/latex]
+
+transforms MADAM into ROTOR. The correspondence is&nbsp;<em>injective&nbsp;</em>(a one-to-one mapping, taking one element of [latex]\{M,A,D\}[/latex] to only one element of [latex]\{R,O,T\}[/latex], and&nbsp;<em>surjective</em> (every letter "R", "O", "T" has something that maps to it), and therefore is called&nbsp;<em>bijective.&nbsp;</em>This means we can actually move back and forth from MADAM to ROTOR by taking the inverse of the function [latex]f[/latex] that mapped us from "M","A","D", to "R","O","T". Such a function between two groups that preserves the structure of the groups is called an&nbsp;<strong><em>isomorphism</em></strong> and the two groups are said to be&nbsp;<em><strong>isomorphic.</strong></em>
+<h3>Formal Definition of Isomorphism</h3>
+Now that we've developed an intuition of an isomorphism, we will define it formally. (Note, for a refresher on what groups are, please see our previous articles <a href="https://www.themathcitadel.com/taking-things-for-granted-elementary-properties-of-groups/">here</a>, <a href="https://www.themathcitadel.com/group-theory-xor-and-binary-codes-introducing-coding-theory/">here</a>, <a href="https://www.themathcitadel.com/like-clockwork-modulo-addition-and-finite-groups-of-integers/">here</a>, and <a href="https://www.themathcitadel.com/reduce-the-problem-permutations-and-modulo-arithmetic/">here</a>.)&nbsp;
+
+<hr>
+
+<em><span style="text-decoration: underline;"><strong>Definition (isomorphism):</strong></span></em>. &nbsp;Suppose [latex]G_{1}[/latex] and [latex]G_{2}[/latex] are groups, and let the operation for [latex]G_{1}[/latex] be denoted [latex]\cdot[/latex], and the operation for [latex]G_{2}[/latex] be denoted [latex]\star[/latex]. A bijective function [latex]f:G_{1}\to G_{2}[/latex] such that for any two elements [latex]a[/latex] and [latex]b[/latex] in [latex]G_{1}[/latex]
+
+[latex, display = true]f(a\cdot b) = f(a)\star f(b)[/latex]
+
+is called an&nbsp;<em><strong>isomorphism</strong></em><em>&nbsp;</em>from [latex]G_{1}[/latex] to [latex]G_{2}[/latex], and the two groups are said to be&nbsp;<em><strong>isomorphic</strong></em><em>.</em>
+
+<hr>
+
+<h2>How do we find out if two groups are isomorphic?</h2>
+Short answer: we find the isomorphism between the two groups. Now, note that since isomorphisms are bijective, we can decide whether we'll try to find a function from [latex]G_{1}[/latex] to [latex]G_{2}[/latex] or from [latex]G_{2}[/latex] to [latex]G_{1}[/latex]. It's a simple task to say, but in practice this can actually be extremely difficult, requiring some guesswork and refinement once we find what we think the function might look like.&nbsp;
+
+Let's take an example and look at [latex]\mathbb{Z}_{4}[/latex] and the group [latex] \langle G, \cdot\rangle = \langle\{1,-1,i,-i\},\cdot\rangle[/latex]. (<a href="https://www.themathcitadel.com/like-clockwork-modulo-addition-and-finite-groups-of-integers/">Remember</a> that [latex]\mathbb{Z}_{4}[/latex] is the group of integers modulo 4 under addition.) We're going to show these two groups are isomorphic by finding the mapping from [latex]\mathbb{Z}_{4}[/latex] to [latex]G[/latex] that preserves the structure of their operation tables.&nbsp;
+
+The operation table of [latex]\mathbb{Z}_{4}[/latex] under addition modulo 4 is given by&nbsp;
+
+[latex, display = true]\begin{array}{r|rrrr}\textcolor{#893B2F}{\langle\mathbb{Z}_{4},+\rangle}&amp;\textcolor{#893B2F}{0}&amp;\textcolor{#893B2F}{1}&amp;\textcolor{#893B2F}{2}&amp;\textcolor{#893B2F}{3}\\\textcolor{#893B2F}{0}&amp;0&amp;1&amp;2&amp;3\\\textcolor{#893B2F}{1}&amp;1&amp;2&amp;3&amp;0\\\textcolor{#893B2F}{2}&amp;2&amp;3&amp;0&amp;1\\\textcolor{#893B2F}{3}&amp;3&amp;0&amp;1&amp;2\end{array}[/latex]
+
+The operation table of [latex]G[/latex] under multiplication is&nbsp;
+
+[latex, display = true]\begin{array}{r|rrrr}\textcolor{#893B2F}{\langle G,\cdot\rangle}&amp;\textcolor{#893B2F}{1}&amp;\textcolor{#893B2F}{i}&amp;\textcolor{#893B2F}{-1}&amp;\textcolor{#893B2F}{-i}\\\textcolor{#893B2F}{1}&amp;1&amp;i&amp;-1&amp;-i\\\textcolor{#893B2F}{i}&amp;i&amp;-1&amp;-i&amp;1\\\textcolor{#893B2F}{-1}&amp;-1&amp;-i&amp;1&amp;i\\\textcolor{#893B2F}{-i}&amp;-i&amp;1&amp;i&amp;-1\end{array}[/latex]
+
+I wrote the multiplication table for [latex]G[/latex] using that particular order for a reason, mostly to make the isomorphism easier to see. We needed to play with mapping [latex]0[/latex], [latex]1[/latex], [latex]2[/latex], and [latex]3[/latex] to the set [latex]G[/latex] such that the table structures are preserved.
+
+There are [latex]4!=24[/latex] possible mappings. We can try each one, which is a pain. Each person can develop his own strategy, but mine was first to note that the identity element in one group must map to the identity element in the other group. Thus, we know that [latex]0 \in \mathbb{Z}_{4}[/latex] must map to [latex]1 \in G[/latex]. From there, I need to figure out what pairs of elements generate the respective identity elements under the respective operations. So whatever element in [latex]G[/latex] that [latex]1 \in \mathbb{Z}_{4}[/latex] maps to must&nbsp;<em>multiply</em> (remember we have to use the group element of [latex]G[/latex] when we're over there) with whatever element in [latex]G[/latex] that [latex]3 \in \mathbb{Z}_{4}[/latex] maps to to give [latex]1 \in G[/latex].
+
+We can look at the operation table for [latex]G[/latex] and see that [latex]i\cdot -i = 1[/latex], so we note that perhaps we'll map [latex]1\in Z_{4} \to i \in G[/latex], and [latex]3 \in \mathbb{Z}_{4} \to -i \in G[/latex]. That leaves us mapping [latex]2\in \mathbb{Z}_{4} \to -1 \in G[/latex]. We then see if that mapping allows us to interchange the elements of [latex]\mathbb{Z}_{4}[/latex] under mod 4 addition with the elements of [latex]G[/latex] under multiplication[note]Remember to change operations![/note] to see if we get the same table. As it turns out, we do, so
+
+[latex, display = true]f:\langle \mathbb{Z}_{4},+\rangle \to \langle G, \cdot\rangle \text{ given by } f =\begin{pmatrix}0&amp;1&amp;2&amp;3\\\downarrow&amp;\downarrow&amp;\downarrow&amp;\downarrow\\1&amp;i&amp;-1&amp;-i\end{pmatrix}[/latex]
+
+is our isomorphism. (You can also check for yourself that for any elements [latex]a[/latex] and [latex]b[/latex] in [latex]\mathbb{Z}_{4}[/latex], [latex]f((a+b)\bmod 4) = f(a)\cdot f(b)[/latex].)
+<h2>How do we find out if two groups are&nbsp;<span style="text-decoration: underline;">not</span> isomorphic?</h2>
+Proving no such function that satisfies the definition of an isomorphism exists for two given groups is far harder in many cases than finding one.[note]In fact, proving something doesn't exist is one of the hardest things to do in mathematics.[/note] Isomorphisms require that the structure and properties of a group be preserved when being mapped to another group. Some possible things to look for that can easily show two groups are&nbsp;<em>not</em> isomorphic:
+<ol>
+ 	<li>One group may be commutative, and the other isn't. Commutativity is a structural property, so if the two groups don't share that property, they can't have the same structure.</li>
+ 	<li>One group may have an element (or a few) that are their own inverses, and the other either has none with this property, or a different number of elements with this property.&nbsp;</li>
+ 	<li>Obvious one: if the two groups can't be put into 1-1 correspondence (because they have differing numbers of elements), then they cannot be isomorphic.&nbsp;</li>
+</ol>
+These aren't the only things to look for by any means. Determining whether or not two groups are isomorphic generally requires quite a bit of lateral thinking. However, a mathematician named Arthur Cayley gave us a classic theorem of modern algebra that allows us to simplify the problem by showing that every group is isomorphic to some group of permutations. In the next article, we'll explore the theorem and the proof.&nbsp;
+
+<a href="http://creativecommons.org/licenses/by-nc-nd/4.0/" rel="license"><img style="border-width: 0;" src="https://i.creativecommons.org/l/by-nc-nd/4.0/88x31.png" alt="Creative Commons License"></a>
+This work is licensed under a <a href="http://creativecommons.org/licenses/by-nc-nd/4.0/" rel="license">Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License</a>.		
+		
+						
+		2192
+		2018-03-02 23:23:17
+		2018-03-02 23:23:17
+		closed
+		open
+		isomorphisms-making-mathematics-more-convenient
+		publish
+		0
+		0
+		post
+		
+		0
+										Algebra
+		Group Theory
+		Spines
+						
+		_da_attachments
+		a:0:{}
+		
+							
+		_edit_last
+		2
+		
+							
+		_wp_page_template
+		default
+		
+							
+		_acp_button_style
+		2
+		
+							
+		_acp_loading_type
+		1
+		
+							
+			1042
+			Cayley&#8217;s Theorem: Powerful Permutations &#8211; The Math Citadel
+			
+			http://www.themathcitadel.com/2018/03/20/cayleys-theorem-powerful-permutations/
+			66.226.74.70
+			2018-03-21 15:07:34
+			2018-03-21 15:07:34
+			[&#8230;] the introduction to isomorphisms, check out this post. Cayley&#8217;s powerful theorem states the [&#8230;]
+			1
+			pingback
+			0
+			0
+						
+	akismet_history
+			a:3:{s:4:"time";d:1537552403.0563290119171142578125;s:5:"event";s:11:"report-spam";s:4:"user";s:13:"jasonhathcock";}
+			
+						
+	akismet_user_result
+			false
+			
+						
+	akismet_user
+			jasonhathcock
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1537553453.4762670993804931640625;s:5:"event";s:10:"report-ham";s:4:"user";s:13:"jasonhathcock";}
+			
+							
+					

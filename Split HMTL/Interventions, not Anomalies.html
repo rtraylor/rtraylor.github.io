@@ -1,0 +1,408 @@
+
+		
+				Interventions, not Anomalies		
+		https://www.themathcitadel.com/interventions-not-anomalies/
+		Thu, 15 Jun 2017 18:26:45 +0000
+		admin
+		http://www.theresearchcortex.com/?p=616
+		
+		
+				Anomaly Detection is becoming almost universally considered a "hot topic" across industries and business fields.
+
+A venture capitalist wants to know if a potential investment is an anomaly that will make billions at the time of IPO. A credit card company wants to know if a particular transaction is&nbsp;anomalous, as it could be potentially fraudulent. A systems administrator wants to know if the latency on his storage system is unique to him, or widespread through out the network. A logistics manager wants to know if the recent influx of orders to his warehouse is unusual and/or permanent. In each of these cases, they are all implicitly asking the same question:
+<p style="text-align: center;"><em><strong>Is my current observation abnormal?</strong></em></p>
+<p style="text-align: left;">Before we discuss how to detect anomalies/abnormalities/outliers, the term must be defined. What is an anomaly? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; The brutal secret is that&nbsp;<em>there is no rigid (i.e. mathematical) definition of an anomaly.</em>&nbsp;(See the previous discussion <a href="https://www.themathcitadel.com/defining-an-anomaly/">here</a>).&nbsp;<em>&nbsp;</em>Some attempts at a definition are</p>
+
+<ul>
+ 	<li style="list-style-type: none;">
+<ul>
+ 	<li style="text-align: left;">"An outlying observation, or "outlier," is one that appears to deviate markedly from other members of the sample in which it occurs." [1]</li>
+</ul>
+</li>
+</ul>
+&nbsp;
+<ul>
+ 	<li style="list-style-type: none;">
+<ul>
+ 	<li style="text-align: left;">&nbsp;<q>An outlier is an observation that is far removed from the rest of the observations. [2]</q></li>
+</ul>
+</li>
+</ul>
+&nbsp;
+<ul>
+ 	<li style="text-align: left;">Anything that lies outside the median [latex]\pm[/latex] 1.5IQR[note]IQR stands for the&nbsp;<strong>I</strong>nter<strong>q</strong>uartile&nbsp;<strong>R</strong>ange, and is defined as the difference between the third and first quartile. (IQR = Q3 - Q1).[/note]</li>
+</ul>
+In all of these cases, these statements are all relative to some definition of "typical" or "normal", and defining an outlier to lie "too far" according to some distance metric away from it. Many debates focus on exactly which metric to use, depending on the type of data ([latex]L^{2}[/latex] norm, absolute distance away from the median, more than three standard deviations away from the mean, etc), but the crux of the issue is sidestepped.
+
+In order to define an anomaly, one must define "normal", and then decide how much variability in "normal" is tolerable. There are two stages of subjectivity at play here:
+<ol>
+ 	<li>The definition of "normal"</li>
+ 	<li>How much variability is acceptable</li>
+</ol>
+These two items must be&nbsp;decided before a definition of an anomaly is attempted, which means the resulting definition of an anomaly has a shaky foundation at best. That is, the working definition of an anomaly is&nbsp;<em>relative,&nbsp;</em>and relative to moving targets. &nbsp;Subjectivity has no place in mathematics,&nbsp;for&nbsp;the applications of the vague mathematics are weak and prone to misuse and abuse.&nbsp;(See <a href="https://www.themathcitadel.com/defining-an-anomaly/">previous post</a>)
+
+There are occasions when the definition of an anomaly using the above two steps can be made clear. These occasions are rare, but should be noted. These circumstances typically show up in rigid, well-defined environments, like manufacturing, or engineering/physics laws.
+
+Manufacturing specifications&nbsp;define "normal" clearly and unambiguously, like the location of a hole in sheet metal.&nbsp;&nbsp;Laws of physics are immutable, and not dependent on judgment or subjective interpretation. The laws of motion define how a "macro" object behaves&nbsp;(I hear you, quantum physicists), regardless of the object. We know where&nbsp;both a bowling ball and a golf ball are going to land given their initial position and velocity on Earth.
+
+Acceptable variability is also clearly defined in both of these cases. In manufacturing, a design engineer specifies an acceptable tolerance for deviation of the hole's location. In the case of observing physical laws, the variability comes from measurement error, and is given by the accuracy&nbsp;of the measurement tool.
+
+<em><strong>Example. (The Ideal Gas Law)</strong></em>
+
+The ideal gas law describes the relationship between pressure (in atmospheres), volume (in liters), temperature (in degrees Kelvin), and amount of gas (in moles) of an "ideal gas". Nitrogen is considered to behave very closely to an ideal gas, so for this example, we will assume that nitrogen is an ideal gas and follows the ideal gas law exactly. The ideal gas law is given by
+
+[latex, display = true]PV = nRT[/latex]
+
+where [latex]R = 0.08 \tfrac{L\cdot \text{atm}}{\text{mol}\cdot K}[/latex] is the ideal gas constant. Suppose now that we have exactly 1 mol of nitrogen in a 1 L container. We wish to increase the temperature of the nitrogen to see the effect on the pressure. In this case, we know exactly what the result should be, because we have a physical law that defines the model for this behavior. Here we will also note that the hypothetical pressure sensor has a tolerance of 0.001 atm. That is, the sensor can be up to 0.001 atm off when a measurement is taken.
+
+[caption id="attachment_622" align="aligncenter" width="459"]<a href="http://www.themathcitadel.com/wp-content/uploads/2017/06/ideal-gas-law.jpg"><img class="size-full wp-image-622" src="http://www.themathcitadel.com/wp-content/uploads/2017/06/ideal-gas-law.jpg" alt="" width="459" height="252"></a> The relationship between pressure and temperature for 1 mol nitrogen in a 1L container[/caption]
+
+The graph above shows the exact pressure readings we should expect as we increase the temperature of the container. Therefore, if the temperature of the container is known to be 2 degrees Celsius, and the pressure sensor reads more than 22.001 atm, then we can say the pressure reading is anomalous, because the tolerance is defined by the sensor, and the model is defined exactly by a physical law.
+
+That is, both (1) and (2) from above are specified rigidly and objectively, and not according to a person's judgment. In the vast majority of use cases for "anomaly detection", measurements are not being taken according to a known model. Most of the time, the mathematical model that governs the data is unknown prior to even the desire to detect anomalies (whatever we mean by that) in the dataset. Thus, we cannot extend the principles used in manufacturing and physics to the uncertainty of data science.
+<h3>Intervention vs. Anomalies</h3>
+The data science world requires a different approach that encompasses the inherent uncertainty involved in modeling behavior in the first place, let alone determining "excessive" deviations from it. Enter&nbsp;<em>intervention analysis.</em>
+
+<em>Intervention analysis</em>&nbsp;is a broader, yet more rigid term that describes the study of changes to a data set.[note]Typically, the term is used when studying time series, but I shall extend its use here.[/note] Conceptually, this term embodies the question
+<p style="text-align: center;"><em><strong>Did the behavior change, and is it permanent?</strong></em></p>
+<p style="text-align: left;">When we express a desire for an "anomaly detection system", this is the fundamental question we are asking.&nbsp;Typical algorithms used for outlier analysis, like the Extreme Studentized Deviate[note]<a href="http://www.itl.nist.gov/div898/handbook/eda/section3/eda35h3.htm" target="_blank" rel="noopener noreferrer">Description here.</a>[/note] are only looking for "strange points" within the sequence or dataset relative to what you currently see. If a decision is to be made based on a model or a deviation from it, we would like to know what kind of deviation it is. Intervention analysis formally classifies five[note]There are formal mathematical definitions for these in the context of ARIMA modeling. A future post will address this.[/note]:</p>
+
+<ol>
+ 	<li style="list-style-type: none;">
+<ol>
+ 	<li style="text-align: left;"><strong>Level shift:&nbsp;</strong>At a particular point, the model made a stepwise change that is permanent.</li>
+</ol>
+</li>
+</ol>
+&nbsp;
+<ol>
+ 	<li style="list-style-type: none;">
+<ol>
+ 	<li style="text-align: left;"><strong>Level shift with Lag:&nbsp;</strong>Same as (1), but takes a few time steps to occur. This shows up in the dataset as a gradual increase to the new permanent level.</li>
+</ol>
+</li>
+</ol>
+&nbsp;
+<ol>
+ 	<li style="list-style-type: none;">
+<ol>
+ 	<li style="text-align: left;"><strong>Temporary Change:&nbsp;</strong>The model experiences a level shift that has a decaying effect over time.</li>
+</ol>
+</li>
+</ol>
+&nbsp;
+<ol>
+ 	<li style="list-style-type: none;">
+<ol>
+ 	<li style="text-align: left;"><strong>Innovation Outlier:&nbsp;</strong>This is the most complex type, typically is defined to represent the onset of a causal effect or a change in the model itself.</li>
+</ol>
+</li>
+</ol>
+&nbsp;
+<ol>
+ 	<li style="text-align: left;"><strong>Additive Outlier:&nbsp;</strong>the "point outlier". It has no effect on future behavior.</li>
+</ol>
+For examples of each, visit&nbsp;<a href="https://onlinecourses.science.psu.edu/stat510/node/76">this page</a>&nbsp;for a good introductory description. I also cite the relevant papers in the references.
+
+The important aspect with this approach is that a model is formally defined (for time series, this is called ARIMA), as well as changes to that model. Thus, when we talk about a level shift, there is no ambiguity. Moreover, with formal definitions and types, we can classify a change according to the effect the point has on the future points.[note] I have not addressed the problem of parameter estimation of the model, which is a valid concern. Here we are only concerned about having a good definition of the model family, as opposed to allowing "black box" algorithms such as neural networks or various other "deep learning" strategies that have no interpretable definition[/note]
+<h2>Proposed Strategy</h2>
+Detecting innovations in practice is difficult; this post is not meant to diminish this. Creating a model from data without much prior knowledge of the behavior of the data is also difficult, as these interventions can have adverse effects on building the model in the first place. That is, if a level shift is present in the data at a certain point, we may end up with a different initial model that doesn't notice the level shift, because it got built into the model as if it were normal, simply because we didn't know any better. There are estimation techniques, and some papers are referenced at the end for those interested. Here we are interested in an overall strategy to consider these problems in the first place.
+
+Since we must estimate the model, then attempt to identify interventions&nbsp;<em>and</em>&nbsp;classify them, a sensible solution is a probabilistic approach. That is, the modelling is done via some (hopefully robust) method X, and then the potential intervention points are identified via another method Y. Behind the scenes, we ultimately want to classify each point as
+<ol>
+ 	<li>nothing</li>
+ 	<li>one of the types of interventions describes above</li>
+</ol>
+and rank these possibilities according to the likelihood a particular point belongs in one of the 6 possibilities. The uncertainty is therefore demonstrated in a true probabilistic fashion, and a decision can be made taking into account all the possibilities for a particular intervention.
+<h2>Conclusion</h2>
+In order to identify and solve business problems effectively, the terms must be rigidly defined. By looking at intervention analysis, we can approach very difficult problems with a more solid foundation, since the model&nbsp;<em>and the interventions/outliers</em> have unambiguous, formal definitions. Moreover, a "big picture" strategy for employment should be probabilistic, rather than threshold or classification-based. In this way, the uncertainty can be expressed fully, which allows for more informed decision-making.
+<a href="http://creativecommons.org/licenses/by-nc-nd/4.0/" rel="license"><img style="border-width: 0;" src="https://i.creativecommons.org/l/by-nc-nd/4.0/88x31.png" alt="Creative Commons License"></a>
+This work is licensed under a <a href="http://creativecommons.org/licenses/by-nc-nd/4.0/" rel="license">Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License</a>.
+<h2>References</h2>
+<ol>
+ 	<li>Grubbs, F. E. (February 1969). "Procedures for detecting outlying observations in samples".&nbsp;<i>Technometrics</i>.&nbsp;<b>11</b>&nbsp;(1): 1–21.&nbsp;<a title="Digital object identifier" href="https://en.wikipedia.org/wiki/Digital_object_identifier">doi</a>:<a class="external text" href="https://doi.org/10.1080%2F00401706.1969.10490657" rel="nofollow">10.1080/00401706.1969.10490657</a>.</li>
+ 	<li><a title="G. S. Maddala" href="https://en.wikipedia.org/wiki/G._S._Maddala">Maddala, G. S.</a>&nbsp;(1992).&nbsp;<a class="external text" href="https://books.google.com/books?id=nBS3AAAAIAAJ&amp;pg=PA89" rel="nofollow">"Outliers"</a>.&nbsp;<i>Introduction to Econometrics</i>&nbsp;(2nd ed.). New York: MacMillan. pp.&nbsp;88–96 [p. 89].&nbsp;<a title="International Standard Book Number" href="https://en.wikipedia.org/wiki/International_Standard_Book_Number">ISBN</a>&nbsp;<a title="Special:BookSources/0-02-374545-2" href="https://en.wikipedia.org/wiki/Special:BookSources/0-02-374545-2">0-02-374545-2</a>.</li>
+ 	<li><a class="ref nowrap" href="http://amstat.tandfonline.com/doi/abs/10.1080/01621459.1993.10594321">Joint Estimation of Model Parameters and Outlier Effects in Time Series</a>.&nbsp;Chung Chen and Lon-Mu Liu.&nbsp;<a class="issue-link" href="http://amstat.tandfonline.com/toc/uasa20/88/421"><span class="journalName">Journal of the American Statistical Association</span>&nbsp;</a><span class="volume">Vol. 88 , Iss. 421,1993</span></li>
+</ol>		
+		
+						
+		616
+		2017-06-15 18:26:45
+		2017-06-15 18:26:45
+		open
+		open
+		interventions-not-anomalies
+		publish
+		0
+		0
+		post
+		
+		0
+										anomaly
+		Spines
+		Statistics
+						
+		_da_attachments
+		a:0:{}
+		
+							
+		_edit_last
+		2
+		
+							
+		_acp_button_style
+		1
+		
+							
+		_acp_loading_type
+		1
+		
+							
+		_wp_page_template
+		default
+		
+							
+			6
+			Bablofil
+			admin@bablofil.ru
+			https://bablofil.ru
+			95.72.240.40
+			2017-06-16 12:51:37
+			2017-06-16 12:51:37
+			Thanks, great article.
+			1
+			
+			0
+			0
+							
+					
+			14233
+			Brandi Butzen
+			Ellenwood63103@gmail.com
+			https://www.cnn.com
+			81.171.97.101
+			2019-03-08 07:18:14
+			2019-03-08 07:18:14
+			I appreciate you sharing this blog article. Much obliged.
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1552029494
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552029494.393498897552490234375;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			37429d04ad05a3085fc3c0dff29a479b
+			
+							
+					
+			14875
+			Trent Amer
+			Semenick14146@gmail.com
+			http://earllovesyou.com
+			205.185.209.140
+			2019-03-10 18:55:11
+			2019-03-10 18:55:11
+			loans in philadelphia <a href="https://installmentloans2018.com/" rel="nofollow">installment loans</a> installment loans <a href="https://installmentloans2018.com/" rel="nofollow">online payday loans florida</a> tribal loans online <a href="https://onlineloans2018.com/" rel="nofollow">online loans</a> online loans <a href="https://onlineloans2018.com/" rel="nofollow">online loans for bad credit</a> no credit loans <a href="https://creditloansguaranteedapproval2018.com/" rel="nofollow">quick credit</a> credit loans <a href="https://creditloansguaranteedapproval2018.com/" rel="nofollow">poor credit loans</a>
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1552244111
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552244111.8824489116668701171875;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			539efc254e5fb0447f57ca9f318973e3
+			
+							
+					
+			16234
+			Trenton Ewton
+			Chea35976@gmail.com
+			http:/suckafatonehomo.com
+			64.145.76.129
+			2019-03-16 00:08:22
+			2019-03-16 00:08:22
+			Definitely believe that which you said. Your favorite justification appeared to be on the internet theeasiest thing to be aware of. I say to you, I definitely get irkedwhile people consider worries that they just don’tknow about. You managed to hit the nail upon the top and defined out the whole thing without having side effect , people can take a signal.Will probably be back to get more. Thanks
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1552694902
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552694902.979206085205078125;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			1962bf389460da6f0744ae7189322a01
+			
+							
+					
+			16352
+			Williams Petrie
+			Emlin74083@gmail.com
+			http://suckafatonehomo.com
+			81.171.81.209
+			2019-03-16 05:59:53
+			2019-03-16 05:59:53
+			??USA political news. We n we publish all of them hot and topical facts World, analytics experts. All evil in the world happens with the quiet tacit consent of the indifferent. No one provides us with incentives. We are Enthusiasts. We are building a civil society. The people are the bearer of sovereignty and the only source of power. No one can usurp power. Useful topics – Russia <a href="http://apartment.remmont.com" rel="nofollow">Mortgage News</a> <a href="http://credit.remmont.com/visa-credit-card-bad-credit-card-bad-credit-no-annual-fee-goodyear-credit-card/" rel="nofollow"> trucredit com login </a> <a href="http://quote.remmont.com/master-black-belt-certification-become-mbb-certified-asq-sigma-master-black-belt-sigma-master-black-belt/" rel="nofollow"> csr transmission shield recertification </a>  <a href="http://claim.nef2.com/author/admin/" rel="nofollow"> go2ui com weekly claim </a> <a href="http://claim.nef2.com/2018/06/" rel="nofollow"> go2ui com weekly claim </a>  <a href="http://malta.nef6.com/2017/08/30/steve-hardie-how-to-renew-a-godaddy-exchange-2010-ssl-certificate-wilcard-ssl/" rel="nofollow"> exchange 2010 csr renewal </a> <a href="https://twitter.com/remontkvartir" rel="nofollow"> TWITTER </a><a href="https://www.facebook.com/Santa-Ana-Business-153679202080196/" rel="nofollow"> FACEBOOK </a><a href="https://plus.google.com/u/0/communities/115332860526002824423" rel="nofollow"> GOOGLE+ </a><a href="https://vk.com/public145711611" rel="nofollow">Apartment</a>
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1552715993
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552715993.516334056854248046875;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			e43e5d7273c775857593d220faf0a433
+			
+							
+					
+			17054
+			Charlesetta Bellinder
+			Pizzano38805@gmail.com
+			https://www.youcrazy.com/
+			209.107.210.213
+			2019-03-18 22:06:10
+			2019-03-18 22:06:10
+			Hi, Neat post. There’s a problem along with your web site in web explorer, might check this¡K IE nonetheless is the market leader and a large component to other people will leave out your fantastic writing due to this problem.
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1552946770
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552946770.6558830738067626953125;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			f01dd4fcd1777e900b6808f8c16889a4
+			
+							
+					
+			17683
+			Caleb Ferreira
+			Lanton37546@gmail.com
+			https://www.lickmyballs.com
+			209.107.196.54
+			2019-03-21 02:15:44
+			2019-03-21 02:15:44
+			I am constantly browsing online for ideas that can benefit me. Thanks!
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1553134544
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1553134544.95864105224609375;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			f274ddb2013d7f6c950e95e75ec14006
+			
+							
+					
+			21436
+			Austepils
+			austdut@wmaill.website
+			http://drugs20.com
+			31.184.238.129
+			2019-04-02 04:25:10
+			2019-04-02 04:25:10
+			Cialis Mexican Pharmacy No Imatation  [url=http://realviaonline.com]cialis 5mg best price[/url] Propecia Vault Lilly Cialis Preis
+			0
+			
+			0
+			0
+						
+	akismet_error
+			1554179110
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1554179110.3692209720611572265625;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+							
+					
+			22024
+			firtukloimutrzas
+			Kriss44044@gmail.com
+			http://www.firtukloimutrzas.com/
+			107.178.99.187
+			2019-04-03 20:08:26
+			2019-04-03 20:08:26
+			Great V I should definitely pronounce, impressed with your website. I had no trouble navigating through all tabs as well as related info ended up being truly easy to do to access. I recently found what I hoped for before you know it in the least. Quite unusual. Is likely to appreciate it for those who add forums or anything, web site theme . a tones way for your customer to communicate. Nice task..
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1554322106
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1554322106.970818042755126953125;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			1212d4bb9586eba72f126ed5b804c0cc
+			
+							
+					
+			23139
+			firtukloimutrzas
+			Ploennigs82447@gmail.com
+			http://www.firtukloimutrzas.com/
+			107.178.102.246
+			2019-04-06 13:11:32
+			2019-04-06 13:11:32
+			Good day! This is my first comment here so I just wanted to give a quick shout out and say I really enjoy reading your posts. Can you recommend any other blogs/websites/forums that go over the same topics? Thanks a ton!
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1554556292
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1554556292.256843090057373046875;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			61a89b00e4af1b512d752d58e4aadf5a
+			
+							
+					

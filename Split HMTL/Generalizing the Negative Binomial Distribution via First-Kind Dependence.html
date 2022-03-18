@@ -1,0 +1,212 @@
+
+		
+				Generalizing the Negative Binomial Distribution via First-Kind Dependence		
+		https://www.themathcitadel.com/generalizing-the-negative-binomial-distribution-via-first-kind-dependence/
+		Wed, 27 Dec 2017 23:47:08 +0000
+		admin
+		http://www.themathcitadel.com/?p=1874
+		
+		
+				This paper generalizes the negative binomial random variable by generating it from a sequence of first-kind dependent Bernoulli trials under the identity permutation. The PMF, MGF, and various moments are provided, and it is proven that the distribution is indeed an extension of the standard negative binomial random variable. We examine the effect of complete dependence of the Bernoulli trials on the generalized negative binomial random variable. We also show that the generalized geometric random variable is a special case of the generalized negative binomial random variable, but the generalized negative binomial random variable cannot be generated from a sum of i.i.d. generalized geometric random variables.
+<h5 style="text-align: center;">To download the paper with all proofs, click [download-attachment id="1888" title="here"]</h5>
+<!--more-->
+<h2>Introduction</h2>
+A binomial random variable [latex]Z_n[/latex] is constructed from a sequence of [latex]n[/latex] Bernoulli random variables [latex]{\epsilon_{1}, \epsilon_{2},\ldots,\epsilon_{n}}[/latex],&nbsp;and counts the number of 1s, or "successes" in the sequence. Mathematically, a binomial random variable&nbsp;is given by [latex]Z_{n} = \sum_{i=1}^{n}\epsilon_{i}[/latex]. A traditional binomial random variable requires an i.i.d. sequence of Bernoulli random variables. Korzeniowski [1] developed a generalized binomial distribution under the condition that the Bernoulli sequence is <em>first-kind dependent</em>.
+
+A "different perspective", as it were, to the binomial random variable is the negative binomial random variable. With a binomial random variable, we fix the number of trials and count the number of "successes". Suppose now we fix the number of successes as [latex]k[/latex] and continue to run Bernoulli trials until the [latex]k[/latex]th success. The random number of trials necessary to get [latex]k[/latex] successes is a <em>negative binomial random variable</em>, and may be formulated mathematically as [latex]V_k =\min_{n \geq k}(n:Z_n = k)[/latex]. The sequence is halted when the [latex]k[/latex]th success appears, which will always be on the last trial. Thus, the event [latex](V_{k} = n)[/latex] is equivalent to [latex](Z_{n-1} = k-1 \wedge \epsilon_{n} = 1)[/latex]. A standard negative binomial distribution is constructed from an i.i.d. sequence of Bernoulli random variables, just like the binomial random variable. The PMF is given by
+
+[latex, display = true]P(V_{k} = n) = {n-1 \choose k-1}p^{k}(1-p)^{n-k},\quad n \geq k[/latex]
+
+We may also characterize the negative binomial distribution in a different way. Let [latex]Y[/latex] denote the number of additional trials beyond the minimum possible [latex]k[/latex] required for [latex]k[/latex] successes. Since the trials are Bernoulli trials, [latex]Y[/latex] denotes the random number of failures that will occur before the [latex]k[/latex]th success is observed. Thus, if we denote [latex]y[/latex] as the number of failures, [latex]n = k + y[/latex], where [latex]k[/latex] is fixed, and thus the random variable [latex]Y[/latex] with support [latex]\{0,1,2,\ldots\}[/latex] is equivalent to the previous characterization of [latex]V_k[/latex]. The PMF of [latex]Y[/latex] is easily derived and given by
+
+[latex, display = true]P(Y=y) = {k+y-1 \choose y}p^{k}(1-p)^{y}[/latex]
+
+A first-kind dependent sequence of Bernoulli trials is identically distributed but dependent ([1], [2], [4]) (see the papers for [2] and [4] <a href="https://www.themathcitadel.com/a-generalized-multinomial-distribution-from-dependent-categorical-random-variables/">here</a> and <a href="https://www.themathcitadel.com/vertical-dependency-in-sequences-of-categorical-random-variables/">here.</a>), and thus can generate generalized versions of random variables that are functions of sequences of identically distributed Bernoulli or categorical random variables ([2], [3]) (You can reach these papers <a href="https://www.themathcitadel.com/a-generalized-multinomial-distribution-from-dependent-categorical-random-variables/">here</a> and <a href="https://www.themathcitadel.com/a-generalized-geometric-distribution-from-vertically-dependent-bernoulli-random-variables/">here</a>.). This paper generalizes the negative binomial distribution given above by allowing the Bernoulli sequence to be first-kind dependent.
+<h2>Derivation of the PMF</h2>
+
+<hr>
+
+<div>
+
+<em><span style="text-decoration: underline;"><strong>Theorem 1:</strong></span><strong> &nbsp;</strong></em>
+Let [latex]k\in\mathbb{N}[/latex] be fixed, and [latex]\epsilon = \{\epsilon_{1},\epsilon_{2},\ldots\}[/latex] be a sequence of first-kind dependent Bernoulli trials under the identity permutation with [latex]P(\epsilon_{k} = 1) = p[/latex] and dependency coefficient [latex]\delta[/latex]. Define [latex]q=1-p[/latex], [latex]p^{+} = p + \delta q[/latex], [latex]p^{-} = p-\delta p[/latex], [latex]q^{+} = q + \delta p[/latex], and [latex]q^{-} = q-\delta q[/latex]. Let [latex]Z_{n}[/latex] denote a generalized binomial random variable of length [latex]n[/latex]. Let [latex]V_{k}[/latex] denote the random variable that counts the number of first-kind dependent Bernoulli trials until the [latex]k[/latex]th success. That is, [latex]V_k =\min_{n \geq k}(n:Z_n =k)[/latex]. Then the PMF of [latex]V_k[/latex] is given by
+
+[latex, display = true]P(V_{k} = n) = p{n-2 \choose k-2}(p^{+})^{k-1}(q^{-})^{n-k}+q{n-2\choose k-1}(p^{-})^{k}(q^{+})^{n-k-1}[/latex]
+
+<hr>
+
+It will be more helpful to characterize the generalized negative binomial random variable our alternative way, by letting [latex]V_{k} = Y+k[/latex], where [latex]Y[/latex] is the random variable that counts the number of additional trials beyond the minimum possible [latex]k[/latex] necessary to achieve the [latex]k[/latex]th success or, equivalently, the number of failures in a sequence of FK-dependent Bernoulli variables with [latex]k[/latex] successes.
+
+</div>
+The PMF of [latex]Y[/latex] is given in the following corollary
+
+<hr>
+
+<div><em><span style="text-decoration: underline;"><strong>Corollary 1:</strong></span></em></div>
+Let [latex]Y[/latex] be the random variable described here, with support [latex]\{0,1,2,\ldots\}[/latex]. Then [latex]Y[/latex] is equivalent to [latex]V_{k}[/latex], and the PMF of [latex]Y[/latex] is given by&nbsp;
+<div>
+
+[latex, display = true]P(Y=y) = p{y+k-2 \choose y}(p^{+})^{k-1}(q^{-})^{y} + q{y+k-2 \choose y-1}(p^{-})^{k}(q^{+})^{y-1}[/latex]
+
+<hr>
+
+</div>
+<div>&nbsp;</div>
+<div>
+
+When [latex]\delta = 0[/latex], a FK-dependent Bernoulli sequence becomes a standard i.i.d. Bernoulli sequence. Thus, when [latex]\delta = 0[/latex], [latex]Y[/latex]reverts to a standard negative binomial distribution.
+
+<hr>
+
+</div>
+<div><em><span style="text-decoration: underline;"><strong>Corollary 2:</strong></span></em></div>
+<div>
+
+Let [latex]Y[/latex] be a generalized negative binomial distribution constructed via FK-dependency under the&nbsp;identity permutation with dependency coefficient [latex]\delta[/latex]. When [latex]\delta = 0[/latex], [latex]Y[/latex] is a standard negative binomial random variable.
+
+<hr>
+
+</div>
+<h2>The Moment Generating Function and Various Moments</h2>
+
+<hr>
+
+<div>
+
+<em><span style="text-decoration: underline;"><strong>Theorem 2:</strong></span></em><em><span style="text-decoration: underline;">&nbsp;</span></em>
+
+The moment generating function of the generalized negative binomial distribution is given by
+
+[latex, display = true]M_{Y}(t) = \frac{p(p^{+})^{k-1}}{(1-e^{t}q^{-})^{k-1}} + \frac{q(p^{-})^{k}e^{t}}{(1-e^{t}q^{+})^{k}}[/latex]
+
+<hr>
+
+</div>
+<em>Remark:&nbsp;&nbsp;This is indeed a generalization of the standard negative binomial distribution, as it is now a special case of the generalized negative binomial distribution when [latex]\delta = 0[/latex]. To see this, we will show that the MGF of the generalized negative binomial distribution becomes the MGF for the standard negative binomial distribution.</em>
+<div>
+
+When [latex]\delta = 0[/latex], a FK-dependent sequence reverts back to a standard i.i.d. sequence. That is, [latex]p^{+}=p^{-}=p[/latex], and [latex]q^{+} = q^{-}=q[/latex]. So in this case,[latex, display = true]\begin{aligned}M_{Y}(t) &amp;= \frac{p^{k}}{(1-e^{t}q)^{k-1}} + \frac{qp^{k}e^{t}}{(1-e^{t}q)^{k}}\\&amp;= \frac{(1-e^{t}q)p^{k} + qp^{k}e^{t}}{(1-e^{t}q)^{k}}\\&amp;=\frac{p^{k}}{(1-e^{t}q)^{k}}\end{aligned}[/latex]
+
+</div>
+We may now derive the various moments of the generalized negative binomial distribution using the moment generating function.
+<h3>Mean of generalized negative binomial distribution</h3>
+The mean of the generalized negative binomial distribution is given by
+[latex, display = true]\mu_{Y} = \text{E}[Y] = \frac{kpq + k\delta q^{2}-(k-1)\delta pq(1-\delta)}{p^{2}(1-\delta)+\delta pq(1-\delta)}[/latex]
+
+<em>Remark: Note the reduction of the GNB mean to that of the standard negative binomial distribution when</em>&nbsp;<em>the sequence is independent. For [latex]\delta = 0[/latex], [latex]\text{E}[Y] = \frac{kq}{p}[/latex].</em>
+<h3>Variance of the generalized negative binomial distribution</h3>
+After many attempts to distill the formula to a palatable expression, the variance of the generalized negative binomial distribution is given by
+
+[latex, display = true]\begin{aligned}\text{Var}[Y]&amp;=\frac{kq}{(p+q\delta)^{2}(1-\delta)^{2}}\\&amp;\quad+\dfrac{\delta(p^{3}q + kpq^{2}-kq^{3})}{p^{2}(1-\delta^{2})(p+q\delta)^{2}}+\dfrac{\delta^{2}(k^{2}pq + kq -3kpq^{2}-2p^{3}q)}{p^{2}(1-\delta^{2})(p+q\delta)^{2}}\\&amp;\quad\quad+\dfrac{\delta^{3}pq(p^{2}-k-2kq)}{p^{2}(1-\delta^{2})(p+q\delta)^{2}}\end{aligned}[/latex]
+
+<em>Remark:</em> <em>Once again, under independence, [latex]\text{Var}[Y] = \frac{kq}{p^{2}}[/latex], the variance of the standard negative binomial. Other higher order moments can also be obtained from the moment generating function and copious amounts of tedious arithmetic.</em>
+<h2>Other Considerations</h2>
+<h3>The effect of complete dependence</h3>
+It's also worth exploring the other extremes, like complete dependence. As <a href="https://www.themathcitadel.com/a-generalized-multinomial-distribution-from-dependent-categorical-random-variables/">illustrated</a> in [2], complete dependence under FK-dependence implies that every Bernoulli trial will be identical to the outcome of the first trial. Thus, if [latex]\epsilon_{1} = 0[/latex], the entire sequence will be all 0s, and vice versa if [latex]\epsilon_{1} = 1[/latex]. What does that mean for the generalized negative binomial distribution? If [latex]\epsilon_{1} = 0[/latex], the sequence will never end; [latex]k[/latex] successes will never happen. On the other hand, if [latex]\epsilon_{1} = 1[/latex], then you are guaranteed to reach [latex]k[/latex] successes in [latex]k[/latex] trials. This results in both an infinite mean and variance, seen by plugging in [latex]\delta = 1[/latex].
+
+Exploring the PMF under [latex]\delta = 1[/latex], [latex]P(Y=0) = p[/latex], because [latex]P(\epsilon_{1} = 1) = p[/latex]. If [latex]\epsilon_{1}= 1[/latex], and [latex]\delta = 1[/latex], then there will be only 1s in the sequence, and no 0s, and thus [latex]P(Y=0) = P(\epsilon_{1} = 1)[/latex]. If [latex]\epsilon_{1} = 0[/latex], then there are only 0s in the FK-dependent Bernoulli sequence, and no 1s. Thus, [latex]Y[/latex] can only be [latex]\infty[/latex], and [latex]P(Y = \infty) = P(\epsilon_{1} = 0) = q[/latex].
+
+<em>Remark:</em>&nbsp;<em>When we say [latex]Y = \infty[/latex], we mean that the sequence of trials has no halting point. That is, the counting process never ends.</em>
+
+Thus, under complete dependence of the first kind, the support of [latex]Y[/latex] has two points [latex]\{0,\infty\}[/latex], with probabilities [latex]p[/latex] and [latex]q[/latex] respectively. This is another way to confirm that [latex]Y[/latex] will have infinite mean and variance in this case.
+<h3>The negative binomial random variable as a sum of geometric random variables</h3>
+&nbsp;
+The standard negative binomial distribution with [latex]k[/latex] fixed successes can be derived as a sum of independent standard geometric random variables. One shows this by showing the moment generating function of the standard negative binomial distribution is equal to the product of [latex]k[/latex] i.i.d. standard geometric random variables. Moreover, it can also be shown that the standard geometric random variable is a special case of the standard negative binomial distribution when [latex]k = 1[/latex].
+
+How much of this carries over to the generalized versions of both distributions? The generalized geometric distribution was <a href="https://www.themathcitadel.com/a-generalized-geometric-distribution-from-vertically-dependent-bernoulli-random-variables/">introduced and detailed</a> by Traylor in [2]. Here, we are concerned with the PMF of "Version 2" of the generalized geometric distribution, as the "shifted" generalized geometric distribution counts the number of failures prior to the first success, and is analogous to counting the number of failures in a sequence of trials before the [latex]k[/latex]th success. We reproduce Proposition 2 from [2] here:
+
+<strong>Proposition 2, [2]:</strong> Suppose [latex]\epsilon = (\epsilon_{1},\epsilon_{2},\ldots,\epsilon_{n},\ldots)[/latex] is a FK-dependent sequence of Bernoulli random variables. Let [latex]Z = X-1[/latex] be the count of failures prior to the first success. Then [latex]Z[/latex] has a shifted generalized geometric distribution with PMF
+<div>[latex, display = true]f_{Z}(z) = \left\{\begin{array}{lr}p, &amp;z=0\\q(q^{+})^{z-1}p^{-}, &amp;z\geq 1\end{array}\right.[/latex]</div>
+We can quickly derive its MGF:
+
+<hr>
+
+<em><span style="text-decoration: underline;"><strong>Proposition 1:</strong></span></em>
+The moment generating function of the shifted generalized geometric distribution is given by&nbsp;
+
+[latex, display = true]M_{Z}(t) = p + \frac{e^{t}qp^{-}}{1-e^{t}q^{+}}[/latex]
+
+<hr>
+
+<h4>Generalized geometric RV as a special case of generalized negative binomial RV</h4>
+It is true that, for [latex]k = 1[/latex], the generalized negative binomial distribution under FK-dependence reduces to the generalized geometric distribution. This is given in the following theorem.
+
+<hr>
+
+<em><span style="text-decoration: underline;"><strong>Theorem 3:</strong></span></em>
+
+When [latex]k=1[/latex], the generalized negative binomial random variable reduces to a generalized geometric random variable.
+
+<hr>
+
+(To see this, simply plug in [latex]k=1[/latex] to the PMF of the generalized negative binomial distribution.)
+<h4>Sum of independent generalized geometric random variables does not yield a generalized negative binomial random variable</h4>
+Unlike the standard case, a sum of i.i.d. generalized geometric random variables does not yield a generalized negative binomial random variable. First, we note what we mean by a set of i.i.d. generalized geometric random variables. Suppose we have a set of generalized geometric random variables [latex]\{X_{1},X_{2},\ldots,X_{k}\}[/latex], each with the same [latex]p[/latex], [latex]q[/latex], and [latex]\delta[/latex], and all first-kind dependent. Thus, to say that each of these geometric random variables is mutually independent of the others is to say that nothing about the other geometric random variables has any probabilistic bearing on the variable in question. That is, the dependency structure is not changed or altered, and [latex]P(X_{i}|X_{j}) = P(X_{i})[/latex], [latex]i\neq j[/latex], [latex]i=1,2,\ldots,k[/latex]. The Bernoulli random variables that make up each geometric random variable still remain FK-dependent among themselves. That is, if [latex]\epsilon_{i} = (\epsilon_{1}^{(i)},\epsilon_{2}^{(i)},\ldots,\epsilon_{n_{i}}^{(i)})[/latex] is the sequence of Bernoulli trials that comprises [latex]X_{i}[/latex], each [latex]\epsilon_{i}[/latex] is FK-dependent among its elements, but independent of the other sequences [latex]\epsilon_{j}[/latex].
+
+One can easily see that, if the generalized negative binomial distribution were able to be generated by the sum of i.i.d. generalized geometric random variables, then [latex]M_{Y}(t) = \prod_{i=1}^{k}M_{X_{i}}(t)[/latex]. But
+
+[latex, display = true]\begin{aligned}\prod_{i=1}^{k}M_{X_{i}}(t) &amp;=\left(p + \frac{e^{t}qp^{-}}{1-e^{t}q^{+}}\right)\\&amp;\neq \frac{p(p^{+})^{k-1}}{(1-e^{t}q^{-})^{k-1}} + \frac{q(p^{-})^{k}e^{t}}{(1-e^{t}q^{+})^{k}}\\&amp;= M_{Y}(t)\end{aligned}[/latex]
+
+Why is this? The answer is quite intuitive. The generalized negative binomial distribution under FK-dependence is one sequence under a FK dependency structure. That is, all Bernoulli trials after the first depend directly on the first. Summing generalized geometric random variables under FK dependence is equivalent to constructing a sequence of generalized geometric random variables, one after the other. Since these are themselves comprised of FK-dependent Bernoulli trials, each time a success is observed, the dependency structure ”starts over” with the next geometric random variable.
+
+For example, suppose the first geometric random variable has a success on the third trial. Then the fourth Bernoulli trial is starting an entirely new sequence of FK-dependent Bernoulli variables, and does not depend on the outcome of the first. This is not equivalent to the definition of a generalized negative binomial distribution.
+
+This property held for the standard versions of the geometric and negative binomial random variables because every Bernoulli trial in each geometric sequence is i.i.d. Thus, there is no "transition” from one geometric random variable to another; it’s as if it was all one big sequence of Bernoulli trials to begin with. We lose that when we introduce dependency structures.
+<h2>Conclusion</h2>
+This paper introduced the generalized negative binomial distribution built from a sequence of FK- dependent random variables. The PMF, MGF, and various moments were derived. It was also noted that the generalized geometric distribution is a special case of the generalized negative binomial distribution, but one cannot construct a generalized negative binomial random variable from the sum of i.i.d. generalized geometric random variables.
+
+<a href="http://creativecommons.org/licenses/by-nc-nd/4.0/" rel="license"><img style="border-width: 0;" src="https://i.creativecommons.org/l/by-nc-nd/4.0/88x31.png" alt="Creative Commons License"></a>
+This work is licensed under a <a href="http://creativecommons.org/licenses/by-nc-nd/4.0/" rel="license">Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License</a>.
+<h2>References</h2>
+<div class="page" title="Page 7">
+<div class="layoutArea">
+<div class="column">
+<ol>
+ 	<li>Andrzej Korzeniowski. On correlated random graphs. Journal of Probability and Statistical Science, pages 43–58, 2013.</li>
+ 	<li>Rachel Traylor. A generalized geometric distribution from vertically dependent categorical random variables. Academic Advances of the CTO, 2017.</li>
+ 	<li>&nbsp;Rachel Traylor. A generalized multinomial distribution from dependent categorical random variables. Academic Advances of the CTO, 2017.</li>
+ 	<li>&nbsp;Rachel Traylor and Jason Hathcock. Vertical dependency in sequences of categorical random variables. Academic Advances of the CTO, 2017.</li>
+</ol>
+</div>
+</div>
+</div>
+<div>&nbsp;</div>		
+		
+						
+		1874
+		2017-12-27 23:47:08
+		2017-12-27 23:47:08
+		closed
+		open
+		generalizing-the-negative-binomial-distribution-via-first-kind-dependence
+		publish
+		0
+		0
+		post
+		
+		0
+										dependency
+		generalized
+		Probability Theory
+		Spire
+						
+		_da_attachments
+		a:0:{}
+		
+							
+		_edit_last
+		2
+		
+							
+		_wp_page_template
+		default
+		
+							
+		_acp_button_style
+		1
+		
+							
+		_acp_loading_type
+		1
+		
+							

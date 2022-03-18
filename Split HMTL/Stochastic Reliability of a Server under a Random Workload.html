@@ -1,0 +1,1035 @@
+
+		
+				Stochastic Reliability of a Server under a Random Workload		
+		https://www.themathcitadel.com/stochastic-reliability-of-a-server-under-a-random-workload/
+		Sun, 11 Jun 2017 23:58:34 +0000
+		admin
+		http://localhost:8000/?p=555
+		
+		
+				<h5 style="text-align: center;">For the full paper, which includes all proofs, click&nbsp;<a href="https://www.themathcitadel.com/wp-content/uploads/2017/06/stochastic-reliability-random-workload.pdf" target="_blank" rel="noopener noreferrer">here if you dare.</a></h5>
+[nextpage title="..."]
+<h2>Abstract</h2>
+<em>Editor's note: This paper is the first chapter from a PhD thesis published in 2016 by Rachel Traylor</em>. We generalize a 2011 model from Cha and Lee that gave a closed form for the survival function of a server under a random workload, and with random service times. In this work, the constant stress assumption of Cha and Lee is relaxed and allowed to be random; that is, every request to the server brings a random stress or workload to the server for the duration of its stay until completion. The efficiency measure of a random stress server is defined as the long run average number of jobs completed per unit time, and provides a way to measure server performance.
+<h2>Introduction</h2>
+There are many types of systems which can be dubbed servers, such as a retail checkout counter, a shipping company, a web server, or a customer service hotline. All of these systems have common general behavior. Requests or customers arrive via a stochastic process, the service times vary randomly, and each request stresses the server if only temporarily. A general stochastic model that describes the reliability of such a server can provide the necessary information for optimal resource allocation and efficient task scheduling, leading to significant cost savings for businesses and improved performance metrics&nbsp;[6]. Such topics have been studied in literature for several decades [1, 2, 3, 20].
+
+Much attention was devoted to reliability principles that model software failures and bug fixes, starting with Jelinski and Moranda in 1972&nbsp;[11]. The hazard function under this model shows the time between the<em> i-</em>th failure and the (<em>i&nbsp;</em>+ 1)st failure. Littlewood (1980)&nbsp;[16]&nbsp;extended this initial reliability model for software by assuming differences in error size [12].
+
+These models have been extended into software testing applications&nbsp;[4, 5, 19]&nbsp;and optimal software release times [7, 8, 17, 22]. The explosion of e-commerce and the resulting increase in internet traffic have led to the development of reliability models for Web applications. Heavy traffic can overload and crash a server; thus, various control policies for refreshing content and admission of page requests were created [10, 13, 15, 18, 23].
+
+In particular, Cha and Lee (2011)&nbsp;[9]&nbsp;proposed a stochastic breakdown model for an unreliable web server whose requests arrive at random times according to a nonhomogenous Poisson process and bring a constant stress factor to the system that dissipates upon service completion. The authors provide a fairly general survival function under any service distribution [latex]g_{W}(w)[/latex], define server efficiency to measure performance, and illustrate a possible admission control policy due to an observed property of the server efficiency under a specific numerical example.
+
+Thus far, no extensions of&nbsp;[9]&nbsp;have been proposed. This work generalizes the model put forth by Cha and Lee in a variety of ways. First, the assumption of constant job stress is relaxed and replaced by a random variable, and a new survival function and efficiency equation are derived. This work, while suitable for IT applications, is general enough for use in almost any industry, including logistics, retail, manufacturing, and engineering systems.
+
+[/nextpage]
+
+[nextpage title="..."]
+<h2>Background (Cha and Lee's Model)</h2>
+&nbsp;
+<h3>System Description and Survival Function</h3>
+[caption id="attachment_564" align="aligncenter" width="599"]<a href="http://www.themathcitadel.com/wp-content/uploads/2017/06/OriginalBreakdownRateProcess.jpg"><img class="wp-image-564" src="http://www.themathcitadel.com/wp-content/uploads/2017/06/OriginalBreakdownRateProcess.jpg" alt="" width="599" height="314"></a> Sample Trajectory of Breakdown Rate Process Under Original Model[/caption]
+
+&nbsp;
+
+Cha and Lee considered a web server wherein each request arrives via a nonhomogenous Poisson process [latex]\{N(t): t \geq 0\}[/latex] with intensity function [latex]\lambda(t)[/latex]. Each request adds a constant stress [latex]\eta[/latex], increasing the breakdown rate for the duration of service. Suppose [latex]r_{0}(t)[/latex] is the breakdown rate of the idle server. Then the breakdown rate process [latex]\mathscr{B}(t)[/latex] is defined as
+
+[latex, display=true]\mathscr{B}(t) := r_{0}(t) + \eta\sum_{j=1}^{N(t)}\mathbb{1}(T_{j} \leq t \leq T_{j} + W_{j})[/latex]
+
+where [latex]N(t), \{T_{j}\}_{j=1}^{N(t)}, \{W_{j}\}_{j=1}^{N(t)}[/latex] are the random variables that describe the number of arrivals, arrival times, and service times, respectively. It is assumed that [latex]\{T_{j}\}_{j=1}^{N(t)}[/latex] are independent of each other. Furthermore, the [latex]\{W_{j}\}_{j=1}^{N(t)} \sim g_{W}(w)[/latex] are i.i.d. and are mutually independent of all [latex]T_{j}[/latex]'s.
+
+Under these conditions, Cha and Lee proved the following theorem that gives the explicit form of the survival function under this model:
+
+<hr>
+
+<strong>Theorem.&nbsp;</strong>
+
+Suppose that [latex]\{N(t), t \geq 0\}[/latex] is a nonhomogenous Poisson process with intensity function [latex]\lambda(t)[/latex], i.e. [latex]m(t) \equiv \int_{0}^{t}\lambda(x)dx[/latex]. Assuming the conditional survival function is given by
+
+[latex, display=true]P\left(Y &gt; t \left| N(t), \{T_{j}\}_{j=1}^{N(t)}, \{W_{j}\}_{j=1}^{N(t)}\right.\right) = \bar{F}_{0}(t)\exp\left(-\eta\sum_{j=1}^{N(t)}\min(W_{j}, t-T_{j})\right)[/latex]
+
+and [latex]m(t)[/latex] has an inverse, the survival function of [latex]Y[/latex] is given by
+
+[latex, display=true]S_{Y}(t) = \bar{F}_{0}(t)\exp\left(-\eta\int_{0}^{t}\exp(-\eta w)\bar{G}_{W}(w)m(t-w)dw\right)[/latex]
+
+and the hazard function of [latex]Y[/latex], denoted [latex]r(t)[/latex], is given by
+
+[latex, display=true]r(t) = r_{0}(t) + \eta\int_{0}^{t}e^{-\eta w}\bar{G}_{W}(w)\lambda(t-w)dw[/latex]
+
+<hr>
+
+&nbsp;
+<h3>Efficiency of the Server</h3>
+It is natural to develop some measure of server performance. Cha and Lee measure such performance by defining the <em>efficiency</em>, [latex]\psi[/latex], of the web server as the long-run expected number of jobs completed per unit time. That is, with the number of jobs completed as [latex]M[/latex], the efficiency is defined
+
+[latex, display=true]\psi := \lim\limits_{t \to \infty}\frac{E[M(t)]}{t}[/latex]
+
+Upon breakdown and rebooting, the server is assumed to be 'as good as new', in that performance of the server does not degrade during subsequent reboots. In addition, the model assumes the arrival process after reboot, denoted [latex]\{N^{*}(t), t \geq 0\}[/latex], is a nonhomogenous Poisson process with the same intensity function [latex]\lambda(t)[/latex] as before, and that [latex]\{N^{*}(t), t \geq 0\}[/latex] is independent of the arrival process before reboot. In a practical setting, this model assumes no 'bottlenecking' of arrivals occurs in the queue during server downtime that would cause an initial flood to the rebooted server. In addition, the reboot time is assumed to follow a continuous distribution [latex]H(t)[/latex] with expected value [latex]\nu[/latex]. This process is a renewal reward process, with the renewal [latex]\{R_{n}\} = \{M_{n}\}[/latex], the number of jobs completed. The length of a renewal cycle is [latex]Y_{n} + H_{n}[/latex], where [latex]Y_{n}[/latex] is the length of time the server was operational, and [latex]H_{n}[/latex] is the time to reboot after a server crash. Then, by&nbsp;[21],
+
+[latex, display = true]\psi = \frac{E[M]}{E[Y]+ \nu}[/latex]
+
+where [latex]M[/latex] is the number of jobs completed in a particular renewal cycle, [latex]\nu[/latex]
+is the mean time to reboot of the server, and [latex]Y[/latex] is the length of a particular renewal cycle. Then, using&nbsp;the definition of efficiency, the following closed form of the efficiency of a server under all assumptions of Cha and Lee's model is derived.
+
+&nbsp;
+
+<hr>
+
+<strong>Theorem. (Efficiency of the Constant Stress Server)</strong>
+Suppose [latex]\{N(t), t \geq 0\}[/latex] is a nonhomogenous Poisson process with intensity [latex]\lambda(t)\geq 0[/latex]. Then the efficiency is given by
+
+[latex, display=true]\begin{aligned}\psi &amp;= \frac{1}{\int_{0}^{\infty}S_{Y}(t)dt + \nu}\left[\exp\left(-\int_{0}^{t}r_{0}(x)dx-\int_{0}^{t}\lambda(x)dx + a(t) + b(t)\right)\right.\\&amp;\kern{10em}\biggl.\times\left(r_{0}(t)a(t) + \eta a(t)b(t)\right)\biggr]\end{aligned}[/latex]
+
+where [latex]a(t) = \int_{0}^{t}e^{-\eta v}g_{W}(v)m(t-v)dv[/latex], [latex]b(t) = \int_{0}^{t}e^{-\eta(t-r)}\bar{G}_{W}(t-r)\lambda(r)dr[/latex], [latex]\bar{G}_{W}(x) = 1-\int_{0}^{x}g_{W}(s)ds[/latex], and [latex]m(x) = \int_{0}^{x}\lambda(s)ds[/latex].
+
+<hr>
+
+&nbsp;
+<h3>Numerical Examples and Control Policies</h3>
+[caption id="attachment_565" align="aligncenter" width="360"]<a href="http://www.themathcitadel.com/wp-content/uploads/2017/06/EffRayleigh.jpg"><img class="size-full wp-image-565" src="http://www.themathcitadel.com/wp-content/uploads/2017/06/EffRayleigh.jpg" alt="" width="360" height="229"></a> Efficiency as a Function of Stress under Rayleigh Service Time Distribution[/caption]
+
+As an illustrative example, Cha and Lee considered the case when [latex]\lambda(t) \equiv \lambda[/latex],
+[latex]r_{0}(t) \equiv r_{0} = 0.2[/latex], [latex]\eta = 0.01[/latex], [latex]\nu = 1[/latex], and [latex]g_{W}(w) = we^{-w^{2}/2}[/latex] (the PDF of the Rayleigh distribution). As shown in the figure above, there exists a [latex]\lambda^{*}[/latex] such that [latex]\psi(\lambda)[/latex] is maximized. Thus one may implement the obvious optimal control policy for server control to avoid server overload:
+<ol>
+ 	<li>If the real time arrival rate [latex]\lambda &lt; \lambda^{*}[/latex], do not interfere with arrivals.</li>
+ 	<li>If [latex]\lambda \geq \lambda^{*}[/latex], facilitate some appropriate measure of interference.</li>
+</ol>
+Examples of interference for a web server in particular include rejection of incoming requests or possible re-routing. Cha and Lee give an interference policy of rejection with probability [latex]1-\frac{\lambda^{*}}{\lambda}[/latex]. The next section presents a generalization of the above model by relaxing the assumption that the job stress [latex]\eta[/latex] is constant. This yields a far more generalized model that can encompass random stress with any distribution.
+
+[/nextpage]
+
+[nextpage title="..."]
+<h2>Random Stress Reliability Model</h2>
+[caption id="attachment_572" align="aligncenter" width="588"]<a href="http://www.themathcitadel.com/wp-content/uploads/2017/06/RandomBreakdownRateProcess.jpg"><img class=" wp-image-572" src="http://www.themathcitadel.com/wp-content/uploads/2017/06/RandomBreakdownRateProcess.jpg" alt="" width="588" height="308"></a> Sample Trajectory of Breakdown Rate Process under Random Stress Model[/caption]
+
+The basic model here is very similar to Cha and Lee's. The main difference is that we relax the constant stress assumption and allow it to be random.
+
+Assume that each job [latex]j[/latex] coming into the server adds a random stress [latex]\mathcal{H}_{j}[/latex] to the server for the duration of its time in the system. Suppose [latex]\{\mathcal{H}_{j}\}_{j=1}^{N(t)} \sim \mathcal{H}[/latex], and are i.i.d. where WLOG [latex]\mathcal{H}[/latex] is a discrete random variable with a finite sample space [latex]S = \{\eta_{i}: \eta_{i} \in \mathbb{R}^{+}, i = 1,...,m \text{ for } m \in \mathbb{N}\}[/latex] and probability distribution given by
+
+[latex, display = true]P(\mathcal{H} = \eta_{i}) = p_{i}, \quad i = 1,\ldots,m[/latex]
+
+The following assumptions from Cha and Lee are retained:
+<ol>
+ 	<li>(CL1) Requests arrive via a nonhomogenous Poisson Process [latex]\{N(t), t \geq 0\}[/latex] with intensity [latex]\lambda(t)[/latex].</li>
+ 	<li>(CL2) Arrival times [latex]\{T_{j}\}_{j=1}^{N(t)}[/latex] are independent.</li>
+ 	<li>(CL3) Service times [latex]\{W_{j}\}_{j=1}^{N(t)}[/latex] are i.i.d. with pdf [latex]g_{W}(w)[/latex] and mutually independent of all arrival times.</li>
+</ol>
+Then, the random stress breakdown rate (RSBR) process [latex]\mathscr{B}(t)[/latex] is given by
+
+[latex, display=true]\mathscr{B}(t) = r_{0}(t) + \sum_{j=1}^{N(t)}\mathcal{H}_{j}\mathbb{1}(T_{j} &lt; t \leq T_{j} + W_{j}), \quad t \geq 0[/latex]
+
+Compare the sample trajectory shown in the figure&nbsp;above&nbsp;to the sample trajectory of breakdown rate under the original model (see page 2). The random stress brought by each request still disappears upon job completion, but the effect on the server is no longer deterministic. Thus, for the same set of arrival times and respective completion times, the realization of the breakdown rate process under the RSBR model has one more element of variation.
+
+Let [latex]Y[/latex] be the random time to breakdown of the web server given the workload from client requests. Let [latex]\mathfrak{T} = \{T_{j}\}_{j=1}^{N(t)}[/latex], [latex]\mathfrak{W} = \{W_{j}\}_{j=1}^{N(t)}[/latex], and [latex]\mathfrak{H} = \{\mathcal{H}_{j}\}_{j=1}^{N(t)}[/latex], with observed values [latex]\mathfrak{t} = \{t_{j}\}_{j=1}^{N(t)}[/latex], [latex]\mathfrak{w} = \{w_{j}\}_{j=1}^{N(t)}[/latex], and [latex]\mathfrak{h} = \{\eta_{i_{j}}\}_{i_{j}=1}^{N(t)}[/latex]. Then the conditional survival function of the server, given the arrival process of client requests ([latex]N(t)[/latex]), job stresses ([latex]\mathfrak{H}[/latex]), service times ([latex]\mathfrak{W}[/latex]), and arrival times ([latex]\mathfrak{T}[/latex]) is
+
+[latex, display=true]\begin{aligned}S_{\scriptstyle{Y|N(t), \mathfrak{T}, \mathfrak{W}, \mathfrak{H} }}(t|n, \mathfrak{t}, \mathfrak{w}, \mathfrak{h}) &amp;=e^{ -\int_{0}^{t}\mathscr{B}(x)dx}\\&amp;= \bar{F}_{0}(t)e^{-\sum_{j=1}^{N(t)} \mathcal{H}_{i}\min(W_{j}, t-T_{j})}\end{aligned}[/latex]
+
+where [latex]\bar{F}_{0}(t) = \exp\left(-\int_{0}^{t}r_{0}(x)dx\right)[/latex].
+
+&nbsp;
+<h3>Survival Function for the RSBR Server</h3>
+Under the RSBR generalization, the survival function of the server is given in the following theorem.
+
+&nbsp;
+
+<hr>
+
+<em><strong>Theorem 1. (Survival Function for a Random Stress Server)</strong></em>
+Suppose that jobs arrive to a server according to a nonhomogenous Poisson process
+[latex]\{N(t), t \geq 0\}[/latex] with intensity function [latex]\lambda(t) \geq 0[/latex] and [latex]m(t) \equiv E[N(t)] = \int_{0}^{t}\lambda(x)dx[/latex]. Let the arrival times [latex]\{T_{j}\}_{j=1}^{N(t)}[/latex] be independent, and let the service times [latex]\{W_{j}\}_{j=1}^{N(t)} g_{W}(w)[/latex] be i.i.d. and mutually independent of all arrival times. Assume the random job stresses [latex]\mathcal{H}_{j} \sim \mathcal{H}[/latex]. Then
+
+[latex, display=true]S_{Y}(t) = \bar{F}_{0}(t)\exp\left(- E_{\mathcal{H}}\left[\mathcal{H}\int_{0}^{t}e^{-\mathcal{H} w}m(t-w)\bar{G}_{W}(w)dw\right]\right)[/latex]
+
+where [latex]\bar{F}_{0}(t) = \exp\left(-\int_{0}^{t}r_{0}(s)ds\right)[/latex].
+
+<hr>
+
+&nbsp;
+
+The compound failure rate function (or hazard function) [latex]r(t)[/latex] is given by
+
+[latex, display=true]r(t) = -\frac{d}{dt}\ln(S_{Y}(t)) = r_{0}(t) + E_{\mathcal{H}}\left[\mathcal{H}\int_{0}^{t}e^{-\mathcal{H} w}m(t-w)\bar{G}_{W}(w)dw\right][/latex]
+
+&nbsp;
+
+See&nbsp;[14]&nbsp;or [21].
+
+[/nextpage]
+
+[nextpage title="..."]
+<h2>Efficiency Measure of a Server under RSBR</h2>
+Upon server crash, the server must be rebooted. This section gives the server efficiency as defined in [9], but for the RSBR model. The server efficiency given in Theorem&nbsp;1&nbsp;holds quite a few similarities to that of [9], except that, like Theorem&nbsp;1, the expectation must be taken over the random stress variable. The following assumptions from the original model are retained:
+<ol>
+ 	<li>(E1) The arrival process after rebooting, [latex]\{N^{rb}(t), t \geq 0\}[/latex], remains a nonhomogenous Poisson process with the same intensity function [latex]\lambda(t), t \geq 0[/latex] as before.</li>
+ 	<li>(E2) [latex]\{N^{rb}(t), t \geq 0\}[/latex] is independent of the arrival process of client requests before rebooting. Hence, [latex]\{N^{rb}(t), t \geq 0\} = \{N(t), t \geq 0\}[/latex], since it retains all the same characteristics as before.</li>
+ 	<li>(E3) The time to reboot the server follows a continuous distribution [latex]H(t)[/latex] with mean [latex]\nu[/latex].</li>
+</ol>
+Recall that [latex]M(t)[/latex] is defined as the total number of jobs completed by the server during the time [latex](0,t][/latex]. Also, recall the definition of server efficiency from [9]:
+
+[latex, display=true]\psi \equiv \lim\limits_{t \to \infty}\frac{E[M(t)]}{t}[/latex]
+
+The efficiency of the server under a random stress environment is given in the following theorem.
+
+&nbsp;
+
+<hr>
+
+<em><strong>Theorem (</strong><strong>Server Efficiency under Random Stress Environment)</strong></em>
+Suppose that [latex]\{N(t): t \geq 0\}[/latex] is a nonhomogenous Poisson process with intensity function [latex]\lambda(t), t \geq 0[/latex]. Suppose also the conditions of Theorem&nbsp;1&nbsp;and the conditions (E1)-(E3) are met. Then the efficiency of the server is given by
+
+[latex, display=true]\begin{aligned}\psi &amp;= \frac{1}{\int_{0}^{\infty}S_{Y}(t)dt + \nu}\\&amp;\kern{2em}\times\left\{\int_{0}^{\infty}e^{-\int_{0}^{t}r_{0}(x)-\int_{0}^{t}\lambda(x)dx+E_{\mathcal{H}}[a(t)+b(t)]}(r_{0}(t)E_{\mathcal{H}}[a(t)] + E_{\mathcal{H}}[\mathcal{H} a(t)b(t)])dt \right\}\end{aligned}[/latex]
+
+where
+
+[latex, display=true]a(t) = \int_{0}^{t}e^{-\mathcal{H} v}g_{W}(v)m(t-v)dv[/latex]
+
+and
+
+[latex, display=true]b(t) = \int_{0}^{t}e^{-\mathcal{H}(t-r)}\bar{G}_{W}(t-r)\lambda(r)dr.[/latex]
+
+<hr>
+
+<h2>Remarks and Implications</h2>
+Note that [latex]\mathcal{H}[/latex] was assumed discrete, but the proofs of Theorems 1 and&nbsp;2&nbsp;are unaffected if [latex]\mathcal{H}[/latex] is continuous. Thus the generality of this model is significantly stronger than in&nbsp;[9]. In practical considerations, these integrals will need to be numerically evaluated.
+
+For certain distributions of [latex]\mathcal{H}[/latex], [latex]S_{Y}(t)[/latex] has a fairly compact form. Subsequent installments will examine the case where [latex]\mathcal{H}[/latex] has a binomial distribution, formed from both independent and dependent Bernoulli trials. We will also explore the effects of various service life distributions on [latex]\psi[/latex].
+<h2>Conclusion</h2>
+This paper has given a simple but large generalization of&nbsp;[9]. The random stress model allows for the reality that we likely will not know the stress a request will bring to the server, but may know its distribution. Subsequent installments will further study the properties of the RSBR model and extend it to other single-server models, and networks.
+
+&nbsp;
+<a href="http://creativecommons.org/licenses/by-nc-nd/4.0/" rel="license"><img style="border-width: 0;" src="https://i.creativecommons.org/l/by-nc-nd/4.0/88x31.png" alt="Creative Commons License"></a>
+This work is licensed under a <a href="http://creativecommons.org/licenses/by-nc-nd/4.0/" rel="license">Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License</a>.
+
+[/nextpage]		
+		
+						
+		555
+		2017-06-11 23:58:34
+		2017-06-11 23:58:34
+		open
+		open
+		stochastic-reliability-of-a-server-under-a-random-workload
+		publish
+		0
+		0
+		post
+		
+		0
+										Applied Math
+		Probability Theory
+		Reliability Theory
+		Spire
+						
+		_da_attachments
+		a:0:{}
+		
+							
+		_edit_last
+		2
+		
+							
+		_acp_button_style
+		3
+		
+							
+		_acp_loading_type
+		1
+		
+							
+		_wp_page_template
+		default
+		
+							
+			229
+			Commentary: Returning to Fundamentals in Tech &#8211; The Math Citadel
+			
+			http://www.themathcitadel.com/2017/09/28/commentary-returning-to-fundamentals-in-tech/
+			66.226.74.70
+			2017-11-11 18:18:52
+			2017-11-11 18:18:52
+			[&#8230;] with new formats of publishing research, our vertically dependent random variable research, and new ways of looking at server reliability. It&#8217;s nice to be able to comment on a company with some long [&#8230;]
+			1
+			pingback
+			0
+			0
+						
+	akismet_history
+			a:3:{s:4:"time";d:1537552406.6165869235992431640625;s:5:"event";s:11:"report-spam";s:4:"user";s:13:"jasonhathcock";}
+			
+						
+	akismet_user_result
+			false
+			
+						
+	akismet_user
+			jasonhathcock
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1537553459.243072032928466796875;s:5:"event";s:10:"report-ham";s:4:"user";s:13:"jasonhathcock";}
+			
+							
+					
+			435
+			Extensions of the Single Server Efficiency Model &#8211; The Math Citadel
+			
+			http://www.themathcitadel.com/2018/01/22/extensions-of-the-single-server-efficiency-model/
+			66.226.74.70
+			2018-01-24 15:06:33
+			2018-01-24 15:06:33
+			[&#8230;] note: this paper comprises the third chapter of the PhD dissertation by Rachel Traylor. Visit here and here to see chapters one and two, respectively. Herein we further generalize the single server [&#8230;]
+			1
+			pingback
+			0
+			0
+						
+	akismet_history
+			a:3:{s:4:"time";d:1537552404.3414299488067626953125;s:5:"event";s:11:"report-spam";s:4:"user";s:13:"jasonhathcock";}
+			
+						
+	akismet_user_result
+			false
+			
+						
+	akismet_user
+			jasonhathcock
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1537553455.6721999645233154296875;s:5:"event";s:10:"report-ham";s:4:"user";s:13:"jasonhathcock";}
+			
+							
+					
+			14129
+			Art Deherrera
+			Tweet25837@gmail.com
+			https://www.cnn.com
+			209.197.20.225
+			2019-03-08 05:24:34
+			2019-03-08 05:24:34
+			payday loans no credit <a href="https://paydayloans2018.com/" rel="nofollow">loans without direct deposit</a> payday loans <a href="https://paydayloans2018.com/" rel="nofollow">payday loans</a>
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1552022674
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552022674.6363360881805419921875;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			7106f5af61c519ff10c09c4a3bdac15e
+			
+							
+					
+			14130
+			Scot Mancina
+			Calvery67481@gmail.com
+			https://www.cnn.com
+			81.171.107.47
+			2019-03-08 05:24:34
+			2019-03-08 05:24:34
+			Its  great  as your other  content  : D,  regards  for posting . “The art of love … is largely the art of persistence.” by Albert Ellis.
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1552022674
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552022674.6879060268402099609375;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			1b165817603c3a6b898b2968d0112fa1
+			
+							
+					
+			14178
+			Bruce Mercuri
+			Mashni44774@gmail.com
+			https://www.cnn.com
+			64.145.94.178
+			2019-03-08 06:06:26
+			2019-03-08 06:06:26
+			[url=http://nutritioninpill.com/]http://nutritioninpill.com/[/url] brumbFes , <a href="http://nutritioninpill.com/the-story-of-pain-from-prayer-to-painkillers/" rel="nofollow">The Story of Pain: From Prayer to Painkillers</a>
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1552025186
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552025186.0528070926666259765625;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			b02414d59c068c6ce66a95446e91b639
+			
+							
+					
+			14238
+			Harley Buccieri
+			Hafen8460@gmail.com
+			https://www.cnn.com
+			216.151.180.175
+			2019-03-08 07:20:21
+			2019-03-08 07:20:21
+			It’s actually a nice and useful piece of info. I’m satisfied that you just shared this helpful info with us. Please stay us up to date like this. Thanks for sharing.
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1552029621
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552029621.685781955718994140625;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			3bf5e555c8aa97bce25239a7f669ad2d
+			
+							
+					
+			14239
+			Krysta Leffingwell
+			Sandell55255@gmail.com
+			https://www.cnn.com
+			209.107.196.160
+			2019-03-08 07:20:21
+			2019-03-08 07:20:21
+			wonderful post, very informative. I wonder why the other specialists of this sector do not notice this. You should continue your writing. I’m sure, you have a huge readers’ base already!
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1552029621
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552029621.8659079074859619140625;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			89a3f2e9c1a1a1adabbb4ed85a3f9e32
+			
+							
+					
+			14679
+			Scotty Troe
+			VeronaNouth48752@gmail.com
+			https://proxies-free.com/how-can-i-add-this-countdown-timer-to-my-site/
+			192.3.182.121
+			2019-03-10 05:44:57
+			2019-03-10 05:44:57
+			Would you be interested in exchanging links?
+			trash
+			
+			0
+			0
+						
+	akismet_error
+			1552196697
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552196697.8086359500885009765625;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+							
+					
+			14813
+			Kareem Kent
+			Nicoson67431@gmail.com
+			http://earllovesyou.com
+			216.151.180.96
+			2019-03-10 17:09:18
+			2019-03-10 17:09:18
+			I am constantly browsing online for ideas that can help me. Thx!
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1552237758
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552237758.30920696258544921875;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			afa064c5be98cd3c6e80d96522d2bbb3
+			
+							
+					
+			14814
+			Akilah Kenna
+			Kirscht65891@gmail.com
+			http://earllovesyou.com
+			81.171.110.46
+			2019-03-10 17:09:53
+			2019-03-10 17:09:53
+			Howdy would you mind stating which blog platform you’re using? I’m planning to start my own blog in the near future but I’m having a hard time making a decision between BlogEngine/Wordpress/B2evolution and Drupal. The reason I ask is because your layout seems different then most blogs and I’m looking for something unique.                  P.S My apologies for getting off-topic but I had to ask!
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1552237793
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552237793.966033935546875;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			685ebd9f347caac3ec2888363e9122dd
+			
+							
+					
+			16166
+			Randolph Ade
+			Gates78211@gmail.com
+			http:/suckafatonehomo.com
+			81.171.107.110
+			2019-03-15 21:57:19
+			2019-03-15 21:57:19
+			I all the time used to read article in news papers butnow as I am a user of net thus from now I am using net for articles or reviews, thanks to web.
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1552687039
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552687039.34319400787353515625;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			e28605890a04df2d1cd31e0a10ad88cc
+			
+							
+					
+			16167
+			Hong Tongate
+			Tomerlin14412@gmail.com
+			http:/suckafatonehomo.com
+			81.171.75.101
+			2019-03-15 21:57:25
+			2019-03-15 21:57:25
+			Having read this I thought it was very enlightening. I appreciate you spending some time and effort to put this article together. I once again find myself spending a lot of time both reading and commenting. But so what, it was still worthwhile!
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1552687045
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552687045.69474506378173828125;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			1d8d4bd2fbb7068e5b9cc4149aa7a055
+			
+							
+					
+			16168
+			Sally Bigaud
+			Delmage27794@gmail.com
+			http:/suckafatonehomo.com
+			81.171.75.101
+			2019-03-15 21:57:41
+			2019-03-15 21:57:41
+			Magnificent beat ! I would like to apprentice while you amend your web site, how could i subscribe for a blog web site? The account helped me a acceptable deal. I had been tiny bit acquainted of this your broadcast provided bright clear idea|
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1552687061
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552687061.9276831150054931640625;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+							
+					
+			16287
+			Van Wentworth
+			Keaty2665@gmail.com
+			http://suckafatonehomo.com
+			81.171.81.81
+			2019-03-16 03:53:14
+			2019-03-16 03:53:14
+			Superb blog! Do you have any helpful hints for aspiring writers? I’m planning to start my own blog soon but I’m a little lost on everything. Would you advise starting with a free platform like WordPress or go for a paid option? There are so many options out there that I’m totally overwhelmed .. Any recommendations? Bless you!
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1552708394
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552708394.163858890533447265625;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			67777762af675a023564c2290331852e
+			
+							
+					
+			16288
+			Willodean Kanae
+			Pilati6984@gmail.com
+			http://suckafatonehomo.com
+			209.107.210.81
+			2019-03-16 03:53:14
+			2019-03-16 03:53:14
+			<a href="http://pool-liga.birkuc.hu/pool-liga/forum/profile.php?mode=viewprofile&amp;u=1191" rel="nofollow">bestwebcam.us.com|bestwebcam</a>
+			trash
+			
+			0
+			0
+						
+	akismet_error
+			1552708394
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552708394.4753830432891845703125;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+							
+					
+			16289
+			Floyd Perham
+			Luxon63615@gmail.com
+			http://suckafatonehomo.com
+			185.153.151.9
+			2019-03-16 03:53:35
+			2019-03-16 03:53:35
+			I am really impressed with your writing skills as well as with the layout on your blog. Is this a paid theme or did you modify it yourself? Either way keep up the nice quality writing, it is rare to see a great blog like this one these days.
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1552708415
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552708415.614365100860595703125;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			42f9bb0185e86c6a39ba3dafc2ffa332
+			
+							
+					
+			16940
+			Vincenzo Oldenkamp
+			Kaveney3846@gmail.com
+			https://www.youcrazy.com/
+			64.145.76.132
+			2019-03-18 16:18:41
+			2019-03-18 16:18:41
+			payday loans <a href="https://paydayloans2018.com/" rel="nofollow">payday loans</a> payday installment loans <a href="https://paydayloans2018.com/" rel="nofollow">500 cash loan</a>
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1552925921
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552925921.8927910327911376953125;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			0e18f89277ddf67985f74641da75b16c
+			
+							
+					
+			16941
+			Hai Rabun
+			Ryu553@gmail.com
+			https://www.youcrazy.com/
+			216.151.183.152
+			2019-03-18 16:18:42
+			2019-03-18 16:18:42
+			Excellent way of describing, and pleasant paragraph to obtain factsregarding my presentation topic, which i am going to deliver in academy.
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1552925922
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552925922.047420978546142578125;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			8cd60059dc228598832531adb3d63b30
+			
+							
+					
+			16942
+			Phillip Gauntner
+			Verdun18977@gmail.com
+			https://www.youcrazy.com/
+			81.171.74.70
+			2019-03-18 16:19:37
+			2019-03-18 16:19:37
+			Reblogged this on <a href="http://1coinpool.wordpress.com/2014/04/10/how-well-do-you-know-your-way-around-your-data/" rel="nofollow">1Coinpool</a>.<a href="https://blog.digi.me/2014/04/09/how-well-do-you-know-your-way-around-your-data/?like_comment=17000&amp;_wpnonce=6a91c1cdc9" rel="nofollow">Like</a>Like
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1552925977
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552925977.9369599819183349609375;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			21fc6ca47dc44644bd76ba5c5456e900
+			
+							
+					
+			17557
+			Columbus Dreggs
+			Ladika39280@gmail.com
+			https://www.lickmyballs.com
+			81.171.56.136
+			2019-03-20 21:05:55
+			2019-03-20 21:05:55
+			Howdy! Do you know if they make any plugins to protect againsthackers? I’m kinda paranoid about losing everything I’ve worked hardon. Any recommendations?
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1553115955
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1553115955.69855403900146484375;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			ef2461c276dad6dec9e20a9b835e6f59
+			
+							
+					
+			17558
+			Patrick Stonestreet
+			Sisomphou36491@gmail.com
+			https://www.lickmyballs.com
+			81.171.81.161
+			2019-03-20 21:07:08
+			2019-03-20 21:07:08
+			Good day! This is my first comment here so I just wanted to give a quick shout out and tell you I really enjoy reading through your blog posts. Can you recommend any other blogs/websites/forums that deal with the same topics? Thanks a lot!
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1553116028
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1553116028.278337001800537109375;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			05133ccc226303870e6e6c1a1fd74ee5
+			
+							
+					
+			22045
+			Austepils
+			austdut@wmaill.website
+			http://bmpha.com
+			31.184.238.129
+			2019-04-03 21:34:18
+			2019-04-03 21:34:18
+			Jelly Kamagra  [url=http://orderlevi.com]viagra vs cialis vs levitra samples[/url] Amoxicillin Solution Propecia Erection Problems
+			0
+			
+			0
+			0
+						
+	akismet_error
+			1554327258
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1554327258.82023906707763671875;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+							
+					
+			22070
+			NFL Jerseys Cheap
+			xhfyujxum@hotmaill.com
+			http://www.cheapsportsnfljerseys.us/
+			27.153.182.145
+			2019-04-03 23:11:40
+			2019-04-03 23:11:40
+			sxcobnmfiy,Very helpful and best artical information Thanks For sharing.
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1554333100
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1554333100.9326839447021484375;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			5582e41856557f04de4d4e8c30fa9b0f
+			
+							
+					
+			22147
+			bit heroes hacker - bit heroes hack mac
+			Devincenzo16266@yahoo.com
+			http://macos.mac-tac.com/bit-heroes-hacker-bit-heroes-hack-mac/
+			193.32.86.14
+			2019-04-04 04:30:55
+			2019-04-04 04:30:55
+			One thing I want to say is before obtaining more pc memory, look into the machine into which it could be installed. If your machine is definitely running Windows XP, for instance, the actual memory ceiling is 3.25GB. Adding over this would easily constitute some sort of waste. Make sure one's mother board can handle the actual upgrade volume, as well. Interesting blog post.
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1554352256
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1554352256.023387908935546875;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			a3bea0b310a837c4ec8b853a2383ddeb
+			
+							
+					
+			22510
+			jordan 11 concord
+			nbeynvkttjd@hotmaill.com
+			http://www.jordan11concord.us.com/
+			27.153.182.145
+			2019-04-05 00:57:22
+			2019-04-05 00:57:22
+			uozcxstjp,Definitely believe that which you said. Your favourite justification appeared to be on the net the simplest thing to remember of.
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1554425842
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1554425842.9893391132354736328125;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			c8c9d53d4af3acbd4b91b3850b97213b
+			
+							
+					
+			23265
+			Yeezy
+			jomlfhrm@hotmaill.com
+			http://www.yeezy350.us.com/
+			27.153.182.145
+			2019-04-06 22:38:59
+			2019-04-06 22:38:59
+			erdoanssn Yeezy Shoes,Quality blog, keep up the good work. You may check our website also!
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1554590339
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1554590339.2291240692138671875;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			6e61165a2d06a6e593fb0e3809d7bcad
+			
+							
+					
+			23408
+			Nike Pegasus 35
+			joplul@yahoo.com
+			http://www.nikeairzoompegasus35.us/
+			27.153.182.145
+			2019-04-07 08:48:58
+			2019-04-07 08:48:58
+			rradvmhkdw,Hi there, just wanted to say, I liked this article. It was helpful. Keep on posting!
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1554626938
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1554626938.7102339267730712890625;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			2edcf1a04ab236353455db1f58dccbcf
+			
+							
+					
+			23603
+			pandora rings
+			pscytjyxdf@hotmaill.com
+			http://www.pandora-jewelryoutlet.us/
+			27.153.182.145
+			2019-04-07 22:40:51
+			2019-04-07 22:40:51
+			ifdkmqvoara,This website truly has alll of the information and facts I wanted about this subject and didn?t know who to ask.
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1554676851
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1554676851.9491670131683349609375;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			fd519dd6dce6c2d6ef0977fd71a6747d
+			
+							
+					
+			23679
+			Steelers Jerseys Cheap
+			zaymnwwmu@yahoo.com
+			http://www.pittsburghsteelers-jerseys.us/
+			27.153.182.145
+			2019-04-08 03:51:10
+			2019-04-08 03:51:10
+			Jordan 12 Gym Red 2018 http://www.jordan12gymred.us.com/
+ nike factory outlet store online http://www.nikefactoryoutletstoreonline.com/
+ nike factory outlet http://www.nikefactoryoutletstoreonline.us/
+ Nike Outlet http://www.nikestores.us.com/
+ retro jordan 33 http://www.jordan33.us/
+ cheap jerseys http://www.cheapjerseysfromchina.us/
+ nfl jerseys http://www.customnfljerseys.us/
+ jordan 11 concord 2018 http://www.jordan11concord.us.com/
+ Jordan 12 Gym Red 2018 http://www.jordan12gymred.us/
+ Red Jordan 12 http://www.redjordan12.us/
+ Yeezy http://www.yeezy.com.co/
+ Yeezy Shoes http://www.yeezys.us.com/
+ Yeezy Supply http://www.yeezysupply.us.com/
+ Yeezy Boost 350 http://www.yeezy-shoes.us.com/
+ Yeezy Boost 350 http://www.yeezy-boost350.com/
+ Yeezy Boost http://www.yeezyboost350.us.com/
+ Yeezy Boost 350 V2 Blue Tint http://www.yeezybluetint.com/
+  Yeezy 500 http://www.yeezy500utilityblack.com/
+  Yeezy 500 http://www.yeezy500utilityblack.us/
+  Nike Air VaporMax http://www.vapor-max.org.uk/
+ Salomon http://www.salomon-shoes.org.uk/
+ Salomon Shoes http://www.salomons.me.uk/
+ Salomon Speedcross 4 http://www.salomonspeedcross4.org.uk/
+ Off White Air Jordan 1 http://www.offwhitejordan1.com/
+ Vapor Max http://www.nikevapormax.org.uk/
+  React Element 87 http://www.nikereactelement87.us.com/
+  Nike Element 87 http://www.nikereactelement87.us/
+ Nike Plus http://www.nikeplus.us/
+ Nike Outlet Online http://www.nike--outlet.us/
+ Nike Outlet Store Online Shopping http://www.nikeoutletstoreonlineshopping.us/
+ Nike Outlet Store Online Shopping http://www.nikeoutletonlineshopping.us/
+ Nike NBA Jerseys http://www.nikenbajerseys.us/
+ Air Max Nike http://www.nikeairmax.us/
+ Nike Air Max 2017 http://www.max2017.us/
+  Jordan Shoes 2018 http://www.jordan-com.com/
+ Jordan 11 Concord http://www.jordan11-concord.com/
+ Cheap Yeezy Shoes http://www.cs7boots1.com/
+ Cheap NBA Jerseys http://www.cheapnba-jerseys.us/
+ Birkenstock Sandals UK http://www.birkenstocksandalsuk.me.uk/
+ Basketball Jersey http://www.basketball-jersey.us/
+ Balenciaga UK http://www.balenciaga.me.uk/
+ Balenciaga http://www.balenciagauk.org.uk/
+ Balenciaga UK http://www.balenciagatriples.org.uk/
+ Balenciaga UK http://www.birkenstocks.me.uk/
+ Balenciaga UK http://www.balenciagatrainers.org.uk/
+  Nike Air Max http://www.airmax270.org.uk/
+ Yeezy http://www.adidasyeezyshoes.org.uk/
+  Adidas Yeezy Shoes http://www.adidasyeezyshoes.org.uk/
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1554695470
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1554695470.2633531093597412109375;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			53c2223cf4546269a510b8791ac1418d
+			
+							
+					

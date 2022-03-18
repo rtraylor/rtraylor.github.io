@@ -1,0 +1,1886 @@
+
+		
+				Vertical Dependency in Sequences of Categorical Random Variables		
+		https://www.themathcitadel.com/vertical-dependency-in-sequences-of-categorical-random-variables/
+		Fri, 09 Jun 2017 19:13:37 +0000
+		admin
+		http://localhost:8000/?p=476
+		
+		
+				<h5 style="text-align: center;">For the full text, including proofs, download the pdf&nbsp;<a href="https://www.themathcitadel.com/wp-content/uploads/2017/06/vertical-dependency.pdf">here</a>.</h5>
+<p style="text-align: left;">[nextpage title="..."]</p>
+
+<h2 style="text-align: left;">Abstract</h2>
+This paper develops a more general theory of sequences of dependent categorical random variables, extending the works of Korzeniowski (2013) and Traylor (2017) that studied first-kind dependency in sequences of Bernoulli and categorical random variables, respectively. A more natural form of dependency, sequential dependency, is defined and shown to retain the property of identically distributed but dependent elements in the sequence. The cross-covariance of sequentially dependent categorical random variables is proven to decrease exponentially in the dependency coefficient [latex]\delta[/latex] as the distance between the variables in the sequence increases. We then generalize the notion of <em>vertical dependency</em>&nbsp;to describe the relationship between a categorical random variable in a sequence and its predecessors, and define a class of generating functions for such dependency structures. The main result of the paper is that any sequence of dependent categorical random variables generated from a function in the class [latex]\mathscr{C}_{\delta}[/latex] that is <em>dependency continuous</em> yields identically distributed but dependent random variables. Finally, a graphical interpretation is given and several examples from the generalized vertical dependency class are illustrated.
+<p style="text-align: left;">[embedyt] https://www.youtube.com/watch?v=vMJIRzv0oTA[/embedyt]</p>
+
+<h2 style="text-align: left;">Introduction</h2>
+Many statistical tools and distributions rely on the independence of a sequence or set of random variables. The sum of independent Bernoulli random variables yields a binomial random variable. More generally, the sum of independent categorical random variables yields a multinomial random variable. Independent Bernoulli trials also form the basis of the geometric and negative binomial distributions, though the focus is on the number of failures before the first (or <em>r</em>th success).&nbsp;[2]&nbsp;In data science, linear regression relies on independent and identically distributed (i.i.d.) error terms, just to name a few examples.
+
+The necessity of independence filters throughout statistics and data science, although real data rarely is actually independent. Transformations of data to reduce multicollinearity (such as principal component analysis) are commonly used before applying predictive models that require assumptions of independence. This paper aims to continue building a formal foundation of dependency among sequences of random variables in order to extend these into generalized distributions that do not rely on mutual independence in order to better model the complex nature of real data. We build on the works of Korzeniowski&nbsp;[1]&nbsp;and Traylor [3] who both studied first-kind (FK) dependence for Bernoulli and categorical random variables, respectively, in order to define a general class of functions that generate dependent sequences of categorical random variables.
+
+The next section&nbsp;gives a brief review of the original work by Korzeniowski&nbsp;[1]&nbsp;and Traylor&nbsp;[3]. In Section&nbsp;2, a new dependency structure, <em>sequential dependency</em>&nbsp;is introduced, and the cross-covariance matrix for two sequentially dependent categorical random variables is derived. Sequentially dependent categorical random variables are identically distributed but dependent. Section&nbsp;3.1&nbsp;generalized the notion of <em>vertical dependency structures</em>&nbsp;into a class that encapsulates both the first-kind (FK) dependence of Korzeniowski&nbsp;[1] and Traylor&nbsp;[3]&nbsp;and shows that all such sequences of dependent random variables are identically distributed. We also provide a graphical interpretation and illustrations of several examples of vertical dependency structures.
+
+[/nextpage]
+
+[nextpage title="..."]
+
+[caption id="attachment_499" align="aligncenter" width="714"]<a href="http://www.themathcitadel.com/wp-content/uploads/2017/06/orig-bin-tree.jpg"><img class="wp-image-499" src="http://www.themathcitadel.com/wp-content/uploads/2017/06/orig-bin-tree.jpg" alt="" width="714" height="315"></a> <strong>Figure 1.</strong> Probability Mass Flow for FK Dependent Bernoulli Random Variables[/caption]
+
+We repeat a section from <a href="https://www.themathcitadel.com/a-generalized-multinomial-distribution-from-dependent-categorical-random-variables/">A Generalized Multinomial Distribution from Dependent Categorical Random Variables</a>&nbsp;&nbsp;in order to give a review of the original first-kind (FK) dependency created by Korzeniowski. For the full details, see&nbsp;<a href="https://www.themathcitadel.com/a-generalized-multinomial-distribution-from-dependent-categorical-random-variables/">the previous work on the topic.</a>
+
+Korzeniowski defined the notion of dependence in a way we will refer to here as <em>dependence of the first kind</em>&nbsp;(FK dependence). Suppose [latex](\epsilon_{1},...,\epsilon_{N})[/latex] is a sequence of Bernoulli random variables, and [latex]P(\epsilon_{1} = 1) = p[/latex]. Then, for [latex]\epsilon_{i}, i \geq 2[/latex], we weight the probability of each binary outcome toward the outcome of [latex]\epsilon_{1}[/latex], adjusting the probabilities of the remaining outcomes accordingly.
+
+Formally, let [latex]0 \leq \delta \leq 1[/latex], and [latex]q = 1-p[/latex]. Then define the following quantities
+[latex, display=true]\begin{aligned}p^{+} := P(\epsilon_{i} = 1 | \epsilon_{1} = 1) = p + \delta q &amp;\qquad p^{-} :=P(\epsilon_{i} = 0 | \epsilon_{1} = 1) = q -\delta q\\q^{+} := P(\epsilon_{i} = 1 | \epsilon_{1} = 0) = p-\delta p&amp;\qquad q^{-} := P(\epsilon_{i} = 0 | \epsilon_{1} = 0) = q + \delta p\end{aligned}[/latex]
+
+Given the outcome [latex]i[/latex] of [latex]\epsilon_{1}[/latex], the probability of outcome [latex]i[/latex] occurring in the subsequent Bernoulli variables [latex]\epsilon_{2}, \epsilon_{3},..., \epsilon_{n}[/latex] is [latex]p^{+}, i = 1[/latex] or [latex]q^{+}, i=0[/latex]. The probability of the opposite outcome is then decreased to [latex]q^{-}[/latex] and [latex]p^{-}[/latex], respectively.
+
+The figure above&nbsp;illustrates the possible outcomes of a sequence of such dependent Bernoulli variables. Korzeniowski showed that, despite this conditional dependency, [latex]P(\epsilon_{i} = 1) = p \quad\forall i[/latex]. That is, the sequence of Bernoulli variables is identically distributed, with correlation shown to be
+[latex, display = true]\text{Cor}(\epsilon_{i}, \epsilon_{j}) = \left\{\begin{array}{lr}\delta, &amp; i=1 \\\delta^{2}, &amp;i \neq j, \quad i,j \geq 2\end{array}\right.[/latex]
+
+These identically distributed but correlated Bernoulli random variables yield a Generalized Binomial distribution with a similar form to the standard binomial distribution.
+
+In <a href="https://www.themathcitadel.com/a-generalized-multinomial-distribution-from-dependent-categorical-random-variables/">the previous work</a>, the concept of Bernoulli FK dependence was extended to categorical random variables. That is, given a sequence of categorical random variables with [latex]K[/latex] categories, [latex]P(\epsilon_{1} = i) = p_{i}[/latex], [latex]i = 1,\ldots,K,[/latex]
+
+[latex, display=true]\begin{aligned}P(\epsilon_{j} = i | \epsilon_{1} = i) &amp;= p_{i}^{+} = p_{i} + \delta(1-p_{i});\\P(\epsilon_{j} = k | \epsilon_{1} = i) &amp;= p_{k}^{-} = p_{k}-\delta p_{k}, i \neq k, \:\:k = 1,\ldots,K.\end{aligned}[/latex]
+
+Traylor proved that FK dependent categorical random variables remained identically distributed, and showed that the cross-covariance matrix of categorical random variables has the same structure as the correlation between FK dependent Bernoulli random variables. In addition, the concept of a generalized binomial distribution was extended to a generalized multinomial distribution.
+
+In the next section, we will explore a different type of dependency structure, <em>sequential dependency</em>.
+
+[/nextpage]
+
+[nextpage title="..."]
+<h2>Sequentially Dependent Random Variables</h2>
+[caption id="attachment_505" align="aligncenter" width="725"]<a href="http://www.themathcitadel.com/wp-content/uploads/2017/06/seq-dep-tree.jpg"><img class=" wp-image-505" src="http://www.themathcitadel.com/wp-content/uploads/2017/06/seq-dep-tree.jpg" alt="" width="725" height="329"></a> <strong>Figure 2.</strong> Probability Mass Flow of Sequentially Dependent Categorical Random Variables, K=3.[/caption]
+
+[caption id="attachment_504" align="aligncenter" width="718"]<a href="http://www.themathcitadel.com/wp-content/uploads/2017/06/first-kind-tree.jpg"><img class=" wp-image-504" src="http://www.themathcitadel.com/wp-content/uploads/2017/06/first-kind-tree.jpg" alt="" width="718" height="326"></a> <strong>Figure 3.</strong> Probability Mass Flow of FK Dependent Categorical Random Variables, K=3.[/caption]
+
+While FK dependence yielded some interesting results, a more realistic type of dependence is <em>sequential dependence</em>, where the outcome of a categorical random variable depends with coefficient <em>δ</em> on the outcome of the variable immediately preceeding it in the sequence. Put formally, if we let [latex]\mathcal{F}_{n} = \{\epsilon_{1},\ldots,\epsilon_{n-1}\}[/latex], then [latex]P(\epsilon_{n}|\epsilon_{1},\ldots,\epsilon_{n-1}) = P(\epsilon_{n}|\epsilon_{n-1}) \neq P(\epsilon_{n})[/latex]. That is, [latex]\epsilon_{n}[/latex] only has direct dependence on the previous variable [latex]\epsilon_{n-1}[/latex]. We keep the same weighting as for FK-dependence. That is,
+
+[latex, display = true]\begin{array}{lr}P(\epsilon_{n} = j | \epsilon_{n-1} = j) = p_{j}^{+} = p_{j} + \delta(1-p_{j}),&amp;\\ P(\epsilon_{n} = j | \epsilon_{n-1} = i) = p_{j}^{-} = p_{j}-\delta p_{j}, &amp;\:\: j = 1,\ldots,K;\:\:i \neq j\end{array}[/latex]
+As a comparison, for FK dependence, [latex]P(\epsilon_{n}|\epsilon_{1},\ldots,\epsilon_{n-1}) = P(\epsilon_{n}|\epsilon_{1}) \neq P(\epsilon_{n})[/latex]. That is, [latex]\epsilon_{n}[/latex] only has direct dependence on [latex]\epsilon_{1}[/latex], and
+
+[latex, display = true]\begin{array}{lr}P(\epsilon_{n} = j | \epsilon_{1} = j) = p_{j}^{+} = p_{j} + \delta(1-p_{j}),&amp;\\ P(\epsilon_{n} = j | \epsilon_{1} = i) = p_{j}^{-} = p_{j}-\delta p_{j},&amp;\:\:j = 1,\ldots,K;\:\: i \neq j\end{array}[/latex]
+Let [latex]\epsilon = (\epsilon_{1},\ldots,\epsilon_{n})[/latex] be a sequence of categorical random variables of length&nbsp;<em>n</em>&nbsp;(either independent or dependent) where the number of categories for all [latex]\epsilon_{i}[/latex] is <em>K</em>. Denote [latex]\Omega_{n}^{K}[/latex] as the sample space of this random sequence. For example,
+
+[latex, display = true]\Omega_{3}^{3} = \{(1,1,1), (1,1,2), (1,1,3), (1,2,1), (1,2,2),\ldots,(3,3,1),(3,3,2),(3,3,3)\}[/latex]
+
+Dependency structures like FK-dependence and sequential dependence change the probability of a sequence [latex]\epsilon[/latex] of length <em>n</em>&nbsp;taking a particular [latex]\omega = (\omega_{1},\ldots,\omega_{n}) \in \Omega_{n}^{K}[/latex]. The probability of a particular [latex]\omega \in \Omega_{n}^{K}[/latex] is given by the dependency structure. For example, if the variables are independent, [latex]P((1,2,1)) = p_{1}^{2}p_{2}[/latex]. Under FK-dependence, [latex]P((1,2,1)) = p_{1}p_{2}^{-}p_{1}^{+}[/latex], and under sequential dependence, [latex]P((1,2,1)) = p_{1}p_{2}^{-}p_{1}^{-}[/latex]. See Figures&nbsp;2&nbsp;and 3&nbsp;for a comparison of the probability mass flows of sequential dependence and FK dependence. Sequentially dependent sequences of categorical random variables remain identically distributed but dependent, just like FK-dependent sequences. That is,
+
+<hr>
+
+<em><strong>Lemma 1</strong></em>
+
+Let [latex]\epsilon = (\epsilon_{1},\ldots,\epsilon_{n})[/latex] be a sequentially dependent categorical sequence of length&nbsp;<em>n</em>&nbsp;with <i>K</i>&nbsp;categories. Then
+
+[latex, display=true]P(\epsilon_{j} = i) = p_{i}; \qquad i = 1,\ldots,K;\:\:j = 1,\ldots,n;\:\: n \in \mathbb{N}[/latex]
+
+<hr>
+
+[/nextpage]
+
+[nextpage title="..."]
+<h2>Cross-Covariance Matrix</h2>
+The [latex]K \times K[/latex] cross-covariance matrix [latex]\Lambda^{m,n}[/latex] of [latex]\epsilon_{m}[/latex] and [latex]\epsilon_{n}[/latex] in a sequentially dependent categorical sequence has entries [latex]\Lambda_{i,j}^{m,n}[/latex] that give the cross-covariance [latex]\text{Cov}([\epsilon_{m} = i][/latex], [latex][\epsilon_{n} = j])[/latex], where [latex][\cdot][/latex] denotes an Iverson bracket. In the FK-dependent case, the entries of [latex]\Lambda^{m,n}[/latex] are given by
+
+[latex, display=true]\Lambda^{1,n}_{ij}=\left\{\begin{array}{lc}\delta p_{i}(1-p_{i}), &amp; i = j \\-\delta p_{i}p_{j}, &amp; i \neq j,\end{array}\right.\quad\,n \geq 2,[/latex]
+
+and
+
+[latex, display=true]\Lambda^{m,n}_{ij}=\left\{\begin{array}{lc}\delta^{2}p_{i}(1-p_{i}), &amp; i = j \\-\delta^{2}p_{i}p_{j}, &amp; i \neq j,\end{array}\right. \quad\,n &gt; m; m\neq 1[/latex]
+
+Thus, the cross covariance between any two [latex]\epsilon_{m}[/latex] and [latex]\epsilon_{n}[/latex] in the FK-dependent case is never smaller than <em>δ</em><sup> 2</sup> times the independent cross-covariance. In the sequentially dependent case, the cross-covariances of [latex]\epsilon_{m}[/latex] and [latex]\epsilon_{n}[/latex] decrease in powers of <em>δ</em> as the distance between the two variables in the sequence increases.
+
+<hr>
+
+<em><strong>Theorem 1 (Cross-Covariance of Dependent Categorical Random Variables). </strong></em>
+
+Denote [latex]\Lambda^{m,n}[/latex] as the [latex]K \times K[/latex] cross-covariance matrix of [latex]\epsilon_{m}[/latex] and [latex]\epsilon_{n}[/latex] in a sequentially dependent sequence of categorical random variables of length <em>N</em>, [latex]m \leq n[/latex], and [latex]n \leq N[/latex], defined as [latex]\Lambda^{m,n} = E[(\epsilon_{m} - E[\epsilon_{m}])(\epsilon_{n} - E[\epsilon_{n}])][/latex]. Then the entries of the matrix are given by
+
+[latex, display=true]\Lambda^{m,n}_{ij} = \left\{\begin{array}{lc}\delta^{n-m}p_{i}(1-p_{i}), &amp; i = j \\-\delta^{n-m} p_{i}p_{j}, &amp; i \neq j.\end{array}\right.[/latex]
+
+<hr>
+
+The pairwise covariance between two Bernoulli variables in a sequentially dependent sequence is given in the following corollary
+
+<hr>
+
+<em><strong>Corollary 1</strong></em>
+
+Denote [latex]P(\epsilon_{i} = 1) = p[/latex]; [latex]i = 1,\ldots,n[/latex], and let [latex]q=1-p[/latex]. Under sequential dependence,
+[latex, display=true]\text{Cov}(\epsilon_{m}, \epsilon_{n}) = pq\delta^{n-m}.[/latex]
+
+<hr>
+
+We give some examples to illustrate.
+
+&nbsp;
+
+<em><strong>Example 1 (Bernoulli Random Variables). </strong></em>
+
+If we want to find the covariance between [latex]\epsilon_{2}[/latex] and [latex]\epsilon_{3}[/latex], then we note that the set [latex]S = \{\omega \in \Omega_{3}^{2}\,:\,\omega_{2} = 1, \omega_{3} = 1\}[/latex] is given by [latex]S = \{(1,1,1),(0,1,1)\}[/latex]. [latex]P(\epsilon_{2} = 1, \epsilon_{3} = 1) = P(S)[/latex]. Thus,
+
+[latex, display=true]\begin{array}{rl}\text{Cov}(\epsilon_{2},\epsilon_{3})&amp;=P(\epsilon_{2} = 1, \epsilon_{3} = 1)-P(\epsilon_{2} = 1)P(\epsilon_{3} = 1)\\&amp;=pp^{+}p^{+} + qp^{-}p^{+}-p^{2}\\&amp;= p^{+}(pp^{+} + qp^{-})-p^{2}\\&amp;= p(p^{+}-p)\\&amp;= pq\delta\end{array}[/latex]
+
+Similarly,
+[latex, display=true]\begin{array}{rl}\text{Cov}(\epsilon_{1}, \epsilon_{3}) &amp;= P(\epsilon_{1} = 1, \epsilon_{3} = 1)-P(\epsilon_{1} = 1)P(\epsilon_{3} = 1)\\&amp;= (pp^{+}p^{+} + pq^{-}p^{-})-p^{2} \\&amp;= p((p+\delta q)^{2} + pq(1-\delta)^{2})-p^{2}\\&amp;= p(p^{2} + pq+\delta^{2}q^{2} + \delta^{2}pq)-p^{2}\\&amp;= p(p(p+q) + \delta^{2}q(q+p)- p^{2} \\&amp;= p(p + \delta^{2}q)-p^{2}\\&amp;= pq\delta^{2}\end{array}[/latex]
+
+&nbsp;
+
+<em><strong>Example 2 (Categorical Random Variables). </strong></em>
+
+Suppose we have a sequence of categorical random variables, where <em>K</em> = 3. Then
+[latex][\epsilon_{m} = i][/latex] is the Bernoulli random variable with the binary outcome of 1 if [latex]\epsilon_{m} = i[/latex] and 0 if not. Thus,
+
+[latex, display=true]\text{Cov}([\epsilon_{m} = i], [\epsilon_{n} = j]) = P(\epsilon_{m} = i \vee \epsilon_{n}= j)-P(\epsilon_{m} = i)P(\epsilon_{n} = j).[/latex]
+
+We have shown that every [latex]\epsilon_{n}[/latex] in the sequence is identically distributed, so [latex]P(\epsilon_{m} = i) = p_{i}[/latex] and [latex]P(\epsilon_{n} = j) = p_{j}[/latex].
+
+[latex, display=true]\begin{array}{rl}\text{Cov}([\epsilon_{2} = 1], [\epsilon_{3} = 1]) &amp;=(p_{1}p_{1}^{+}p_{1}^{+} + p_{2}p_{1}^{-}p_{1}^{+} + p_{3}p_{1}^{-}p{1}^{+})-p_{1}^{2} \\&amp;= p_{1}^{+}(p_{1}p_{1}^{+} + p_{2}p_{1}^{-} + p_{3}p_{1}^{-})-p_{1}^{2} \\&amp;= p_{1}^{+}p_{1}-p_{1}^{2} \\&amp;=\delta p_{1}(1-p_{1})\end{array}[/latex]
+
+[latex, display=true]\begin{array}{rl}\text{Cov}([\epsilon_{2} = 1], [\epsilon_{3} = 2]) &amp;=(p_{1}p_{1}^{+}p_{2}^{-} + p_{2}p_{1}^{-}p_{2}^{-}+p_{3}p_{1}^{-}p_{2}^{-})-p_{1}p_{2} \\&amp;= p_{2}^{-}(p_{1}p_{1}^{+} + p_{2}p_{1}^{-} + p_{3}p_{1}^{-})-p_{1}p_{2}\\&amp;= p_{1}p_{2}^{-}-p_{1}p_{2} \\&amp;=-\delta p_{1}p_{2}\end{array}[/latex]
+
+We may obtain the other entries of the matrix in a similar fashion. So, the cross-covariance matrix for a [latex]\epsilon_{2}[/latex] and [latex]\epsilon_{3}[/latex] with <em>K</em> = 3 categories is given by
+
+[latex, display=true]\Lambda^{2,3}=\delta\begin{pmatrix}p_{1}(1-p_{1})&amp;-p_{1}p_{2}&amp;-p_{1}p_{3}\\-p_{1}p_{2} &amp; p_{2}(1-p_{2}) &amp;-p_{2}p_{3}\\-p_{1}p_{3} &amp;-p_{2}p_{3} &amp; p_{3}(1-p_{3})\end{pmatrix}[/latex]
+
+Note that if [latex]\epsilon_{2}[/latex] and [latex]\epsilon_{3}[/latex] are independent, then the cross-covariance matrix is all zeros, because <em>δ</em> = 0.
+
+<hr>
+
+[/nextpage]
+
+[nextpage title="..."]
+<h2>Dependency Generators</h2>
+Both FK-dependency and sequential dependency structures are particular examples of a class of <em>vertical dependency structures</em>. We denote the dependency of subsequent categorical random variables on a previous variable in the sequence as a <em>vertical dependency</em>. In this section, we define a class of functions that generate vertical dependency structures with the property that all the variables in the sequence are identically distributed but dependent.
+<h3>Vertical Dependency Generators Produce Identically Distributed Sequences</h3>
+Define the set of functions
+
+[latex, display=true]\mathscr{C}_{\delta} = \{\alpha: \mathbb{N}_{\geq 2} \to \mathbb{N} : \alpha(n) \geq 1 \wedge \alpha(n) &lt; n\:\: \forall\:n\}.[/latex]
+
+The mapping defines a direct dependency of <em>n</em> on [latex]\alpha(n)[/latex], denoted [latex]n \stackrel{\delta}{\rightsquigarrow} \alpha(n)[/latex]. We have already defined the notion of direct dependency, but we formalize it here.
+
+<hr>
+
+<em><strong>Definition. (Direct Dependency)</strong></em>
+
+Let [latex]\epsilon_{m}[/latex], [latex]\epsilon_{n}[/latex] be two categorical random variables in a sequence, where [latex]m &lt; n[/latex]. We say [latex]\epsilon_{n}[/latex] has a <em> direct dependency</em> on [latex]\epsilon_{m}[/latex], denoted [latex]\epsilon_{n} \rightsquigarrow_{\delta} \epsilon_{m}[/latex], if [latex]P(\epsilon_{n}|\epsilon_{n-1},\ldots,\epsilon_{1}) = P(\epsilon_{n}|\epsilon_{m})[/latex].
+
+<hr>
+
+<em><strong>Example</strong><strong>&nbsp;</strong><strong>3.</strong></em>
+For FK-dependence, [latex]\alpha(n) \equiv 1[/latex]. That is, for any [latex]n, \epsilon_{n} \rightsquigarrow_{\delta} \epsilon_{1}[/latex]
+
+<strong><em>Example 4.</em>&nbsp;</strong>
+The function [latex]\alpha(n) = n-1[/latex] generates the sequential dependency structure.
+
+We now define the notion of dependency continuity.
+
+&nbsp;
+
+<hr>
+
+<em><strong>Definition. (Dependency Continuity)</strong></em>
+A function [latex]\alpha: \mathbb{N}_{\geq 2} \to \mathbb{N}[/latex] is <em>dependency continuous</em>&nbsp;if [latex]\forall n \exists j \in \{1,...,n-1\}[/latex] such that [latex]\alpha(n) = j[/latex]
+
+<hr>
+
+&nbsp;
+
+We require that the functions in [latex]\mathscr{C}_{\delta}[/latex] be dependency continuous. Thus, the formal definition of the class of dependency generators [latex]\mathscr{C}_{\delta}[/latex] is
+
+&nbsp;
+
+<hr>
+
+<em><strong>Definition. (Dependency Generator)</strong></em>
+We define the set of functions [latex]\mathscr{C}_{\delta} = \{\alpha : \mathbb{N}_{\geq 2} \to \mathbb{N}\}[/latex] such that
+<ul>
+ 	<li>&nbsp;[latex]\alpha(n) &lt; n[/latex]</li>
+ 	<li>[latex]\forall n \exists j \in \{1,...,n-1\} : \alpha(n) = j[/latex]</li>
+</ul>
+and refer to this class as <em>dependency generators</em>.
+
+<hr>
+
+Each function in [latex]\mathscr{C}_{\delta}[/latex] generates a unique dependency structure for sequences of dependent categorical random variables where the individual elements of the sequence remain identically distributed.
+
+&nbsp;
+
+<hr>
+
+<em><strong>Theorem 2. (Identical Distribution of Sequences Generated by Dependency Generators)</strong></em>
+Let [latex]\alpha \in \mathscr{C}_{\delta}[/latex]. Then for any [latex]n\in \mathbb{N}, n \geq 2[/latex], the dependent categorical random sequence generated by [latex]\alpha[/latex] has identically distributed elements.
+
+<hr>
+
+[/nextpage]
+
+[nextpage title="..."]
+<h3>Graphical Interpretation and Illustrations</h3>
+We may visualize the dependency structures generated by [latex]\alpha \in \mathscr{C}_{\delta}[/latex] via directed <em>dependency graphs</em>. Each [latex]\epsilon_{n}[/latex] represents a vertex in the graph, and a directed edge connects [latex]n[/latex] to [latex]\alpha(n)[/latex] to represent the direct dependency generated by [latex]\alpha[/latex]. This section illustrates some examples and gives a graphical interpretation of the result in Theorem 2.
+
+<strong>First-Kind Dependency</strong>
+
+[caption id="attachment_542" align="aligncenter" width="308"]<a href="http://www.themathcitadel.com/wp-content/uploads/2017/06/first-kind-standalone.jpg"><img class="wp-image-542" src="http://www.themathcitadel.com/wp-content/uploads/2017/06/first-kind-standalone.jpg" alt="" width="308" height="281"></a> Dependency Graph for FK Dependence[/caption]
+
+For FK-dependency, [latex]\alpha(n) \equiv 1[/latex] generates the graph above. Each [latex]\epsilon_{i}[/latex] depends directly on [latex]\epsilon_{1}[/latex], and thus we see no connections between any other vertices [latex]i, j[/latex] where [latex]j \neq 1[/latex]. There are [latex]n-1[/latex] separate subsequences of length 2 in this graph.
+
+&nbsp;
+
+<strong>Sequential Dependency</strong>
+
+[caption id="attachment_543" align="aligncenter" width="474"]<a href="http://www.themathcitadel.com/wp-content/uploads/2017/06/sequential-standalone.jpg"><img class=" wp-image-543" src="http://www.themathcitadel.com/wp-content/uploads/2017/06/sequential-standalone.jpg" alt="" width="474" height="113"></a> Dependency Graph for Sequential Dependence[/caption]
+
+[latex]\alpha(n) = n-1[/latex] generates the sequential dependency structure this work has studied in detail. We can see that a path exists from any [latex]n[/latex] back to 1. This &nbsp;is a visual way to see the result of Theorem2,&nbsp; in that if a path exists from any [latex]n[/latex] back to 1, then the variables in that path must be identically distributed. Here, there is only one sequence and no subsequences.
+
+&nbsp;
+
+<strong>A Monotonic Example</strong>
+
+[caption id="attachment_544" align="aligncenter" width="325"]<a href="http://www.themathcitadel.com/wp-content/uploads/2017/06/sqrt-standalone.jpg"><img class=" wp-image-544" src="http://www.themathcitadel.com/wp-content/uploads/2017/06/sqrt-standalone.jpg" alt="" width="325" height="253"></a> Dependency Graph for a monotonic example[/caption]
+
+Here, [latex]\alpha(n) = \lfloor \sqrt{n}\rfloor[/latex]&nbsp;gives an example of a monotonic function in [latex]\mathscr{C}_{\delta}[/latex] and the dependency structure it generates. Again, note that any [latex]n[/latex] has a path to 1, and the number of subsequences is between 1 and [latex]n-1[/latex].
+
+&nbsp;
+
+<strong>A Nonmonotonic Example</strong>
+
+<a href="http://www.themathcitadel.com/wp-content/uploads/2017/06/sinusoidal-standalone.jpg"><img class=" wp-image-545 aligncenter" src="http://www.themathcitadel.com/wp-content/uploads/2017/06/sinusoidal-standalone.jpg" alt="" width="416" height="303"></a>
+
+Here, [latex]\alpha(n)=\left\lfloor\frac{\sqrt{n}}{2}\left(\sin(n)\right)+\frac{n}{2}\right\rfloor[/latex]&nbsp;illustrates a more contrived example where the function is nonmonotonic. It is neither increasing nor decreasing. The previous examples have all been nondecreasing.
+
+&nbsp;
+
+<strong>A Prime Example</strong>
+
+Let [latex]\alpha \in \mathscr{C}_{\delta}[/latex] be defined in the following way. Let [latex]p_{m}[/latex] be the [latex]m[/latex]th prime number, and let [latex]\{kp_{m}\}[/latex] be the set of all postive integer multiples of [latex]p_{m}[/latex]. Then the set [latex]\mathscr{P}_{m} = \{kp_{m}\} \setminus \cup_{i=1}^{m-1}\{kp_{i}\}[/latex] gives a disjoint partitioning of [latex]\mathbb{N}[/latex]. That is, [latex]\mathbb{N} = \sqcup_{m}\mathscr{P}_{m}[/latex], and thus for any [latex]n \in \mathbb{N}, n \in \mathscr{P}_{m}[/latex] for exactly one [latex]m[/latex]. Now let [latex]\alpha(n) = m[/latex]. Thus, the function is well-defined. We may write [latex]\alpha: \mathbb{N}_{\geq 2} \to \mathbb{N}[/latex] as [latex]\alpha[\mathscr{P}_{m}] = \{m\}[/latex]. As an illustration,
+
+[latex, display=true]\begin{aligned}\alpha[\{2k\}] &amp;= \{1\} \\\alpha[\{3k\}\setminus \{2k\}] &amp;= \{2\} \\\alpha[\{5k\}\setminus (\{2k\}\cup \{3k\})] &amp;= \{3\} \\&amp;\qquad\vdots\\\alpha[\{kp_{m}\}\setminus (\cup_{i=1}^{m-1}\{kp_{i}\})] &amp;= \{m\}\end{aligned}[/latex]
+
+[/nextpage]
+
+[nextpage title="..."]
+<h2>Conclusion</h2>
+This paper has extended the concept of dependent random sequences first put forth in the works of Korzeniowski&nbsp;[1]&nbsp;and Traylor&nbsp;[3]&nbsp;and developed a generalized class of vertical dependency structures. The sequential dependency structure was studied extensively, and a formula for the cross-covariance obtained. The class of dependency generators was defined and shown to always produce a unique dependency structure for any [latex]\alpha \in \mathscr{C}_{\delta}[/latex] in which the a sequence of categorical random variables under that [latex]\alpha[/latex] is identically distributed but dependent. We provided a graphical interpretation of this class, and illustrated with several key examples.
+<a href="http://creativecommons.org/licenses/by-nc-nd/4.0/" rel="license"><img style="border-width: 0;" src="https://i.creativecommons.org/l/by-nc-nd/4.0/88x31.png" alt="Creative Commons License"></a>
+This work is licensed under a <a href="http://creativecommons.org/licenses/by-nc-nd/4.0/" rel="license">Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License</a>.
+<h2>References</h2>
+<div class="page" title="Page 13">
+<div class="layoutArea">
+<div class="column">
+<ol>
+ 	<li>Andrzej Korzeniowski. On correlated random graphs. Journal of Probability and Statistical Science, pages 43–58, 2013.</li>
+ 	<li>Joseph McKean, Robert Hogg, and Allen Craig. Introduction to Mathematical Statistics. Prentice Hall, 6 edition.</li>
+ 	<li>Rachel Traylor. A generalized multinomial distribution from dependent categorical random variables. Academic Advances of the CTO, 2017.</li>
+</ol>
+</div>
+</div>
+</div>
+[/nextpage]		
+		
+						
+		476
+		2017-06-09 19:13:37
+		2017-06-09 19:13:37
+		open
+		open
+		vertical-dependency-in-sequences-of-categorical-random-variables
+		publish
+		0
+		0
+		post
+		
+		0
+										Probability Theory
+		Spire
+						
+		_da_attachments
+		a:0:{}
+		
+							
+		_edit_last
+		2
+		
+							
+		_acp_button_style
+		3
+		
+							
+		_acp_loading_type
+		1
+		
+							
+		_wp_page_template
+		default
+		
+							
+			8
+			Samuel Ensey
+			Craw@mail.ru
+			http://www.test.com
+			198.144.177.215
+			2017-06-20 16:16:47
+			2017-06-20 16:16:47
+			Weiter so ! Netter Beitrag :)
+			1
+			
+			0
+			0
+							
+					
+			37
+			A Generalized Geometric Distribution from Vertically Dependent Bernoulli Random Variables &#8211; The Research Cortex
+			
+			http://www.themathcitadel.com/2017/07/09/a-generalized-geometric-distribution-from-vertically-dependent-bernoulli-random-variables/
+			66.226.74.70
+			2017-07-09 14:02:52
+			2017-07-09 14:02:52
+			[&#8230;] Bernoulli trials generated from dependency generators as defined in Traylor and Hathcock&#8217;s previous work. The generalized geometric distribution describes a random variable X that counts the number of [&#8230;]
+			1
+			pingback
+			0
+			0
+							
+					
+			46
+			Uncorrelated and Independent: Related but not Equivalent &#8211; The Research Cortex
+			
+			http://www.themathcitadel.com/2017/07/20/uncorrelated-and-independent-related-but-not-equivalent/
+			66.226.74.70
+			2017-07-20 21:02:52
+			2017-07-20 21:02:52
+			[&#8230;] rarely truly independent. For the development of the theory of dependent random variables, see here, here, [&#8230;]
+			1
+			pingback
+			0
+			0
+							
+					
+			100
+			Commentary: Returning to Fundamentals in Tech &#8211; The Math Citadel
+			
+			http://www.themathcitadel.com/2017/09/28/commentary-returning-to-fundamentals-in-tech/
+			66.226.74.70
+			2017-09-28 22:31:54
+			2017-09-28 22:31:54
+			[&#8230;] stuff works ok. We&#8217;re trying to do that here, with new formats of publishing research, our vertically dependent random variable research, and new ways of looking at server reliability. It&#8217;s nice [&#8230;]
+			1
+			pingback
+			0
+			0
+						
+	akismet_history
+			a:3:{s:4:"time";d:1537552408.506268024444580078125;s:5:"event";s:11:"report-spam";s:4:"user";s:13:"jasonhathcock";}
+			
+						
+	akismet_user_result
+			false
+			
+						
+	akismet_user
+			jasonhathcock
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1537553463.0081551074981689453125;s:5:"event";s:10:"report-ham";s:4:"user";s:13:"jasonhathcock";}
+			
+							
+					
+			167
+			Poisson Processes and Data Loss &#8211; The Math Citadel
+			
+			http://www.themathcitadel.com/2017/10/17/poisson-processes-and-data-loss/
+			66.226.74.70
+			2017-10-17 15:20:55
+			2017-10-17 15:20:55
+			[&#8230;] Understanding the dependency structure of these successive failures can allow us to build a generalized Poisson process, just as we have built generalized multinomial and geometric distributions. [&#8230;]
+			1
+			pingback
+			0
+			0
+						
+	akismet_history
+			a:3:{s:4:"time";d:1537552407.8716399669647216796875;s:5:"event";s:11:"report-spam";s:4:"user";s:13:"jasonhathcock";}
+			
+						
+	akismet_user_result
+			false
+			
+						
+	akismet_user
+			jasonhathcock
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1537553462.0132100582122802734375;s:5:"event";s:10:"report-ham";s:4:"user";s:13:"jasonhathcock";}
+			
+							
+					
+			233
+			The Gravity of Mathematics: Summary of Tech Field Day at SDC 2017 &#8211; The Math Citadel
+			
+			http://www.themathcitadel.com/2017/09/19/the-gravity-of-mathematics-summary-of-tech-field-day-at-sdc-2017/
+			66.226.74.70
+			2017-11-11 18:54:41
+			2017-11-11 18:54:41
+			[&#8230;] to be interested in the most theoretical work we do here. (The posts on this work are here,&nbsp;here, and&nbsp;here.). This, to me, was a delightful surprise in how much interest and imagination I saw [&#8230;]
+			1
+			pingback
+			0
+			0
+						
+	akismet_history
+			a:3:{s:4:"time";d:1537552406.2009699344635009765625;s:5:"event";s:11:"report-spam";s:4:"user";s:13:"jasonhathcock";}
+			
+						
+	akismet_user_result
+			false
+			
+						
+	akismet_user
+			jasonhathcock
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1537553458.6485950946807861328125;s:5:"event";s:10:"report-ham";s:4:"user";s:13:"jasonhathcock";}
+			
+							
+					
+			14119
+			Elvin Heimlich
+			Laite55031@gmail.com
+			https://www.cnn.com
+			209.107.214.70
+			2019-03-08 05:13:44
+			2019-03-08 05:13:44
+			I’m really impressed with your writing skills and also with the layout on your weblog. Is this a paid theme or did you modify it yourself? Anyway keep up the excellent quality writing, it is rare to see a great blog like this one nowadays..
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1552022024
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552022024.924437999725341796875;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			d46e91a5a6df8f0d3e5da6b9d89228f3
+			
+							
+					
+			14120
+			Deandra Pezzulo
+			Hoster65075@gmail.com
+			https://www.cnn.com
+			64.145.76.131
+			2019-03-08 05:13:44
+			2019-03-08 05:13:44
+			<b>Пополение баланса Авито (Avito) за 50</b> | <b>Телеграмм @a1garant</b> <b>Приветствую вас, дорогие друзья!</b> Всегда рады предоставить Всем вам сервис по пополнению баланса на действующие активные аккаунты Avito (а также, совершенно новые). Если Вам требуются конкретные балансы – пишите, будем решать. Потратить можно  на турбо продажи, любые платные услуги Авито (Avito). <b>Аккаунты не Брут. Живут долго.</b> Процент пополнения в нашу сторону и стоимость готовых аккаунтов: <b>50 от баланса на аккаунте.</b>Если необходим залив на ваш аккаунт, в этом случае требуются логин и пароль Вашего акка для доступа к форме оплаты, пополнения баланса.Для постоянных заказчиков гибкая система бонусов и скидок!Гарантия: <b>И, конечно же ничто не укрепляет доверие, как – Постоплата!!!</b> Вперед денег не просим… <b>А также, гасим Штрафы ГИБДД за 65 …</b> Оплата:ЯндексДеньги, Webmoney (профессиональные счета)Рады сотрудничеству! Залив Авито <b>канал Телеграмм  @t.me/avito50 </b>________ турбо пакет авито +натурбо продажа авито скидкаавито саратовавито ростов +на дону бесплатныекупить акции авито
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1552022025
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552022025.0129230022430419921875;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			bcb270ba79c69b33d5fd01cffa4d5765
+			
+							
+					
+			14121
+			Charley Birkenhagen
+			Jarrett64156@gmail.com
+			https://www.cnn.com
+			81.171.58.113
+			2019-03-08 05:13:45
+			2019-03-08 05:13:45
+			[url=http://skyrimcheatsonline2017.com/]buy cialis online without prescription[/url] buy liquid cialis <a href="http://skyrimcheatsonline2017.com/" rel="nofollow">where to buy cialis online</a> where to buy generic cialis online
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1552022025
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552022025.0504169464111328125;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			2928ea38b0f1ef4771dcdd74d2805e96
+			
+							
+					
+			14187
+			Margart Barriault
+			Hoots57795@gmail.com
+			https://www.cnn.com
+			185.108.104.23
+			2019-03-08 06:22:12
+			2019-03-08 06:22:12
+			personal loan <a href="https://personalloans2019.com/" rel="nofollow">best personal loans</a> loan form <a href="https://personalloans2019.com/" rel="nofollow">https://personalloans2019.com/</a> – payday loan without credit check
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1552026132
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552026132.9916760921478271484375;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			75c1d65dedad3834be22af1f9098c6bb
+			
+							
+					
+			14208
+			Henry Lovejoy
+			Kulik25845@gmail.com
+			https://www.cnn.com
+			209.107.196.46
+			2019-03-08 06:54:12
+			2019-03-08 06:54:12
+			Where can I buy in store <a href="http://www.carlislestyle.co.uk/wp-includes/certificates/pharmacy/emoquette.html#generic_emoquette" rel="nofollow">http://www.carlislestyle.co.uk/wp-includes/certificates/pharmacy/emoquette.html#generic_emoquette</a>  purchase online in usa.
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1552028052
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552028052.9998509883880615234375;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			515fcd108389f51dd76175dcda719377
+			
+							
+					
+			14209
+			Mohamed Leisure
+			Ihenyen52097@gmail.com
+			https://www.cnn.com
+			173.245.203.175
+			2019-03-08 06:54:13
+			2019-03-08 06:54:13
+			Write more, thats all I have to say. Literally, it seems as though you reliedon the video to make your point. You definitely knowwhat youre talking about, why waste your intelligence on just posting videos to your weblog when yoou could be giving us something informative to read?
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1552028053
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552028053.491703033447265625;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			5f4f8b897dff57514c6bfbdd4216e1b1
+			
+							
+					
+			14210
+			Meryl Dragan
+			Bermudez6947@gmail.com
+			https://www.cnn.com
+			81.171.97.163
+			2019-03-08 06:54:13
+			2019-03-08 06:54:13
+			<a href="http://buymobic.us.com/" rel="nofollow">Cheap Mobic</a>
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1552028053
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552028053.6553390026092529296875;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			d0ee5b3cc6f7daa7f168b092aa1a9c76
+			
+							
+					
+			14211
+			Drucilla Diotte
+			Niedbalec68749@gmail.com
+			https://www.cnn.com
+			64.145.94.110
+			2019-03-08 06:54:16
+			2019-03-08 06:54:16
+			Wow, fantastic weblog structure! How lengthy have you been running a blog for? you make running a blog glance easy. The whole glance of your site is great, as smartly as the content!
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1552028056
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552028056.411899089813232421875;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			eecd65476c828244ab7955723fb13750
+			
+							
+					
+			14808
+			Romeo Gheen
+			Corbelli3906@gmail.com
+			http://earllovesyou.com
+			209.107.210.79
+			2019-03-10 16:59:09
+			2019-03-10 16:59:09
+			stafford loans <a href="https://paydayloans2018.com/" rel="nofollow">payday loans</a> payday loan online <a href="https://paydayloans2018.com/" rel="nofollow">loans refinance</a> instant loan no credit check <a href="https://personalloans2019.com/" rel="nofollow">personal loans</a> personal loans <a href="https://personalloans2019.com/" rel="nofollow">faxless cash advance</a>
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1552237149
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552237149.590672016143798828125;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			392074698206c02aae44d22b11e65aa6
+			
+							
+					
+			14850
+			Janita Sawallich
+			Fernstaedt12234@gmail.com
+			http://earllovesyou.com
+			81.171.107.112
+			2019-03-10 17:59:10
+			2019-03-10 17:59:10
+			If you are even now upon the fence: grab your favored earphones, brain down to a Simplest Order and ask in direction of plug them into a Zune then an iPod and look at which one particular appears far better to yourself, and which interface makes yourself smile more. Then you can know which is immediately for your self.
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1552240750
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552240750.8545649051666259765625;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			fa96e13a914c1735d061be9742167ee5
+			
+							
+					
+			14852
+			Gerard Hartery
+			Daron39641@gmail.com
+			http://earllovesyou.com
+			205.185.209.124
+			2019-03-10 18:02:25
+			2019-03-10 18:02:25
+			Admiring the persistence you put into your site and in depth information you provide.It’s nice to come across a blog every once in a while that isn’t the same outdated rehashed information.Wonderful read! I’ve saved your site and I’m addingyour RSS feeds to my Google account.
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1552240945
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552240945.27225208282470703125;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			f811a3fdaeea556958b0ed253234de95
+			
+							
+					
+			14861
+			Aron Fadel
+			Blanc52171@gmail.com
+			http://earllovesyou.com
+			81.171.81.243
+			2019-03-10 18:32:11
+			2019-03-10 18:32:11
+			With thanks! Valuable information!
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1552242731
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552242731.8838069438934326171875;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			84ac3f961e1079ba31caac9841e91130
+			
+							
+					
+			16160
+			Giuseppe Mompoint
+			Gehl74990@gmail.com
+			http:/suckafatonehomo.com
+			216.151.183.55
+			2019-03-15 21:44:28
+			2019-03-15 21:44:28
+			An impressive share! I’ve just forwarded this onto a friend who was doing a little homework on this. And he in fact ordered me dinner due to the fact that I discovered it for him… lol. So let me reword this…. Thank YOU for the meal!! But yeah, thanx for spending some time to talk about this topic here on your site.
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1552686268
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552686268.546783924102783203125;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			489fc80373c2d3923d1ba09947c23759
+			
+							
+					
+			16209
+			Nohemi Alequin
+			Riccelli80016@gmail.com
+			http:/suckafatonehomo.com
+			205.185.209.236
+			2019-03-15 23:02:07
+			2019-03-15 23:02:07
+			Thanks  for another fantastic article. Where else may anyone get that kind of info in such a perfect manner of writing? I have a presentation subsequent week, and I am on the search for such information.
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1552690927
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552690927.8165500164031982421875;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			24cfdef79672f46b17ca367e5201d13c
+			
+							
+					
+			16218
+			Markus Antone
+			Osbey17340@gmail.com
+			http:/suckafatonehomo.com
+			209.107.210.228
+			2019-03-15 23:40:03
+			2019-03-15 23:40:03
+			I  regard something  truly  interesting about your  web blog  so I  saved to bookmarks .
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1552693203
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552693203.255918979644775390625;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			b733653afdd69bb6f6b3080ada2e1acc
+			
+							
+					
+			16219
+			Mose Kirkconnell
+			Rotstein32680@gmail.com
+			http:/suckafatonehomo.com
+			81.171.71.49
+			2019-03-15 23:40:42
+			2019-03-15 23:40:42
+			I was just searching for this information for a while. After 6 hours of continuous Googleing, finally I got it in your web site. I wonder what’s the lack of Google strategy that don’t rank this type of informative websites in top of the list. Generally the top sites are full of garbage.
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1552693242
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552693242.552359104156494140625;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			efdc10227af41360bba629570b30a0b3
+			
+							
+					
+			16283
+			Michael Pendergrast
+			Falor21923@gmail.com
+			http://suckafatonehomo.com
+			81.171.71.56
+			2019-03-16 03:41:48
+			2019-03-16 03:41:48
+			Great – I should definitely pronounce, impressed with your website. I had no trouble navigating through all the tabs and related info ended up being truly easy to do to access. I recently found what I hoped for before you know it in the least. Reasonably unusual. Is likely to appreciate it for those who add forums or something, web site theme . a tones way for your client to communicate. Nice task.
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1552707708
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552707708.53219509124755859375;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			2ecfb009808db12d64798be2779a9f1f
+			
+							
+					
+			16324
+			Armando Mangual
+			Tozloski17702@gmail.com
+			http://suckafatonehomo.com
+			69.16.147.210
+			2019-03-16 04:56:46
+			2019-03-16 04:56:46
+			is necesita receta
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1552712206
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552712206.061913013458251953125;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			9247a42761bbc2a54392729efd7c0870
+			
+							
+					
+			16333
+			Cheree Alfrey
+			Rengers6443@gmail.com
+			http://suckafatonehomo.com
+			81.171.56.192
+			2019-03-16 05:32:17
+			2019-03-16 05:32:17
+			Top private investigation companies,  <a href="http://advance-background-checks.stream" rel="nofollow">http://advance-background-checks.stream</a>  clark county washington warrant check.
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1552714337
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552714337.7041690349578857421875;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+							
+					
+			16334
+			Irvin Baldi
+			Stempel72652@gmail.com
+			http://suckafatonehomo.com
+			173.245.202.138
+			2019-03-16 05:32:19
+			2019-03-16 05:32:19
+			Today, I went to the beach front with my kids. I found a sea shell and gaveit to my 4 year old daughter and said “You can hear the ocean if you put this to your ear.”She placed the shell to her ear and screamed.There was a hermit crab inside and it pinchedher ear. She never wants to go back! LoL I know this istotally off topic but I had to tell someone!
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1552714339
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552714339.6888959407806396484375;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			7b26da521f9521567c367756d190ce83
+			
+							
+					
+			16928
+			Sirena Sengbusch
+			Priess58208@gmail.com
+			https://www.youcrazy.com/
+			81.171.74.161
+			2019-03-18 15:43:50
+			2019-03-18 15:43:50
+			We stumbled over here  different web page and thought I may as well check things out. I like what I see so now i am following you. Look forward to looking into your web page again.
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1552923831
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552923831.00990200042724609375;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			cd80c85c8801cab9c0e2a9ec0096cf2c
+			
+							
+					
+			17008
+			Stephane Woline
+			Shinnick73962@gmail.com
+			https://www.youcrazy.com/
+			81.171.58.55
+			2019-03-18 19:23:26
+			2019-03-18 19:23:26
+			Economy of Russia We n we publish all of them current and important events World, analytics experts. All negative on earth happens with the quiet tacit consent of the indifferent. No one provides us with incentives. We are Disinterested. We are building a civil society. The people are the bearer of sovereignty and the only source of power. No one can usurp power. Useful topics – Culture <a href="http://www.remmont.com/category/loan" rel="nofollow">Kansas-city Business</a>  <a href="http://papua-new-guinea.remmont.com/voted-best-psychic-by-houston-press-voted-best-psychic-by-houston-press-diane-gremmel-diane-gremmel-psychic-medium-houston-best-medium-houston-top-psychic-medium/" rel="nofollow"> diane gremmel </a> <a href="http://loan-credit.remmont.com/tcf-personal-loans-school-loan-calculator/" rel="nofollow"> tcf personal loan </a>  <a href="http://auto.nef2.com/desert-valley-auto-parts-u-pick-and-pull-a-part-auto-salvage-junk-yards-wrecking-yards-near-by-auto-body-tools/" rel="nofollow"> desert valley auto parts 23811 n 7th avenue </a> <a href="http://seattle.nef2.com/goshers-blind-spot-detection-system-review-consumer-reports-goshers-blind-spot-detection-system-chevrolet-cruze-aftermarket-led-warning-display-safety-cars-babies-kids/" rel="nofollow"> goshers system </a>  <a href="http://malta.nef6.com/2018/02/28/why-your-window-well-is-causing-basement-leaks-window-wells-toronto/" rel="nofollow"> nusite waterproofing homestars </a> <a href="https://twitter.com/remontkvartir" rel="nofollow"> TWITTER </a><a href="https://www.facebook.com/Rwanda-Business-140967509928179/" rel="nofollow"> FACEBOOK </a><a href="https://plus.google.com/u/0/communities/110511804575167063918" rel="nofollow"> GOOGLE+ </a><a href="https://vk.com/public151066551" rel="nofollow">long-beach</a>
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1552937006
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552937006.7369120121002197265625;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			1106ef48c4421eec64d1401453c6b392
+			
+							
+					
+			17029
+			Griselda Fletchen
+			Inyart25393@gmail.com
+			https://www.youcrazy.com/
+			209.197.16.155
+			2019-03-18 20:53:57
+			2019-03-18 20:53:57
+			<b><a href="http://milwaukee.nef2.com." rel="nofollow"> milwaukee business </a> <i>Spring Cleanup Time in the General Discussion </i><i><a href="http://remmont.com/online-classified-ads-westchester-putnam-dutchess-new-york-westchester-ny-movers-westchester-ny-movers/" rel="nofollow"> yorktown pennysaver tag sales </a> </i></b>h body Community Tools idea <i><a href="http://san-diego.remmont.com/xbox-360-jailbreak-how-to-jailbreak-xbox-360-jtag-with-usb-xbox-hacking-xbox-hacking/" rel="nofollow"> how to jailbreak your xbox 360 </a> </i><b>PMs in out box </b><i><a href="http://reply.remmont.com/action-replay-codes-for-us-version-the-legend-of-zelda-spirit-tracks-answers-for-ds-show-cause-reply/" rel="nofollow"> legend of zelda spirit tracks cheats action replay </a> Cant delete garage vehicle </i><i><a href="http://poland.remmont.com/banco-santander-rio-argentina-home-banking-search-by-rio-bank-online/" rel="nofollow"> bancosantanderrio homebanking </a> </i><i>Kiss My Ass Smilie doesnt work </i><b><a href="http://remmont.com/utah-used-cars-under-1000-find-used-cars-less-than-1000-ututah-used-cars-for-sale-under-10000-dollars-used-cars-ut-cheap-cars-for-sale-in-utah-cheap-cars-for-sale-in-utah/" rel="nofollow"> good cars under 1000 dollars </a>  </b><b>Post to 1/4 mile incorrect <a href="http://remmont.com/printful/" rel="nofollow"> printful taxes </a> <i>We need a section like this <b><a href="http://las-vegas.remmont.com/page/2/" rel="nofollow"> myappleone com </a> </b></i></b><b>Lets tackle one project at a time Modify the Garage <a href="http://india.remmont.com/2018/04/" rel="nofollow"> salvageworld net review </a> Just wasted 20 min <i><a href="http://remmont.com/insure-nj-commercial-trucks-vans-box-trucks-sedans-one-to-large-fleets-new-jersey-commercial-auto-insurance-new-jersey-commercial-auto-insurance/" rel="nofollow"> njcaip </a> </i></b><b>Forum Topic Symbol description </b><a href="http://remmont.com/used-flatbed-tow-trucks-ebay-used-flatbed-trucks-for-sale-used-flatbed-trucks-for-sale/" rel="nofollow"> flatbed trucks for sale ebay </a>  <a href="http://albuquerque.nef2.com." rel="nofollow"> albuquerque business </a>
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1552942437
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552942437.307200908660888671875;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			793589feb704f0c0d38b21969d64b717
+			
+							
+					
+			17030
+			Elmer Wakley
+			Chantry21114@gmail.com
+			https://www.youcrazy.com/
+			81.171.81.175
+			2019-03-18 20:53:58
+			2019-03-18 20:53:58
+			personal loans bad credit <a href="https://personalloans2019.com/" rel="nofollow">personal loan</a> short term personal loans <a href="https://personalloans2019.com/" rel="nofollow">bad credit money loans</a>
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1552942438
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552942438.5149090290069580078125;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			eef8abe71b8500043db850737269f978
+			
+							
+					
+			17412
+			Leigh Raithel
+			Camden925@gmail.com
+			http://www.clash-royale-generator.1s.fr/
+			188.165.164.134
+			2019-03-20 07:12:00
+			2019-03-20 07:12:00
+			<b>Free Gems for Clash Royale 2019  is an app that promises to increase your wealth in Clash Royale by giving you as many gems and coins as you want.The way Free Gems for Clash Royale 2019 works is pretty simple: when you open the app, you'll see three sections you need to fill in with information. In the first, you need to enter your Clash Royale username to make sure you send the gems and coins to the right account; in the second, you enter how many gems you want; and in the third, you enter how many coins you want.Once you've entered all this information (the numbers can be as high as you want), tap 'accept,' and a message will appear to confirm that the app is sending the gems and coins to your Clash Royale account.When this process is finished, you can go to your Clash Royale account and check if Free Gems for Clash Royale 2019  has made good on its promise.Free Gems for Clash Royale 2019 is a relatively trustworthy app that promises to give you more coins and gems in Clash Royale.<a href="http://www.clash-royale-generator.1s.fr/" rel="nofollow">Take your free gems HERE</a></b>
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1553065920
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1553065920.9306309223175048828125;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			8629688b7890680736d607c63eb32a2e
+			
+							
+					
+			17546
+			Jason Seay
+			Scharpf67398@gmail.com
+			https://www.lickmyballs.com
+			81.171.69.130
+			2019-03-20 20:35:00
+			2019-03-20 20:35:00
+			Very nice article and right to the point. I am not sure if this is truly the best place to ask but do you guys have any ideea where to employ some professional writers? Thank you 🙂
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1553114100
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1553114100.5845859050750732421875;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			b5bb6d00cb3571c50661d2821ecda7f5
+			
+							
+					
+			17547
+			Warren Twilligear
+			Wenk45919@gmail.com
+			https://www.lickmyballs.com
+			81.171.107.126
+			2019-03-20 20:35:00
+			2019-03-20 20:35:00
+			Do you mind if I quote a couple of your posts as long as I provide credit and sources backto your webpage? My blog is in the exact same niche as yours and myusers would genuinely benefit from some of theinformation you provide here. Please let me knowif this ok with you. Appreciate it!
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1553114100
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1553114100.62489604949951171875;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			72c7ea914ff28907e76e33395137ef7f
+			
+							
+					
+			17548
+			Stephane Woline
+			Ellingburg52610@gmail.com
+			https://www.lickmyballs.com
+			209.107.210.96
+			2019-03-20 20:35:01
+			2019-03-20 20:35:01
+			Great site! I am loving it!! Will come back again. I am taking your feeds also
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1553114101
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1553114101.6001350879669189453125;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			ed68a256a6a930732f8b581fd4adacab
+			
+							
+					
+			17549
+			Joan Graus
+			Cranshaw60775@gmail.com
+			https://www.lickmyballs.com
+			64.145.94.183
+			2019-03-20 20:35:07
+			2019-03-20 20:35:07
+			[url=http://www.ativanx.com/lorazepam/which-is-the-best-place-to-buy-ativan-medication/]Which is the best place to buy Ativan medication?[/url], [url=http://www.ativanx.com/lorazepam/buy-ativan-online-without-prescription/]Buy Ativan Online Without Prescription[/url], [url=http://www.ativanx.com/lorazepam/is-it-possible-to-reduce-the-price-of-ativan-medication/]Is it possible to reduce the price of Ativan medication?[/url] Unmatotodak
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1553114107
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1553114107.3486969470977783203125;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			902b5e0a6e0062cae797aa7381a237a7
+			
+							
+					
+			17629
+			Martin Concepcion
+			Yerkey3331@gmail.com
+			https://www.lickmyballs.com
+			216.151.180.144
+			2019-03-20 23:28:53
+			2019-03-20 23:28:53
+			<a href="https://mortgage.us.org/" rel="nofollow">best mortgage</a>
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1553124533
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1553124533.856051921844482421875;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			07dea85a709080fa74d725e04f6da474
+			
+							
+					
+			17632
+			Sherika Steelman
+			Shellabarger30862@gmail.com
+			https://www.lickmyballs.com
+			94.46.177.152
+			2019-03-20 23:35:21
+			2019-03-20 23:35:21
+			Somebody essentially help to make seriously articles I would state. This is the very first time I frequented your web page and thus far? I surprised with the research you made to make this particular publish amazing. Great job!
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1553124921
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1553124921.345633029937744140625;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			5c71fe33ce032d2c0a1f1a8b6992a0ac
+			
+							
+					
+			17654
+			Lucie Logero
+			Pizzano38805@gmail.com
+			https://www.lickmyballs.com
+			185.242.7.25
+			2019-03-21 01:12:43
+			2019-03-21 01:12:43
+			Hi there to every one, the contents existing at this web page aregenuinely awesome for people experience, well, keep up thenice work fellows.
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1553130763
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1553130763.35933399200439453125;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+							
+					
+			17655
+			Jasper Turlich
+			Skaflen84303@gmail.com
+			https://www.lickmyballs.com
+			94.46.177.152
+			2019-03-21 01:12:44
+			2019-03-21 01:12:44
+			title loans online <a href="https://easypayday.us.com/" rel="nofollow">long term payday loan</a> easy money payday loans <a href="https://easypayday.us.com/" rel="nofollow">loan installment</a>
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1553130764
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1553130764.039206981658935546875;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			f1a3322f65b661fd9bfa83be2049c0f7
+			
+							
+					
+			17656
+			Art Greggory
+			Vandis28814@gmail.com
+			https://www.lickmyballs.com
+			209.197.30.137
+			2019-03-21 01:12:44
+			2019-03-21 01:12:44
+			Buy over the counter in spain <a href="http://hempfieldcob.org/css/pharmacy/troken.html#generic_troken" rel="nofollow">http://hempfieldcob.org/css/pharmacy/troken.html#generic_troken</a>  buying generic in canada.
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1553130764
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1553130764.6898849010467529296875;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			8251fdd3614efda4fd7b520661209731
+			
+							
+					
+			18477
+			minecraft
+			marjoriegregory@gmail.com
+			http://j.mp/2EFkSqE
+			192.186.134.138
+			2019-03-24 04:57:42
+			2019-03-24 04:57:42
+			Howdy I am so happy I found your site, I really found you by accident, while I was browsing on Yahoo for something else, Anyhow I am here now and would just like to say kudos for a fantastic post and a all round entertaining blog (I also love the 
+theme/design), I don’t have time to read through it all at the moment but I have saved it 
+and also added in your RSS feeds, so when I have time I will be back to 
+read much more, Please do keep up the great jo.
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1553403462
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1553403462.53888988494873046875;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			90f5e32627e59c0bf252e38b9199688f
+			
+							
+					
+			18503
+			Minh Gaugler
+			PorfirioLagrenade68147@gmx.net
+			http://tinyurl.com/veqthjk
+			188.165.164.134
+			2019-03-24 07:04:36
+			2019-03-24 07:04:36
+			<b>New Models for Free Sex Webcams online.</b> In this section you can meet the hottest and most daring models live sex, from college girls, mature women, and all ages to enjoy live sex on webcam. Every time you want to chat live xxx on webcam and fulfill your sexual fantasies only look for the model that you like and chat with them, hot girls very accommodating, addicted to webcam, dancers who do shows chat. Our new hot chatroom models  are willing to do whatever you want and completely undress before the cameras, new couples who want to have live porn in the chat. Live free webcam every day grows more and more models and participants alike, for this reason every person who enters our community will find the best models and not just girls who want to have sex and satisfy your needs, also grow models, hot men to show their cock and fuck their partners or undress, on the other hand, transsexuals, couples and gay are part of our chat rooms, remember that not only will you see you can also chat with them and ask them to do whatever you want. <b>The hottest Girls of the moment.</b> Every girl or boy has his style when it comes to having sex on webcam, each one can make you vibrate in an amazing way when you are in the chat room. You thought that you can have sex with international models by webcam ? this is posible , all models, both men and women, transsexual or gay are amateur, our website have a lot of girls and guys live porn professionals and best of all is you can participate. You can join and have great time here  : http://tinyurl.com/veqthjk
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1553411076
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1553411076.8752229213714599609375;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			4d81c2adf20cfe35103da1dc3e24f0ca
+			
+							
+					
+			18918
+			minecraft
+			margart.smalley@gawab.com
+			http://bit.ly/2FuNDXl
+			96.8.122.172
+			2019-03-25 23:18:43
+			2019-03-25 23:18:43
+			Genuinely no matter if someone doesn't be aware of then its up to other viewers that they will 
+help, so here it occurs.
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1553555923
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1553555923.704104900360107421875;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			d660286732c74399303d86edf804a1dd
+			
+							
+					
+			19398
+			Jasper Eastwood
+			CollinBunte58890@gmail.com
+			http://free-followers-ig.ml/
+			188.165.164.134
+			2019-03-27 19:52:52
+			2019-03-27 19:52:52
+			<b>INSTAGRAM FOLLOWERS GENERATOR.Turn into a local superstar. Get unlimited free of charge followers today and impress your buddies!Just take you totally free followers for Instagram from right here : http://free-followers-ig.cf/</b>
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1553716372
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1553716372.512671947479248046875;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			cb2b7ef925a2759e586bbece80cfb217
+			
+							
+					
+			19545
+			minecraft
+			lorrine.joy@zoho.com
+			http://bit.ly/2JBnfQZ
+			23.95.197.155
+			2019-03-28 08:47:10
+			2019-03-28 08:47:10
+			It's the best time to make some plans for the longer term and it's time to be happy.
+I have learn this publish and if I may I wish to counsel you some attention-grabbing issues 
+or suggestions. Maybe you can write next articles referring to this article.
+I want to read even more issues about it!
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1553762830
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1553762830.8429501056671142578125;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			08c7dd8bb724a759c7753fc63a6531a2
+			
+							
+					
+			21007
+			Yeezy 350
+			ifconthyfzv@hotmaill.com
+			http://www.yeezy350.us.com/
+			27.153.181.53
+			2019-03-31 21:42:56
+			2019-03-31 21:42:56
+			tuxgjmj,Hi there, just wanted to say, I liked this article. It was helpful. Keep on posting!
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1554068576
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1554068576.675034999847412109375;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			7321fc564cbec75f64d7b536c4a4a16a
+			
+							
+					
+			21609
+			Austepils
+			austdut@wmaill.website
+			http://cialisab.com
+			31.184.238.129
+			2019-04-02 15:50:47
+			2019-04-02 15:50:47
+			Amoxicillin Diareea Achat Cialis Paypal Discounted Viagra  <a href="http://cialisan.com" rel="nofollow">cialis 40 mg</a> Cialis Alcohol
+			0
+			
+			0
+			0
+						
+	akismet_error
+			1554220247
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1554220247.5266020298004150390625;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+							
+					
+			21668
+			Austepils
+			austdut@wmaill.website
+			http://cial20mgprice.com
+			31.184.238.129
+			2019-04-02 19:31:41
+			2019-04-02 19:31:41
+			Glucotrol Antibiotics Without A Script Viagra Soft Tab Are They Any Good  <a href="http://levitab.com" rel="nofollow">levitra with out prescription</a> Medicament Nolvadex Was Ist Cialis Tadalafil Online Harmacy
+			0
+			
+			0
+			0
+						
+	akismet_error
+			1554233502
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1554233502.0090649127960205078125;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+							
+					
+			21808
+			Nike Outlet
+			qudjxekey@hotmaill.com
+			http://www.nikeoutletstoreonlineshopping.us/
+			27.153.181.53
+			2019-04-03 04:58:54
+			2019-04-03 04:58:54
+			mfdzoij,Thanks for sharing this recipe with us!!
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1554267534
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1554267534.208549022674560546875;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			2dbf301eb8821692b6fc694905e5ed3e
+			
+							
+					
+			22150
+			Nike Shox Outlet
+			blckghgsxcc@hotmaill.com
+			http://www.nikeshoxoutlet.us/
+			27.153.182.145
+			2019-04-04 04:34:46
+			2019-04-04 04:34:46
+			wdtyuf,Very helpful and best artical information Thanks For sharing.
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1554352486
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1554352486.85781002044677734375;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			8d404e295672315e59b25ac1a37f1ca6
+			
+							
+					
+			22348
+			Jordan 12 Gym Red
+			ljmsanx@yahoo.com
+			http://www.jordan12gymred.us.com/
+			27.153.182.145
+			2019-04-04 16:46:06
+			2019-04-04 16:46:06
+			rregrnfvaem,Wonderful one thank you so much !
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1554396366
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1554396366.4018080234527587890625;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			9fce9786ebe7e18c87e862e339cf9945
+			
+							
+					
+			22366
+			NBA Jerseys
+			nsczfoybfut@hotmaill.com
+			http://www.basketball-jersey.us/
+			27.153.182.145
+			2019-04-04 17:43:42
+			2019-04-04 17:43:42
+			kojlggyppl,Very helpful and best artical information Thanks For sharing.
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1554399822
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1554399822.0999739170074462890625;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			05f189f80dfd0f1c2f2b15f936c854ac
+			
+							
+					
+			22371
+			NFL Jerseys 2019
+			dfyngnvo@yahoo.com
+			http://www.wholesalenfljerseysshop.us/
+			27.153.182.145
+			2019-04-04 17:56:05
+			2019-04-04 17:56:05
+			Nike Air VaporMax Flyknit 2 http://www.nikeairvapormaxflyknit2.us/
+ Nike VaporMax Flyknit,Nike Air Vapormax Flyknit,Nike Air Vapormax Flyknit 2 http://www.nikevapormaxflyknit.us/
+ Nike VaporMax Plus,Nike Air VaporMax Plus,VaporMax Plus,Nike Air Vapormax Flyknit,Nike Air Vapormax Flyknit 2 http://www.nike-vapormaxplus.us/
+ Nike Air Max 2019,Air Max 2019 http://www.max2019.us/
+ Nike Air Max 2019,Air Max 2019,Nike Air Max http://www.air-max2019.us/
+ Nike Air Max 2019,Air Max 2019,Nike Air Max http://www.nike-airmax2019.us/
+ Nike Air Zoom Pegasus 35,Nike Pegasus 35,Nike Air Zoom Pegasus http://www.nikeairzoompegasus35.us/
+ Nike Pegasus 35,Nike Air Zoom Pegasus 35,Nike Air Zoom Pegasus,Nike Pegasus http://www.nikepegasus-35.us/
+ Nike Zoom,Nike Air Zoom http://www.nike-zoom.us/
+ Nike Air Max 270,Air Max 270,Nike Max 270 http://www.nikemax270.us/
+ Nike Shox,Nike Shox Outlet,Cheap Nike Shox Outlet http://www.nikeshoxoutlet.us/
+ Adidas Outlet http://www.outlet-adidas.us/
+ adidas originals http://www.originalsadidas.us/
+ adidas ultra boost,ultra boost http://www.adidasultra-boost.us/
+ Adidas Shoes http://www.shoesadidas.us/
+ Pandora Rings,Pandora Ring,Pandora Rings Official Site http://www.pandorarings-jewelry.us/
+ Pandora Official Site,Pandora Jewelry Official Site,Pandora Rings Official Site http://www.pandora-officialsite.us/
+ Pandora.com,Pandora,Pandora Official Site,Pandora Jewelry Official Site http://www.pandora-com.us/
+ Pandora jewelry Outlet,pandora charms,,pandora bracelets,pandora rings,pandora outlet http://www.pandora-jewelryoutlet.us/
+ pandora outlet,pandora jewelry outlet,pandora charms outlet,pandora jewelry http://www.pandoraoutlet-jewelry.us/
+ Cheap NFL Jerseys,NFL Jerseys Cheap,Cheap Sports Jerseys http://www.cheapsportsnfljerseys.us/
+ Cheap NFL Jerseys,NFL Jerseys Outlet,Cheap Jerseys http://www.cheapoutletnfljerseys.us/
+ Cheap NFL Jerseys,NFL Jerseys Cheap,Cheap Sports JerseysNFL Jerseys,Cheap NFL Jerseys,NFL Jerseys Wholesale,Cheap Jerseys http://www.nfljerseyscheapwholesale.us/
+ Cheap NFL Jerseys,NFL Jerseys Cheap,Cheap Sports Jerseys http://www.cheapjerseyselitenfl.us/
+ NFL Jerseys,NFL Jerseys 2019,Cheap NFL Jerseys,NFL Jerseys Wholesale http://www.nfljerseys2019.us/
+ Pittsburgh Steelers Jerseys,Steelers Jerseys,Steelers Jerseys Cheap http://www.pittsburghsteelers-jerseys.us/
+ Dallas Cowboys Jerseys,Cowboys Jerseys,Cowboys Jerseys Cheap http://www.dallascowboysjerseyscheap.us/
+ NFL Jerseys,NFL Jerseys 2019,Cheap NFL Jerseys, Cheap Authentic Nfl Jerseys http://www.nflauthenticjerseys.us/
+ NFL Jerseys Wholesale,NFL Jerseys 2019,Cheap NFL Jerseys, Cheap Nfl Jerseys Wholesale http://www.wholesalenfljerseysshop.us/
+ NFL Jerseys Wholesale,Cheap Nfl Jerseys Wholesale,,Cheap NFL Jerseys,NFL Jerseys 2019 http://www.authenticnflcheapjerseys.us/
+ Pandora Sale, Pandora Jewelry, Pandora UK http://www.pandorasale.org.uk/
+ Pandora Charms,Pandora UK,Pandora Charms Sale Clearance http://www.pandoracharmssaleuk.me.uk/
+ Pandora Bracelets,Pandora Bracelet,Pandora Jewelry http://www.pandorabraceletsjewellry.me.uk/
+ Pandora UK, Pandora Sale, Pandora Jewelry UK http://www.pandorauk-sale.org.uk/
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1554400565
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1554400565.7974059581756591796875;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			6529d3c7872f8e15a8b4a7c13762657e
+			
+							
+					
+			22429
+			Cheap NBA Jerseys From China
+			ibalihzu@yahoo.com
+			http://www.cheapnba-jerseys.us/
+			27.153.182.145
+			2019-04-04 21:22:13
+			2019-04-04 21:22:13
+			Jordan 12 Gym Red http://www.jordan12gymred.us.com/
+ nike factory outlet http://www.nikefactoryoutletstoreonline.com/
+ nike factory outlet http://www.nikefactoryoutletstoreonline.us/
+ Nike Store http://www.nikestores.us.com/
+ jordan 33 http://www.jordan33.us/
+ cheap jerseys from china http://www.cheapjerseysfromchina.us/
+ cheap custom nfl jerseys http://www.customnfljerseys.us/
+ jordan 11 concord http://www.jordan11concord.us.com/
+ Air Jordan 12 Gym Red http://www.jordan12gymred.us/
+ Red Jordan 12 http://www.redjordan12.us/
+ Yeezys http://www.yeezy.com.co/
+ Yeezy Shoes http://www.yeezys.us.com/
+ Yeezy Supply http://www.yeezysupply.us.com/
+ Yeezy Boost 350 http://www.yeezy-shoes.us.com/
+ Yeezy Boost 350 http://www.yeezy-boost350.com/
+ Yeezy Boost 350 V2 http://www.yeezyboost350.us.com/
+ Yeezy Boost 350 V2 Blue Tint http://www.yeezybluetint.com/
+  Adidas Yeezy 500 http://www.yeezy500utilityblack.com/
+  Yeezy 500 http://www.yeezy500utilityblack.us/
+  Nike VaporMax http://www.vapor-max.org.uk/
+ Salomon http://www.salomon-shoes.org.uk/
+ Salomon Shoes http://www.salomons.me.uk/
+ Salomon Speedcross 4 http://www.salomonspeedcross4.org.uk/
+ Off White Air Jordan 1 http://www.offwhitejordan1.com/
+ Nike VaporMax http://www.nikevapormax.org.uk/
+  Nike Element 87 http://www.nikereactelement87.us.com/
+  Nike Element 87 http://www.nikereactelement87.us/
+  Nike Air Vapormax Plus http://www.nikeplus.us/
+ Nike Outlet http://www.nike--outlet.us/
+ Nike Outlet Store http://www.nikeoutletstoreonlineshopping.us/
+ Nike Outlet Store Online Shopping http://www.nikeoutletonlineshopping.us/
+  Cheap Nike NBA Jerseys http://www.nikenbajerseys.us/
+ Air Max 97 http://www.nikeairmax.us/
+ Nike Air Max 2017 http://www.max2017.us/
+ Jordan Shoes http://www.jordan-com.com/
+  Jordan 11 Concord 2018 http://www.jordan11-concord.com/
+ Cheap Yeezy Shoes http://www.cs7boots1.com/
+ Cheap NBA Jerseys http://www.cheapnba-jerseys.us/
+ Birkenstock Sandals UK http://www.birkenstocksandalsuk.me.uk/
+ Basketball Jersey http://www.basketball-jersey.us/
+ Balenciaga http://www.balenciaga.me.uk/
+ Balenciaga UK http://www.balenciagauk.org.uk/
+ Balenciaga UK http://www.balenciagatriples.org.uk/
+ Balenciaga UK http://www.birkenstocks.me.uk/
+ Balenciaga http://www.balenciagatrainers.org.uk/
+  Nike Air Max http://www.airmax270.org.uk/
+ Yeezy Shoes http://www.adidasyeezyshoes.org.uk/
+ Adidas Yeezy http://www.adidasyeezyshoes.org.uk/
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1554412933
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1554412933.7468149662017822265625;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			92fab8d19c72e9bd4dbf4658952c6d3e
+			
+							
+					
+			22632
+			MAC CS:GO HACK (Free Download) Aimbot ESP :
+			Trost76651@yahoo.com
+			http://macos.mac-tac.com/mac-csgo-hack-free-download-aimbot-esp/
+			31.40.255.26
+			2019-04-05 08:20:38
+			2019-04-05 08:20:38
+			One thing I'd really like to say is that before purchasing more laptop or computer memory, look at the machine within which it could be installed. Should the machine is definitely running Windows XP, for instance, a memory ceiling is 3.25GB. The installation of a lot more than this would merely constitute a waste. Make sure one's mother board can handle this upgrade quantity, as well. Great blog post.
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1554452438
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1554452438.026688098907470703125;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			f40d13020892a0308c634f8e31d54ddc
+			
+							
+					
+			23153
+			Austepils
+			austdut@wmaill.website
+			http://buyonlinecial.com
+			31.184.238.129
+			2019-04-06 13:53:18
+			2019-04-06 13:53:18
+			Generic Tadalafil Where Can You Get Mebendazole From  <a href="http://crdrugs.com" rel="nofollow">cialis for sale</a> Cialis De 10 O De 20 Viagra Ads On Porn Sights
+			0
+			
+			0
+			0
+						
+	akismet_error
+			1554558798
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1554558798.090631961822509765625;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+							
+					
+			23441
+			Emma Love
+			emmalove1888@hotmail.com
+			http://WWW.BIBLEFREEDOM.COM
+			104.168.92.160
+			2019-04-07 10:56:03
+			2019-04-07 10:56:03
+			Hey, how's it going?
+
+I want to pass along some very important news that everyone needs to hear!
+
+In December of 2017, Donald Trump made history by recognizing Jerusalem as the captial of Israel. Why is this big news? Because by this the Jewish people of Israel are now able to press forward in bringing about the Third Temple prophesied in the Bible.
+
+Jewish Rabbis have publicly announced that their Messiah will be revealed in the coming years who will be a leader and spiritual guide to all nations, gathering all religions under the worship of one God. They deny Jesus as their Messiah, and the Bible tells us this Jewish Messiah will be the counterfiet that will bring about a false peace, and ultimatley the great tribulation.
+
+They even printed a coin to raise money for the Temple with Donald Trumps face on the front and with king Cyrus'(who built the second Temple) behind him. On the back of the coin is an image of the third Temple.
+
+More importantly, the power that runs the world wants to put a RFID microchip in our body making us total slaves to them. This chip matches perfectly with the Mark of the Beast in the Bible, more specifically in Revelation 13:16-18:
+
+"He causes all, both small and great, rich and poor, free and slave, to receive a mark on their right hand or on their foreheads, and that no one may buy or sell except one who has the mark or the name of the beast, or the number of his name.
+
+Here is wisdom. Let him who has understanding calculate the number of the beast, for it is the number of a man: His number is 666."
+
+Referring to the last days, this could only be speaking of a cashless society, which we have yet to see,  but are heading towards. Otherwise, we could still buy or sell without the mark amongst others if physical money was still currency. This Mark couldn't be spiritual because the word references two different physical locations. If it was spiritual it would just say in the forehead. RFID microchip implant technology will be the future of a one world cashless society containing digital currency. It will be implanted in the right-hand or the forehead, and we cannot buy or sell without it! We must grow strong in Jesus. AT ALL COSTS, DO NOT TAKE IT!
+
+"Then a third angel followed them, saying with a loud voice, “If anyone worships the beast and his image, and receives his mark on his forehead or on his hand, he himself shall also drink of the wine of the wrath of God, which is poured out full strength into the cup of His indignation. He shall be tormented with fire and brimstone in the presence of the holy angels and in the presence of the Lamb. And the smoke of their torment ascends forever and ever; and they have no rest day or night, who worship the beast and his image, and whoever receives the mark of his name” (Revelation 14:9-11).
+
+People have been saying the end is coming for many years, but we needed two key things. One, the Third Temple, and two, the technology for a cashless society to fulfill the prophecy of the Mark of the Beast.
+
+Visit WWW.BIBLEFREEDOM.COM to see proof for these things and much more!
+
+If you haven't already, it is time to seek God with all your heart. Jesus loves you more than you could imagine. He wants to have a relationship with you and redeem you from your sins. Turn to Him and repent while there is still hope! God bless!
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1554634563
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1554634563.497850894927978515625;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+							
+					
+			23611
+			Austepils
+			austdut@wmaill.website
+			http://cialisong.com
+			31.184.238.129
+			2019-04-07 23:24:43
+			2019-04-07 23:24:43
+			Intolerance Amoxil  <a href="http://purchasecial.com" rel="nofollow">online pharmacy</a> Pediatric Dosage Of Amoxicillin
+			0
+			
+			0
+			0
+						
+	akismet_error
+			1554679483
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1554679483.1364231109619140625;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+							
+					

@@ -1,0 +1,732 @@
+
+		
+				System Reliability Basics		
+		https://www.themathcitadel.com/system-reliability-basics/
+		Sun, 04 Jun 2017 13:23:27 +0000
+		admin
+		http://localhost:8000/?p=4
+		
+		
+				For the pdf version, [download-attachment id="112" title="click here."]
+
+[nextpage title="..."]
+
+Almost everything we use every day can be thought of as a system built from components. Our lungs form a system. A string of lights forms a system. A manufacturing process, and a data center are also systems that are more complicated. Every system is built from <strong>components</strong>, and components are either <em>functional</em> or <em>failed</em>.
+
+<span style="color: #000000;"><em><strong>Remark:</strong> We can get more advanced and consider components in states of varying health and age, but we're going to consider only the binary states of functional and failed.</em></span>
+
+Suppose a given system has <em>n</em> components. Each component will be either on or off. We call these binary states <strong>component states</strong> and give them a nice, natural mathematical definition.
+
+<hr>
+
+<h4><em><span style="color: #000000;"><strong>Definition (Component states).&nbsp;</strong></span></em></h4>
+The <strong>state</strong> of component <em>i</em> is denoted [latex]x_{i}[/latex] and is defined by
+
+[latex, display = true]x_{i} := \left\{\begin{array}{lr}1, &amp; \text{ component }i\text{ is functional}\\0, &amp; \text{ component }i\text{ is failed}\end{array}\right.[/latex]
+
+<hr>
+
+Now, depending on how these components interact, the entire system is either functional or failed. We can write these component states in a vector called the <strong>system state vector</strong>:
+
+<hr>
+
+<em><span style="color: #000000;"><strong>Definition (System State Vector).</strong></span></em>
+For <em>n</em> components in a system, each with state [latex]x_{i}[/latex], the system state is defined by [latex]\mathbf{x} = (x_{1},\ldots,x_{n})[/latex].
+
+<hr>
+
+The system state vector is a combination of 1's and 0's corresponding to which components are functioning or failing. It is not always true that a single component failure (where its component state is 0) will result in a system failure. For example, you can still type with 8 fingers instead of 10, so two fingers in a splint will not keep you from your office duties. We can define a <strong>structure function</strong> that takes a system state vector as an input and tells us if the entire system is functioning or failed. So for example, the structure function of "typing with fingers" should return a 1 (functional) for any system state vector with two 0's adjacent (since a split binds two fingers together). For example if we let [latex]\phi(\mathbf{x})[/latex] be the structure function of the act of typing with fingers, [latex]\phi(1,0,0,1,1,1,1,1,1,1)[/latex] will return a 1, because we can still type with only 8 functioning fingers. Formally,
+
+<hr>
+
+<span style="color: #000000;"><strong>Definition (Structure Function)</strong></span>
+The <strong>structure function</strong> of a system [latex]\phi : \mathbf{x} \to \{0,1\}[/latex] is defined as
+[latex, display = true]\phi(\mathbf{x}):= \left\{\begin{array}{lr}1, &amp; \text{ the system is functioning when the state vector is x}\\0, &amp;\text{the system has failed when the state vector is x}\end{array}\right.[/latex]
+
+<hr>
+
+<strong><span style="color: #000000;">Remark:</span>&nbsp;</strong><em><span style="color: #000000;">For a system with n components, there are [latex]2^n[/latex] possible system state vectors. To see this, remember that if each component state has two possibilities, and there are n states, then there are [latex]2\cdot2\cdots2 = 2^n[/latex] system state vectors</span></em>
+
+Each system has a<em> topology</em>, i.e. its component arrangement. Here, we are concerned with the <em>reliability topology</em>, which tells us what combinations of components are needed to function in order for our system to be working. We use a tool called <strong>block diagrams</strong> to represent these.
+
+&nbsp;
+<h3><span style="color: #000000;">Example (Series System)</span></h3>
+One of the simplest types of systems is the series system. In this example, if one component fails, the whole system goes down.
+
+<img class="size-medium wp-image-90 aligncenter" src="http://www.themathcitadel.com/wp-content/uploads/2017/06/christmas-lights-300x112.png" alt="" width="300" height="112">
+
+[caption id="attachment_92" align="aligncenter" width="497"]<img class="wp-image-92" src="http://www.themathcitadel.com/wp-content/uploads/2017/06/SeriesSystem-1.jpg" alt="" width="497" height="71"> That string of Christmas lights is the classic example. One bulb going out can ruin your whole tree.[/caption]
+
+The block diagram shows us in a clear visual way if the system is functioning. The goal is to be able to move from left to right in the diagram. If a component is functioning, we may move through that node. If not, that "path" is closed. In the series system, there is only one possible path from left to right through every single component. If I cannot find a path from left to right, the system is not functioning when the given set of components is out. Thus, for the series system, removing even one component removes the only path I have to a functioning system.
+
+The structure function for a series system is given by
+[latex, display = true]\phi_{\text{series}}(\mathbf{x}) = \prod_{i=1}^{n}x_{i}[/latex]
+
+Here, we can see that if any state vector is 0, the whole product is 0, which means the system fails. Conversely, the only way [latex]\phi(\mathbf{x})[/latex] can be 1 is if [latex]x_{i} = 1[/latex] for every <em>i</em>.
+
+<span style="color: #000000;"><em><strong>Remark:&nbsp;</strong>The Christmas lights happen to physically match that reliability topology given in above. This isn't always the case. The physical arrangement doesn't necessarily correspond to the reliability toplogy. For example, we can view a simple computer as a processor, a motherboard, a hard drive, and a power supply. These are not physically arranged in a line inside your computer case, but if any one of these components fails, your computer is useless.</em></span>
+
+[/nextpage]
+
+[nextpage title="..."]
+<h3><span style="color: #000000;">Example (Parallel System)</span></h3>
+&nbsp;
+
+[caption id="attachment_96" align="alignleft" width="268"]<img class="wp-image-96" src="http://www.themathcitadel.com/wp-content/uploads/2017/06/lungs-300x300.jpg" alt="" width="268" height="268"> Our lungs function in parallel. If one lung fails, we still survive.[/caption]
+
+[caption id="attachment_97" align="alignright" width="220"]<img class="wp-image-97" src="http://www.themathcitadel.com/wp-content/uploads/2017/06/ParallelSystem.jpg" alt="" width="220" height="252"> Block diagram for the parallel system with n components[/caption]
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+The next simplest type of system is the <em>parallel system</em>. This one is the exact opposite of the series system: if even one component in a parallel system is still working, the system still functions.
+
+The structure function for the parallel system is given by
+[latex, display = true]\phi_{\text{parallel}}(\mathbf{x}) = 1-\prod_{i=1}^{n}(1-x_{i})[/latex]
+
+To see this, remember that the component state is 1 when the component functions, and 0 when it fails. A system is the same way. In a parallel system, the system fails if all of the components fail. Each component failure contributes a [latex](1-x_{i})[/latex], and we must subtract this product from 1, because we want to know when it <em>functions</em>, not fails.
+
+These two are the basic system reliability topologies. We can make ones that are much more complex, but we have a theorem that shows any system's block diagram can be re-structured into a series system of parallel subsystems, or a parallel system of series subsystems.
+From Leemis&nbsp;(Reliability: Probabilistic Models and Statistical Methods, Lawrence M. Leemis 2nd ed.) ,
+
+<hr>
+
+<em><span style="color: #000000;"><strong>Theorem&nbsp;(</strong></span><strong><span style="color: #000000;">Decomposition of Systems into Series/Parallel Subsystems).</span></strong></em>
+<span style="color: #000000;">Let [latex]P_{1},...,P_{s}[/latex] be the minimal path sets for a system. Then</span>
+<span style="color: #000000;">[latex, display = true]\phi(\mathbf{x}) = 1-\prod_{i=1}^{s}\left(1-\prod_{j \in P_{i}}x_{j}\right)[/latex]</span>
+<span style="color: #000000;"> where [latex]x_{j}[/latex] is the component state vector.</span>
+
+<hr>
+
+What are <strong>path sets</strong>? The path sets are the sets of components that form a complete path through the block diagram.
+
+[caption id="attachment_100" align="aligncenter" width="300"]<img class="size-medium wp-image-100" src="http://www.themathcitadel.com/wp-content/uploads/2017/06/GeneralBlockDiagram-300x220.jpg" alt="" width="300" height="220"> A general block diagram for some random system[/caption]
+
+If we look at the figure above, we have lots of possible paths from left to right. The sets (1,3), (1,4), (2,4), and (2,5) all provide paths through the diagram. These are also&nbsp;<em>minimum path sets</em>&nbsp;in this case. Focusing on any particular path set, if I drop one component, the path disappears. The theorem gives the mathematical structure function&nbsp;corresponding to a parallel system of the series subsystems that the minimal path sets generate.
+
+In other words, the system is functioning if Components 1 and 3 are functioning, <strong>or</strong>&nbsp;Components 1 and 4 are functioning, <strong>or</strong>&nbsp;Components 2 and 4, etc.
+
+Last, here's an example of how we can take a given block diagram and rearrange it in terms of a parallel system of series subsystems according to the theorem.
+
+[caption id="attachment_101" align="aligncenter" width="371"]<img class="wp-image-101 " src="http://www.themathcitadel.com/wp-content/uploads/2017/06/bridgesystemdiagram.png" alt="" width="371" height="157"> Bridge System[/caption]
+
+[caption id="attachment_102" align="aligncenter" width="426"]<img class="wp-image-102 " src="http://www.themathcitadel.com/wp-content/uploads/2017/06/altbridgediagram.png" alt="" width="426" height="328"> Bridge System as a parallel system of series subsystems[/caption]
+
+&nbsp;
+
+In the figure above, the top&nbsp;diagram represents a topology called a <em>bridge system</em>. The right side is the alternative version where I've arranged this into a parallel system of series subsystems. To test your knowledge, try the following exercise.
+
+<hr>
+
+<span style="color: #808080;"><b>Exercise.&nbsp;</b></span><span style="color: #808080;">Write the structure function for the bridge system.</span>
+
+<span style="color: #dbdbdb;"><strong>Solution.</strong> [latex]\phi(\mathbf{x}) = 1-(1-x_{1}x_{3}x_{5})(1-x_{1}x_{4})(1-x_{2}x_{3}x_{4})(1-x_{2}x_{5})[/latex]</span>
+
+<hr>
+
+Why do we actually care about this? Engineers will use block diagrams to help them design reliable systems. We can prove mathematically that the series system is the least reliable, and the parallel system is the most reliable, but that doesn't mean we should always put every component in parallel. An airplane with more landing gear than it needs can cause the airplane to weigh too much, for example.
+
+This results in complex system designs, particularly for mechanical and electronic devices. These designs may become too difficult to study visually via block diagrams, but the structure function helps. Studying the form of the structure function in terms if the components can help us determine where a critical component is, for example. A <em>critical component</em>&nbsp;is a component that will fail the whole system if it fails. In a series system, every component is critical. In a parallel system, no one is. Since most system designs are mixtures of these two, identification of a critical component isn't always simple with the block diagram. The structure function allows us to simulate various components failing (having state 0), and quickly seeing its effect on the system.
+
+Upon identification of a critical component, an engineer has a couple options
+<ul>
+ 	<li>he can add redundancy</li>
+ 	<li>he can use a more reliable (and usually more expensive) version of the component</li>
+</ul>
+These kinds of decisions require optimization with cost and other conditions, but these basic reliability building blocks are tools that can help make this easier.
+<a href="http://creativecommons.org/licenses/by-nc-nd/4.0/" rel="license"><img style="border-width: 0;" src="https://i.creativecommons.org/l/by-nc-nd/4.0/88x31.png" alt="Creative Commons License"></a>
+This work is licensed under a <a href="http://creativecommons.org/licenses/by-nc-nd/4.0/" rel="license">Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License</a>.
+
+[/nextpage]		
+		
+						
+		4
+		2017-06-04 13:23:27
+		2017-06-04 13:23:27
+		open
+		open
+		system-reliability-basics
+		publish
+		0
+		0
+		post
+		
+		0
+										applied math
+		reliability theory
+		Reliability Theory
+		Spines
+						
+		_edit_last
+		2
+		
+							
+		_acp_button_style
+		3
+		
+							
+		_acp_loading_type
+		1
+		
+							
+		_da_attachments
+		a:0:{}
+		
+							
+		_wp_page_template
+		default
+		
+							
+		_wp_old_slug
+		test-post
+		
+							
+			14156
+			Al Ottenwess
+			Ellerbrock86369@gmail.com
+			https://www.cnn.com
+			209.197.20.198
+			2019-03-08 05:45:07
+			2019-03-08 05:45:07
+			Thank you a lot for giving everyone remarkably nice opportunity to read from this web site. It can be so terrific and as well , stuffed with a lot of fun for me personally and my office colleagues to visit the blog nearly thrice per week to learn the new issues you will have. And lastly, I’m so actually motivated considering the effective advice you serve. Some 2 ideas in this posting are clearly the simplest we have had.
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1552023907
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552023907.70814800262451171875;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			dda81633d921f02c86208661c6d0f3bc
+			
+							
+					
+			14177
+			Louetta Guerrera
+			Riojas65813@gmail.com
+			https://www.cnn.com
+			81.171.97.62
+			2019-03-08 06:06:19
+			2019-03-08 06:06:19
+			Excellent article. I’m facing a few of these issues as well..
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1552025179
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552025179.8062760829925537109375;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			effcff86f682db8ee1f442e27489fdd3
+			
+							
+					
+			14246
+			Desmond Branscom
+			Laber35718@gmail.com
+			https://www.cnn.com
+			205.185.209.253
+			2019-03-08 07:27:55
+			2019-03-08 07:27:55
+			Nice read, I just passed this onto a friend who was doing some research on that. And he just bought me lunch because I found it for him smile So let me rephrase that: Thanks for lunch!
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1552030075
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552030075.7536220550537109375;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+							
+					
+			14375
+			Search Engine optimization
+			rosemarybleakley@mailite.com
+			http://bumprompak.by/user/HesterPaterson/
+			81.171.58.54
+			2019-03-08 21:11:05
+			2019-03-08 21:11:05
+			Thanks for sharing such a nice idea, post is nice,
+thats why i have read it fully
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1552079465
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552079465.9305419921875;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			f8c30ac09faa9362d1eef748644f0211
+			
+							
+					
+			14824
+			Herb Duchesneau
+			Nemecek46331@gmail.com
+			http://earllovesyou.com
+			209.107.196.80
+			2019-03-10 17:27:32
+			2019-03-10 17:27:32
+			<a href="http://ventolinwithoutprescription.webcam/" rel="nofollow">view website</a>
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1552238852
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552238852.46778106689453125;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			84b7322ef3518acbb478eaec67e7fc2c
+			
+							
+					
+			14845
+			Halley Benigno
+			Obrecht43174@gmail.com
+			http://earllovesyou.com
+			82.103.134.120
+			2019-03-10 17:46:59
+			2019-03-10 17:46:59
+			What’s up Dear, are you truly visiting this web site regularly,if so then you will without doubt take nice know-how.
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1552240019
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552240019.5692598819732666015625;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			8ff233abfcf49c7849040c50aa62d9e0
+			
+							
+					
+			14885
+			Angelena Frabizzio
+			Millie36579@gmail.com
+			http://earllovesyou.com
+			216.151.180.193
+			2019-03-10 19:03:51
+			2019-03-10 19:03:51
+			online hurtig levering recept, <a href="http://www.quetzallijewelry.com/wordpress/apotek/nozevet" rel="nofollow">http://www.quetzallijewelry.com/wordpress/apotek/nozevet</a>  – generisk danmark online.
+			trash
+			
+			0
+			0
+						
+	akismet_error
+			1552244631
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552244631.2239348888397216796875;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+							
+					
+			16182
+			Cleo Drozdowski
+			Burley11960@gmail.com
+			http:/suckafatonehomo.com
+			81.171.110.47
+			2019-03-15 22:19:03
+			2019-03-15 22:19:03
+			Hello There. I discovered your blog the use of msn. This is avery well written article. I’ll make sure to bookmark it and come back to read extra of your useful info.Thank you for the post. I’ll certainly return.
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1552688343
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552688343.26605701446533203125;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			863902efce23aa114aec955d4a510252
+			
+							
+					
+			16204
+			Enid Hackl
+			Edgehill60003@gmail.com
+			http:/suckafatonehomo.com
+			81.171.97.148
+			2019-03-15 22:43:12
+			2019-03-15 22:43:12
+			Venta de en valencia España <a href="http://farmacia-barata.life/levo.html" rel="nofollow">http://farmacia-barata.life/levo.html</a>  pagina segura comprar.
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1552689792
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552689792.8423099517822265625;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			f1f61ca739639681aeca269f72b495ac
+			
+							
+					
+			16302
+			Ardella Lassa
+			Dimezza69011@gmail.com
+			http://suckafatonehomo.com
+			74.209.129.137
+			2019-03-16 04:15:15
+			2019-03-16 04:15:15
+			whoah this blog is wonderful i like studying your articles. Keep up the good paintings! You recognize, lots of individuals are looking round for this info, you can help them greatly.
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1552709715
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552709715.8125131130218505859375;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			90d2061fd4e9e428a179a904782db778
+			
+							
+					
+			16322
+			Regenia Timpe
+			Henkle3294@gmail.com
+			http://suckafatonehomo.com
+			64.145.79.94
+			2019-03-16 04:38:41
+			2019-03-16 04:38:41
+			Will I have to work shifts? <a href="http://sirensong.me.uk/levlen-birth-control-ingredients" rel="nofollow">tri levlen ingredients</a>  Meanwhile, speaking about the importance of the MAMMI study, its principal investigator, Prof Cecily Begley of TCD, emphasised that currently, there is a lack of information on the health of women after their baby is born
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1552711121
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552711121.499042987823486328125;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			aab326bdcbec4225a01a243e095ecb98
+			
+							
+					
+			16966
+			Randal Wallschlaeger
+			Erceg18271@gmail.com
+			https://www.youcrazy.com/
+			64.145.79.72
+			2019-03-18 17:19:24
+			2019-03-18 17:19:24
+			<a href="http://sildenafilbest.us.com/" rel="nofollow">sildenafil 100 mg</a>
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1552929564
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552929564.8607590198516845703125;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			5617b7819cc56730ba63e5eaa1dc9ef6
+			
+							
+					
+			16995
+			Martin Concepcion
+			Nyenhuis30607@gmail.com
+			https://www.youcrazy.com/
+			64.145.94.49
+			2019-03-18 18:31:01
+			2019-03-18 18:31:01
+			easy payday <a href="https://easypayday.us.com/" rel="nofollow">easy payday</a> easy payday loans <a href="https://easypayday.us.com/" rel="nofollow">cash payday</a>
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1552933861
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552933861.1138570308685302734375;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			a42d621f71fdd77c2e275701c9fa2995
+			
+							
+					
+			17586
+			Tim Passaretti
+			Imbier33149@gmail.com
+			https://www.lickmyballs.com
+			81.171.59.179
+			2019-03-20 21:56:56
+			2019-03-20 21:56:56
+			I have read several excellent stuff here. Definitely worthbookmarking for revisiting. I surprise how much attempt youplace to make this type of magnificent informative website.
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1553119016
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1553119016.2460079193115234375;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			fb437f66b8dacf8278aa22ad7459c963
+			
+							
+					
+			17618
+			Jerald Eversman
+			Evarts35248@gmail.com
+			https://www.lickmyballs.com
+			173.245.202.162
+			2019-03-20 22:54:44
+			2019-03-20 22:54:44
+			direct payday lenders <a href="https://loans2019.us.com/" rel="nofollow">loans online direct</a> payday loans lake charles <a href="https://loans2019.us.com/" rel="nofollow">installment loans online</a>
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1553122484
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1553122484.2405760288238525390625;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			d10365d070d0c6a8a1bbca01dc422414
+			
+							
+					
+			21032
+			Yeezy
+			ifajtdjjld@hotmaill.com
+			http://www.yeezy-shoes.in.net/
+			27.153.181.53
+			2019-03-31 23:03:12
+			2019-03-31 23:03:12
+			owfwrbk,Are you searching for top class Escort service in Noida and want to enjoy with them, hire sexy girls from top Greater Noida escort service and enjoy full night.
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1554073392
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1554073392.494762897491455078125;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			08f8ebc47e3433738148a7ab5bd4ffe9
+			
+							
+					
+			22574
+			Yeezy 350
+			envmcuzk@hotmaill.com
+			http://www.yeezy350.us.com/
+			27.153.182.145
+			2019-04-05 04:39:05
+			2019-04-05 04:39:05
+			oezztfzfasn Yeezy 2019,If you want a hassle free movies downloading then you must need an app like showbox which may provide best ever user friendly interface.
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1554439145
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1554439145.5759079456329345703125;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			638a6ccb570510f890a05e0dc23e0fa5
+			
+							
+					
+			23397
+			Balenciaga
+			qdnyhms@hotmaill.com
+			http://www.balenciagauk.org.uk/
+			27.153.182.145
+			2019-04-07 07:49:44
+			2019-04-07 07:49:44
+			cammabgqf,Very informative useful, infect very precise and to the point. I’m a student a Business Education and surfing things on Google and found your website and found it very informative.
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1554623384
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1554623384.246529102325439453125;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			c6e9e5d14f4324f9f2a7d1a13f4e6373
+			
+							
+					
+			23599
+			Pandora Jewelry Official Site
+			gqmbjvq@yahoo.com
+			http://www.pandora-officialsite.us/
+			27.153.182.145
+			2019-04-07 22:29:18
+			2019-04-07 22:29:18
+			Jordan 12 Gym Red http://www.jordan12gymred.us.com/
+ nike factory outlet store online http://www.nikefactoryoutletstoreonline.com/
+ nike factory outlet http://www.nikefactoryoutletstoreonline.us/
+ Nike Store http://www.nikestores.us.com/
+ air jordan 33 http://www.jordan33.us/
+ cheap jerseys from china http://www.cheapjerseysfromchina.us/
+ nfl jerseys http://www.customnfljerseys.us/
+ air jordan 11 concord http://www.jordan11concord.us.com/
+ Jordan 12 Gym Red http://www.jordan12gymred.us/
+ Red Jordan 12 http://www.redjordan12.us/
+ Yeezy http://www.yeezy.com.co/
+ Yeezy Shoes http://www.yeezys.us.com/
+ Yeezy Supply http://www.yeezysupply.us.com/
+ Yeezy Boost 350 http://www.yeezy-shoes.us.com/
+ Yeezy Boost 350 http://www.yeezy-boost350.com/
+ Yeezy Boost http://www.yeezyboost350.us.com/
+ Yeezy Shoes http://www.yeezybluetint.com/
+ Yeezy 500 Utility Black http://www.yeezy500utilityblack.com/
+  Adidas Yeezy 500 http://www.yeezy500utilityblack.us/
+  Nike Air VaporMax http://www.vapor-max.org.uk/
+ Salomon http://www.salomon-shoes.org.uk/
+ Salomon http://www.salomons.me.uk/
+ Salomon Shoes http://www.salomonspeedcross4.org.uk/
+ Off White Jordan http://www.offwhitejordan1.com/
+ Vapor Max http://www.nikevapormax.org.uk/
+ Nike React Element 87 http://www.nikereactelement87.us.com/
+  Nike Element 87 http://www.nikereactelement87.us/
+  Nike Air Vapormax Plus http://www.nikeplus.us/
+ Nike Outlet Store http://www.nike--outlet.us/
+ Nike Outlet Store http://www.nikeoutletstoreonlineshopping.us/
+ Nike Outlet Store Online Shopping http://www.nikeoutletonlineshopping.us/
+  Cheap Nike NBA Jerseys http://www.nikenbajerseys.us/
+ Air Max 97 http://www.nikeairmax.us/
+ Air Max Nike http://www.max2017.us/
+ Jordan Shoes http://www.jordan-com.com/
+  Jordan 11 Concord 2018 http://www.jordan11-concord.com/
+  Cheap Yeezy Boost http://www.cs7boots1.com/
+  Cheap NBA Jerseys From China http://www.cheapnba-jerseys.us/
+ Birkenstock Sandals http://www.birkenstocksandalsuk.me.uk/
+ Basketball Jersey http://www.basketball-jersey.us/
+ Balenciaga http://www.balenciaga.me.uk/
+ Balenciaga http://www.balenciagauk.org.uk/
+ Balenciaga http://www.balenciagatriples.org.uk/
+ Balenciaga UK http://www.birkenstocks.me.uk/
+ Balenciaga Trainers http://www.balenciagatrainers.org.uk/
+  Nike Air Max http://www.airmax270.org.uk/
+ Yeezy http://www.adidasyeezyshoes.org.uk/
+ Adidas Yeezy http://www.adidasyeezyshoes.org.uk/
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1554676158
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1554676158.7902500629425048828125;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			7101d012dedb3e644537338f9ae10bb8
+			
+							
+					

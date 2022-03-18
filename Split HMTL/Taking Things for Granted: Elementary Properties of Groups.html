@@ -1,0 +1,517 @@
+
+		
+				Taking Things for Granted: Elementary Properties of Groups		
+		https://www.themathcitadel.com/taking-things-for-granted-elementary-properties-of-groups/
+		Tue, 29 Aug 2017 18:24:52 +0000
+		admin
+		http://www.themathcitadel.com/?p=1044
+		
+		
+				We take a lot of things for granted: electricity, gas at the pump, and mediocre coffee at the office. Many concepts in basic algebra are also taken for granted, such as cancellation of terms, and commutativity. This post will revisit some basic algebra (think solving for [latex]x[/latex]), but with some of those things we took for granted removed. <!--more-->
+
+<a href="https://www.themathcitadel.com/group-theory-xor-and-binary-codes-introducing-coding-theory/" target="_blank" rel="noopener noreferrer">Recall</a>&nbsp;our prior discussions of groups. A group is a set [latex]G[/latex] of stuff combined with an&nbsp;<a href="https://www.themathcitadel.com/concatenation-as-an-operation/" target="_blank" rel="noopener noreferrer">operation</a>&nbsp;[latex]\ast[/latex], denoted together as [latex]\langle G, \ast \rangle[/latex] that satisfies three axioms:
+
+<strong>(1) Associativity of the operation</strong>: For [latex]a,b,c \in G[/latex], [latex]a\ast(b\ast c) = (a\ast b) \ast c[/latex]
+
+<strong>(2) Existence of an identity element in the group:&nbsp;</strong>There is some [latex]e\in G[/latex] such that for any [latex]a \in G[/latex], [latex]e\ast a = a\ast e = a[/latex]
+
+<strong>(3) Existence of inverses in the group:&nbsp;</strong>For every [latex] a \in G[/latex] there is a corresponding [latex]a^{-1} \in G[/latex] such that [latex] a\ast a^{-1} = a^{-1}\ast a = e[/latex]
+
+&nbsp;
+
+There are a couple natural questions we can discuss first:&nbsp;
+<h3>Q1: Can a group have more than one identity element?</h3>
+Axiom (2) just said we had to have one. It never said we had to have&nbsp;<em>only one.</em>[note]This is why language is so important in mathematics. Read everything carefully, and read only what is written. Otherwise you can end up assuming you have things or properties you don't actually have[/note] Let's see what happens if we have some group [latex]\langle G, \ast\rangle[/latex] that has&nbsp;<em>two</em> identity elements, [latex] e_{1}[/latex] and [latex] e_{2}[/latex]. Well, since both are identity elements, then [latex]e_{1}\ast a = a[/latex] for&nbsp;<em>all&nbsp;</em> elements [latex]a[/latex] in [latex]G[/latex], and [latex]e_{2}\ast a = a[/latex] for&nbsp;<em>all</em> elements [latex]a[/latex] in [latex]G[/latex].
+
+So let's stick [latex]e_{2}[/latex] in for [latex]a[/latex] with [latex]e_{1}[/latex]. That means [latex]e_{1}\ast e_{2} = e_{2}[/latex]. But we also know that if we use [latex]e_{2}[/latex] as the identity element, [latex]e_{1}[/latex] as our [latex]a[/latex], and the fact from Axiom (2) that the identity element commutes with every other group element, then&nbsp;[latex]e_{1} \ast e_{2} = e_{1}[/latex] as well. That means that [latex]e_{1} \ast e_{2} = e_{2}[/latex] and [latex]e_{1} \ast e_{2}=e_{1}[/latex]. The only possible way this can happen (because [latex]\ast[/latex] is an operation) is for [latex]e_{1} = e_{2}[/latex]
+
+What this shows is that there can only be one identity element. We started by assuming there were two different ones, and it resulted in our finding out the two different ones were equal, and thus not different at all.&nbsp;
+<h3>Q2: Can an element have more than one inverse?</h3>
+We can use the same trick we just did with Q1 (just on Axiom (3)) to show that every element in the group has exactly one and only one inverse.&nbsp;
+
+Those are a couple seemingly simple questions, but they weren't specifically answered in the definition of a group, so we had to investigate and answer them ourselves before we could move on. Next, we want to develop a couple rules that come from the group axioms that we can use in solving equations on generic groups.&nbsp;
+<h2>Cancellation Laws and Handling Inverses</h2>
+The cancellation laws allow us to cancel out common factors on either side of an equal sign. Stated formally from Pinter[note]The operation is still there, but we don't always have to write it. ab is the same as a*b in our case. Just mathematicians bein' lazy. It happens to the best of us.[/note]
+
+<hr>
+
+<em><span style="text-decoration: underline;"><strong>Theorem:</strong></span></em> If [latex]G[/latex] is a group, and [latex]a,b,c[/latex] are elements of [latex]G[/latex], then
+
+(i) [latex]ab = ac \Rightarrow b=c[/latex]
+
+and&nbsp;
+
+(ii) [latex]ba = ca \Rightarrow b=c[/latex]
+
+<hr>
+
+&nbsp;
+
+The proof isn't hard, and not really the focus here. What's important to note is that there are&nbsp;<em>two</em> different cancellations. One where I cancel [latex]a[/latex] when it is multiplied on the left of [latex]b[/latex] and [latex]c[/latex], and one where [latex]a[/latex] is multiplied on the right. Multiplying on the left and on the right is&nbsp;<strong>not</strong> the same thing&nbsp;<em>unless we have commutativity.&nbsp;</em>(Read about commutativity&nbsp;<a href="https://www.themathcitadel.com/group-theory-xor-and-binary-codes-introducing-coding-theory/" target="_blank" rel="noopener noreferrer">here</a>). Unless we have commutativity as a property of our group (and often we do not, such as in matrix multiplication), [latex]ba = ac[/latex]&nbsp;<strong>does not imply</strong> that [latex]b=c[/latex].&nbsp;
+
+I've taken away that thing you have all just assumed would be there, and likely relied on in your high school algebra classes.[note]I'm laughing maniacally right now.[/note] Now when we solve for [latex]x[/latex], as we will do shortly, we're going to have to be a little more clever. First, we'll also need a tool to handle inverses, a more general form of "subtract from both sides" that you used to use.
+
+<hr>
+
+<em><span style="text-decoration: underline;"><strong>Theorem</strong></span></em>: If [latex]G[/latex] is a group, and [latex]a,b[/latex] are elements of [latex]G[/latex], then we have the following:
+
+(i) [latex](ab)^{-1} = b^{-1}a^{-1}[/latex]
+
+and&nbsp;
+
+(ii)[latex](a^{-1})^{-1} = a[/latex]
+
+<hr>
+
+Again, the proof isn't actually what's important here, although it's a fun thing to do. What's important for this discussion is the understanding of the theorem. The first point tells us how to find the inverse element of a product of two elements. It's a product of the two individual elements' inverses, but in reverse order. The common analogy here is the "socks and shoes principle". First you put on socks, then the shoes. ([latex]a[/latex], then "multiply"[note]I'm going to use multiply as the generic word for our operation. I don't necessarily mean standard multiplication.[/note] [latex]b[/latex]). To get the socks and shoes off, you have to remove the shoes first (inverse of [latex]b[/latex]) then the socks (inverse of [latex]a[/latex]).
+
+The second one states formally what we would expect to be true. The inverse of an inverse returns the original element.&nbsp;
+<h2>Let's do some algebra!&nbsp;</h2>
+Let's revisit some of that high school algebra. This time we aren't doing it on unknown numbers, but rather an entirely general group with an entirely general operation. The cool part? As long as we're careful about the rules we have and don't, solving for [latex]x[/latex] is just as easy as it was in high school.&nbsp;
+
+For these next few exercises, all we're going to get is that [latex]a,b,c,[/latex] and [latex]x[/latex] are in a group G. Our goal? Solve for [latex]x[/latex].
+<h3>[latex]axb = c[/latex]</h3>
+OK, the [latex]x[/latex] isn't multiplication. It's the variable we want to solve for. The only rules we get are the two theorems above. We still need to isolate [latex]x[/latex], so we need to get rid of [latex]a[/latex] and [latex]b[/latex]. Normally, you'd tell me to either subtract or divide by [latex]a[/latex] and [latex]b[/latex]. Here, we use the inverse operation. I'm going to do this almost painfully slow so you get an understanding, not just a mechanism.&nbsp;
+
+First, we're going to get rid of [latex]b[/latex]. To do that, we multiply&nbsp;<em>on the right</em> by [latex]b^{-1}[/latex] on both sides:
+
+[latex, display = true] axbb^{-1} = cb^{-1}[/latex]
+
+Now, we know by now how inverses work, so we know that [latex]bb^{-1} = e[/latex], where [latex]e[/latex] is the identity element of the group [latex]G[/latex].[note]This is like dividing by 2 to get rid of multiplying by 2. It doesn't actually get rid of the 2; it leaves a 1 (the multiplicative identity element) behind, and multiplying by 1 doesn't change anything[/note]. So, now we have that&nbsp;
+
+[latex, display = true]\begin{aligned}axbb^{-1} &amp;= cb^{-1}\\axe &amp;= cb^{-1}\end{aligned}[/latex]
+
+But anything multiplied[note]again, multiply is just the word we are using for the general operation. Don't get bogged down that this is regular number multiplication.[/note] by the identity element is that thing. So
+
+[latex, display = true]\begin{aligned}axbb^{-1} &amp;= cb^{-1}\\axe &amp;= cb^{-1}\\ax&amp;=cb^{-1}\end{aligned}[/latex]
+
+One down, one to go. We need to get rid of [latex]a[/latex]. Notice that it's being multiplied on the left of [latex]x[/latex]. We can't just shove an [latex]a^{-1}[/latex] in between [latex]a[/latex] and [latex]x[/latex], so we have to multiply [latex]a^{-1}[/latex] on the far left of both sides of the equation.&nbsp;
+
+[latex, display = true]\begin{aligned}axbb^{-1} &amp;= cb^{-1}\\axe &amp;= cb^{-1}\\ax&amp;=cb^{-1}\\a^{-1}ax &amp;= a^{-1}cb^{-1}\end{aligned}[/latex]
+
+You've recognized by now that [latex]a^{-1}a = e[/latex], so
+
+[latex, display = true]\begin{aligned}axbb^{-1} &amp;= cb^{-1}\\axe &amp;= cb^{-1}\\ax&amp;=cb^{-1}\\a^{-1}ax &amp;= a^{-1}cb^{-1}\\ ex &amp;= a^{-1}cb^{-1}\\x &amp;=a^{-1}cb^{-1}\end{aligned}[/latex]
+
+Done! We did it! To isolate [latex]x[/latex], we had to reverse what was done to it, and do it to both sides. We multiplied on the left by [latex]a[/latex] and on the right by [latex]b[/latex], so we had to multiply on the left by [latex]a^{-1}[/latex] and on the right by [latex]b^{-1}[/latex]. The most important thing to note here is that we didn't have commutativity, meaning that we couldn't just switch the order of the variables around. We couldn't guarantee that [latex]axb \neq abx \neq xab[/latex], and thus the result we got ([latex]x = a^{-1}cb^{-1}[/latex]) is strict. You can't change the order around and have that equation still be true.&nbsp;
+
+Let's try one more. Once again, we aren't explicitly told our generic group has commutativity, so we can't assume we have it.&nbsp;
+<h3>[latex]x^{2}b = xa^{-1}c[/latex]</h3>
+Yikes! An [latex]x^{2}[/latex]. Fear not. Let's write that a bit differently. [latex]x^{2} = xx[/latex], so
+
+[latex, display = true]xxb = xa^{-1}c[/latex]
+
+Holy cancellation law, Batman! No need to get into any scary generalized quadratics here. Recall that we get to cancel the same thing on both sides if they are either on the far left or the far right on both sides. [latex]x[/latex] is multiplied on the left on both sides, and by our awesome cancellation theorem, is redundant. Off it goes, leaving us with
+
+[latex, display = true]\begin{aligned}xxb &amp;= xa^{-1}c\\xb&amp;=a^{-1}c\end{aligned}[/latex]
+
+From here, the problem is even easier than the first one we did. Multiply on the right by [latex]b^{-1}[/latex] and we're home free:
+
+[latex, display = true]\begin{aligned}xxb &amp;= xa^{-1}c\\xb&amp;=a^{-1}c\\xbb^{-1} &amp;= a^{-1}cb^{-1}\\xe &amp;= a^{-1}cb^{-1}\\x &amp;= a^{-1}cb^{-1}\end{aligned}[/latex]
+
+I didn't really do much to the first problem; I just scared you by multiplying on the left by [latex]x[/latex].&nbsp;
+<h2>Conclusion</h2>
+What we just did in this post was build on our knowledge of groups to solve equations within those groups. The way to go about this is really no different than you used to in high school; it's just more general and a little more abstract. We didn't even know what the elements of [latex]G[/latex] were, or the operation for that matter. We didn't know if the group had a finite number of elements or an infinite number. We didn't even have commutativity. But we could still solve equations, and in a way that was almost like very elementary algebra. This is the power of algebra and abstraction. The goal is to take what we already knew, reduce it to its skeleton (the group structure), and see what we can still do with it.&nbsp;
+
+Specific groups and operations can get messy. What if we have a molecule we can rotate, translate, or reflect about an axis? What if we do some combination of those actions to a molecule? What if we want to figure out if two molecules are actually the same or chiral[note]This is the notion of handedness. Your left and right hand are chiral: mirror images of the other, but no rotations or reflections will transform your left hand into your right hand. A more formal way to state it is that the object and its mirror image are not superimposable.[/note]? Instead of trying to figure out how to play with it, we can abstract the notion of these actions as elements of a group, and use group theory and algebra to answer that question in a very similar manner to the basic equations we just solved here.&nbsp;
+
+Abstraction and generalization make our lives easier. We can rise above a messy, complicated space, and reduce the problem to one that looks as simple as high school algebra.&nbsp;
+<a href="http://creativecommons.org/licenses/by-nc-nd/4.0/" rel="license"><img style="border-width: 0;" src="https://i.creativecommons.org/l/by-nc-nd/4.0/88x31.png" alt="Creative Commons License"></a>
+This work is licensed under a <a href="http://creativecommons.org/licenses/by-nc-nd/4.0/" rel="license">Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License</a>.		
+		
+						
+		1044
+		2017-08-29 18:24:52
+		2017-08-29 18:24:52
+		open
+		open
+		taking-things-for-granted-elementary-properties-of-groups
+		publish
+		0
+		0
+		post
+		
+		0
+										Algebra
+		Group Theory
+		Spines
+						
+		_da_attachments
+		a:0:{}
+		
+							
+		_edit_last
+		2
+		
+							
+		_acp_button_style
+		1
+		
+							
+		_acp_loading_type
+		1
+		
+							
+		_wp_page_template
+		default
+		
+							
+			72
+			Cauchy Sequences: the Importance of Getting Close &#8211; The Math Citadel
+			
+			http://www.themathcitadel.com/2017/09/05/cauchy-sequences-the-importance-of-getting-close/
+			66.226.74.70
+			2017-09-05 19:46:35
+			2017-09-05 19:46:35
+			[&#8230;] we can get more general than this, and study Cauchy sequences of anything we like: functions,&nbsp;groups, vectors, and more abstract objects than that. We&#8217;ll tackle more concepts in analysis in [&#8230;]
+			1
+			pingback
+			0
+			0
+						
+	akismet_history
+			a:3:{s:4:"time";d:1537552409.028582096099853515625;s:5:"event";s:11:"report-spam";s:4:"user";s:13:"jasonhathcock";}
+			
+						
+	akismet_user_result
+			false
+			
+						
+	akismet_user
+			jasonhathcock
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1537553463.7572329044342041015625;s:5:"event";s:10:"report-ham";s:4:"user";s:13:"jasonhathcock";}
+			
+							
+					
+			83
+			The Gravity of Mathematics: Summary of Tech Field Day at SDC 2017 &#8211; The Math Citadel
+			
+			http://www.themathcitadel.com/2017/09/19/the-gravity-of-mathematics-summary-of-tech-field-day-at-sdc-2017/
+			66.226.74.70
+			2017-09-19 17:25:00
+			2017-09-19 17:25:00
+			[&#8230;] Theory&nbsp;has been&nbsp;discussed&nbsp;on our site as well, with huge implications across many different areas, including coding [&#8230;]
+			1
+			pingback
+			0
+			0
+						
+	akismet_history
+			a:3:{s:4:"time";d:1537552408.8277111053466796875;s:5:"event";s:11:"report-spam";s:4:"user";s:13:"jasonhathcock";}
+			
+						
+	akismet_user_result
+			false
+			
+						
+	akismet_user
+			jasonhathcock
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1537553463.4581449031829833984375;s:5:"event";s:10:"report-ham";s:4:"user";s:13:"jasonhathcock";}
+			
+							
+					
+			94
+			Reduce the Problem: Permutations and Modulo Arithmetic &#8211; The Math Citadel
+			
+			http://www.themathcitadel.com/2017/09/26/reduce-the-problem-permutations-and-modulo-arithmetic/
+			66.226.74.70
+			2017-09-26 17:18:21
+			2017-09-26 17:18:21
+			[&#8230;] set of the first n integers under the&nbsp;operation&nbsp;permutation&nbsp;forms the symmetric&nbsp;group&nbsp;S_{n}. These groups are so famous they get their own name. These groups are structurally [&#8230;]
+			1
+			pingback
+			0
+			0
+						
+	akismet_history
+			a:3:{s:4:"time";d:1537552408.6114470958709716796875;s:5:"event";s:11:"report-spam";s:4:"user";s:13:"jasonhathcock";}
+			
+						
+	akismet_user_result
+			false
+			
+						
+	akismet_user
+			jasonhathcock
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1537553463.1880629062652587890625;s:5:"event";s:10:"report-ham";s:4:"user";s:13:"jasonhathcock";}
+			
+							
+					
+			265
+			Welcome to GF(4) &#8211; The Math Citadel
+			
+			http://www.themathcitadel.com/2017/11/26/welcome-to-gf4/
+			66.226.74.70
+			2017-11-26 19:54:53
+			2017-11-26 19:54:53
+			[&#8230;] instead of frac{1}{text{det}(A)} on purpose. I wanted to indicate that it is the multiplicative inverse of the number that is text{det}(A). We have to be careful when discussing multiplication and [&#8230;]
+			1
+			pingback
+			0
+			0
+						
+	akismet_history
+			a:3:{s:4:"time";d:1537552405.46317195892333984375;s:5:"event";s:11:"report-spam";s:4:"user";s:13:"jasonhathcock";}
+			
+						
+	akismet_user_result
+			false
+			
+						
+	akismet_user
+			jasonhathcock
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1537553457.377995967864990234375;s:5:"event";s:10:"report-ham";s:4:"user";s:13:"jasonhathcock";}
+			
+							
+					
+			480
+			A Partition by any Other Name &#8211; The Math Citadel
+			
+			http://www.themathcitadel.com/2017/11/14/a-partition-by-any-other-name/
+			66.226.74.70
+			2018-02-07 01:51:31
+			2018-02-07 01:51:31
+			[&#8230;] subgroup of a finite group G. For a discussion on the definition of a group, please check out&nbsp;this post.&nbsp;Recall that a group is a set G combined with an&nbsp;operation&nbsp;we will denote cdot that [&#8230;]
+			1
+			pingback
+			0
+			0
+						
+	akismet_history
+			a:3:{s:4:"time";d:1537552403.9597160816192626953125;s:5:"event";s:11:"report-spam";s:4:"user";s:13:"jasonhathcock";}
+			
+						
+	akismet_user_result
+			false
+			
+						
+	akismet_user
+			jasonhathcock
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1537553455.084000110626220703125;s:5:"event";s:10:"report-ham";s:4:"user";s:13:"jasonhathcock";}
+			
+							
+					
+			834
+			Isomorphisms: Making Mathematics More Convenient &#8211; The Math Citadel
+			
+			http://www.themathcitadel.com/2018/03/02/isomorphisms-making-mathematics-more-convenient/
+			66.226.74.70
+			2018-03-02 23:23:23
+			2018-03-02 23:23:23
+			[&#8230;] define it formally. (Note, for a refresher on what groups are, please see our previous articles here, here, here, and [&#8230;]
+			1
+			pingback
+			0
+			0
+						
+	akismet_history
+			a:3:{s:4:"time";d:1537552403.557650089263916015625;s:5:"event";s:11:"report-spam";s:4:"user";s:13:"jasonhathcock";}
+			
+						
+	akismet_user_result
+			false
+			
+						
+	akismet_user
+			jasonhathcock
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1537553454.5280721187591552734375;s:5:"event";s:10:"report-ham";s:4:"user";s:13:"jasonhathcock";}
+			
+							
+					
+			14157
+			Moises Eun
+			Mirsky3672@gmail.com
+			https://www.cnn.com
+			81.171.85.85
+			2019-03-08 05:46:12
+			2019-03-08 05:46:12
+			With thanks! Valuable information!
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1552023972
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552023972.287293910980224609375;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			80a99d9a0b48d31a40abcfd1b469c477
+			
+							
+					
+			14825
+			Melania Navarrate
+			Lindemann69651@gmail.com
+			http://earllovesyou.com
+			205.185.209.195
+			2019-03-10 17:28:23
+			2019-03-10 17:28:23
+			Thanks for all of your labor on this website. My daughter takes pleasure in making time for investigation and it’s simple to grasp why. I learn all regarding the powerful medium you create both useful and interesting techniques via your website and as well as inspire response from some others on this issue and our own girl is really understanding a whole lot. Take pleasure in the rest of the year. Your performing a dazzling job.
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1552238903
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552238903.3053629398345947265625;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			7908787ca4cc510a296a15f751cd893b
+			
+							
+					
+			15939
+			FrankNub
+			alex.m2s@mail.ru
+			
+			2.92.199.93
+			2019-03-14 19:51:22
+			2019-03-14 19:51:22
+			Do you want something new? Look at this site. Only here the choice of girls for every taste and completely free! They are obedient slaves, they will do everything you say! 
+https://governy.shortcm.li/governor#16
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1552593082
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552593082.64735507965087890625;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			13bcf99e1fc8fb3c3d559b8b0cef7aad
+			
+							
+					
+			16967
+			Kristi Cutshaw
+			Samec4094@gmail.com
+			https://www.youcrazy.com/
+			205.185.209.109
+			2019-03-18 17:22:13
+			2019-03-18 17:22:13
+			Im obliged for the post.Thanks Again. Cool.
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1552929733
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552929733.1051781177520751953125;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			a206d69f1878d31dd841dac8d8d03673
+			
+							
+					
+			17587
+			Otha Bonelli
+			Gradford52414@gmail.com
+			https://www.lickmyballs.com
+			209.107.196.166
+			2019-03-20 21:58:57
+			2019-03-20 21:58:57
+			payday loans online <a href="https://loans2019.us.com/" rel="nofollow">personal loans online</a> loans <a href="https://loans2019.us.com/" rel="nofollow">best payday loans online</a> easy money payday loans <a href="https://easypayday.us.com/" rel="nofollow">long term payday loan</a> easy loans no credit check <a href="https://easypayday.us.com/" rel="nofollow">loan until payday</a>
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1553119137
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1553119137.5839450359344482421875;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			b9b3a898c00ecabc3df6d7bafb0f5796
+			
+							
+					
+			17864
+			unlimited proxy
+			ShaniceIlliano22761@gmail.com
+			https://dreamproxies.com/cheapest-usa-elite-private-proxies
+			104.144.243.19
+			2019-03-21 16:59:25
+			2019-03-21 16:59:25
+			One other issue is when you are in a situation where you would not have a cosigner then you may actually want to try to exhaust all of your school funding options. You can find many awards and other scholarships and grants that will provide you with funds to aid with college expenses. Thank you for the post.
+			trash
+			
+			0
+			0
+						
+	akismet_error
+			1553187565
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1553187565.74217891693115234375;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+							
+					
+			19803
+			Ellabed
+			ellCome@zmail.website
+			http://levitab.com
+			5.188.45.160
+			2019-03-29 06:57:36
+			2019-03-29 06:57:36
+			Mail Order Doxycycline Aurora Amertripaline On Salle  <a href="http://cialisab.com" rel="nofollow">cialis without prescription</a> Propecia Itch Scabies Medication Keflex During Pregnancy Achat Kamagra Generique
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1553842656
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1553842656.8096449375152587890625;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			3dd57fd07ee162c04abcc9d5d18db1d8
+			
+							
+					

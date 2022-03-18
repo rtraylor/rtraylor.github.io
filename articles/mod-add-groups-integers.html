@@ -3,7 +3,7 @@
 <head>
 <title>Like Clockwork: Modulo Addition And Finite Groups Of Integers</title>
 <link rel="stylesheet" href="style.css">
-<img src="imgs/tmc_text.jpg" alt="The Math Citadel" width="252" height="122"
+<img src="../imgs/tmc_text.jpg" alt="The Math Citadel" width="252" height="122"
 class="center"/>
 <br>
 </head>
@@ -32,7 +32,7 @@ class="center"/>
     </div>
     </div>
     <a href="projects.html">Projects</a>
-    <a href="pubs.html">Papers/Articles</a>
+    <a href="articles.html">Papers/Articles</a>
     <a href="contact.html">Contact</a>
 
 
@@ -141,4 +141,72 @@ We have a special way of writing the set of the integers modulo $n$: $\mathbb{Z}
 \]
 
 Since all integers modulo 3 will leave a remainder of 0, 1, or 2, these are the only three numbers we need to consider. All integers will be equivalent to one of these three. 
+So, reading the table, the first entry is row 1 + column 1 ($\bmod 3\!$), which is
+
+$$(0 + 0) \bmod 3 \equiv 0 \bmod 3 $$
+
+Another one is the row 2 + column 3:
+
+$$(1 + 2) \bmod 3 = 3 \bmod 3 \equiv 0\bmod 3$$
+Why? Well, after we add, we have to divide by 3 and take the remainder. As an exercise, make sure you can generate this table yourself.
+We know that modulo addition is an operation, so let's see if combining it with $\mathbb{Z}_{3}$ fits the definition of a group. This means we have to verify the three axioms, starting with the first:
+
+ 
+
+<strong>Axiom 1: Associativity:</strong>
+
+We need to show the following to satisfy the first axiom:
+
+$$ [(a+b) + c] \bmod 3 \equiv [a + (b+c)]\bmod 3.$$
+
+First, let's take any three unspecified elements of $\mathbb{Z}_{3}$. Call the $a, b,$ and $c$. We don't specify these because we have to keep things general in order to show that it doesn't matter which three elements we pick.[note]I know it's possible to verify this by trying all combinations. The set is small enough to do this, but it's a bad habit to get into. To learn to prove, you must learn to do this in general and not rely on "brute force" crutches.[/note] We are going to start with $[(a+b) + c]\bmod 3$ and manipulate it to show that it's equivalent to $[a+(b+c)]\bmod 3$. To differentiate between regular old addition and modulo addition (modulo 3 in this case), I am going to use the notation $+_{3}$ when I mean addition modulo 3.
+
+First, by the definition of modulo arithmetic,
+
+$$[(a+b)+c]\bmod 3 = (a+b)\bmod 3 +_{3} c\bmod 3$$
+
+The right hand side of the above is the same thing as using regular addition to add $a, b,$ and $c$ together first, then take that result modulo 3. [note]Try verifying this for yourself using the table above, just so you get comfortable with this. It's true regardless of what you are modding out by, but playing with a few examples on your own is the best way to get it to sink in.[/note] So we write that
+
+$$\begin{aligned}[(a+b)+c]\bmod 3 &amp;= (a+b)\bmod 3 +_{3} c\bmod 3\\&amp;= (a+b+c)\bmod 3\end{aligned}$$
+
+Look inside the parentheses. Now we're back in the nice, safe world of regular addition, and we know we can group and add any way we want to inside those parentheses. So let's do that. We know that
+
+$$(a+b+c) = (a+b) + c = a + (b+c).$$
+
+Grab that last equality.[note] Hint: because it looks an awful lot like what we're trying to get to, just with modular arithmetic[/note] Then we can write
+
+$$\begin{aligned}[(a+b)+c]\bmod 3 &amp;= (a+b)\bmod 3 +_{3} c\bmod 3\\&amp;= (a+b+c)\bmod 3\\&amp;=[a+(b+c)]\bmod 3\end{aligned}$$
+
+We can "descend" the same ladder we walked up to start with. If $[(a+b)+c]\bmod 3 = (a+b)\bmod 3 +_{3} c\bmod 3,$ then it also holds that $[a+(b+c)]\bmod 3 = a\bmod 3 +_{3} (b+c)\bmod 3.$[note]Again, think of the stuff in the parenthesis to be a new object. Rename it is you want, because you add that first anyway. You're just reusing the definition of modulo arithmetic.[/note]
+
+$$\begin{aligned}[(a+b)+c]\bmod 3 &amp;= (a+b)\bmod 3 +_{3} c\bmod 3\\&amp;= (a+b+c)\bmod 3\\&amp;=[a+(b+c)]\bmod 3\\&amp;= a \bmod 3 +_{3} (b+c) \bmod 3\end{aligned}$$
+
+Last step. We are now basically done. Use the definition of modulo arithmetic one more time to finish.
+
+$$\begin{aligned}[(a+b)+c]\bmod 3 &amp;= (a+b)\bmod 3 +_{3} c\bmod 3\\&amp;= (a+b+c)\bmod 3\\&amp;=[a+(b+c)]\bmod 3\\&amp;= a \bmod 3 +_{3} (b+c) \bmod 3\\&amp;\equiv [a+(b+c)]\bmod 3\end{aligned}$$
+
+
+
+<strong>Axiom 2: Existence of an identity </strong>
+
+This one is nice and easy here. We already did the work by calculating out that operation table. Which element when added to any other element returns the other element? Does the order matter? Use the multiplication table to verify that 0 is the identity element of $\mathbb{Z}_{3}$
+
+ 
+
+<strong>Axiom 3: Every element has to have an inverse</strong>
+
+We also did the setup for this one too. Look at each element (there are only 3). Each element needs to have a corresponding pair that you can modulo add to it to retrieve the identity element $0 \mod 3$. Clearly, 0[note]I write 0, but remember that this is not really the number 0. It represents all things that are a multiple of 3. In these groups, each element is actually an object we represent lazily by a number, rather than the number as we usually think of number.[/note] is its own inverse.[note]Yes, this is totally possible. In fact, for finite groups with an odd number of elements, one element will have to be its own inverse.[/note] $(0+0) \bmod 3 = 0\mod 3$. Also,
+
+$$(1+2)\bmod 3 \equiv (2+1) \bmod 3 \equiv 0 \bmod 3.$
+
+So 1 and 2 are inverses of each other. Therefore, every element has an inverse, and we've proven that $\mathbb{Z}_{3}$ is a group under the operation modulo addition.
+
+ 
+<h2>Conclusion</h2>
+All the things we just did were to learn a couple things:
+<ol>
+ 	<li>There is more than one kind of addition. Modulo addition is very commonly used, with the typical example being clock reading. We also use it when we program computers (because machines operate in binary, which is actually $\mathbb{Z}_{2}$. It also shows up in many programming applications, like calendars (also use modulo addition) and the storage mapping function. (For a fantastic explanation of the "why I should care", check out I Programmer's <a href="http://www.i-programmer.info/babbages-bag/476-storage-mapping-functions.html">article on SMF</a> and the <a href="http://www.i-programmer.info/babbages-bag/481-the-mod-function.html?start=1" target="_blank" rel="noopener noreferrer">article on the mod function</a>. )</li>
+ 	<li>Group theory can simplify our lives by giving us fewer things to study. If I want to study the effect dividing by 3 has on numbers, I can just study $\mathbb{Z}_{3}$, because dividing by 3 can only have, well, 3 possible options: a remainder of 0, 1, or 2. Now I don't have to study all the integers in this situation to get the information I need.</li>
+</ol>
+This article will be just the start of various explorations of group theory. Here I gave an introduction to a specific type of group, the integers modulo <em>n</em>, because it will turn out that the structure and behavior of these groups are actually the same as other groups that look much harder to study, like symmetries of regular shapes. For example, $\mathbb{Z}_{3}$ has the same mathematical structure as all the lines of symmetry through an equilateral triangle.[note]In mathematics, this is called an <em>isomorphism</em>[/note]. This has vast uses in chemistry and physics, studying the shapes of molecules.
 </html>

@@ -1,0 +1,197 @@
+
+		
+				Applications of Reflections: Taking a Group to its "Abelian" Form		
+		https://www.themathcitadel.com/applications-of-reflections-taking-a-group-to-its-abelian-form/
+		Mon, 14 Oct 2019 15:19:52 +0000
+		admin
+		https://www.themathcitadel.com/?p=3129
+		
+		
+				<!-- wp:paragraph -->
+<p>In continuing the exploration of explicit applications and examples of category-theoretic concepts, we  highlight the versatility of reflections and reflective subcategories. This concept can be used to perform all kinds of desired actions on a category to yield a subcategory that "nicer" in some way. This article explores how we can use reflections to make groups abelian.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>Please see the<a href="https://www.themathcitadel.com/equivalence-v-isomorphisms-in-category-theory/"> previous article </a>by Traylor and Fadeev for the definition of a category and other properties. </p>
+<!-- /wp:paragraph -->
+
+<!-- wp:quote -->
+<blockquote class="wp-block-quote"><p><strong>Definition (Subcategory):</strong></p><p>A category [latex]\mathbf{A}[/latex] is a subcategory of a category [latex]\mathbf{B}[/latex] if&nbsp;<br>(1) [latex]\mathrm{Ob}(\mathbf{A}) \subseteq \mathrm{Ob}(\mathbf{B})[/latex]<br> (2) for each [latex]A, A' \in \mathrm{Ob}(\mathbf{A})[/latex], [latex]\mathrm{hom}_{\mathbf{A}}(A,A') \subseteq \mathrm{hom}_{\mathbf{B}}(A,A')[/latex].&nbsp;<br>(3) for each [latex]A \in \mathrm{Ob}(\mathbf{A})[/latex], the [latex]\mathbf{B}-[/latex]identity on [latex]A[/latex] is the same as the [latex]\mathbf{A}-[/latex]identity on [latex]A[/latex].<br>(4) composition in [latex]\mathbf{A}[/latex] is the restriction of composition in [latex]\mathbf{B}[/latex] to the morphisms of [latex]\mathbf{A}[/latex]<br></p><cite>Adámek et al, <em>Abstract and Concrete Categories</em>(1990)<br></cite></blockquote>
+<!-- /wp:quote -->
+
+<!-- wp:paragraph -->
+<p>Point by point, we'll pick the definition apart. The first part is pretty clear. The collection of objects in a subcategory is contained in the collection of objects in its "parent". The second criterion says that the set of morphisms from one object [latex]A[/latex] to another object [latex]A'[/latex] inside the littler category [latex]\mathbf{A}[/latex] should be a subset of all the morphisms from the same [latex]A[/latex] to the same [latex]A'[/latex], but inside [latex]\mathbf{B}[/latex]. That is, there are morphisms from [latex]A \to A'[/latex] in [latex]\mathbf{B}[/latex] that won't live in the subcategory [latex]\mathbf{A}[/latex].</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>The third criterion just states that the identity morphisms on objects should match in both categories. The final criterion tells us that composition inside the subcategory [latex]\mathbf{A}[/latex] only "works" on the morphisms inside [latex]\mathbf{A}[/latex], but is otherwise the same composition as in [latex]\mathbf{B}[/latex]. We just only perform compositions on morphisms in [latex]\mathbf{A}[/latex] when we're in [latex]\mathbf{A}[/latex].</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>We now define a reflection.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:quote -->
+<blockquote class="wp-block-quote"><p><strong>Definition ([latex]A-[/latex] reflection)</strong></p><p>Let [latex]\mathbf{A}[/latex] be a subcategory of [latex]\mathbf{B}[/latex], and let [latex]B \in \mathrm{Ob}(\mathbf{B})[/latex].<br><br>(1) An<strong> [latex]\mathbf{A}-[/latex] reflection</strong> for [latex]B[/latex] is a morphism [latex]B \xrightarrow{r} A[/latex] from [latex]B[/latex] to [latex]A \in \mathrm{Ob}(\mathbf{A})[/latex] such that for any morphism [latex]B \xrightarrow{f} A'[/latex] from [latex]B[/latex] to [latex]A' \in \mathrm{Ob}(\mathbf{A})[/latex] there exists a unique [latex]f': A \to A'[/latex] such that [latex]f = f' \circ r[/latex].<br>(2) [latex]\mathbf{A}[/latex] is a <strong>reflective subcategory</strong> for [latex]\mathbf{B}[/latex] if each [latex]\mathbf{B}-[/latex] object has an [latex]\mathbf{A}-[/latex]reflection.&nbsp;</p></blockquote>
+<!-- /wp:quote -->
+
+<!-- wp:paragraph -->
+<p>Currently, this definition seems a bit abstract. The following sections will illustrate concrete examples of reflections to understand this definition better.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h2>Taking a Group to Its Abelian Form</h2>
+<!-- /wp:heading -->
+
+<!-- wp:heading {"level":3} -->
+<h3>The Category [latex]\mathbf{Grp}[/latex]</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>For this example, we'll be working with the category of groups, [latex]\mathbf{Grp}[/latex]. The objects in this category are groups, and the morphisms are group homomorphisms. Some elements of this category are:</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:list -->
+<ul><li>[latex](\mathbb{R}, +) \xrightarrow{\phi} (\mathbb{R}^{+}, \cdot)[/latex], [latex]\phi(x) = e^{x}[/latex]. The real numbers under addition and the positive real numbers under multiplication are both groups, so they're objects in this category. [latex]\phi[/latex] here is a group homomorphism[note]actually an isomorphism[/note], so it's a morphism in [latex]\mathbf{Grp}[/latex].</li><li>The dihedral group [latex]D_{6}[/latex], and the permutation group [latex]S_{3}[/latex] are also objects in this class. Recall that the dihedral group [latex]D_{6}[/latex] is commonly visualized using the symmetries of an equilateral triangle[note]There are 6 symmetry elements. Three reflections, with the reflection lines passing through each of the three vertices, two rotations of angle 2kπ/3, k=1,2, and an identity element that does nothing.[/note], but is commonly given using the following presentation:&nbsp;[latex, display = true]D_{6} = \langle r,s : r^{3} = s^{2} = 1, sr = r^{-1}s\rangle[/latex] Here, we see that [latex]D_{6}[/latex] is generated by two elements [latex]r[/latex] and [latex]s[/latex] ([latex]r[/latex] is the rotation by [latex]2\pi/3[/latex], and [latex]s[/latex] is one of the reflection lines).&nbsp;[latex]S_{3}[/latex] is the set of permutations on 3 elements-- all permutations of the integers [latex]\{1,2,3\}[/latex]. Both of these are groups, and both have 6 elements. If we define&nbsp;[latex]\phi: \begin{cases} r \to (123) \\ s \to (12)\end{cases}[/latex] Then [latex]\phi[/latex] is a group homomorphism that takes [latex]D_{6}[/latex] to [latex]S_{3}[/latex], and is also thus a morphism in [latex]\mathbf{Grp}[/latex].&nbsp;</li><li>As one last example, let [latex]\mathrm{GL}_{2}(\mathbb{R})[/latex] be the general linear group of degree [latex]2[/latex]. This is the group of invertible [latex]2\times 2[/latex] matrices with real entries. Then we can create a group homomorphism [latex]\phi: D_{6} \to \mathrm{GL}_{2}(\mathbb{R})[/latex] by letting&nbsp;[latex, display = true]\phi(r) = \begin{bmatrix}\cos(\theta) &amp; -\sin(\theta)\\ \sin(\theta) &amp; \cos(\theta)\end{bmatrix} \qquad \phi(s) = \begin{bmatrix} 0 &amp; 1\\ 1 &amp; 0 \end{bmatrix}[/latex] so this [latex]\phi[/latex] is also a morphism in [latex]\mathbf{Grp}[/latex].</li></ul>
+<!-- /wp:list -->
+
+<!-- wp:heading {"level":3} -->
+<h3>The Category [latex]\mathbf{Ab}[/latex]</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>A subcategory of [latex]\mathbf{Grp}[/latex] is [latex]\mathbf{Ab}[/latex], the category of abelian groups. Morphisms are again group homomorphisms, but this time we are only looking at morphisms between abelian groups. Some examples:</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>(1) [latex](\mathbb{R}, +) \xrightarrow{\phi} (\mathbb{R}^{+}, \cdot)[/latex], [latex]\phi(x) = e^{x}[/latex]. The real numbers under addition, and the positive real numbers under multiplication are abelian groups, so they're in the subcategory [latex]\mathbf{Ab}[/latex].</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>(2) [latex](\mathbb{Z}_{2} \times \mathbb{Z}_{2}, +)[/latex] and [latex](\mathbb{Z}_{4}, +)[/latex] are also abelian groups. We can define a group homomorphism [latex]\psi: \mathbb{Z}_{2} \times \mathbb{Z}_{2} \to \mathbb{Z}_{4}[/latex] by&nbsp;[latex, display = true]\psi: \begin{cases} (0,0) \to 0 \\ (1,0) \to 1\\ (0,1) \to 2 \\ (1,1) \to 3\end{cases}[/latex], so [latex]\psi[/latex] is in the collection of morphisms in [latex]\mathbf{Ab}[/latex]. Of course, it's also in the morphisms of [latex]\mathbf{Grp}[/latex] as well.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>(3) [latex]D_{6}[/latex] is not commutative, so it's not an object in [latex]\mathbf{Ab}[/latex].&nbsp;</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>(4)[latex]\mathrm{GL}_{2}[/latex] under matrix multiplication is not abelian, because matrix multiplication is not a commutative operation. So neither this group nor the group homomorphism between [latex]D_{6}[/latex] and [latex]\mathrm{GL}_{2}[/latex] are in [latex]\mathbf{Ab}.[/latex]</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":3} -->
+<h3>Creating the Commutator Subgroup</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>We now discuss the commutator element. The<strong> commutator</strong> of two elements [latex]g,h[/latex] in a group, denoted [latex][g,h][/latex] is given by [latex][g,h] = g^{-1}h^{-1}gh[/latex].</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p><em>Remark: The order matters here.</em></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>Let's work with a nice easy group of matrices. Let&nbsp;[latex, display = true]G =\left\{I_{2},\begin{bmatrix}0&amp;1\\1&amp;0\end{bmatrix},\begin{bmatrix}0&amp;1\\-1&amp;-1\end{bmatrix},\begin{bmatrix}-1&amp;-1\\0&amp;1\end{bmatrix},\begin{bmatrix}-1&amp;-1\\1&amp;0\end{bmatrix},\begin{bmatrix}1 &amp; 0\\-1&amp;-1\end{bmatrix}\right\}[/latex] under matrix multiplication. We'll name these matrices [latex]\{I,A,B,C,D,K\}[/latex] respectively. This group is not commutative, as shown in the group table below: </p>
+<!-- /wp:paragraph -->
+
+<!-- wp:table -->
+<table class="wp-block-table"><tbody><tr><td>[latex]\cdot[/latex]</td><td>I</td><td>A</td><td>B</td><td>C</td><td>D</td><td>K<br></td></tr><tr><td>I</td><td>I</td><td>A</td><td>B</td><td>C</td><td>D</td><td>K</td></tr><tr><td>A</td><td>A</td><td>I</td><td>C</td><td>B</td><td>K</td><td>D</td></tr><tr><td>B</td><td>B</td><td>K</td><td>D</td><td>A</td><td>I</td><td>C</td></tr><tr><td>C</td><td>C</td><td>D</td><td>K</td><td>I</td><td>A</td><td>B</td></tr><tr><td>D</td><td>D</td><td>C</td><td>I</td><td>K</td><td>B</td><td>A</td></tr><tr><td>K</td><td>K</td><td>B</td><td>A</td><td>D</td><td>C</td><td>I</td></tr></tbody></table>
+<!-- /wp:table -->
+
+<!-- wp:paragraph -->
+<p>&nbsp;Next, we're going to form the <strong>commutator subgroup</strong>, which is the subgroup of [latex]G[/latex] consisting of all commutators of [latex]G[/latex]. Let's call this subgroup [latex]\tilde{G}[/latex]. The quotient [latex]G/\tilde{G}[/latex] is always an abelian group, so "quotienting out by" [latex]\tilde{G}[/latex] and working with the cosets gives us an "abelian version" of our previously non-abelian group.&nbsp;</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>We'll calculate a few commutator elements to demonstrate how, but will not run through every combination. [latex, display = true]\begin{aligned}[I,X]&amp;=[X,I]=I\\ [A,B]&amp;=A^{-1}B^{-1}AB=ADAB=D\\ [B,A]&amp;=B^{-1}A^{-1}BA=DABA=B\\ [C,D]&amp;=C^{-1}D^{-1}CD=CBCD=B\\ \vdots\end{aligned}[/latex]</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>Continuing with all combinations, we find that there are only three commutator elements: [latex]\{I, B, D\}[/latex]. Thus[note]Feel free to verify this is a subgroup.[/note] [latex]\tilde{G} = \{I,B,D\}[/latex]. Now, [latex]G/\tilde{G}[/latex] gives us the left cosets of [latex]\tilde{G}[/latex]: [latex, display = true]\begin{aligned}A\tilde{G}&amp;= C\tilde{G}=K\tilde{G}=\{A,C,K\}\\ B\tilde{G}&amp;= D\tilde{G}=I\tilde{G}=\{I,B,D\}\end{aligned}[/latex]Thus, the commutator subgroup is [latex]G/\tilde{G} = \{A\tilde{G}, \tilde{G}\}[/latex]. This two-element group is a bit dull, admittedly, but it certainly is abelian, with the identity element as [latex]\tilde{G}[/latex].</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":3} -->
+<h3>Back to Reflections</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Something else we can do with this little two-element group is map it to [latex](\mathbb{Z}_{2}, +)[/latex] via the homomorphism [latex]\phi: G/\tilde{G} \to \mathbb{Z}_{2}[/latex], where [latex]\phi(\tilde{G}) = 0[/latex], and [latex]\phi(A\tilde{G}) = 1[/latex].&nbsp;</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>What does any of this have to do with reflections? Recall that [latex]G \in \mathrm{Ob}(\mathbf{Grp})[/latex], but not in [latex]\mathrm{Ob}(\mathbf{Ab})[/latex]. [latex]G/\tilde{G}[/latex] is in [latex]\mathrm{Ob}(\mathbf{Ab})[/latex], and so is [latex]\mathbb{Z}_{2}[/latex].&nbsp;</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>A reflection for [latex]G[/latex] into [latex]\mathbf{Ab}[/latex] is a morphism [latex]r[/latex] such that for any morphism [latex]\psi:G \to A'[/latex], [latex]A' \in \mathrm{Ob}(\mathbf{Ab})[/latex], we can find a morphism [latex]\phi[/latex] completely contained in [latex]\mathbf{Ab}[/latex] such that [latex]\psi = \phi \circ r[/latex].&nbsp;</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>Let [latex]A'= \mathbb{Z}_{2}[/latex], and define [latex]\psi: G \to \mathbb{Z}_{2}[/latex] by&nbsp;[latex, display =true]\psi: \begin{cases}A \to 1 \\ C \to 1 \\ K \to 1 \\ B \to 0\\D \to 0 \\I \to 0\end{cases}[/latex] This is certainly a homomorphism ([latex]\psi(XY) = \psi(X)\psi(Y)[/latex]).&nbsp;</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>What if we could "bounce" this group [latex]G[/latex] off another group [latex]H[/latex] in [latex]\mathbf{Ab}[/latex], then move from [latex]H[/latex] to [latex]\mathbb{Z}_{2}[/latex]? That might reveal a little more about [latex]\psi[/latex] than just the seemingly contrived definition we put forth.&nbsp;</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>Let [latex]r: G \to G/\tilde{G}[/latex] be the canonical map sending each element of [latex]G[/latex] to the appropriate coset. That is [latex]r(A) = A\tilde{G}[/latex], [latex]r(B) = \tilde{G}[/latex], etc. Then the image of [latex]r[/latex] is [latex]G/\tilde{G}[/latex], and [latex]\phi[/latex] as defined above is the unique morphism that will take [latex]G/\tilde{G}[/latex] to [latex]\mathbb{Z}_{2}[/latex] such that [latex]\psi = \phi \circ r[/latex].&nbsp;</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>One reflection, [latex]r[/latex], taking [latex]G[/latex] to some object [latex]A[/latex] in [latex]\mathbf{Ab}[/latex]. Grab a morphism [latex]\psi[/latex] from [latex]G[/latex] to somewhere else in [latex]\mathbf{Ab}[/latex] (we picked [latex]\mathbb{Z_{2}}[/latex]). Then we have to be able to find a unique [latex]\phi[/latex] such that [latex]\psi[/latex] decomposes into the composition of [latex]r[/latex] with that [latex]\phi[/latex]. This same [latex]r[/latex] (and thus the same [latex]A[/latex]) should be able to perform this action for any [latex]A'[/latex], any [latex]\psi[/latex]. In our case, the reflection is the canonical map from [latex]G[/latex] to its commutator subgroup.&nbsp;</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h2>Conclusion</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Reflections can perform many different actions to take objects in one category to objects in a subcategory. We focused on reflections making things "abelian" in a nice way, which helped reveal some structures that would have otherwise been hidden. </p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>&nbsp;<br><br></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p><br></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p><br></p>
+<!-- /wp:paragraph -->		
+		
+						
+		3129
+		2019-10-14 15:19:52
+		2019-10-14 15:19:52
+		closed
+		closed
+		applications-of-reflections-taking-a-group-to-its-abelian-form
+		publish
+		0
+		0
+		post
+		
+		0
+										Algebra
+		Category Theory
+						
+		_da_attachments
+		a:0:{}
+		
+							
+		_edit_last
+		1
+		
+							
+		_acp_button_style
+		2
+		
+							
+		_acp_loading_type
+		1
+		
+							

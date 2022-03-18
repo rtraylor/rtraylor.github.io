@@ -1,0 +1,92 @@
+
+		
+				On the optimal storage of bulk cargoes: an exercise in calculus.		
+		https://www.themathcitadel.com/on-the-optimal-storage-of-bulk-cargoes-an-exercise-in-calculus/
+		Mon, 23 Sep 2019 13:13:16 +0000
+		admin
+		https://www.themathcitadel.com/?p=3102
+		
+		
+				<!-- wp:paragraph -->
+<p><em>Editor's Note: This article is authored by Valentin Fadeev, a physics PhD candidate at The Open University, UK. You can reach him via Twitter at @valfadeev.</em></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>Despite their undeniable and enormous role in applications, the methods of calculus are often seen by students present and past as a form of mathematical art removed from everyday life. Evaluating integrals may seem as a sport for the initiated. Extremal problems are mostly to demonstrated on the stripped-down textbook examples. Coming across a use case in an unusual and easily understandable context is rare. We present one such use case here and hope the reader finds it instructive.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:image {"id":3125} -->
+<figure class="wp-block-image"><img src="https://www.themathcitadel.com/wp-content/uploads/2019/09/valentin-ship-1024x685.jpg" alt="" class="wp-image-3125"/></figure>
+<!-- /wp:image -->
+
+<!-- wp:paragraph -->
+<p>We begin with some background from maritime logistics. The term "bulk cargo" is used to denote the type of cargo, such as coal, ores, fertilizers, grain and the like, carried by merchant vessels "in bulk", that is put directly in the holds and not stuffed in boxes or any other containers. In some cases, while waiting to be picked up by vessels or other modes of transportation, such cargoes will be stored in stacks spilled by belt conveyors or other handling mechanisms.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>We consider here a simplified problem of calculating the optimal dimensions of one such stack given its total volume. For the criteria of optimality we pick the ground area occupied by the stack and the work against gravity required to form it.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:image {"id":3124} -->
+<figure class="wp-block-image"><img src="https://www.themathcitadel.com/wp-content/uploads/2019/09/valtentin-ship-fig.png" alt="" class="wp-image-3124"/><figcaption>Figure 1</figcaption></figure>
+<!-- /wp:image -->
+
+<!-- wp:paragraph -->
+<p>We shall approximate the stack with a geometrical body in the shape of an obelisk of height [latex]H[/latex], having a rectangle [latex]L_2\times B[/latex] at its base and 4 facets inclined towards the centre at equal angles, thus forming the upper horizontal edge of length [latex]L_1[/latex] (see Figure 1).</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>The volume of the stack can be calculated as follows:[latex, display = true]\begin{aligned}V&amp; =\int_0^HS(x)\,\mathrm{d}x , &amp; (1)\end{aligned}[/latex] where the [latex]x[/latex]-axis is directed downwards and [latex]S(x)[/latex] is the area of the horizontal cross-section as a function of [latex]x[/latex], given explicitly as [latex, display = true]\begin{aligned}S(x)&amp;=a(x)\cdot b(x)\\&amp;=\left(L_{1}+\frac{L_{2}-L_{1}}{H}x\right)\cdot\frac{Bx}{H}\\&amp;=B\left(L_{1}\frac{x}{H}+\left(L_{2}-L_{1}\right)\left(\frac{x}{H}\right)^{2}\right).&amp;(2)\end{aligned}[/latex]<br> Substituting (2) in (1) and integrating we find [latex, display = true]\begin{aligned}V&amp;=BH\int_0^1\left(L_1\frac{x}{H}+(L_2-L_1)\left(\frac{x}{H}\right)^2\right)\,\mathrm{d}\left(\frac{x}{H}\right)\\&amp;=\frac{HB}{6}(2L_2+L_1) &amp;(3)\end{aligned}[/latex]</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>Now we shall determine the amount of work (energy spent) performed against the forces of gravity that is required to form the stack. Assume that density of the cargo is [latex]\gamma\; \mathrm{kg}/\mathrm{m}^3[/latex]. The work [latex]\mathrm{d}A[/latex] required to lift a layer of thickness [latex]\mathrm{d}x[/latex] to height [latex]H-x[/latex] is given as follows:<br> [latex,display = true]dA=\gamma gdV\cdot(H-x)=\gamma gB\left(L_1\frac{x(H-x)}{H}+\frac{(L_2-L_1)x^2(H-x)}{H^2}\right)\,\mathrm{d}x,[/latex]<br> where [latex]g\approx 9.81 \,\mathrm{kg} \cdot \mathrm{m} / \mathrm{s}^2[/latex] is the acceleration due to gravity. Thus, the total work is [latex, display true]\begin{aligned}A&amp;=\gamma gB\int_0^H\left(L_1\frac{x(H-x)}{H}+\frac{(L_2-L_1)x^2(H-x)}{H^2}\right)\,\mathrm{d}x\\&amp;=\frac{\gamma gBH^2}{12}(L_1+L_2). &amp; (4)\end{aligned}[/latex]</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>Now we can ask the following question: if the volume [latex]V[/latex] given, what should be base length [latex]L_{2}[/latex] and width [latex]B[/latex] of so that the stack occupies the smallest possible area? First, we simplify our parametrization of the problem by introducing the <em>angle of the natural slope</em> [latex]\chi[/latex]. This is a term from the soil mechanics which denotes the angle that an unattached slope of the material forms with the horizontal surface at mechanical equillibrium. It depends on the properties of the material such as density and viscosity, and can be looked up in special tables.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p> In our model [latex, display = true]\begin{aligned}\frac{2H}{B}=\tan{\chi}.\end{aligned}[/latex]. We can, therefore, express everything in terms of [latex]L\equiv L_2[/latex], [latex]B[/latex] and [latex]\chi[/latex] [latex, display = true]\begin{aligned}H=\frac{1}{2}B\tan{\chi}, &amp;\qquad L_1=L_2-\frac{2H}{\tan{\chi}}=L-B&amp; (5).\end{aligned}[/latex]<br> Then the volume (3) can be rewritten as follows [latex, display = true]\begin{aligned}V&amp;=\frac{B^2\tan{\chi}}{12}(3L-B).&amp;(6)\end{aligned}[/latex] Solving (6) for [latex]L[/latex] we obtain [latex, display = true]\begin{aligned}L&amp;=\frac{4V}{B^2\tan{\chi}}+\frac{B}{3}.&amp;(7)\end{aligned}[/latex] The base area [latex]S[/latex] can then be expressed as the function of [latex]B[/latex] [latex, display = true]S(B)=LB=\frac{4V}{B\tan{\chi}}+\frac{B^2}{3},[/latex] whereby taking the derivative with respect to [latex]B[/latex] and solving [latex]S'(B) = 0[/latex] we find the stationary point [latex]B_0[/latex] [latex, display = true]\begin{aligned}B_0&amp;=\sqrt[3]{\frac{6V}{\tan{\chi}}},&amp; (8)\end{aligned}[/latex] which happens to be a point of minimum for [latex]S[/latex]. Using (8) [latex]L_0[/latex] is found as follows [latex, display = true]\begin{aligned}L_0&amp;=\left(\frac{4}{\sqrt[3]{36}}+\frac{2}{3}\sqrt[3]{36}\right)\sqrt[3]{\frac{V}{\tan{\chi}}},&amp;(9)\end{aligned}[/latex] so that the minimal area is [latex, display = true]\begin{aligned}S_0=S(B_0)&amp;=4\left(\frac{1}{\sqrt[3]{6}}+1\right)\left(\frac{V}{\tan{\chi}}\right)^{2/3}\approx 6.2\left(\frac{V}{\tan{\chi}}\right)^{2/3}.&amp;(10)\end{aligned}[/latex]</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>Next we shall determine the values of [latex]L[/latex], [latex]B[/latex] which minimize the amount of work required to form the stack. Rewriting (4) using (5) and (7) we obtain [latex, display = true]A=\frac{\gamma g \tan^2{\chi}}{144}\left(\frac{24VB}{\tan{\chi}}-B^4\right)[/latex]<br> Differentiating with respect to [latex]B[/latex] we find the stationary point to be given precisely by (8) again! Thus we find that, given the volume and the natural slope (8) and (9) actually produce the optimal solution, both in terms of the ground area, and the energy cost. Finally, we can use the above results to determine the largest admissible volume of a single stack given the constraint on the ground pressure, [latex]q,\, \mathrm{kg}/\mathrm{m}^2[/latex]. Given [latex]V[/latex], [latex]S[/latex] and [latex]\gamma[/latex] the safety condition is expressed by the inequality [latex, display = true]\frac{V\gamma}{S} &lt; q[/latex]<br> Solving for [latex]V[/latex] and using (10) we derive [latex, display = true]\begin{aligned}V&amp;&lt;\frac{qS}{\gamma}\approx\frac{q}{\gamma}6.2\left(\frac{V}{\tan{\chi}}\right)^{2/3},\\V&amp;&lt;\frac{(4.4q)^3}{\gamma^3\tan{\chi}}\approx 238.48\frac{q^3}{\gamma^3\tan{\chi}}.\end{aligned}[/latex]</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>The model can be modified to account for the fact that in practice the edges of the stack can develop surfaces that look like half-cones. In this case the reader will find, following the steps similar to the above that the total area and the work required to form the stack are given by [latex, display = true]\begin{aligned}S(B) = \frac{4V}{B\tan{\chi}} + \frac{\pi}{12}B^2, &amp;\qquad A(B) = \frac{\gamma g \tan^2{\chi}}{144}\left(\frac{24VB}{\tan{\chi}}-\frac{3\pi}{4}B^4\right),\end{aligned}[/latex]<br> respectively. The values [latex]B_{S}[/latex] and [latex]B_{A}[/latex] minimizing the above expressions will not be the same anymore<br> [latex, display = true]\begin{aligned}B_{S}=\sqrt[3]{3}B_{A}, &amp;\qquad B_{A} = 2\sqrt[3]{\frac{V}{\pi\tan{\chi}}}.\end{aligned}[/latex]<br> We have thus determined the maximum allowed volume, given the safety constraint and the properties of the material, assuming the optimal dimensions of the stack.<br> In conclusion, we have considered a simple but non-trivial application of the very basic tools of calculus to a problem that has important engineering applications. However, the main point is that calculus is ubiquitous and sometimes can deliver useful and elegant results in places one would least expect it to.</p>
+<!-- /wp:paragraph -->		
+		
+						
+		3102
+		2019-09-23 13:13:16
+		2019-09-23 13:13:16
+		closed
+		closed
+		on-the-optimal-storage-of-bulk-cargoes-an-exercise-in-calculus
+		publish
+		0
+		0
+		post
+		
+		0
+										Applied Mathematics
+						
+		_da_attachments
+		a:0:{}
+		
+							
+		_edit_last
+		1
+		
+							
+		_acp_button_style
+		2
+		
+							
+		_acp_loading_type
+		1
+		
+							

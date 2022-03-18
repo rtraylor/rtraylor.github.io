@@ -1,0 +1,579 @@
+
+		
+				Commentary: High Level Data Filtration		
+		https://www.themathcitadel.com/commentary-high-level-data-filtration/
+		Thu, 05 Oct 2017 19:33:46 +0000
+		admin
+		http://www.themathcitadel.com/?p=1252
+		
+		
+				The consensus over the last five or so years has converged on a conclusion regarding data: we're drowning in it. We have more than we can possibly monitor with our own eyeballs, and certainly more than we know what to do with intelligently. The motto for data scientists has been "More is better." Well, ask and ye shall receive. The image I see is a virtual version of someone looking at the end of a firehose as it's turned on full blast, then trying to spot an occasional speck in the stream of water. More data is good, only if it's good data.
+
+In modeling as well, we have generated great predictive algorithms[note]even if they are uninterpretable[/note] for a multitude of applications, including sales, cybersecurity, and customer support.&nbsp;These models are meant to alert a good sales prospect, a high priority customer support need, or a security issue on your network. One potential issue is the notion of too many alerts, or alerts generated from repeat or replicated data. Alert fatigue is a real thing; humans can become adjusted to what used to be a panicked state, and consequently, alerts get ignored. How many times do you hear a car alarm and assume it's actually due to a thief? Most of the time, we put the pillow over our head and grumble as we try to get back to sleep. What about an alert that pops up on your computer repeatedly? You end up ignoring it because it keeps bothering you about the same thing you acknowledged three hours ago.&nbsp;
+
+The issue with these scenarios is that when a real alert comes in between these ones you prefer to dismiss, you'll likely ignore the new one as well. &nbsp;Enter the need for filtration. We have so much data (much of it repeats) in enterprise scenarios that we need a way to filter these streams by eliminating the obvious and duplicated, as it were. To focus on a very real illustration of this need, take a look at enterprise network traffic. Enterprises have thousands of devices sending massive amounts of data within the network. They also deal with thousands of traffic that moves into and out of the network. The amount of packet data and metadata you could capture in an attempt to monitor this is difficult for us to really fathom. We need to decide what data is useful, and what isn't; and we need to decide this in real time, as the information flows.&nbsp;
+
+An intelligent way to approach data filtration is similar to how we look at water filtration. The first thing you want to do is get the obvious large chunks of...whatever...out. Then you apply progressively tighter layers of filtration (plus some chemical treatment) until you get clean water. Data cleaning can be a bit like that.&nbsp;Data scientists[note]the good ones, at least[/note] recognize that they will never be handed clean water to work with, and that they'll have to do some cleaning themselves. But rarely does anyone who is actually tasked with developing data science or cybersecurity solutions want to be the ones removing the obvious big garbage.&nbsp;
+
+I watched, as part of&nbsp;<a href="http://techfieldday.com/event/tfd15/" target="_blank" rel="noopener noreferrer">Tech Field Day 15</a>[note]Disclaimer: I was not compensated for my contributions or attendance in any way, other than travel/lodging expenses covered.[/note], a presentation by <a href="https://www.ixiacom.com" target="_blank" rel="noopener noreferrer">Ixia</a> (video can be found&nbsp;<a href="https://www.youtube.com/watch?v=j8oGUK43dz8&amp;list=PLinuRwpnsHaeaKvjo7YZadRzRPCPZGM6Q&amp;index=16" target="_blank" rel="noopener noreferrer">here</a>) on what is effectively a real-time filtration system for network treat intelligence. The idea is to leverage their database of known obvious issues and "bad players", as it were, to quickly filter out and mitigate these "large chunks" before passing the data to the more refining and advanced cybersecurity monitoring products. Ixia's products&nbsp;also look for duplicate data, and remove that as well. &nbsp;I like that they stepped in to do the "dirty work", as it were, and offer a solution to help with that high level filtration in real time. They were very clear about what their analytics did and did not do, which I respect.&nbsp;
+
+The benefit of clearing out these known issues or duplicated data is clear whenever someone downstream, as it were, feeds data into some variation of a predictive machine learning algorithm that is meant to monitor, evaluate, and alert. The algorithms can run more efficiently with less data flowing through it, and unnecessary alerts can be eliminated, allowing a security monitoring system to only deal with the data that suggest potentially new threats that may require human intervention, as the known threats were identified and mitigated many steps earlier.&nbsp;
+
+The world needs all kinds. Everyone wants to be the surgeon, because he's famous, but the surgeon cannot perform well without good technicians and nurses to help with the prep work. Ixia stepped in and offers a technician for the job of filtering prepping network traffic for better analysis and better security monitoring, which will keep the surgeon from fatigue.&nbsp;
+<a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License</a>.		
+		
+						
+		1252
+		2017-10-05 19:33:46
+		2017-10-05 19:33:46
+		open
+		open
+		commentary-high-level-data-filtration
+		publish
+		0
+		0
+		post
+		
+		0
+										Commentary
+						
+		_da_attachments
+		a:0:{}
+		
+							
+		_edit_last
+		1
+		
+							
+		_acp_button_style
+		1
+		
+							
+		_acp_loading_type
+		1
+		
+							
+		_wp_page_template
+		default
+		
+							
+			145
+			Commentary: High Level Data Filtration - Tech Field Day
+			
+			http://techfieldday.com/2017/commentary-high-level-data-filtration/
+			70.32.109.11
+			2017-10-10 20:59:02
+			2017-10-10 20:59:02
+			[&#8230;] Commentary: High Level Data Filtration [&#8230;]
+			1
+			pingback
+			0
+			0
+						
+	akismet_history
+			a:3:{s:4:"time";d:1537552408.144051074981689453125;s:5:"event";s:11:"report-spam";s:4:"user";s:13:"jasonhathcock";}
+			
+						
+	akismet_user_result
+			false
+			
+						
+	akismet_user
+			jasonhathcock
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1537553462.4547889232635498046875;s:5:"event";s:10:"report-ham";s:4:"user";s:13:"jasonhathcock";}
+			
+							
+					
+			227
+			Commentary: Infrastructure Considerations for Machine Learning &#8211; The Math Citadel
+			
+			http://www.themathcitadel.com/2017/11/06/commentary-infrastructure-considerations-for-machine-learning/
+			66.226.74.70
+			2017-11-11 18:16:30
+			2017-11-11 18:16:30
+			[&#8230;] endeavoring to expand the breadth of my knowledge on the tech side of things, and chronicling some things I&#8217;ve learned and observed from speaking with different companies, both as an independent and [&#8230;]
+			1
+			pingback
+			0
+			0
+						
+	akismet_history
+			a:3:{s:4:"time";d:1537552406.817429065704345703125;s:5:"event";s:11:"report-spam";s:4:"user";s:13:"jasonhathcock";}
+			
+						
+	akismet_user_result
+			false
+			
+						
+	akismet_user
+			jasonhathcock
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1537553459.570928096771240234375;s:5:"event";s:10:"report-ham";s:4:"user";s:13:"jasonhathcock";}
+			
+							
+					
+			14166
+			Byron Kamnik
+			Heschke54822@gmail.com
+			https://www.cnn.com
+			81.171.58.112
+			2019-03-08 05:55:09
+			2019-03-08 05:55:09
+			online loans no credit <a href="https://onlineloans2018.com/" rel="nofollow">online loans bad credit</a> loans online <a href="https://onlineloans2018.com/" rel="nofollow">online loans</a>
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1552024509
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552024509.083034992218017578125;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			b167f938bfe57608c33ecbc08ed266fe
+			
+							
+					
+			14198
+			Giovanni Koretsky
+			Wene47341@gmail.com
+			https://www.cnn.com
+			209.107.210.245
+			2019-03-08 06:41:40
+			2019-03-08 06:41:40
+			Because you may expect from this Gold Award Champion, the quality of the converted video is all but identical to the original. Our video experts were hard pressed to find any flaws in the picture or audio tracks of the converted data file. In a nutshell, unless you have superhuman vision or reading, there’s no reason to worry about any quality loss when converting videos with Wondershare.
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1552027300
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552027300.8564319610595703125;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			8aba73aaf6f9a671b565f5d6ee0b0466
+			
+							
+					
+			14836
+			Delfina Warrix
+			Sutyak54289@gmail.com
+			http://earllovesyou.com
+			64.145.94.143
+			2019-03-10 17:37:05
+			2019-03-10 17:37:05
+			<a href="https://buybactrim.icu/" rel="nofollow">cheap bactrim</a> – bactrimbactrim ointment, <a href="https://buybactrim.icu/" rel="nofollow">bactrim side effects</a> <a href="https://buybactrim.icu/" rel="nofollow">https://buybactrim.icu/</a>
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1552239425
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552239425.91110706329345703125;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			e345e8d2083119dbaa05694e09d92f51
+			
+							
+					
+			14857
+			Andrea Pellin
+			Cunio56358@gmail.com
+			http://earllovesyou.com
+			81.171.71.81
+			2019-03-10 18:19:53
+			2019-03-10 18:19:53
+			What do you do for a living? <a href="http://uvan.us/59251/nissan-waco.html" rel="nofollow">amex online levitra</a>  “I wrote, ‘No thanks big banks.’ I wrote, ‘Shame on Bank of America,'” he told San Diego CBS television affiliate KFMB-TV. He told another local station, ABC affiliate KGTV: “If I had drawn a little girl’s hopscotch squares on the street, we wouldn’t be here today.”
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1552241993
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552241993.63088703155517578125;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			3235b45b1285360c3853fd32e4079632
+			
+							
+					
+			16193
+			Erin Brushwood
+			Berrong42774@gmail.com
+			http:/suckafatonehomo.com
+			173.245.202.137
+			2019-03-15 22:31:03
+			2019-03-15 22:31:03
+			payday loan without credit check <a href="https://personalloans2019.com/" rel="nofollow">fastest payday loan</a> bad credit personal loans <a href="https://personalloans2019.com/" rel="nofollow">debt consolidation advice</a>
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1552689063
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552689063.6329290866851806640625;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			40fd496ddcbfb1042cc39ed969f7edcd
+			
+							
+					
+			16313
+			Ngoc Merchant
+			Pounds31128@gmail.com
+			http://suckafatonehomo.com
+			209.107.210.140
+			2019-03-16 04:27:13
+			2019-03-16 04:27:13
+			I’d like to open an account <a href="https://www.deschocolatines.com/privacy-policy/#endlessly" rel="nofollow">amitriptyline chlorhydrate 40 mg</a>  Equally extraordinary is the one example that the minister invokes; because, for every one child who suffers from being held back, we could give her a thousand examples of children who are being damaged by having quasi-formal cognitive learning foisted on to them before they are developmentally ready for it.
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1552710433
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552710433.1530139446258544921875;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			5f04a25cf64d23e9f589ea60f1fa846a
+			
+							
+					
+			16978
+			Eldon Wedgeworth
+			Virelli58441@gmail.com
+			https://www.youcrazy.com/
+			81.171.107.81
+			2019-03-18 17:55:04
+			2019-03-18 17:55:04
+			My brother recommended I might like this blog. He was once totally right.This put up truly made my day. You cann’tconsider just how much time I had spent for this info!Thank you!
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1552931704
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552931704.4086849689483642578125;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			e055b6f3285e0645eb07ccc9665dd803
+			
+							
+					
+			17017
+			Golda Fiely
+			Giovanini51370@gmail.com
+			https://www.youcrazy.com/
+			209.197.30.168
+			2019-03-18 20:19:48
+			2019-03-18 20:19:48
+			Thanks for taking the time to discuss this, I feel strongly about it and love learning more on this topic. If possible, as you gain expertise, would you mind updating your blog with extra information? It is extremely helpful for me.
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1552940388
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552940388.968719959259033203125;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			a53f9113b03af61cd49bec29a2722f4f
+			
+							
+					
+			17601
+			Meaghan Pablo
+			Lanno38317@gmail.com
+			https://www.lickmyballs.com
+			69.16.147.75
+			2019-03-20 22:26:14
+			2019-03-20 22:26:14
+			Whats Going down i am new to this, I stumbled upon this I have found It positively helpful and it has helped me out loads. I hope to contribute &amp; assist different customers like its aided me. Great job.
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1553120774
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1553120774.1162540912628173828125;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			6bf7acaee3b53797d5cc9152f303b1bf
+			
+							
+					
+			17646
+			Tandra Lovely
+			Burgett7706@gmail.com
+			https://www.lickmyballs.com
+			205.185.209.74
+			2019-03-21 00:34:56
+			2019-03-21 00:34:56
+			Hello everyone, it’s my first visit at this site,and paragraph is really fruitful in support of me, keep up posting these articles or reviews.
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1553128496
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1553128496.4004459381103515625;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			ac09e39dde40c02a9925e202c33ee80c
+			
+							
+					
+			18348
+			Yeezy Shoes
+			hecklergaiu@hotmaill.com
+			http://www.yeezy-shoes.in.net/
+			27.153.182.121
+			2019-03-23 17:05:31
+			2019-03-23 17:05:31
+			avythdhmc,If you have any struggle to download KineMaster for PC just visit this site.
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1553360731
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1553360731.3929049968719482421875;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			6b5246b299e5fd213d2e2c29f463aa01
+			
+							
+					
+			19402
+			Salomon UK
+			vpjodrb@yahoo.com
+			http://www.salomons.me.uk/
+			27.153.181.53
+			2019-03-27 20:08:58
+			2019-03-27 20:08:58
+			Yeezys http://www.yeezy.com.co/
+ Yeezys http://www.yeezys.us.com/
+ Yeezy http://www.yeezysupply.us.com/
+ Yeezy Boost 350 http://www.yeezy-shoes.us.com/
+ Yeezy Boost 350 http://www.yeezy-boost350.com/
+ Yeezy Boost http://www.yeezyboost350.us.com/
+ Yeezy Blue Tint http://www.yeezybluetint.com/
+  Yeezy 500 http://www.yeezy500utilityblack.com/
+  Yeezy 500 http://www.yeezy500utilityblack.us/
+ Vapor Max http://www.vapor-max.org.uk/
+ Salomon http://www.salomon-shoes.org.uk/
+ Salomon http://www.salomons.me.uk/
+ Salomon Shoes http://www.salomonspeedcross4.org.uk/
+ Off White Air Jordan 1 http://www.offwhitejordan1.com/
+  Nike Air VaporMax http://www.nikevapormax.org.uk/
+  Nike Element 87 http://www.nikereactelement87.us.com/
+  React Element 87 http://www.nikereactelement87.us/
+  Nike Air Vapormax Plus http://www.nikeplus.us/
+ Nike Outlet http://www.nike--outlet.us/
+ Nike Outlet http://www.nikeoutletstoreonlineshopping.us/
+ Nike Outlet Store Online Shopping http://www.nikeoutletonlineshopping.us/
+  NBA Jerseys http://www.nikenbajerseys.us/
+ Air Max Nike http://www.nikeairmax.us/
+ Air Max 2017 http://www.max2017.us/
+  Air Jordan Shoes http://www.jordan-com.com/
+  Jordan 11 Concord 2018 http://www.jordan11-concord.com/
+ Cheap Yeezy Shoes http://www.cs7boots1.com/
+  Cheap NBA Jerseys From China http://www.cheapnba-jerseys.us/
+ Birkenstock Sandals http://www.birkenstocksandalsuk.me.uk/
+ NBA Jerseys http://www.basketball-jersey.us/
+ Balenciaga UK http://www.balenciaga.me.uk/
+ Balenciaga UK http://www.balenciagauk.org.uk/
+ Balenciaga http://www.balenciagatriples.org.uk/
+ Balenciaga http://www.birkenstocks.me.uk/
+ Balenciaga Trainers http://www.balenciagatrainers.org.uk/
+  Nike Air Max 270 http://www.airmax270.org.uk/
+ Yeezy http://www.adidasyeezyshoes.org.uk/
+  Yeezy Shoes http://www.adidasyeezyshoes.org.uk/
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1553717339
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1553717339.0144279003143310546875;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			15fa840dcf286f453646248f377517a8
+			
+							
+					
+			19961
+			Pandora Jewelry Official Site
+			ehwmttja@yahoo.com
+			http://www.pandora-com.us/
+			27.153.181.53
+			2019-03-29 15:47:58
+			2019-03-29 15:47:58
+			Nike Air VaporMax Flyknit 2 http://www.nikeairvapormaxflyknit2.us/
+ Nike VaporMax Flyknit,Nike Air Vapormax Flyknit,Nike Air Vapormax Flyknit 2 http://www.nikevapormaxflyknit.us/
+ Nike VaporMax Plus,Nike Air VaporMax Plus,VaporMax Plus,Nike Air Vapormax Flyknit,Nike Air Vapormax Flyknit 2 http://www.nike-vapormaxplus.us/
+ Nike Air Max 2019,Air Max 2019 http://www.max2019.us/
+ Nike Air Max 2019,Air Max 2019,Nike Air Max http://www.air-max2019.us/
+ Nike Air Max 2019,Air Max 2019,Nike Air Max http://www.nike-airmax2019.us/
+ Nike Air Zoom Pegasus 35,Nike Pegasus 35,Nike Air Zoom Pegasus http://www.nikeairzoompegasus35.us/
+ Nike Pegasus 35,Nike Air Zoom Pegasus 35,Nike Air Zoom Pegasus,Nike Pegasus http://www.nikepegasus-35.us/
+ Nike Zoom,Nike Air Zoom http://www.nike-zoom.us/
+ Nike Air Max 270,Air Max 270,Nike Max 270 http://www.nikemax270.us/
+ Nike Shox,Nike Shox Outlet,Cheap Nike Shox Outlet http://www.nikeshoxoutlet.us/
+ Adidas Outlet http://www.outlet-adidas.us/
+ adidas originals http://www.originalsadidas.us/
+ adidas ultra boost,ultra boost http://www.adidasultra-boost.us/
+ Adidas Shoes http://www.shoesadidas.us/
+ Pandora Rings,Pandora Ring,Pandora Rings Official Site http://www.pandorarings-jewelry.us/
+ Pandora Official Site,Pandora Jewelry Official Site,Pandora Rings Official Site http://www.pandora-officialsite.us/
+ Pandora.com,Pandora,Pandora Official Site,Pandora Jewelry Official Site http://www.pandora-com.us/
+ Pandora jewelry Outlet,pandora charms,,pandora bracelets,pandora rings,pandora outlet http://www.pandora-jewelryoutlet.us/
+ pandora outlet,pandora jewelry outlet,pandora charms outlet,pandora jewelry http://www.pandoraoutlet-jewelry.us/
+ Cheap NFL Jerseys,NFL Jerseys Cheap,Cheap Sports Jerseys http://www.cheapsportsnfljerseys.us/
+ Cheap NFL Jerseys,NFL Jerseys Outlet,Cheap Jerseys http://www.cheapoutletnfljerseys.us/
+ Cheap NFL Jerseys,NFL Jerseys Cheap,Cheap Sports JerseysNFL Jerseys,Cheap NFL Jerseys,NFL Jerseys Wholesale,Cheap Jerseys http://www.nfljerseyscheapwholesale.us/
+ Cheap NFL Jerseys,NFL Jerseys Cheap,Cheap Sports Jerseys http://www.cheapjerseyselitenfl.us/
+ NFL Jerseys,NFL Jerseys 2019,Cheap NFL Jerseys,NFL Jerseys Wholesale http://www.nfljerseys2019.us/
+ Pittsburgh Steelers Jerseys,Steelers Jerseys,Steelers Jerseys Cheap http://www.pittsburghsteelers-jerseys.us/
+ Dallas Cowboys Jerseys,Cowboys Jerseys,Cowboys Jerseys Cheap http://www.dallascowboysjerseyscheap.us/
+ NFL Jerseys,NFL Jerseys 2019,Cheap NFL Jerseys, Cheap Authentic Nfl Jerseys http://www.nflauthenticjerseys.us/
+ NFL Jerseys Wholesale,NFL Jerseys 2019,Cheap NFL Jerseys, Cheap Nfl Jerseys Wholesale http://www.wholesalenfljerseysshop.us/
+ NFL Jerseys Wholesale,Cheap Nfl Jerseys Wholesale,,Cheap NFL Jerseys,NFL Jerseys 2019 http://www.authenticnflcheapjerseys.us/
+ Pandora Sale, Pandora Jewelry, Pandora UK http://www.pandorasale.org.uk/
+ Pandora Charms,Pandora UK,Pandora Charms Sale Clearance http://www.pandoracharmssaleuk.me.uk/
+ Pandora Bracelets,Pandora Bracelet,Pandora Jewelry http://www.pandorabraceletsjewellry.me.uk/
+ Pandora UK, Pandora Sale, Pandora Jewelry UK http://www.pandorauk-sale.org.uk/
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1553874478
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1553874478.956859111785888671875;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			d03427090641f80e4bde60bcfd0ca63a
+			
+							
+					
+			21779
+			Yeezy
+			etzxux@hotmaill.com
+			http://www.yeezy350.us.com/
+			27.153.181.53
+			2019-04-03 02:44:36
+			2019-04-03 02:44:36
+			ruljxlwkhg Yeezy 350,Hi there, just wanted to say, I liked this article. It was helpful. Keep on posting!
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1554259476
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1554259476.7474548816680908203125;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			2128b98abedfd46eb672f007129d3da4
+			
+							
+					
+			22201
+			custom nfl jerseys
+			tzpkpy@yahoo.com
+			http://www.customnfljerseys.us/
+			27.153.182.145
+			2019-04-04 07:36:53
+			2019-04-04 07:36:53
+			vqonrqmr,This website truly has alll of the information and facts I wanted about this subject and didn?t know who to ask.
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1554363413
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1554363413.10169506072998046875;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			e6cf65e8ba99996c239e923979c70287
+			
+							
+					

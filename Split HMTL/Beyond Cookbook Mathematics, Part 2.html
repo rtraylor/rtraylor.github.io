@@ -1,0 +1,97 @@
+
+		
+				Beyond Cookbook Mathematics, Part 2		
+		https://www.themathcitadel.com/beyond-cookbook-mathematics-part-2/
+		Wed, 03 Oct 2018 15:59:27 +0000
+		admin
+		http://www.themathcitadel.com/?p=2589
+		
+		
+				The <a href="https://www.themathcitadel.com/beyond-cookbook-mathematics-part-1/" target="_blank" rel="noopener noreferrer">previous article</a> discussed the importance of definitions to mathematical thought. We looked at a definition (of an end-vertex in a graph), and picked it apart by finding multiple ways to look at it. We also directly used the definition in a practical manner to find “weak links” in a network. This time, we’ll look at the structure of mathematical theorems and proofs, and how we can read the proofs to understand the theorems.&nbsp;
+
+A mathematical theorem (informally) is a statement that takes the following structure:
+
+<hr>
+<p style="padding-left: 30px;">IF {we have this stuff}, THEN {we get to say this about other stuff}.</p>
+
+
+<hr>
+
+Let’s pick this apart a bit even at the abstract level, because even this simple structure is important when we consider using theorems:
+<h2>IF {we have this stuff}:</h2>
+That IF is really important. You can’t move to the THEN without the IF part being true. Let’s say a particular theorem (say, <a href="https://www.themathcitadel.com/the-central-limit-theorem-isnt-a-statistical-silver-bullet/" target="_blank" rel="noopener noreferrer">the Central Limit theorem</a>), has a set of requirements in the IF part. We have to have <i>all </i>of those parts satisfied before we can invoke the conclusion. I see data scientists just invoking “Central Limit Theorem” like a chant when they are analyzing a dataset. However, in many cases, their data does not fit the IF conditions given. The Central Limit Theorem requires, among other things, that the random variables be independent. No independence, <i>no Central Limit Theorem</i>. Do not move forward.&nbsp;
+
+Many complaints I hear, especially in statistics, revolve around “you can use statistics to say anything you like.” No. No you cannot. It only appears that way because practitioners are applying theorems blindly without ensuring the hypotheses (the IF bits) are <i>all </i>met. A theorem written and proven is not some magic silver bullet that allows for universal application and use.&nbsp;
+<h2>IF -&gt; THEN:</h2>
+When we write (or read) a proof, we assume the IF part is true, and use those conditions in the IF to logically deduce the conclusions in the THEN.&nbsp;
+
+(A remark: I just described a particular method of proof—the direct proof. There are other methods by which we may prove a statement that are logically equivalent to a direct proof such as proof by contradiction, or proof by contrapositive. Since the idea here is to understand how all the parts of a theorem and proof work, we’ll stick with direct proofs here. We’re also discussing a particular type of logical statement—a one directional implication. We can have bidirectional statements as well, but these are an extension of understanding this first type, so we’ll start here.)
+
+The first part discussing definitions is essential to understanding the IF part of our theorem and how this part connects to our “then” conclusion. Suppose we take the statement&nbsp;
+<p style="padding-left: 30px;"><i>If a real-valued function [latex]f[/latex] is differentiable, then [latex]f[/latex] is continuous.&nbsp;</i></p>
+We can use the statement without understanding. As long as we understand the definitions reasonably well (as in, we know how to tell if a function is differentiable), then we say it’s continuous and move on with our day. This isn’t good enough anymore. <i>Why</i> does differentiability imply continuity? A good proof should illuminate this for us. My suggestion at this point is to find a calculus book that proves this statement and have it open for this next part. I’m going to outline a series of thought-steps to consider as you read a proof.
+<h3>(1) Write down definitions.</h3>
+Write down the definition of differentiability, and that of continuity. Study both. Play with examples of differentiable and continuous functions. See if all the differentiable functions you play with are also continuous. Try to play with some weird ones.&nbsp;
+
+Examples: [latex]f(x) = x^{2}[/latex]. Definitely differentiable. Definitely continuous. (I do suggest actually using the definitions here to really show that [latex]f[/latex] fits these.)
+<p style="padding-left: 30px;">[latex]f(x) = x+5[/latex]. Fits nicely. Try some nonpolynomials now.</p>
+<p style="padding-left: 30px;">[latex]f(x) = \sin(x)[/latex]. Still good.</p>
+<p style="padding-left: 30px;">[latex]f(x) = e^{x}[/latex]. Really nice. Love differentiating that guy.</p>
+As you’re playing with these, try to move between formally showing these functions fit the definitions and developing a visual picture of what it means for these functions to fit the definitions. (My high school calculus teacher, Andy Kohler, gave a nice intuitive picture of continuity—you shouldn’t have to pick up your pen to draw the function.)&nbsp;
+
+This step helps you visualize your starting point and your destination. Every single time I develop a theorem, this is the process I go through. This isn’t always short either. I’ve spent weeks on this part—exploring connections between my start and my target to develop an intuition. Often, this leads me to a way to prove the desired theorem. Occasionally I manage to create an example that renders my statement untrue. This isn’t a trivial or unimportant part, so I implore you to temper any building frustration with the speed of this bit. However, since here we’re focused on reading proofs rather than writing them, we’ll likely assume we’re working with a true statement.
+<h3>(2) Now take a look at the proof.&nbsp;</h3>
+A good proof should take you gently by the hand and guide you through the author's reasoning in nice, comfortable steps of logic. The author shouldn’t require you to fill in gaps or make huge leaps, and especially never require you to just take something on faith.&nbsp;
+
+The proof contains all the pieces we need for understanding. We just need to know how to read it. At some point in the proof, every single part of the IF should be invoked as a justification for a logical step. Find these parts.&nbsp;
+<p style="padding-left: 30px;">“Because [latex]f[/latex] is differentiable, [STATEMENT]”</p>
+Study this part of the proof. Flag it. Do this for each time an IF condition is invoked. Make sure you can use the definition or condition invoked to make the leap the author does. Here I implore you to not just “pass over”. Really take the time to convince yourself this is true. Go back to the definition. Return to the proof. Again, this study isn’t necessarily quick.[note]Particularly if the proof's author likes to skip steps. Again, here I've spent hours on one line of a proof someone else wrote.[/note]&nbsp;
+
+Doing this for each line in the proof will help you see what’s going on between IF and THEN.
+<h3>(3) Break things.</h3>
+The last piece of advice I’ll give is one that was drilled into me by my graduate analysis professor at UTA, Dr. Barbara Shipman. Breaking things (or trying to) in mathematics is the best way to really cement your understanding.&nbsp;
+
+Go back to all those points you flagged in the proof where the IF conditions were invoked. Now imagine you don’t have that condition anymore. The proof should fail in some way. Either you end up with a false conclusion (“if I don’t have X anymore, then I definitely cannot have Y”), or you just end up stuck (“if I don’t have X anymore, I can’t say anything about Y”.) This failure point helps you understand why that condition was necessary in the IF. Doing this for each condition in the proof helps you see the interplay among all the conditions, and showing you how and why all those parts were needed to get you to your conclusion.&nbsp;
+
+None of this is trivial. Please don’t take the informal descriptions of this process to mean that you can breeze through and develop this skill as quickly as you memorized derivatives of functions. This is a skill that is developed over years. The reason I recommend using material you already know to study proofs is that it removes the challenge of learning new material while studying the “why”. There’s a reason mathematicians take calculus classes before real analysis courses (which spend time deeply developing and proving many things from calculus.) You’re familiar with how the subject works and that it works, <i>then</i> you can understand why it works.&nbsp;
+
+This happens in engineering too. We flew a plane before we understood airflow deeply, but due to our understanding of airflow, we were able to advance flight technology far beyond what I imagine early aviators and inventors even thought possible. There’s a beautiful feedback loop between mathematics, formal proofs, and engineering. Mathematical proofs aren’t just the dry formalisms we use and throw away—they’re the keys to understanding why things work the way they do. Developing the skill to read and understand these arguments is not a waste of time for an engineer; it will help propel engineering forward.
+
+<a href="http://creativecommons.org/licenses/by-nc-nd/4.0/" rel="license"><img style="border-width: 0;" src="https://i.creativecommons.org/l/by-nc-nd/4.0/88x31.png" alt="Creative Commons License"></a>
+This work is licensed under a <a href="http://creativecommons.org/licenses/by-nc-nd/4.0/" rel="license">Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License</a>.		
+		
+						
+		2589
+		2018-10-03 15:59:27
+		2018-10-03 15:59:27
+		closed
+		open
+		beyond-cookbook-mathematics-part-2
+		publish
+		0
+		0
+		post
+		
+		0
+										Fundamentals
+						
+		_da_attachments
+		a:0:{}
+		
+							
+		_edit_last
+		2
+		
+							
+		_wp_page_template
+		default
+		
+							
+		_acp_button_style
+		2
+		
+							
+		_acp_loading_type
+		1
+		
+							

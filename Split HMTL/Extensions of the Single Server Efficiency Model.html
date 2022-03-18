@@ -1,0 +1,278 @@
+
+		
+				Extensions of the Single Server Efficiency Model		
+		https://www.themathcitadel.com/extensions-of-the-single-server-efficiency-model/
+		Mon, 22 Jan 2018 04:58:52 +0000
+		admin
+		http://www.themathcitadel.com/?p=1953
+		
+		
+				<h5 style="text-align: center;">For the full paper, which includes all proofs, click <a href="https://www.themathcitadel.com/wp-content/uploads/2018/01/extensions_of_the_single_server_efficiency_model_traylor.pdf">here</a>.</h5>
+[nextpage title="1"]
+<h2>Abstract</h2>
+<em>Editor's note: this paper comprises the third chapter of the PhD dissertation by Rachel Traylor. Visit <a href="https://www.themathcitadel.com/stochastic-reliability-of-a-server-under-a-random-workload/">here</a> and <a href="https://www.themathcitadel.com/on-server-efficiency/">here</a> to see chapters one and two, respectively.</em> Herein we further generalize the single server model presented in [<a href="https://www.themathcitadel.com/stochastic-reliability-of-a-server-under-a-random-workload/">3</a>]. In particular, we consider a multichannel server under the cases of both singular and clustered tasks. In the instance of singular tasks, we present a load balancing allocation scheme and obtain a stochastic breakdown rate process, as well as derive the conditional survival function as a result. The model of a multichannel server taking in clustered tasks gives rise to two possibilities, namely, independent and correlated channels. We derive survival functions for both of these scenarios.
+<h2>Load Balancing Allocation for a Multichannel Server</h2>
+<h3>Model Description</h3>
+Previously, we had assumed that a web server functions as a single queue that attempts to process jobs as soon as they arrive. These jobs originally brought a constant stress [latex]\eta[/latex] to the server, with the system stress reducing by [latex]\eta[/latex] at the completion of each job.
+
+Now, suppose we have a server partitioned into K channels. Denote each channel as [latex]Q_k,[/latex] [latex]k = 1,\ldots,K[/latex]. Jobs arrive via a nonhomogenous Poisson process with rate [latex]\lambda(t)[/latex]. Upon arrival, each job falls (or is routed) to the channel with the shortest queue length. If all queue lengths are equal or multiple channels have the shortest length, the job will enter one of the appropriate queues with equal probability.
+
+We retain the previous notation for the baseline breakdown rate, or hazard function. This is denoted by [latex]r_0(t)[/latex] and is the hazard function under an idle system. We also retain the assumption that the arrival times [latex]\mathbf{T}[/latex] are independent. In addition, the service times [latex]\mathfrak{W}[/latex] are i.i.d. with distribution [latex]G_W(w)[/latex]. We assume that all channels are serving jobs at the same time, i.e., a job can be completed from any queue at any time. We do not require load balancing for service. In other words, any queue can empty with others still backlogged. We also retain the FIFO service policy for each queue.
+
+Since we have now “balanced,” or distributed, the load of jobs in the server, not all jobs will cause additional stress to the system. Suppose all jobs bring the same constant stress [latex]\eta[/latex] upon arrival. Under load balancing, we will define the additional stress to the system as [latex]\eta\max_k|Q_k|[/latex]. <strong>Figure 1</strong> shows an example server with current stress of [latex]4\eta[/latex].
+
+<img class="size-full wp-image-1974 aligncenter" src="http://www.themathcitadel.com/wp-content/uploads/2018/01/LoadBalancingArrivalProcess.png" alt="" width="505" height="302">
+<h6 style="text-align: center;">Figure 1. Partitioned Server with Load Balancing.</h6>
+[/nextpage]
+
+[nextpage title="2"]
+<h3>Examples</h3>
+Due to the dynamic nature of arrival times, allocation to queues, and service times, we have many possible configurations of jobs at any point in time. Therefore, the allocation scheme adds an additional layer of variation to the service times and order of service. The placement of jobs in the various queues (and thus the order of service and service times) is wholly dependent on all arrival times and service times of the prior arrivals. The following examples illustrate the effect on the workload stress added to the system in various scenarios.
+
+<img class="size-full wp-image-1991 aligncenter" src="http://www.themathcitadel.com/wp-content/uploads/2018/01/QueueConfigEx1.png" alt="" width="234" height="244">
+<h6 style="text-align: center;">Figure 2(a). Example 1 Load Balancing Queue Configuration</h6>
+<img class=" wp-image-1990 aligncenter" src="http://www.themathcitadel.com/wp-content/uploads/2018/01/LBEx13JobsArriving.png" alt="" width="500" height="238">
+<h6 style="text-align: center;">Figure 2(b). Breakdown Rate Process Trajectory</h6>
+
+<hr>
+
+<strong><em>Example 1</em>.&nbsp;</strong>Suppose for simplicity we have 2 channels. Suppose at the time of observation of the system, 3 jobs have arrived and none have finished. WLOG, suppose job 3 fell into [latex]Q_{1}[/latex]. See <strong>Figure 2(a)</strong>. The stress to the system at [latex]t=t_{\text{obs}}[/latex] is [latex]r_{0}(t_{\text{obs}}) + 2\eta[/latex], as shown in <strong>Figure 2(b)</strong>.
+
+<hr>
+
+Note in Example 1 that Job 2 does not add any additional stress to the system. Job 1 sees an empty queue upon arrival, and [latex]\max_{K}|Q_{K}| = 1[/latex] when it falls into any particular queue. Job 2 arrives as Job 1 is still being processed, and thus the placement of Job 1 forces Job 2 into the empty channel. Since [latex]\max_{K}|Q_{K}|[/latex] is <em>still</em> 1, the stress to the system doesn't change. Job 3 arrives as Jobs 1 and 2 are in service, and thus its choice of queue is irrelevant due to the configuration of the two queues at [latex]T_{3}[/latex]. Regardless of which queue Job 3 falls into, [latex]\max_{K}|Q_{K}| = 2[/latex]. Thus the arrival of Job 3 increases the breakdown rate by [latex]\eta[/latex] again.
+
+The next example shows the change in system stress Job 1 from Example 1 when one job has finished processing before [latex]T_{3}[/latex].
+
+<img class="size-full wp-image-1999 aligncenter" src="http://www.themathcitadel.com/wp-content/uploads/2018/01/QueueConfigEx2.png" alt="" width="222" height="221">
+<h6 style="text-align: center;">Figure 3(a). Example 2 Load Balancing Queue Configuration</h6>
+<img class=" wp-image-1998 aligncenter" src="http://www.themathcitadel.com/wp-content/uploads/2018/01/LBEx23JobsArriving.png" alt="" width="500" height="238">
+<h6 style="text-align: center;">Figure 3(b). Example 2 Breakdown Rate Process Trajectory</h6>
+
+<hr>
+
+<em><strong>Example 2.</strong></em> Consider the same two-channel system from Example 1. However, now suppose WLOG that [latex]T_{3} &lt; T_{1}+W_{1}[/latex]. In other words, service for Job 1 was completed before Job 3 arrived. Hence Job 3 will fall into the opposite queue as Job 2. The stress to the system at the time of observation would be [latex]r_{0}(t) + \eta[/latex]. See <strong>Figures 3(a)</strong> and <strong>3(b)</strong>.
+
+<hr>
+
+In this scenario, the workload due to Job 3 does not contribute any additional stress to the server. Also observe that upon completion of Job 1, the workload stress to the server does not decrease, as Job 2 still resides in the system and is being served.
+
+Contrast this behavior with the breakdown rate process given in [<a href="https://www.themathcitadel.com/stochastic-reliability-of-a-server-under-a-random-workload/">3</a>]. In the single-channel, single-server model described in both [1] and [<a href="https://www.themathcitadel.com/stochastic-reliability-of-a-server-under-a-random-workload/">3</a>], each job adds stress to the server upon arrival. Under the load balancing allocation scheme, the additional stress to the server depends on the arrival and service times of all prior jobs. From a stochastic perspective, this breakdown rate process has full memory.
+
+The examples above illustrate that [latex]\max_{K}|Q_{K}|[/latex] depends on the intersection of the intervals [latex]I_{j} = [T_{j}, T_{j} + W_{j}][/latex], [latex]j = 1,\ldots,N(t)[/latex]. The next section details the methodology to obtain the configuration of jobs in the server at time [latex]t[/latex] by deccomposition of [latex]\bigcup_{j=1}^{N(t)}I_{j}[/latex] into disjoint atoms and derives the stochastic breakdown rate process under the load balancing allocation scheme.
+
+[/nextpage]
+
+[nextpage title="3"]
+<h3>Breakdown Rate Process and Conditional Survival Function</h3>
+Let [latex]\epsilon = (\epsilon_{1},\ldots,\epsilon_{N(t)})[/latex] be a [latex]N(t)[/latex]-tuple whose components [latex]\epsilon_{j}\in\{\emptyset, c\}[/latex], where [latex]\emptyset[/latex] denotes the empty set, and [latex]c[/latex] denotes the complement of the set. Let [latex]E = \{\epsilon \mathrel{:} \epsilon_{j}\in\{\emptyset, c\}\}[/latex] denote the set of all possible [latex]\epsilon[/latex], excepting [latex]\epsilon = (c,\ldots,c)[/latex]. Then by Lemma 1 (see Appendix),
+
+[latex, display=true]\bigcup_{j=1}^{N(t)}I_{j} = \bigcup_{\epsilon \in E}\bigcap_{j=1}^{N(t)}I_{j}^{\epsilon_{j}}[/latex]
+
+<hr>
+
+<em><strong>Remark.</strong></em> [latex]\cap_{j=1}^{N(t)}I_{j}^{\epsilon_{j}}[/latex] indicates which jobs are still in the server at time [latex]t[/latex]. The union is disjoint; thus only one [latex]\epsilon[/latex] will describe the server configuration at any given time [latex]t[/latex]. For example, if 3 jobs have arrived to the server at time [latex]t_{\text{obs}}[/latex], [latex]|E| = 3\times 2 - 1 = 5[/latex]. These may be enumerated:
+
+&nbsp;
+
+[one-half-first]
+<ul>
+ 	<li style="list-style-type: none;">
+<ul>
+ 	<li style="text-align: left;">[latex]I_{1} \cap I_{2} \cap I_{3}[/latex]&nbsp;</li>
+</ul>
+</li>
+</ul>
+&nbsp;
+<ul>
+ 	<li style="list-style-type: none;">
+<ul>
+ 	<li style="text-align: left;">[latex]I_{1}^{c} \cap I_{2}^{c} \cap I_{3}[/latex]</li>
+</ul>
+</li>
+</ul>
+&nbsp;
+<ul>
+ 	<li style="text-align: left;">[latex]I_{1} \cap I_{2}^{c} \cap I_{3}^{c}[/latex]</li>
+</ul>
+[/one-half-first]
+[one-half]
+<ul>
+ 	<li style="list-style-type: none;">
+<ul>
+ 	<li style="text-align: left;">[latex]I_{1}^{c} \cap I_{2} \cap I_{3}[/latex]</li>
+</ul>
+</li>
+</ul>
+&nbsp;
+<ul>
+ 	<li style="text-align: left;">[latex]I_{1}^{c} \cap I_{2} \cap I_{3}^{c}[/latex]</li>
+</ul>
+&nbsp;
+
+[/one-half]
+
+As an illustration, refer to Example 1. All three jobs are in the system at [latex]t = t_{\text{obs}}[/latex] (that is, none have completed service), and thus [latex]t_{\text{obs}} \in I_{1} \cap I_{2} \cap I_{3}[/latex]. Expanding, [latex]t_{\text{obs}} \in [T_{1}, T_{1}+W_{1}][/latex], [latex][T_{2}, T_{2}+W_{2}][/latex], and [latex][T_{3}, T_{3}+W_{3}][/latex].
+
+Compare the case with that of Example 2. In this case, three jobs have arrived at [latex]t = t_{\text{obs}}[/latex], but Job 1 has finished by [latex]t_{\text{obs}}[/latex]. Thus [latex]t_{\text{obs}} \not\in I_{1}[/latex], but since Jobs 2 and 3 are still in the system, [latex]t_{\text{obs}} \in I_{2} \cap I_{3}[/latex]. Thus [latex]t_{\text{obs}} \in I_{1}^{c} \cap I_{2} \cap I_{3}[/latex].
+
+<hr>
+
+Now, since the additional workload stress to the server is a multiple of [latex]\eta\max_{K}|Q_{K}|[/latex], it remains to derive the appropriate multiplier that accounts for the number of jobs that contribute additional stress to the system.
+
+Let [latex]n = \sum_{j=1}^{N(t)}\mathbf{1}(\epsilon_{j} = \emptyset | \epsilon_{j} \in \epsilon)[/latex] for a particular [latex]\epsilon[/latex], and let [latex]\alpha_{\epsilon}[/latex] be the multiplier that indicates the number of jobs that contribute stress [latex]\eta[/latex] to the system. Under [1] and the generalization in [<a href="https://www.themathcitadel.com/stochastic-reliability-of-a-server-under-a-random-workload/">3</a>], every uncompleted job in the system contributes stress, thus [latex]\alpha_{\epsilon} = n[/latex].
+
+Under the load balancing scheme, [latex]\alpha_{\epsilon} = \lfloor\frac{n+1}{K}\rfloor[/latex], where [latex]K[/latex] is the number of channels in the server. This is due to the allocation scheme's attempts to evenly distribute jobs across channels. Thus, for Example 1, [latex]n=3[/latex], and [latex]K=2[/latex], meaning [latex]\alpha_{\epsilon} = 2[/latex], as illustrated in Figure 2(b) and for Example 2, [latex]\alpha_{\epsilon} = \lfloor\frac{3+1}{2}\rfloor = 1[/latex], as in Figure 3(b).
+
+Then, the stochastic breakdown rate process under the load balancing allocation scheme is given by
+[latex, display=true]\mathcal{B}(t) = r_{0}(t) + \eta\sum_{\epsilon \in E}\alpha_{\epsilon}\mathbf{1}_{I_{1}^{\epsilon_{1}}\cap I_{2}^{\epsilon_{2}} \cap I_{N(t)}^{\epsilon_{N(t)}}}(t)[/latex]
+
+Under this expression, only one indicator function will be nonzero at any given point in time, since all atoms are disjoint. Now, [latex]I_{1}^{\epsilon_{1}} \cap I_{2}^{\epsilon_{2}} \cap \ldots \cap I_{N(t)}^{\epsilon_{N(t)}}[/latex] may be expressed as one interval [latex][L_{\epsilon},R_{\epsilon}][/latex], where
+
+[latex, display=true]\begin{aligned}L_{\epsilon}&amp;=\max\left(\{T_{j}\mathrel{:}\epsilon_{j} = \emptyset\}_{j=1}^{N(t)}\right);\\R_{\epsilon}&amp;=\min\left(\{T_{j} + W_{j}\mathrel{:}\epsilon_{j} = \emptyset \}_{j=1}^{N(t)},\{T_{j}\mathrel{:}\epsilon_{j} = c\}_{j=1}^{N(t)}\right)\end{aligned}[/latex]
+
+Thus, for a server with [latex]K[/latex] channels under a load balancing routing scheme with all jobs bringing constant stress [latex]\eta[/latex], the breakdown rate process [latex]\mathcal{B}(t)[/latex] may be expressed as
+
+[latex, display=true]\mathcal{B}(t) = r_{0}(t) + \eta\sum_{\epsilon \in E}\alpha_{\epsilon}\mathbf{1}_{[L_{\epsilon}, R_{\epsilon}]}(t)\qquad(*)[/latex]
+
+Thus, the conditional survival function under the load balancing scheme is given by
+[latex]\begin{aligned}S_{Y|\mathfrak{T},\mathfrak{W}, N(t)}(t|\mathfrak{t},\mathfrak{w}, n) &amp;= e^{-\int_{0}^{t}\mathcal{B}(s)ds}\\&amp;=\bar{F}_{0}(t)\exp\left(-\eta\int_{0}^{t}\sum_{\epsilon \in E}\alpha_{\epsilon}\mathbf{1}_{[L_{\epsilon}, R_{\epsilon}]}(s)ds\right)\\&amp;=\bar{F}_{0}(t)\exp\left(-\eta\sum_{\epsilon\in E}\alpha_{\epsilon}\min(t-L_{\epsilon},R_{\epsilon})\right) \end{aligned}[/latex]
+<h3>Remarks</h3>
+Finding the survival function of the single-channel environment relied on the independence of the set of arrival times and service times. From [latex](*)[/latex], the independence is clearly lost. As noted before, the random breakdown process has full memory, and thus is completely dependent upon the entire trajectory up to [latex]t = t_{\text{obs}}[/latex].
+
+[/nextpage]
+
+[nextpage title="4"]
+<h2>Clustered Tasks in a Multichannel Server</h2>
+<h3>&nbsp;<img class="size-full wp-image-2017 aligncenter" src="http://www.themathcitadel.com/wp-content/uploads/2018/01/MultichannelClusterServer.png" alt="" width="442" height="276"></h3>
+<h6 style="text-align: center;">Figure 4.&nbsp;Clustered Tasks in a Multichannel Server</h6>
+The previous multichannel server model in Section 1 implicitly assumed each job comes with one task, and all channels are identical in their ability to serve any task brought by a job. A classic illustration is a block of registers at a retail establishment. Each customer will survey the length of the various queues at each register before choosing the shortest queue. Viewing each of these separate registers as a channel in a single server under these conditions gave rise to the load balancing allocation model detailed in the previous section. This section presents a different interpretation of a multichannel, single-server model.
+
+Suppose a server has multiple channels [latex]Q_{1},\ldots,Q_{K}[/latex], but each channel serves a different type of task. A customer arrives to the server and may select any number from [latex]0[/latex]&nbsp;to [latex]K[/latex] tasks for the server to perform. Said customer will select each possible task [latex]j[/latex] with probability [latex]p_{j}[/latex]. <strong>Figure 4</strong> illustrates an example of such a situation in which three customers visit the server and each customer picks a different number and set of tasks at random. A customer is considered fully serviced (i.e. the job is complete) upon completion of the last task belonging to that particular customer.
+<h3>Model Assumptions</h3>
+The following mathematical assumptions are made for the multichannel server with clustered tasks:
+<ol>
+ 	<li>Customers arrive to the server with [latex]K[/latex] channels via a nonhomogenous Poisson process (NHPP) with intensity [latex]\lambda(t)[/latex].</li>
+ 	<li>The breakdown rate of the idle server is given by [latex]r_{0}(t)[/latex].</li>
+ 	<li>Each channel corresponds to a different task the server can perform.</li>
+ 	<li>The selection of each task is a Bernoulli random variable with probability [latex]p_{k}[/latex]. Thus the number of tasks selected by each customer is a binomial random variable.</li>
+ 	<li>The workload stress to the server is a constant multiple [latex]\eta[/latex] of the number of tasks requested by the customer, i.e. the additional stress is given by [latex]\eta N[/latex], where [latex] N [/latex] is the number of tasks requested.</li>
+ 	<li>The PDF of each channel's service time is given by [latex]g_{i}(w)[/latex], [latex]i = 1,\ldots ,K[/latex]. Since the customer's service is not complete until all requested tasks have finished, the service life distribution for the customers is given by [latex]\max_{i}G_{i}(w)[/latex].</li>
+</ol>
+Under these assumptions, this model is a special interpretation of the random stress environment developed in [<a href="https://www.themathcitadel.com/stochastic-reliability-of-a-server-under-a-random-workload/">3</a>]. In this case, the random workload stress is [latex]\eta N[/latex], where [latex]N[/latex] is a binomial random variable, and the service life distribution [latex]G_{W}(w) = \max_{i}G_{i}(w)[/latex], which may be easily obtained through the mathematical properties of order statistics. Two variations are considered in the &nbsp;next section: independent channels and correlated channels.
+<h3>Independent Channels in a Clustered Task Server</h3>
+Suppose the selection probabilities for each task in the server are identical, that is, [latex]p_{1}=p_{2}=\ldots=p_{K}=p[/latex]. Then [latex]N\sim\text{Bin}(K,p)[/latex]. Using Theorem 3 in [<a href="https://www.themathcitadel.com/stochastic-reliability-of-a-server-under-a-random-workload/">3</a>], the survival function of the multichannel server is given in the following theorem.
+
+<hr>
+
+<em><strong>Theorem 1</strong></em>&nbsp;<strong><em>(S</em><em>urvival Function of Multichannel Server with Clustered Tasks and Independent Channels).&nbsp;</em></strong>Suppose model assumptions (1)-(6) above are satisfied. In addition, assume [latex]p_{1}=p_{2}=\ldots=p_{K}=p[/latex]. Then the survival function of the server is given by
+[latex, display=true]\begin{aligned}S_{Y}(t)&amp;=\bar{F}_{0}(t)\exp\left(-K\eta\left[e^{-\eta t}\left(1-p+pe^{-\eta t}\right)^{K-1}-p(1-p)^{K-1}\right]\right.\\&amp;\qquad\left.\times\int_{0}^{t}m(t-w)\bar{G}_{W}(w)dw\right)\end{aligned}[/latex]
+
+where [latex]m(x) = \int_{0}^{x}\lambda(s)ds[/latex], [latex]\bar{F}_{0}(t) = e^{-\int_{0}^{t}r_{0}(s)ds}[/latex], [latex]\bar{G}_{W}(w) = 1-G_{W}(w)[/latex], and [latex]G_{W}(w) = \max_{i}G_{i}(w)[/latex].
+
+<hr>
+
+[/nextpage]
+
+[nextpage title="5"]
+<h3>Correlated Channels in a Cluster Server</h3>
+Now suppose the server tasks are correlated, in that the selection of one particular task may affect the selection of any or all of the other tasks. Thus the channels are a sequence of dependent Bernoulli random variables. The construction of dependent Bernoulli random variables is given in [2], and a summary is given.
+<h4>Dependent Bernoulli Random Variables and the Generalized Binomial Distribution</h4>
+Korzenwioski [2] constructs a sequence of dependent Bernoulli random variables using a binary tree that distributes probability mass over dyadic partitions of [latex][0,1][/latex]. Let [latex]0\leq\delta\leq1[/latex], [latex]0&lt;p&lt;1[/latex], and [latex]q=1-p[/latex]. Then define the following quantities:
+[latex, display=true]\begin{aligned}q^{+}\mathrel{:=}q+\delta p&amp;\qquad p^{+}\mathrel{:=}p+\delta q\\q^{-}\mathrel{:=}q(1-\delta)&amp;\qquad p^{-}\mathrel{:=}p(1-\delta)\end{aligned}[/latex]
+
+The quantities above satisfy the following conditions:
+[latex, display=true]\begin{aligned}q^{+}+p^{-}=q^{-}&amp;+p^{+}=q+p=1\\qq^{+}+pq^{-}=q&amp;,\quad qp^{-}+pp^{+}=1\end{aligned}[/latex]
+
+<img class="size-full wp-image-2016 aligncenter" src="http://www.themathcitadel.com/wp-content/uploads/2018/01/DependentBernoulliTree.png" alt="" width="446" height="260">
+<h6 style="text-align: center;">Figure 5. Construction of Dependent Bernoulli Random Variables</h6>
+<strong>Figure 5</strong> shows the construction shows the dependencies. The following examples using coin flips illustrate the effect of the dependency coefficient [latex]\delta[/latex]:
+
+<strong>Example 1</strong> [latex](\delta=1)[/latex]<strong>.</strong>&nbsp;For [latex]\delta = 1[/latex], [latex]q^{+} = q+p=1, q^{-} = 0[/latex], [latex]p^{+} = p+q = 1[/latex], and [latex]p^{-} = 0[/latex]. Supposing the first coin flip [latex]\epsilon_{1} = 1[/latex]. Then every successive [latex]\epsilon_{i}[/latex] will also be [latex]1[/latex]. Similarly if [latex]\epsilon_{1} = 0[/latex]. Thus the result of the first coin flip completely determines the outcomes of all the rest.
+
+<strong>Example 2 </strong>[latex](\delta = 0)[/latex]<strong>.&nbsp;</strong>For [latex]\delta = 0[/latex], [latex]q^{+} = q^{-} = q[/latex], and [latex]p^{+} = p^{-} = p[/latex]. Thus, the first coin flip (and all subsequent ones) have no effect on the ones that follow.
+
+<strong>Example 3 </strong>[latex](\delta = \frac{1}{4})[/latex]<strong>.&nbsp;</strong>Suppose [latex]p=q=\frac{1}{2}[/latex]. Then [latex]p^{+} = q^{+} = \frac{5}{8}[/latex], and [latex]p^{-} = q^{-} = \frac{3}{8}[/latex]. Then the subsequent outcomes [latex]\epsilon_{i}[/latex], [latex]i \geq 2[/latex] are more likely to match the outcomes of [latex]\epsilon_{1}[/latex] than not.
+
+Now suppose [latex]p = \frac{1}{4}[/latex], [latex]q = \frac{3}{4}[/latex]. Then [latex]p^{+} = \frac{7}{16}[/latex],&nbsp;[latex]p^{-} = \frac{3}{16}[/latex], [latex]q^{+} = \frac{13}{16}[/latex], and [latex]q^{-} = \frac{9}{16}[/latex]. In this example of an unfair coin, the dependency coefficient [latex]\delta[/latex] still attempts to skew the results following the first coin flip in favor of the outcome of [latex]\epsilon_{1}[/latex]. However, the dependency here heightens the effect of [latex]\epsilon_{1} = 0[/latex] on subsequent flips, and cannot overcome the discrepancy between the probability of success and failure to skew [latex]\epsilon_{i}[/latex], [latex]i \geq 2[/latex] in favor of a [latex]1[/latex] following the outcome of [latex]\epsilon_{1} = 1[/latex].
+
+Using these dependent Bernoulli random variables, [2] presents a Generalized Binomial Distribution for identically distributed but dependent Bernoulli random variables.
+<blockquote>&nbsp;
+<p style="text-align: center;">Generalized Binomial Distribution</p>
+Let [latex]X = \sum_{i=1}^{n}\epsilon_{i}[/latex], where [latex]\epsilon_{i}[/latex], [latex]i = 1,\ldots ,n[/latex] are identically distributed Bernoulli random variables with probability of success [latex]p[/latex] and dependency coefficient [latex]\delta[/latex]. &nbsp;Then
+
+[latex, display=true]P(X=k) = q\tbinom{n-1}{k}(p^{-})^{k}(q^{+})^{n-1-k} + p\tbinom{n-1}{k-1}(p^{+})^{k-1}(q^{-})^{n-1-(k-1)}[/latex]</blockquote>
+<h4>Survival Function of Correlated Channels in a Cluster Server</h4>
+Suppose the selection of tasks may be modeled by the dependent Bernoulli random variables given in the previous section. That is, suppose the customer selects Tasks 1-[latex]K[/latex] in sequence, and the selection or rejection of Task 1 affects all subsequent tasks by a dependency coefficient [latex]\delta[/latex]. From [2], the correlation between task selections [latex]\epsilon_{i}[/latex] and [latex]\epsilon_{j}[/latex] is given by
+[latex, display=true]\rho = \text{Cor}(\epsilon_{i},\epsilon_{j})=\begin{cases}\delta,&amp;i=1;j=2,\ldots,K\\\delta^{2},&amp;i\neq j;i,j\geq 2\end{cases}[/latex]
+
+This illustrates the dependency of Tasks 2-[latex]K[/latex] on the outcome of Task 1, and notes that while Tasks 2-[latex]K[/latex] are still correlated with each other, the dependency is much lower. In a similar fashion to the independent channel server, the survival function is derived.
+
+<em><strong>Theorem 2 (Survival Function of Multichannel Server with Clustered Tasks and Dependent Channels).&nbsp;</strong></em>Suppose model assumptions 1-6 are satisfied. In addition, suppose the selection of channels 1-[latex]K[/latex] are determined by identically distributed Bernoulli random variables with dependency coefficient [latex]\delta[/latex] as defined in [2]. Then the survival function of the server is given by
+[latex, display=true]S_{Y}(t)=\bar{F}_{0}(t)\exp\left(-\eta\int_{0}^{t}m(t-w)\bar{G}_{W}(w)\mathscr{S}(w)dw\right)[/latex]
+
+where [latex]m(x) = \int_{0}^{x}\lambda(s)ds[/latex], and
+
+[latex, display=true]\begin{aligned}\mathscr{S}(w)&amp;=\sum_{n=0}^{K}e^{-\eta n w}\sum_{j=0}^{K-n-1}\tbinom{K-1}{n-1, j,K-1-n-j}p^{K-1-j}(1-p)^{j+1}\delta^{K-1-n-j}(1-\delta)^{n}\\&amp;\quad+\sum_{n=0}^{K}ne^{-\eta nw}\sum_{i=0}^{n-1}\tbinom{K-1}{K-1-n,i,n-1-i}p^{i+1}(1-p)^{K-n}\delta^{n-1-j}(1-\delta)^{K-n-j}\end{aligned}[/latex]
+<h2>Conclusion</h2>
+The generalized model of a server under random workload proposed in [<a href="https://www.themathcitadel.com/stochastic-reliability-of-a-server-under-a-random-workload/">3</a>] admits further expansion by way of relaxing the assumption that incoming tasks have exactly one queue to enter on arrival. In considering a server partitioned into several channels, a cost is incurred, namely that additional stress to the server is dependent upon arrival and service times of all previous jobs. However, even under these circumstances, we may obtain a breakdown rate process and satisfactory conditional survival function for the server, and the door is opened to further discussion. By examining the multichannel server, we consider the interrelations of the channels themselves, and derive survival functions to meet the case when the channels are independent as well as when they are correlated.
+
+&nbsp;<a href="http://creativecommons.org/licenses/by-nc-nd/4.0/" rel="license"><img style="border-width: 0;" src="https://i.creativecommons.org/l/by-nc-nd/4.0/88x31.png" alt="Creative Commons License"></a>
+This work is licensed under a <a href="http://creativecommons.org/licenses/by-nc-nd/4.0/" rel="license">Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License</a>.
+<h3>References</h3>
+<div class="page" title="Page 11">
+<div class="layoutArea">
+<div class="column">
+
+[1] Ki Hwan Cha and Eui Yong Lee. A stochastic breakdown model for an unreliable web server system and an optimal admission control policy. <em>Journal of Applied Probability</em>, 48(2):453–466, 2011.
+
+[2] Andrzej Korzeniowski. On correlated random graphs. <em>Journal of Probability and Statistical Science</em>, 11:43–58, 2013.
+
+[3] R. Traylor. Stochastic reliability of a server under random workload. <em>Academic Advances of the CTO</em>, 1, 2017.
+
+</div>
+</div>
+</div>
+[/nextpage]		
+		
+						
+		1953
+		2018-01-22 04:58:52
+		2018-01-22 04:58:52
+		closed
+		open
+		extensions-of-the-single-server-efficiency-model
+		publish
+		0
+		0
+		post
+		
+		0
+										Probability Theory
+		Reliability Theory
+		Spire
+						
+		_da_attachments
+		a:0:{}
+		
+							
+		_edit_last
+		2
+		
+							
+		_wp_page_template
+		default
+		
+							
+		_acp_button_style
+		1
+		
+							
+		_acp_loading_type
+		1
+		
+							
+		_wp_desired_post_slug
+		
+		
+							

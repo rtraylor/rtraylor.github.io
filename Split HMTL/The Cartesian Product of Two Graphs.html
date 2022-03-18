@@ -1,0 +1,167 @@
+
+		
+				The Cartesian Product of Two Graphs		
+		https://www.themathcitadel.com/the-cartesian-product-of-two-graphs/
+		Thu, 07 Feb 2019 18:14:59 +0000
+		admin
+		http://www.themathcitadel.com/?p=2714
+		
+		
+				<em>(Ed. Note: A pdf version of this article is attached at the end of the post for offline reading.)</em>
+<h2>Introduction and Preliminaries</h2>
+<a href="http://www.themathcitadel.com/wp-content/uploads/2019/02/Screen-Shot-2019-02-07-at-11.13.51-AM.png"><img class="aligncenter wp-image-2716 size-medium" src="http://www.themathcitadel.com/wp-content/uploads/2019/02/Screen-Shot-2019-02-07-at-11.13.51-AM-300x253.png" alt="" width="300" height="253"></a>
+
+Graphs are objects like any other, mathematically speaking. We can define operations on two graphs to make a new graph. We'll focus in particular on a type of graph product- the Cartesian product, and its elegant connection with matrix operations.<span class="Apple-converted-space">&nbsp;</span>
+
+We mathematically define a graph [latex]G[/latex] to be a set of vertices coupled with a set of edges that connect those vertices. We write [latex]G = (V_{G}, E_{G})[/latex]. As an example, the left graph in Figure 1 has three vertices [latex]V_{G} = \{v_{1}, v_{2}, v_{3}\}[/latex], and two edges [latex]E_{G} = \{v_{1}v_{2}, v_{2}v_{3}\}[/latex]. The <em>order</em>&nbsp;of [latex]G[/latex] is the number of vertices, and the <em>size</em>&nbsp;of [latex]G[/latex] is the number of edges. So our graph [latex]G[/latex] has order [latex]n=3[/latex] and size [latex]m=2[/latex]. This graph in particular has a special name, [latex]P_{3}[/latex], because it's a special type of graph called a <em>path</em>&nbsp;that consists of 3 vertices. Two vertices that are connected by an edge are&nbsp;<em>adjacent</em>&nbsp;and denoted with the symbol [latex]\sim[/latex].<span class="Apple-converted-space">&nbsp;</span>
+<h2>Cartesian Product of Graphs</h2>
+Now that we've dispensed with necessary terminology, we shall turn our attention to performing operations on two graphs to make a new graph. In particular, a type of graph multiplication called the <strong>Cartesian product</strong>. Suppose we have two graphs, [latex]G[/latex] and [latex]H[/latex], with orders [latex]n_{G}[/latex] and [latex]n_{H}[/latex] respectively. Formally, we define the Cartesian product [latex]G \times H[/latex] to be the graph with vertex set [latex]V_{G} \times V_{H}[/latex]. Pause here to note what we mean by this. The vertex set of the graph Cartesian<span class="Apple-converted-space">&nbsp; </span>is the Cartesian product of the vertex sets of the two graphs: [latex]V_{G \times H} = V_{G} \times V_{H}[/latex]. This means that the Cartesian product of a graph has [latex]n_{G}n_{H}[/latex] vertices. As an example, [latex]P_{3} \times P_{2}[/latex] has [latex]3\cdot 2 = 6[/latex] vertices. The vertices of [latex]G \times H[/latex] are ordered pairs formed by [latex]V_{G}[/latex] and [latex]V_{H}[/latex]. For [latex]P_{3} \times P_{2}[/latex] we have,<span class="Apple-converted-space">&nbsp;</span>
+
+<span class="Apple-converted-space">&nbsp;[latex, display = true]V_{P_{3} \times P_{2}} = \{(v_{1}, x_{1}),(v_{1}, x_{2}),(v_{2}, x_{1}),(v_{2}, x_{2}), (v_{3}, x_{1}),(v_{1}, x_{2}) \}[/latex]</span>
+
+The edge set of [latex]G \times H[/latex] is defined as follows: [latex](v_{i}, x_{k})[/latex] is adjacent to [latex](v_{j}, x_{l})[/latex] if
+<ol>
+ 	<li>[latex]v_{i} = v_{j}[/latex] and [latex]x_{k} \sim x_{l}[/latex], or</li>
+ 	<li>[latex]x_{k} = x_{l}[/latex] and [latex]v_{i} \sim v_{j}[/latex]</li>
+</ol>
+&nbsp;
+
+Let's create [latex]P_{3} \times P_{2}[/latex]&nbsp;as an example:
+
+&nbsp;
+
+<a href="http://www.themathcitadel.com/wp-content/uploads/2019/02/Screen-Shot-2019-02-07-at-11.19.09-AM.png"><img class="aligncenter wp-image-2718 size-medium" src="http://www.themathcitadel.com/wp-content/uploads/2019/02/Screen-Shot-2019-02-07-at-11.19.09-AM-179x300.png" alt="" width="179" height="300"></a>
+
+The red edges are due to condition (1) above, and the red to (2). Interestingly enough, this operation is commutative up to isomorphism (a relabeling of vertices that maintains the graph structure). This will be examined in a later section.
+<h2>Graph and Matrices</h2>
+We can also operate on graphs using matrices. The pictures above are one way to represent a graph. An adjacency matrix is another. The <strong>adjacency matrix</strong>&nbsp;[latex]A_{G}[/latex] of a graph [latex]G[/latex] of order [latex]n[/latex] is an [latex]n \times n[/latex] square matrix whose entries [latex]a_{ij}[/latex] are given by<span class="Apple-converted-space">&nbsp;</span>
+
+[latex, display = true]a_{ij} = \begin{cases} 1, &amp; v_{i} \sim v_{j} \\0, &amp; i=j \text{ or } v_{i} \not\sim v_{j}\end{cases}.[/latex]
+
+<span class="Apple-converted-space">&nbsp;</span>The adjacency matrix for [latex]P_{3}[/latex] and [latex]P_{2}[/latex] respectively are<span class="Apple-converted-space">&nbsp;</span>
+
+[latex, display = true]A_{P_{3}} = \begin{bmatrix} 0 &amp; 1 &amp; 0\\ 1 &amp; 0 &amp; 1\\0 &amp; 1 &amp; 0\end{bmatrix} \qquad A_{P_{2}} = \begin{bmatrix} 0 &amp; 1\\1 &amp; 0\end{bmatrix}[/latex]
+
+Note that a relabeling of vertices simply permutes the rows and columns of the adjacency matrix.<span class="Apple-converted-space">&nbsp;</span>
+<h3>Adjacency Matrix of the Cartesian product of Graphs</h3>
+What is the adjacency matrix of [latex]G \times H[/latex]? If [latex]G[/latex] and [latex]H[/latex] have orders [latex]n_{G}[/latex] and [latex]n_{H}[/latex] respectively, we can show that
+
+[latex, display = true]A_{G \times H} = A_{G} \otimes I_{n_{H}} + I_{n_{G}} \otimes A_{H}[/latex]
+
+where [latex]\otimes[/latex] is the Kronecker product, and [latex]I_{m}[/latex] is the [latex]m\times m[/latex] identity matrix. Recall that the Kronecker product of two matrices [latex]A_{m \times n} \otimes B_{k \times l}[/latex] is the [latex]mk \times nl[/latex] matrix given by<span class="Apple-converted-space">&nbsp;</span>
+
+[latex, display = true]A \otimes B = \begin{bmatrix} a_{11}B &amp; a_{12}B &amp;\ldots &amp; a_{1n}B \\ a_{21}B &amp; a_{22}B &amp; \ldots &amp; a_{2n}B \\ \vdots &amp; &amp; \ddots&amp; \vdots \\ a_{m1}B &amp; a_{m2}B &amp; \ldots &amp; a_{mn}B\end{bmatrix}[/latex]
+
+In general, the Kronecker product is not commutative, so [latex]A \otimes B \neq B \otimes A[/latex].<span class="Apple-converted-space">&nbsp;</span>
+
+We can prove the formula for [latex]A_{G \times H}[/latex] above using standard matrix theory, but this really wouldn't be that illuminating. We'd see that the statement is indeed true, but we would gain very little insight into how this affects the graph and why. We shall break apart the formula to see why the Kronecker product is needed, and what the addition is doing.<span class="Apple-converted-space">&nbsp;</span>
+
+Let us return to finding [latex]P_{3} \times P_{2}[/latex]. By our formula, [latex]A_{P_{3} \times P_{2}} = A_{P_{3}} \otimes I_{2} + I_{3} \otimes A_{P_{2}}[/latex]. Notice first why the dimensions of the identity matrices "cross" each other; that is, we use the identity matrix of order [latex]n_{P_{2}}[/latex] in the Kronecker product with [latex]A_{P_{3}}[/latex] and vice versa [latex]n_{P_{3}}[/latex] for [latex]A_{P_{2}}[/latex]. This ensures we get the correct dimension for the adjacency matrix of [latex]P_{3} \times P_{2}[/latex], which is [latex]6 \times 6[/latex].<span class="Apple-converted-space">&nbsp;</span>
+
+We'll walk through the computation one term at a time. First,
+
+[latex, display = true]\begin{aligned}A_{P_{3}} \otimes I_{2} &amp;= \begin{bmatrix} 0 &amp; 1 &amp; 0\\ 1 &amp; 0 &amp; 1\\0 &amp; 1 &amp; 0\\\end{bmatrix} \otimes \begin{bmatrix} 1 &amp; 0\\0 &amp; 1\end{bmatrix} \\&amp;= \begin{bmatrix} 0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 &amp; 0\\ 1 &amp; 0 &amp; 0 &amp; 0 &amp; 1 &amp; 0\\ 0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; 1\\ 0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 &amp; 0\\\end{bmatrix}\end{aligned}[/latex]
+
+This matrix is the adjacency matrix of a 6-vertex graph given below:
+
+<a href="http://www.themathcitadel.com/wp-content/uploads/2019/02/Screen-Shot-2019-02-07-at-11.47.15-AM.png"><img class="aligncenter size-medium wp-image-2725" src="http://www.themathcitadel.com/wp-content/uploads/2019/02/Screen-Shot-2019-02-07-at-11.47.15-AM-177x300.png" alt="" width="177" height="300"></a>
+
+Notice that we now have two copies of [latex]P_{3}[/latex] now in one graph. Similarly, [latex]I_{3} \otimes A_{P_{2}}[/latex] is<span class="Apple-converted-space">&nbsp;</span>
+
+[latex, display = true]\begin{aligned}I_{3} \otimes A_{P_{2}} &amp;= \begin{bmatrix} 0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ 1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 1\\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 &amp; 0\end{bmatrix}\end{aligned}[/latex]
+
+&nbsp;<a href="http://www.themathcitadel.com/wp-content/uploads/2019/02/Screen-Shot-2019-02-07-at-11.49.17-AM.png"><img class="aligncenter size-medium wp-image-2726" src="http://www.themathcitadel.com/wp-content/uploads/2019/02/Screen-Shot-2019-02-07-at-11.49.17-AM-186x300.png" alt="" width="186" height="300"></a>
+
+Here the second Kronecker product term has made three copies of [latex]P_{2}[/latex]. The last step is to add these two matrices together to obtain the adjacency matrix for [latex]P_{3} \times P_{2}[/latex]. Graphically, what's happening? This addition term overlays our 3 copies of [latex]P_{2}[/latex] (usually written [latex]3P_{2}[/latex] or [latex]P_{2} \cup P_{2} \cup P_{2}[/latex]) onto the respectively labeled vertices of our two copies of [latex]P_{3}[/latex] (written [latex]2P_{3}[/latex] or [latex]P_{3} \cup P_{3}[/latex]). That is,
+
+[latex, display = true]\begin{aligned}A_{P_{3} \times P_{2}} &amp;= A_{P_{3}} \otimes I_{2} + I_{3} \otimes A_{P_{2}}\\&amp;= \begin{bmatrix} 0 &amp; 1 &amp; 1 &amp; 0 &amp; 0 &amp; 0 \\ 1 &amp; 0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 \\1 &amp; 0 &amp; 0 &amp; 1 &amp; 1 &amp; 0 \\ 0 &amp; 1 &amp; 1 &amp; 0 &amp; 0 &amp; 1 \\ 0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 &amp; 1\\ 0 &amp; 0 &amp; 0 &amp; 1 &amp; 1 &amp; 0\end{bmatrix}\end{aligned}[/latex]
+
+which is the adjacency matrix of our originally obtained graph
+
+<a href="http://www.themathcitadel.com/wp-content/uploads/2019/02/Screen-Shot-2019-02-07-at-11.52.25-AM.png"><img class="aligncenter size-medium wp-image-2727" src="http://www.themathcitadel.com/wp-content/uploads/2019/02/Screen-Shot-2019-02-07-at-11.52.25-AM-179x300.png" alt="" width="179" height="300"></a>
+
+&nbsp;
+
+Note that here the vertex labels aren't ordered pairs. That's ok. Technically we shouldn't have labeled the vertices of the two graphs identically, but the goal was to illustrate the action of the Cartesian product. We can always relabel the edges. Formally, the overlaying of [latex]3P_{2}[/latex] onto the vertices of [latex]2P_{3}[/latex] would be forming those ordered-pair vertices.<span class="Apple-converted-space">&nbsp;</span>
+<h3>Commutativity of the Graph Cartesian Product</h3>
+A natural question for any operation is whether or not it possesses the property of commutativity. An <a href="https://www.themathcitadel.com/concatenation-as-an-operation/">operation</a> is <a href="https://www.themathcitadel.com/group-theory-xor-and-binary-codes-introducing-coding-theory/">commutative</a> if the order in which we take it produces the same result. That is, if [latex]\square[/latex] is an operation, [latex]a\square b = b\square a[/latex].
+
+Does [latex]G \times H[/latex] yield the same graph as [latex]H \times G[/latex]? In a way, yes. Let's examine what happens if we switch the order of the graph Cartesian product and take [latex]P_{2} \times P_{3}[/latex].<span class="Apple-converted-space">&nbsp;</span>
+
+We won't go quite as thoroughly through each step, and instead give the results.<span class="Apple-converted-space">&nbsp;</span>
+
+We know the adjacency matrix of [latex]P_{2} \times P_{3}[/latex] is given by<span class="Apple-converted-space">&nbsp;</span>
+
+[latex, display = true]A_{P_{2} \times P_{3}} = A_{P_{2}} \otimes I_{3} + I_{2} \otimes A_{P_{3}}[/latex]
+
+[latex, display = true]\begin{aligned}A_{P_{2}} \otimes I_{3} &amp;= \begin{bmatrix}0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 &amp; 0\\0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 1\\ 1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0\\ 0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 &amp; 0\end{bmatrix}\end{aligned}[/latex]
+
+<a href="http://www.themathcitadel.com/wp-content/uploads/2019/02/Screen-Shot-2019-02-07-at-12.00.53-PM.png"><img class="aligncenter size-medium wp-image-2728" src="http://www.themathcitadel.com/wp-content/uploads/2019/02/Screen-Shot-2019-02-07-at-12.00.53-PM-287x300.png" alt="" width="287" height="300"></a>
+
+Notice again we have 3 copies of [latex]P_{2}[/latex], but the labeling and drawing is now different. If we create a mapping [latex]\phi[/latex] that relabels [latex]v_{4}[/latex] as [latex]v_{2}[/latex], [latex]v_{6}[/latex] as [latex]v_{4}[/latex], and [latex]v_{2}[/latex] as [latex]v_{6}[/latex], then we'd get back the graph we drew from the adjacency matrix formed by [latex]I_{3} \otimes A_{P_{2}}[/latex]. Thus, the two graphs are structurally equivalent; it just looks different due to labeling and redrawing. The mapping [latex]\phi[/latex] is called an <strong>isomorphism</strong>&nbsp;because it transforms one graph into the other without losing any structural properties, and the two graphs are <strong>isomorphic</strong>.<span class="Apple-converted-space">&nbsp;</span>
+
+This implies that [latex]A_{P_{2}} \otimes I_{3} \neq I_{3} \otimes A_{P_{2}}[/latex], but if we permute rows and columns, we can transform one matrix into the other. If the labelings on the vertices didn't matter, then the operation is commutative up to isomorphism. If the labelings matter (more common in engineering), then we do not get the "same" graph by switching the order of the Kronecker product.
+
+We'll do the same thing and examine [latex]I_{2} \otimes A_{P_{3}}[/latex] and compare it to [latex]A_{P_{3}}\otimes I_{2}[/latex]:
+
+[latex, display =true]\begin{aligned}I_{2} \otimes A_{P_{3}} &amp;= \begin{bmatrix}0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; 0\\1 &amp; 0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; 0\\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 &amp; 0\\ 0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 &amp; 1 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 &amp; 0\end{bmatrix}\end{aligned}[/latex]
+
+The corresponding graph is<span class="Apple-converted-space">&nbsp;</span>
+
+<a href="http://www.themathcitadel.com/wp-content/uploads/2019/02/Screen-Shot-2019-02-07-at-12.05.02-PM.png"><img class="aligncenter size-medium wp-image-2729" src="http://www.themathcitadel.com/wp-content/uploads/2019/02/Screen-Shot-2019-02-07-at-12.05.02-PM-296x300.png" alt="" width="296" height="300"></a>
+
+Notice again that here we have two copies of [latex]P_{3}[/latex] just as when we created the graph formed by the matrix [latex]A_{P_{3}}\otimes I_{2}[/latex], but the labels are again permuted. We have generated an isomorphic graph.<span class="Apple-converted-space">&nbsp;</span>
+
+Finally, we add the two matrices together (or follow the definition to create the last step of the Cartesian product by overlaying vertices and fusing them together).<span class="Apple-converted-space">&nbsp;</span>
+
+[latex, display =true]\begin{aligned}A_{P_{2}} \otimes I_{3} + I_{2} \otimes A_{P_{3}} &amp;= \begin{bmatrix}0 &amp; 1 &amp; 0 &amp; 1 &amp; 0 &amp; 0\\1 &amp; 0 &amp; 1 &amp; 0 &amp; 1 &amp; 0 \\ 0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; 1\\ 1 &amp; 0 &amp; 0 &amp; 0 &amp; 1 &amp; 0\\ 0 &amp; 1 &amp; 0 &amp; 1 &amp; 0 &amp; 1 \\ 0 &amp; 0 &amp; 1 &amp; 0 &amp; 1 &amp; 0 \end{bmatrix}\end{aligned}[/latex]
+
+<a href="http://www.themathcitadel.com/wp-content/uploads/2019/02/Screen-Shot-2019-02-07-at-12.08.16-PM.png"><img class="aligncenter size-medium wp-image-2730" src="http://www.themathcitadel.com/wp-content/uploads/2019/02/Screen-Shot-2019-02-07-at-12.08.16-PM-199x300.png" alt="" width="199" height="300"></a>
+
+This is isomorphic to [latex]P_{3} \times P_{2}[/latex]. We can show this by finding a mapping [latex]\phi[/latex] that "untangles" [latex]P_{2} \times P_{3}[/latex] by relabeling vertices. We can also redraw the ladder structure we saw with [latex]P_{3} \times P_{2}[/latex] and label the vertices so that we get the structure of [latex]P_{2} \times P_{3}[/latex]<a href="http://www.themathcitadel.com/wp-content/uploads/2019/02/Screen-Shot-2019-02-07-at-12.09.35-PM.png"><img class="aligncenter size-medium wp-image-2731" src="http://www.themathcitadel.com/wp-content/uploads/2019/02/Screen-Shot-2019-02-07-at-12.09.35-PM-193x300.png" alt="" width="193" height="300"></a>
+
+Our conclusion is that the graph Cartesian product is "sort of" commutative as an operation. If the vertices were unlabeled or didn't matter, then the operation is commutative because we can always relabel vertices or "untangle" the structure. If the vertices are labeled and matter, then we don't get the same graph back when we switch the order in the Cartesian product. Thus, we can say that the graph Cartesian product is commutative<em>&nbsp;to isomorphism.<span class="Apple-converted-space">&nbsp;</span></em>
+<h2>Continuation</h2>
+A natural question after looking through all of this is the following:
+<blockquote>Given an adjacency matrix, can we decompose it into a Cartesian product of two graphs?</blockquote>
+The next article will address this.
+
+<a href="http://creativecommons.org/licenses/by-nc-nd/4.0/" rel="license"><img style="border-width: 0;" src="https://i.creativecommons.org/l/by-nc-nd/4.0/88x31.png" alt="Creative Commons License"></a>
+This work is licensed under a <a href="http://creativecommons.org/licenses/by-nc-nd/4.0/" rel="license">Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License</a>.		
+		
+						
+		2714
+		2019-02-07 18:14:59
+		2019-02-07 18:14:59
+		closed
+		open
+		the-cartesian-product-of-two-graphs
+		publish
+		0
+		0
+		post
+		
+		0
+										Graph Theory
+		Spines
+						
+		_da_attachments
+		a:1:{i:2733;a:4:{s:7:"file_id";i:2733;s:9:"file_date";s:19:"2019-02-07 18:13:28";s:12:"file_exclude";b:0;s:12:"file_user_id";i:1;}}
+		
+							
+		_edit_last
+		2
+		
+							
+		_wp_page_template
+		default
+		
+							
+		_acp_button_style
+		2
+		
+							
+		_acp_loading_type
+		1
+		
+							

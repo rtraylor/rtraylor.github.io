@@ -1,0 +1,148 @@
+
+		
+				Mailbox Answers: Calculating New Parity After an Overwrite		
+		https://www.themathcitadel.com/mailbox-answers-calculating-new-parity-after-an-overwrite/
+		Thu, 07 Dec 2017 16:17:37 +0000
+		admin
+		http://www.themathcitadel.com/?p=1686
+		
+		
+				I recently did some work for Mr. Howard Marks, an independent analyst and founder of <a href="http://www.deepstorage.net">Deep Storage</a> on the subject of data protection and <a href="http://www.themathcitadel.com/2017/10/17/poisson-processes-and-data-loss/">data loss</a>. He e-mailed me with a question regarding calculating the new parity for a stripe of data on a storage system.&nbsp;
+<blockquote>Let us consider the case of a [latex]10+1[/latex] RAID 5 set with a strip size of 64KB.&nbsp;When an application performs a 4KB write the system must:
+<ol>
+ 	<li>Read the 64KB strip that contains the 4KB to be overwritten into a memory buffer</li>
+ 	<li>Modify the memory buffer with the data to be written</li>
+ 	<li>Read however much other data as would be needed to recalculate the parity strip for this stripe</li>
+ 	<li>Write the new data and new parity strip (Min 1 4KB write, 1 64KB write)</li>
+</ol>
+When we casually talk about this condition we say the RAID controller would need to read all 10 data strips in the stripe so it can XOR all ten together as part of step 4.&nbsp;I, however have been thinking about XOR and think that rather than requiring N+1 total I/Os I can get it down to three.&nbsp;
+
+If [latex]P[/latex], the parity strip, already contains
+
+[latex,display = true]D_1 \oplus D_2 \oplus D_3 \oplus D_4 \oplus D_5 \oplus D_6 \oplus D_7 \oplus D_8 \oplus D_9 \oplus D_{10}[/latex]
+
+and we’re overwriting part of [latex]D_4[/latex] couldn’t I [do the following]:
+<ol>
+ 	<li>Read the existing [latex]D_4[/latex] into a variable [latex]D'_4[/latex].</li>
+ 	<li>Modify the data into [latex]D_4[/latex].</li>
+ 	<li>Calculate the changes as [latex]D_4\oplus D_{4}'[/latex] into variable [latex]C[/latex]</li>
+ 	<li>Read the parity strip [latex]P[/latex]</li>
+ 	<li>Calculate new parity strip as [latex]P=P \oplus C[/latex]</li>
+</ol>
+</blockquote>
+In short, the answer is yes. We're going to prove that here, because I think this is a great exercise to really show off the power of XOR. We've explored the operation<a href="http://www.themathcitadel.com/2017/08/19/group-theory-xor-and-binary-codes-introducing-coding-theory/"> here </a>and began our discussion of coding theory by looking at <a href="http://www.themathcitadel.com/2017/08/27/theory-of-coding-episode-2-maximum-likelihood-decoding/">maximum likelihood decoding</a>. Let's take a brief review of the XOR (or mod 2) operation:
+<h2>XOR is just modulo 2 addition</h2>
+Let's call generic binary words [latex]D_{j}[/latex]. That is, each [latex]D_{j}[/latex] is simply a string of 1s and 0s of whatever length [latex]l[/latex] we feel like setting. So a binary word [latex]D_{j} = d_{1}^{(j)}d_{2}^{(j)}\ldots d_{l}^{(j)}[/latex] consists of binary <strong>bits</strong> given by the lowercase[note]The "exponent" doesn't denote powers. It's telling us which word that bit belongs to. This way we can keep all the components of different words straight. It gives us a way to show how we XOR component-wise.[/note] [latex]d_{i}[/latex].&nbsp;&nbsp;XOR operation works bit-by-bit, and will be denoted by [latex]\oplus[/latex]:
+
+[latex, display = true]\begin{aligned}D_{j} \oplus D_{k} &amp;= (d_{1}^{(j)}d_{2}^{(j)}\ldots d_{l}^{(j)})\oplus d_{1}^{(k)}d_{2}^{(k)}\ldots d_{l}^{(k)}\\&amp;= (d_{1}^{(j)} \oplus d_{1}^{(k)})(d_{2}^{(j)}\oplus d_{2}^{(k)})\ldots (d_{l}^{(j)}\oplus d_{l}^{(k)})\end{aligned}[/latex]
+
+For a quick numerical example, suppose [latex]D_{j} = 1011[/latex] and [latex]D_{k} = 0010[/latex]. Then
+
+[latex, display = true]D_{j} \oplus D_{k} = 1011 \oplus 0010 = (1\oplus 0)(0\oplus 0)(1\oplus 1)(1\oplus 0)[/latex]
+
+Remember, too, that XOR is addition modulo 2, so we add the bits together, then divide by 2 and take the remainder. So, in particular, [latex]1\oplus 1 = 0[/latex] because 1+1 leaves a remainder of 0 when divided by 2. So,
+
+[latex, display = true]D_{j} \oplus D_{k} = 1001[/latex]
+<h2>Back to the question</h2>
+Mr. Marks’ question can be stated mathematically in the following way (and I'm going to generalize it to any finite amount of words of any length XORed together, because that's what mathematicians do):
+<blockquote>Suppose [latex]P = D_{1} \oplus D_{2} \oplus \ldots \oplus D_{j} \oplus \ldots \oplus D_{K}[/latex] for some [latex]K[/latex], and one word (say [latex]D_{j}[/latex]) is modified to give [latex]D_{j}'[/latex]. Let [latex]C[/latex] be the binary word that represents the changes between [latex]D_{j}[/latex] and [latex]D_{j}'[/latex]. That is,
+
+[latex]C = D_{j} \oplus D_{j}'[/latex]
+
+(Note: XOR as an operation to identify differences in binary words is one of the more elegant features. If all the bits in two words are the same, then bitwise XORing would always give the binary word of all 0s. Only when two bits are different is their XOR result a 1.) Call [latex]P'[/latex] the new XOR sum with [latex]D_{j}'[/latex] substituted for [latex]D_{j}[/latex]. So
+
+[latex]P' := D_{1}\oplus D_{2}\oplus \ldots \oplus D_{j}'\oplus \ldots \oplus D_{K}.[/latex]
+
+Then does [latex]P'= P \oplus C[/latex]?</blockquote>
+<h3>Numerical example</h3>
+Whenever I'm seeking to prove a statement, I always "play" with an example. Now, simply finding an example that fits the statement doesn't constitute proof. But playing with explicit numbers can often yield a way to prove the statement in general. Plus, we can deepen our understanding by really "seeing the theorem in action," as opposed to just manipulating symbols via logic.&nbsp;
+
+Let's just test this with a sum of 3 words to make our lives easier. Let [latex]D_{1} = 110[/latex], [latex]D_{2} = 010[/latex], and [latex]D_{3} = 101[/latex]. Then
+
+[latex, display = true]P = D_{1} \oplus D_{2} \oplus D_{3} = 110 \oplus 010 \oplus 101 = 001[/latex]
+
+Now suppose we change [latex]D_{2}[/latex] to [latex]D_{2}' = 101[/latex]. First, the new sum [latex]P'[/latex] is given by&nbsp;
+
+[latex]P' = 110 \oplus 101 \oplus 101 = 110[/latex]
+
+Now, the change in [latex]D_{2}[/latex] and [latex]D_{2}'[/latex] is given by
+
+[latex, display = true]C = 010 \oplus 101 = 111[/latex]
+
+Notice that all three positions changed. Each position that is different has a 1.Let's see if [latex]P \oplus C = P'[/latex]
+
+[latex]P \oplus C = 001 \oplus 111 = 110[/latex]
+
+Success! Now, this doesn't mean we're done.&nbsp;<em>One example doesn't constitute proof.</em> We have to show this is true for&nbsp;<em>any</em> finite number of binary words of&nbsp;<em>any&nbsp;</em> length.&nbsp;
+<h3>Time to prove this statement is true</h3>
+So, let [latex]D_{1},...,D_{K}[/latex] be binary words of generic length [latex]l[/latex]. Choose one word [latex]D_{j}[/latex] and modify it to form the new word [latex]D_{j}'[/latex]. Let [latex]C = D_{j} \oplus D_{j}'[/latex] denote the change vector. Then
+
+[latex, display = true]\begin{aligned}P^{\prime}&amp;=D_{1}\oplus D_{2}\oplus\ldots D^{\prime}_{j}\oplus\ldots D_{K}\end{aligned}[/latex]
+
+&nbsp;
+
+Now, let's note that [latex]C = D_{j}\oplus D^{\prime}_{j}[/latex] tells us which positions changed between the two. Another way to look at it is that [latex]C[/latex] is the word you need to XOR with [latex]D_{j}[/latex] to get to the new [latex]D^{\prime}_{j}[/latex]. That is, [latex]D^{\prime}_{j} = D_{j} \oplus C[/latex].[note]This can actually be shown formally by noting that, in mod 2 arithmetic, each element is its own additive inverse. Thus, "subtracting" a binary word is the same thing as XORing that word on both sides.[/note]. Now, let's plug in the new expression for [latex]D_{j}'[/latex] into [latex]P'[/latex]:
+
+[latex, display = true]\begin{aligned}P^{\prime}&amp;=D_{1}\oplus D_{2}\oplus\ldots D^{\prime}_{j}\oplus\ldots D_{K}\\&amp;=D_{1}\oplus D_{2}\oplus\ldots (D_{j} \oplus C)\oplus\ldots D_{K}\end{aligned}[/latex]
+
+Now, we know from <a href="http://www.themathcitadel.com/2017/08/19/group-theory-xor-and-binary-codes-introducing-coding-theory/">this post</a> that XOR is a commutative operation. Coupled with the associative property[note]We can group however we like. (a + b) + c = a + (b+c)[/note], we can actually rearrange the order of the XORing to put [latex]C[/latex] last.&nbsp;
+
+(You've done this with regular arithmetic all the time. [latex]5 + 1 + 6 + 3[/latex] can be rearranged and grouped into [latex](6+3+1) + 5 = 10 +5 = 15[/latex]. Commutativity and associativity combined allow this to happen with any operation.)
+
+So, &nbsp;
+
+[latex, display = true]\begin{aligned}P^{\prime}&amp;=D_{1}\oplus D_{2}\oplus\ldots D^{\prime}_{j}\oplus\ldots D_{K}\\&amp;=D_{1}\oplus D_{2}\oplus\ldots (D_{j} \oplus C)\oplus\ldots D_{K}\\&amp;=(D_{1}\oplus D_{2}\oplus\ldots D_{j}\oplus\ldots D_{K})\oplus C\end{aligned}[/latex]
+
+But wait, that last thing in parenthesis is exactly [latex]P[/latex]. Therefore,
+
+[latex, display = true]\begin{aligned}P^{\prime}&amp;=D_{1}\oplus D_{2}\oplus\ldots D^{\prime}_{j}\oplus\ldots D_{K}\\&amp;=D_{1}\oplus D_{2}\oplus\ldots (D_{j} \oplus C)\oplus\ldots D_{K}\\&amp;=(D_{1}\oplus D_{2}\oplus\ldots D_{j}\oplus\ldots D_{K})\oplus C\\&amp;= P \oplus C\end{aligned}[/latex]
+
+Since we showed this for any generic number of binary words added together, and allowed to binary words to be any length, we've proven the statement.&nbsp;
+<h2>Bonus: Multiple modifications</h2>
+What if we modified more than one word in our original sum [latex]P[/latex]? It's a pretty simple extension to run through the proof again with multiple modified words and show that if we have multiple [latex]C^{\prime}[/latex]s, one for each modified word, we can perform the same substitution and show that the new [latex]P^{\prime}[/latex] is simply the old [latex]P[/latex] XORed with all of the change vectors. Alternatively, you could XOR all the change vectors first into one big change vector, then XOR that with your original [latex]P[/latex] to compute the new [latex]P^{\prime}[/latex]. If you want to verify it for yourself formally, simply follow the same steps we did above for one modified word. You'll just be performing the same type of substitution multiple times to account for each modification.&nbsp;
+<h2>Conclusion</h2>
+Mr. Marks brought this up because he was seeking a way to compute the new parity strip in a more efficient way (with fewer arithmetic steps) than simply following the definition. You can absolutely "brute force" your way to calculating the new parity strip. Companies and startups are always concerned about "scalability". Sure, you won't notice the time different between 10 extra things added together. But what about 10 million? 1 billion? More than that? None of those numbers are infeasible for the amount of calculations we perform on data now. In those cases, the brute force method of simply using the definition starts to cause performance problems. It was worth taking the time to "be clever" and search for a nice, elegant way that cuts down the number of operations necessary to calculate a new parity strip. It took a little upfront work, but the result speaks loudly for itself.&nbsp;
+
+&nbsp;
+
+<a href="http://creativecommons.org/licenses/by-nc-nd/4.0/" rel="license"><img style="border-width: 0;" src="https://i.creativecommons.org/l/by-nc-nd/4.0/88x31.png" alt="Creative Commons License"></a>
+This work is licensed under a <a href="http://creativecommons.org/licenses/by-nc-nd/4.0/" rel="license">Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License.</a>		
+		
+						
+		1686
+		2017-12-07 16:17:37
+		2017-12-07 16:17:37
+		closed
+		open
+		mailbox-answers-calculating-new-parity-after-an-overwrite
+		publish
+		0
+		0
+		post
+		
+		0
+										algebra
+		Algebra
+		coding theory
+		Spines
+						
+		_da_attachments
+		a:0:{}
+		
+							
+		_edit_last
+		2
+		
+							
+		_wp_page_template
+		default
+		
+							
+		_acp_button_style
+		1
+		
+							
+		_acp_loading_type
+		1
+		
+							

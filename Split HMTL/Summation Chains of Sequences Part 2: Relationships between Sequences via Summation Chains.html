@@ -1,0 +1,489 @@
+
+		
+				Summation Chains of Sequences Part 2: Relationships between Sequences via Summation Chains		
+		https://www.themathcitadel.com/summation-chains-of-sequences-part-2-relationships-between-sequences-via-summation-chains/
+		Tue, 06 Jun 2017 20:14:05 +0000
+		admin
+		http://localhost:8000/?p=357
+		
+		
+				<h6 style="text-align: center;">For the full paper with proofs, click <a href="https://www.themathcitadel.com/wp-content/uploads/2017/06/summ-chains-sequence-002.pdf">here</a>.</h6>
+<p style="text-align: left;">[nextpage title="..."]</p>
+
+<h3>Abstract</h3>
+<em>Editor's note: This paper represents the second installment of a masters thesis by Jonathan Johnson.</em> This paper continues the development of the theory of summation chains of sequences. The concept of sum-related is defined: two sequences are sum-related if one sequence appears in the summation chain of the other. The main result is a theorem to determine if two given sequences are sum-related.
+<h3>Introduction</h3>
+<em>Editor's note:&nbsp;<a href="https://www.themathcitadel.com/summation-chains-of-sequences-part-1-introduction-generation-and-key-definitions/">Previously</a>, the concept of a summation chain of sequences was defined. We reproduce the example and introduction here:</em>
+
+Given a complex-valued sequence [latex](a_n)^{\infty}_{n=1}[/latex], the <em>sequence of partial sums</em>&nbsp;of [latex](a_n)[/latex] is given by the sequence
+
+[latex, display=true](a_1,a_1+a_2,a_1+a_2+a_3,\ldots,\sum^n_{i=1}a_i,\ldots).[/latex]
+
+The<em>&nbsp;sequence of differences&nbsp;</em>of [latex](a_n)[/latex] is given by the sequence
+
+[latex, display=true](a_1, a_2-a_1,a_3-a_2,\ldots,a_n-a_{n-1},\ldots).[/latex]
+
+The processes of finding the sequence of partial sums and finding the sequence of differences of a sequence are inverses of each other&nbsp;so every sequence is the sequence of differences of its sequence of partial sums&nbsp;and the sequence of partial sums of its sequence of differences.&nbsp;Every sequence has a unique sequence of partial sums and a unique sequence of differences&nbsp;so it is always possible to find the sequence of partial sums of the sequence of partial sums and repeat the process ad infinitum.&nbsp;Similarly, we can find the sequence of differences of the sequence of differences and repeat ad infinitum.&nbsp;The result is a doubly infinite sequence or "chain'' of sequences&nbsp;where each sequence is the sequence of partial sums of the previous sequence and the sequence of differences of the following sequence.
+
+<strong>Example</strong>
+Let [latex]a^{(0)}[/latex] be the sequence defined by [latex]a^{(0)}_n=(-1)^{n+1}[/latex] for all [latex]n\in\mathbb{N}[/latex]. For all integers [latex]m&gt;0[/latex], let [latex]a^{(m)}[/latex] be the sequence of partial sums of [latex]a^{(m-1)}[/latex], and for all integers [latex]m&lt;0[/latex], let [latex]a^{(m)}[/latex] be the sequence of differences of [latex]a^{(m+1)}[/latex].
+
+[latex, display = true]\begin{array}{r|ccccccccc}\vdots &amp; \vdots &amp; \vdots &amp; \vdots &amp; \vdots &amp; \vdots &amp; \vdots &amp; \vdots &amp; \vdots\\a^{(2)} &amp; 1 &amp; 1 &amp; 2 &amp; 2 &amp; 3 &amp; 3 &amp; 4 &amp; 4 &amp; \cdots\\a^{(1)} &amp; 1 &amp; 0 &amp; 1 &amp; 0 &amp; 1 &amp; 0 &amp; 1 &amp; 0 &amp; \cdots\\a^{(0)} &amp; 1 &amp; -1 &amp; 1 &amp; -1 &amp; 1 &amp; -1 &amp; 1 &amp; -1 &amp; \cdots\\a^{(-1)} &amp; 1 &amp; -2 &amp; 2 &amp; -2 &amp; 2 &amp; -2 &amp; 2 &amp; -2 &amp; \cdots\\a^{(-2)} &amp; 1 &amp; -3 &amp; 4 &amp; -4 &amp; 4 &amp; -4 &amp; 4 &amp; -4 &amp; \cdots\\\vdots &amp; \vdots &amp; \vdots &amp; \vdots &amp; \vdots &amp; \vdots &amp; \vdots &amp; \vdots &amp; \vdots\\\end{array}[/latex]
+
+Every sequence can be used to create a unique chain of sequences.
+
+<em>Editor's note: This installment examines the relationship between sequences and their summation chains, and provides a way to determine whether two sequences are sum-related.</em>
+
+[/nextpage]
+<p style="text-align: left;">[nextpage title="..."]</p>
+
+<h3>Summation Chains and Sequences</h3>
+<h4>Sum-Related Chains</h4>
+Consider the following sequences with their [latex]\Sigma[/latex]-chains.
+
+[latex, display = true]s_1=(1,0,0,0,\ldots)[/latex]
+
+[latex, display = true]s_2=(1,1,1,1,\ldots)[/latex]
+
+[latex, display = true]s_3=(0,1,0,0,\ldots)[/latex]
+
+[latex,display = true]\Phi_{\Sigma[\mathbb{R}]}(s_1) : \begin{array}{c|ccccc} \color{SteelBlue}{m} \backslash \color{LightSeaGreen}{n} &amp; \color{LightSeaGreen}{1} &amp;\color{LightSeaGreen}{2} &amp; \color{LightSeaGreen}{3} &amp; \color{LightSeaGreen}{4} &amp;\color{LightSeaGreen}{\cdots}\\\color{SteelBlue}{\vdots} &amp; \vdots &amp; \vdots &amp; \vdots &amp; \vdots &amp;\\\color{SteelBlue}{2} &amp; 1 &amp; 2 &amp; 3 &amp; 4 &amp; \cdots\\\color{SteelBlue}{1} &amp; 1 &amp; 1 &amp; 1 &amp; 1 &amp; \cdots\\\color{SteelBlue}{0} &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; \cdots\\\color{SteelBlue}{-1} &amp; 1 &amp;-1 &amp; 0 &amp; 0 &amp; \cdots\\\color{SteelBlue}{-2} &amp; 1 &amp; -2 &amp; 1 &amp; 0 &amp; \cdots\\\color{SteelBlue}{\vdots} &amp; \vdots &amp; \vdots &amp; \vdots &amp; \vdots &amp;\\\end{array}\quad\Phi_{\Sigma[\mathbb{R}]}(s_2) : \begin{array}{c|ccccc} \color{SteelBlue}{m} \backslash \color{LightSeaGreen}{n} &amp; \color{LightSeaGreen}{1} &amp;\color{LightSeaGreen}{2} &amp; \color{LightSeaGreen}{3} &amp; \color{LightSeaGreen}{4} &amp;\color{LightSeaGreen}{\cdots}\\\color{SteelBlue}{\vdots} &amp; \vdots &amp; \vdots &amp; \vdots &amp; \vdots &amp;\\\color{SteelBlue}{2} &amp; 1 &amp; 3 &amp; 6 &amp; 10&amp; \cdots\\\color{SteelBlue}{1} &amp; 1 &amp; 2 &amp; 3 &amp; 4&amp; \cdots\\\color{SteelBlue}{0} &amp; 1 &amp; 1 &amp; 1 &amp; 1 &amp; \cdots\\\color{SteelBlue}{-1} &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; \cdots\\\color{SteelBlue}{-2} &amp; 1 &amp; -1 &amp; 0 &amp; 0 &amp; \cdots\\\color{SteelBlue}{\vdots} &amp; \vdots &amp; \vdots &amp; \vdots &amp; \vdots &amp;\\\end{array}[/latex]
+
+[latex, display = true]\Phi_{\Sigma[\mathbb{R}]}(s_3) : \begin{array}{c|ccccc} \color{SteelBlue}{m} \backslash \color{LightSeaGreen}{n} &amp; \color{LightSeaGreen}{1} &amp;\color{LightSeaGreen}{2} &amp; \color{LightSeaGreen}{3} &amp; \color{LightSeaGreen}{4} &amp;\color{LightSeaGreen}{\cdots}\\\color{SteelBlue}{\vdots} &amp; \vdots &amp; \vdots &amp; \vdots &amp; \vdots &amp;\\\color{SteelBlue}{2} &amp; 0 &amp; 1 &amp; 2 &amp; 3 &amp; \cdots\\\color{SteelBlue}{1} &amp; 0 &amp; 1 &amp; 1 &amp; 1 &amp; \cdots\\\color{SteelBlue}{0} &amp; 0 &amp; 1 &amp; 0 &amp; 0 &amp; \cdots\\\color{SteelBlue}{-1} &amp; 0 &amp;1 &amp;-1 &amp; 0 &amp; \cdots\\\color{SteelBlue}{-2} &amp; 0 &amp; 1 &amp; -2 &amp; 1 &amp; \cdots\\\color{SteelBlue}{\vdots} &amp; \vdots &amp; \vdots &amp; \vdots &amp; \vdots &amp;\\\end{array}[/latex]
+
+These chains, while distinct, contain the same pattern of numbers.&nbsp;The entries of [latex]\Phi_{\Sigma[\mathbb{R}]}(s_2)[/latex] are the entries of [latex]\Phi_{\Sigma[\mathbb{R}]}(s_1)[/latex] moved up.This occurs because [latex]s_2[/latex] is the sequence of partial sums of [latex]s_1[/latex].&nbsp;The entries of [latex]\Phi_{\Sigma[\mathbb{R}]}(s_3)[/latex] are the entries of [latex]\Phi_{\Sigma[\mathbb{R}]}(s_1)[/latex] with an extra column of zeros.
+
+The remainder of this section focuses on these relationships.
+
+[/nextpage]
+
+[nextpage title="..."]
+
+&nbsp;
+
+<strong>Definition.&nbsp;</strong>Let <em>M</em>&nbsp;be a [latex]\mathbb{Z}[/latex]-Module.&nbsp;Let [latex](a_n)[/latex] and [latex](b_n)[/latex] be sequences in <em>M</em>. [latex](a_n)[/latex] is <em>sum-related&nbsp;</em>to [latex](b_n)[/latex], denoted [latex](a_n)\sim_{\Sigma}(b_n)[/latex], if [latex](a_n)[/latex] is a sequence in [latex]\Phi_{\Sigma} ((b_n))[/latex].
+
+If two sequences are sum-related, then one sequence can be obtained by finding the sequences of partial sums of the sequences of partial sums of the other sequence.
+
+<em>Remark.&nbsp;The trivial sequence [latex](0,0,0,\ldots)[/latex] is sum-related only to itself.</em>
+<h4>Proposition.</h4>
+Sum relation defines an equivalence class.
+<h4>Proposition.</h4>
+Let <em>c</em>&nbsp;and <em>d</em>&nbsp;be [latex]\Sigma[/latex]-chains. If there exists [latex]m\in \mathbb{Z}[/latex] such that [latex]c(m,n)=d(m,n)[/latex], for all [latex]n\in \mathbb{N}[/latex], then <em>c</em>=<em>d</em>.
+<h4>Proposition.</h4>
+Let&nbsp;<em>M</em>&nbsp;be a [latex]\mathbb{Z}[/latex]-Module.&nbsp;Let <em>c</em>&nbsp;be a [latex]\Sigma[/latex]-chain in <em>M</em>. Let [latex]d:\mathbb{Z}\times\mathbb{N}\to M[/latex] be defined such that there exists [latex]k\in \mathbb{Z}[/latex] such that [latex]d(m,n)=c(m+k,n)[/latex] for every [latex]m\in \mathbb{Z}[/latex] and [latex]n\in \mathbb{N}[/latex], then<em>d</em>&nbsp;is a [latex]\Sigma[/latex]-chain,and every sequence in <em>c</em>&nbsp;is sum-related to every sequence in <em>d</em>.
+
+<strong>Definition. </strong>Let&nbsp;<em>c</em>&nbsp;be a [latex]\Sigma[/latex]-chain, and let [latex]k\in \mathbb{Z}[/latex].The [latex]\Sigma[/latex]-chain [latex]c^{\,k}[/latex] is defined for all integers <em>m</em>&nbsp;and natural numbers <em>n</em>, by [latex]c^{\,k}(m,n)=c(m+k,n)[/latex]. [latex]c^{\,k}[/latex] is said to be the [latex]\Sigma[/latex]-chain <em>c</em>&nbsp;<em>shifted by</em>&nbsp;<em>k</em>.
+
+<em>Remark.</em>&nbsp;<em>If [latex]s_1[/latex] and [latex]s_2[/latex] are sequences generating [latex]\Sigma[/latex]-chains [latex]c_1[/latex] and [latex]c_2[/latex] respectively, then saying [latex]s_1 \sim_{\Sigma} s_2[/latex] is equivalent to saying [latex]c_1=c_2^k[/latex] for some integer k.</em>
+
+<em>When do two sequences appear in the same summation chain?&nbsp;</em>By the above definition, this is the same as asking when sequences are sum-related.&nbsp;Consider the sequence [latex](x_k)=(0,0,1,-1,1,-1,\ldots)[/latex].&nbsp;The sequences sum-related to [latex](x_k)[/latex] are the sequences that are in [latex]\Phi_{\Sigma[\mathbb{R}]}((x_k))[/latex].
+
+[latex, display = true]\Phi_{\Sigma[\mathbb{R}]}((x_{k}) : \begin{array}{c|ccccccc} \color{SteelBlue}{m} \backslash \color{LightSeaGreen}{n} &amp; \color{LightSeaGreen}{1} &amp;\color{LightSeaGreen}{2} &amp; \color{LightSeaGreen}{3} &amp; \color{LightSeaGreen}{4} &amp;\color{LightSeaGreen}{5} &amp;\color{LightSeaGreen}{6} &amp;\color{LightSeaGreen}{\cdots}\\\color{SteelBlue}\vdots &amp; \vdots &amp; \vdots &amp; \vdots &amp; \vdots &amp; \vdots &amp; \vdots &amp;\\\color{SteelBlue}{2} &amp; 0 &amp; 0 &amp; 1 &amp; 1 &amp; 2 &amp; 2 &amp; \cdots\\\color{SteelBlue}{1} &amp; 0 &amp; 0 &amp; 1 &amp; 0 &amp; 1 &amp; 0 &amp; \cdots\\\color{SteelBlue}{0} &amp; 0 &amp; 0 &amp; 1 &amp; -1 &amp; 1 &amp; -1 &amp; \cdots\\\color{SteelBlue}{-1} &amp; 0 &amp; 0 &amp; 1 &amp; -2 &amp; 2 &amp; -2 &amp; \cdots\\\color{SteelBlue}{-2} &amp; 0 &amp; 0 &amp; 1 &amp; -3 &amp; 4 &amp; -4 &amp; \cdots\\\color{SteelBlue}{\vdots} &amp; \vdots &amp; \vdots &amp; \vdots &amp; \vdots &amp; \vdots &amp; \vdots &amp;\\\end{array}[/latex]
+
+Notice that each sequence in the chain starts with two zeros followed by a one.&nbsp;The sequences [latex](0,1,10,20,30,\ldots)[/latex] and [latex](0,0,4,5,6,\ldots)[/latex] could not be sum-related to [latex](x_k)[/latex] since they do not begin with this sequence.&nbsp;This strategy can eliminate most pairs of sequences.
+<h4>Lemma.</h4>
+Given two nontrivial sequences [latex](a_k)[/latex] and [latex](b_k)[/latex] such that [latex](a_k)\sim_{\Sigma}(b_k)[/latex],&nbsp;define [latex]N_a[/latex] and [latex]N_b[/latex] to be the indices of the first nonzero terms of [latex](a_k)[/latex] and [latex](b_k)[/latex] respectively, then [latex]N_a= N_b[/latex], and [latex]a_{N_a}=b_{N_b}[/latex].
+
+In general, after exploiting the above lemma, it is difficult to determine sum relation of sequences.&nbsp;It is not possible to exhaustively check every sequence in a chain.&nbsp;However, when every nonzero element in the [latex]\mathbb{Z}[/latex]-Module has infinite order, the corollary from the <a href="https://www.themathcitadel.com/summation-chains-of-sequences-part-1-introduction-generation-and-key-definitions/" target="_blank" rel="noopener noreferrer">previous post</a>&nbsp;tells where to look for sum-related sequences.
+Thus in this case, a closed form procedure for determining sum relation can be used.
+
+[/nextpage]
+
+[nextpage title="..."]
+<h4>Theorem.</h4>
+Let&nbsp;<em>M</em>&nbsp;be a [latex]\mathbb{Z}[/latex]-Module. such that the order of every nonzero element in <em>M</em>&nbsp;is infinite. Let [latex](a_n)[/latex] and [latex](b_n)[/latex] be sequences in <em>M</em>, and let [latex]c_a=\Phi_{\Sigma}((a_n))[/latex]. Let [latex]N_1[/latex] be the index of the first nonzero term of [latex](a_n)[/latex], and let [latex]N_2[/latex] be the index of the first nonzero term of [latex](b_{n})[/latex]. Thus, [latex](a_{n})\sim_{\Sigma}(b_{n})[/latex] if and only if the following conditions hold.
+<ol>
+ 	<li>[latex]N_1=N_2[/latex], if this is true let [latex]N=N_1=N_2[/latex]</li>
+ 	<li>[latex]a_N=b_N[/latex],</li>
+ 	<li>There exists [latex]m \in \mathbb{Z}[/latex] such that [latex]m\cdot a_N=b_{N+1}-a_{N+1}[/latex],</li>
+ 	<li>[latex]b_n=c_a(m,n), \forall n \in \mathbb{N}[/latex].</li>
+</ol>
+<em>Remark.&nbsp; When the integer m exists in the theorem above, it is unique.</em>
+
+<strong>Example.&nbsp;</strong>Let [latex]M=\mathbb{Z}[/latex].&nbsp;Let [latex](a_n)=(1,-1,-1,1,0,0,0,0,0,\ldots)[/latex] and [latex]b_n=n^2[/latex], [latex]\forall n\in \mathbb{N}[/latex].&nbsp;Let [latex]c_a=\Phi_{\Sigma}((a_n))[/latex].
+
+The index of the first nonzero terms of both sequences is 1. Also, [latex]a_1=b_1=1[/latex] so (1) and (2) are satisfied. [latex]b_2-a_2=5=5\cdot a_1[/latex] so (3) holds. If there is a chain relation, [latex](b_n)[/latex] will be the fifth sequence in [latex]c_a[/latex].&nbsp;(4) has already been shown for [latex]n=1[/latex] and [latex]n=2[/latex].&nbsp;Using formulas from the theorem, the computation for the other indices is as follows:
+
+[latex, display = true]c_a(5,3)={6 \choose 4}(1)+{5 \choose 4}(-1)+{4 \choose 4}(-1)=15-5-1=9=b_3[/latex]
+
+For [latex]n\geq 4[/latex],
+[latex, display=true]\begin{aligned}c_a(5,n)=&amp;\sum^{n}_{k=1}{4+n-k \choose 4}a_k\\=&amp;{n+3 \choose 4}(1)+{n+2 \choose 4}(-1)+{n+1 \choose 4}(-1)+{n \choose 4}(1)\\=&amp;\frac{(n+3)(n+2)(n+1)n}{24}-\frac{(n+2)(n+1)n(n-1)}{24}\\&amp;-\frac{(n+1)n(n-1)(n-2)}{24}+\frac{n(n-1)(n-2)(n-3)}{24}\\=&amp;\, n^2\\=&amp;\, b_n\\\end{aligned}[/latex]
+
+Therefore, by the theorem above, [latex](a_n)\sim_{\Sigma}(b_n)[/latex].
+
+<strong>Example</strong>
+Let [latex]M=\mathbb{R}[/latex].&nbsp;Let [latex]a_n=\frac{1}{n}[/latex] and [latex]b_n=n[/latex], [latex]\forall n\in \mathbb{N}[/latex].&nbsp;Let [latex]c_a=\Phi_{\Sigma}((a_n))[/latex].&nbsp;The index of the first nonzero terms of both sequences is 1.&nbsp;Also, [latex]a_1=b_1=1[/latex] so (1) and (2) are satisfied.
+However [latex]b_2-a_2=1.5[/latex] which cannot be obtained by multiplying an integer by [latex]a_1[/latex].
+Therefore, [latex](a_n)\nsim_{\Sigma}(b_n)[/latex].
+
+<strong>Example</strong>
+
+Let [latex]M=\mathbb{Z}[/latex].&nbsp;Let [latex]a_n=n^2-3n+2[/latex] and [latex]b_n=-\frac{n^4+3n^3+14n^2-48n+32}{7}[/latex], [latex]\forall n\in \mathbb{N}[/latex].&nbsp;Let [latex]c_a=\Phi_{\Sigma}((a_n))[/latex].&nbsp;The index of the first nonzero terms of both sequences is 3.&nbsp;Also, [latex]a_3=b_3=2[/latex] so (1) and (2) are satisfied.
+[latex]b_4-a_4=-6=-3\cdot a_3[/latex] so (3) holds. If there is a chain relation, [latex](b_n)[/latex] will be the third sequence down in [latex]c_a[/latex].&nbsp;However, [latex]c_a(-3,5)=0[/latex] while [latex]b_5=-\frac{108}{7}[/latex].
+Therefore, [latex](a_n)\nsim_{\Sigma}(b_n)[/latex].
+
+<strong>Example</strong>
+Let [latex]M=\mathcal{Z}[X][/latex].&nbsp;Let [latex]a_n=\sum^{n-1}_{i=0}(i+1)x^{n-i}[/latex], [latex]\forall n\in \mathbb{N}[/latex],&nbsp;and let [latex]b_1=x[/latex] and [latex]b_n=x^n-x^{n-1}[/latex], [latex]n\geq 2[/latex].&nbsp;Let [latex]c_a=\Phi_{\Sigma}((a_n))[/latex].&nbsp;The index of the first nonzero terms of both sequences is 1.
+Also, [latex]a_1=b_1=x[/latex] so (1) and (2) are satisfied. [latex]b_2-a_2=(x^2-x)-(x^2+2x)=-3x=-3\cdot a_1[/latex] so (3) holds. If there is a chain relation, [latex](b_n)[/latex] will be the third sequence down in [latex]c_a[/latex].
+(4) has already been shown for [latex]n=1[/latex] and [latex]n=2[/latex].
+[latex, display=true]\begin{aligned}c_a(-3,3)&amp;={3 \choose 1}(x)-{3 \choose 2}(x^2+2x)+{3 \choose 3}(x^3+2x^2+3x)\\&amp;=3x+3(x^2+2x)+x^3+2x^2+3x\\&amp;=x^3-x^2\\&amp;=b_3\\\end{aligned}[/latex]
+
+&nbsp;
+
+For [latex]n\geq 4[/latex],
+
+[latex, display=true]\begin{aligned}c_a(-3,n)=&amp;\sum^{3}_{k=0}(-1)^{3-k}{3 \choose 3-k}a_{n-3+k}\\=&amp;-{3 \choose 0}\sum^{n-4}_{i=0}(i+1)x^{n-i-3}+{3 \choose 1}\sum^{n-3}_{i=0}(i+1)x^{n-i-1}\\&amp;-{3 \choose 2}\sum^{n-2}_{i=0}(i+1)x^{n-i-1}+{3 \choose 3}\sum^{n-1}_{i=0}(i+1)x^{n-i}\\=&amp;-\sum^{n-1}_{i=3}(i-2)x^{n-i}+3\sum^{n-1}_{i=2}(i-1)x^{n-i}-3\sum^{n-1}_{i=1}ix^{n-i}\\ &amp;\quad+\sum^{n-1}_{i=0}(i+1)x^{n-i}\\=&amp;-\sum^{n-1}_{i=3}(i-2)x^{n-i}+3\sum^{n-1}_{i=3}(i-1)x^{n-i}-3\sum^{n-1}_{i=3}ix^{n-i}\\&amp;+\sum^{n-1}_{i=3}(i+1)x^{n-i}+3x^{n-2}-3x^{n-1}-6x^{n-2}+x^n+2x^{n-1}+3x^{n-2}\\=&amp;\sum^{n-1}_{i=3}[-(i-2)+3(i-1)-3i(i+1)]x^{n-i}+x^n-x^{n-1}\\=&amp;\, x^n-x^{n-1}\\=&amp;\, b_n\\\end{aligned}[/latex]
+Therefore,[latex](a_n)\sim_{\Sigma}(b_n)[/latex].
+
+[/nextpage]
+
+[nextpage title="..."]
+<h4>Chains of Sequences with Leading Zeros</h4>
+Adding zeros to the beginning of a sequence adds columns of zeros to be beginning of the sequences summation chain.
+<h4>Lemma.</h4>
+Let <em>c</em>&nbsp;be a nontrivial [latex]\Sigma[/latex]-chain in [latex]M[/latex].&nbsp;Let [latex]N=\min\{n \in \mathbb{N}:c(0,n)\neq 0\}[/latex].&nbsp;For every integer, <em>m</em>, and for every natural number, [latex]n&lt;N[/latex], [latex]c(m,n)=0[/latex].
+<h4>Proposition.</h4>
+Let <em>M</em>&nbsp;be a [latex]\mathbb{Z}[/latex]-Module. Let&nbsp;<em>c</em>&nbsp;be a nontrivial [latex]\Sigma[/latex]-chain in [latex]M[/latex]. Let the natural number [latex]N=\min\{n \in \mathbb{N}:c(0,n)\neq 0\}[/latex]. Let [latex]d:\mathbb{Z}\times\mathbb{N}\to M[/latex] be defined such that [latex]d(m,n) = c(m,n+N+1)[/latex]&nbsp;for every [latex]m\in \mathbb{Z}[/latex] and [latex]n\in \mathbb{N}[/latex]. Then <em>d</em>&nbsp;is a [latex]\Sigma[/latex]-chain.
+<h4>Corollary</h4>
+Let&nbsp;<em>M</em>&nbsp;be a [latex]\mathbb{Z}[/latex]-Module, and&nbsp;let [latex](a_n)[/latex] and [latex](b_n)[/latex] be sequences in <em>M</em>, such that for a positive integer <em>k</em>, [latex]b_{n+k}=a_n[/latex] for all natural numbers <em>n</em>&nbsp;and [latex]b_n=0[/latex] when [latex]n\leq k[/latex]. Let [latex]c_a=\Phi_{\Sigma}((a_n))[/latex] and [latex]c_b=\Phi_{\Sigma}((a_b))[/latex]. For every integer <em>m</em> and natural number [latex]n[/latex], [latex]c_b(m,n+k)=c_a(m,n)[/latex], and [latex]c_b(m,n)=0[/latex] when [latex]n&lt; k[/latex].
+<h3>Conclusion</h3>
+<em>Editor's note: This paper represents the second installment of the concept of summation chains of complex valued sequences. Here, a new way to determine the relationship between two sequences was defined. The concept of sum-relation was defined, and a theorem provided a way to determine the relationship between two sequences. &nbsp;Part 3 will discuss sequence chains generated by linear function rules.</em>
+<a href="http://creativecommons.org/licenses/by-nc-nd/4.0/" rel="license"><img style="border-width: 0;" src="https://i.creativecommons.org/l/by-nc-nd/4.0/88x31.png" alt="Creative Commons License"></a>
+This work is licensed under a <a href="http://creativecommons.org/licenses/by-nc-nd/4.0/" rel="license">Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License</a>.
+<h3>References</h3>
+<div class="page" title="Page 8">
+<div class="layoutArea">
+<div class="column">
+<ol>
+ 	<li>Apostol, T., 1974, Mathematical Analysis 2nd Edition, Addison-Wesley Publishing Company</li>
+ 	<li>Brin, M. and Stuck, G., 2002, Introduction to Dynamical Systems, Cambridge University Press</li>
+ 	<li>Cameron, P. J., 1992, Combinatorics: Topics, Techniques, Algorithms, Cambridge University Press</li>
+ 	<li>Cook, R. G., 2014, Infinite Matrices and Sequence Spaces, Dover Publications, Inc.</li>
+ 	<li>Johnson, J. (2017)Summation Chains of Sequences Part 1: Introduction, Generation, and Key Definitions. AACTO, Vol. 2, Issue 2.</li>
+ 	<li>Lee, J., 2011, Introduction to Topological Manifolds, Springer Science+Business Media LLC</li>
+ 	<li>Leon, S. J., 2002, Linear Algebra with Applications 6th Edition, Prentice Hall, Inc.Scheinerman, E. R., 1996, Invitation to Dynamical Systems, Dover Publications, Inc.</li>
+</ol>
+</div>
+</div>
+</div>
+[/nextpage]		
+		
+						
+		357
+		2017-06-06 20:14:05
+		2017-06-06 20:14:05
+		open
+		open
+		summation-chains-of-sequences-part-2-relationships-between-sequences-via-summation-chains
+		publish
+		0
+		0
+		post
+		
+		0
+										Analysis
+		sequences
+		Spire
+		summation chains
+						
+		_da_attachments
+		a:0:{}
+		
+							
+		_edit_last
+		2
+		
+							
+		_acp_button_style
+		3
+		
+							
+		_acp_loading_type
+		1
+		
+							
+		_wp_page_template
+		default
+		
+							
+			3
+			Summation Chains of Sequences Part 3: Sequence Chains from Linear Functions &#8211; The Research Cortex
+			
+			http://www.themathcitadel.com/2017/06/08/summation-chains-of-sequences-part-3-sequence-chains-from-linear-functions/
+			66.226.74.70
+			2017-06-15 00:18:09
+			2017-06-15 00:18:09
+			[&#8230;] third installment of a masters thesis by Jonathan Johnson. The first two can be found here and here. This paper continues the development of the theory of summation chains of sequences. Since [&#8230;]
+			1
+			pingback
+			0
+			0
+							
+					
+			14139
+			Kendall Macintyre
+			Otterson43984@gmail.com
+			https://www.cnn.com
+			216.151.183.72
+			2019-03-08 05:31:31
+			2019-03-08 05:31:31
+			Looking for a job <a href="http://preludecrazy.com/texxa-d-uses.php#deliverance" rel="nofollow">texxa d uses</a>  This involved crisis responses on the ground, but also long-term work towards prevention and health education.
+			trash
+			
+			0
+			0
+						
+	akismet_error
+			1552023091
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552023091.93437290191650390625;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+							
+					
+			14141
+			Viki Lefebre
+			Golob31471@gmail.com
+			https://www.cnn.com
+			209.197.6.148
+			2019-03-08 05:31:33
+			2019-03-08 05:31:33
+			I have been absent for a while, but now I remember why I used to love this web site. Thank you, I’ll try and check back more frequently. How frequently you update your site?
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1552023093
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552023093.4207890033721923828125;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			2f9da83572e20463bd9d206ce3a03522
+			
+							
+					
+			14191
+			Reggie Beavin
+			Kown73159@gmail.com
+			https://www.cnn.com
+			205.185.222.100
+			2019-03-08 06:28:20
+			2019-03-08 06:28:20
+			Undeniably believe that which you stated. Your favorite reason seemed to be on the net the simplest thing to be aware of. I say to you, I certainly get annoyed while people consider worries that they plainly don’t know about. You managed to hit the nail upon the top as well as defined out the whole thing without having side effect , people could take a signal. Will probably be back to get more. Thanks
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1552026500
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552026500.2680270671844482421875;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			160037684d73d3e2ed7242762c0decc6
+			
+							
+					
+			14225
+			Emory Woodard
+			Claude21653@gmail.com
+			https://www.cnn.com
+			81.171.85.57
+			2019-03-08 07:10:05
+			2019-03-08 07:10:05
+			Wow that was strange. I just wrote an really long comment but after I clicked submit my comment didn’t appear. Grrrr… well I’m not writing all that over again. Anyways, just wanted to say superb blog!
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1552029005
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552029005.8626120090484619140625;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			2f5d1eea6c72e0bdca85d352f8fdbfd8
+			
+							
+					
+			14226
+			Cole Scarfo
+			Bird25037@gmail.com
+			https://www.cnn.com
+			81.171.71.97
+			2019-03-08 07:10:16
+			2019-03-08 07:10:16
+			<i>Russian news We n we publish all of them hot and topical events Russia, estimates experts. All negative on earth is created with the quiet tacit consent of the indifferent. No one provides us with incentives. We are People. We are building a civil society. The people are the bearer of sovereignty and the only source of power. No one can usurp power. Useful topics – Politics <a href="http://nef2.com/category/rental" rel="nofollow">Canada Finance</a> <a href="http://reply.remmont.com/log-converter-software-log-converters-ham-radio-logbooklog-convertersconverting/" rel="nofollow"> convert adif to cabrillo </a><a href="http://seattle.remmont.com/tag/us/" rel="nofollow"> usair mastercard barclays bank </a> <a href="http://south-africa.nef2.com/2018/01/" rel="nofollow"> dyer immigration fredericksburg </a><a href="http://solomon-islands.nef2.com/emt-practice-tests-online-exams-for-emt-b-emt-i-and-paramedics-emt-exams-emt-test-nremt-emt-practice-exams-emt-testing-emt-training-emt-b-emt-i-paramedic-training-emt-que/" rel="nofollow"> nj emt practice test </a> <a href="http://dental.nef6.com/2018/05/08/dental-benefits-csea-ebf-dental-benefits-dental-benefits-2/" rel="nofollow"> csea ebf number </a></i>
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1552029016
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552029016.6478519439697265625;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			f068d2ce538fde95a16f53e532a333ca
+			
+							
+					
+			17010
+			Ericka Pruden
+			Ackerley46646@gmail.com
+			https://www.youcrazy.com/
+			81.171.75.149
+			2019-03-18 19:41:32
+			2019-03-18 19:41:32
+			Just wish to say your article is as surprising. The clarity in your post is simply excellent and i can assume you are an expert on this subject. Fine with your permission let me to grab your RSS feed to keep up to date with forthcoming post. Thanks a million and please keep up the enjoyable work.
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1552938092
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552938092.3770120143890380859375;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+							
+					
+			17637
+			Delbert Vigna
+			Desrochers79672@gmail.com
+			https://www.lickmyballs.com
+			87.239.255.13
+			2019-03-20 23:50:32
+			2019-03-20 23:50:32
+			I’ve been browsing online more than 3 hours today, yet I never found any interesting article like yours. It is pretty worth enough for me. Personally, if all webmasters and bloggers made good content as you did, the web will be a lot more useful than ever before.
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1553125832
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1553125832.984922885894775390625;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			91e2a85f4c7dd3a4ca6f1c198dd1b1a5
+			
+							
+					
+			17676
+			Erlinda Swindle
+			Boman61014@gmail.com
+			https://www.lickmyballs.com
+			194.88.143.39
+			2019-03-21 01:51:39
+			2019-03-21 01:51:39
+			Thank you for your blog article.Really looking forward to read more. Will read on…
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1553133099
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1553133099.5726640224456787109375;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+							
+					
+			17677
+			Gregory Chorley
+			Umstead81477@gmail.com
+			https://www.lickmyballs.com
+			81.171.74.118
+			2019-03-21 01:51:39
+			2019-03-21 01:51:39
+			Excellent post. I was checking constantly this blog and I’m impressed! Very helpful information particularly the last part 🙂 I care for such info a lot. I was seeking this particular info for a long time. Thank you and good luck.
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1553133099
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1553133099.825870990753173828125;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			c17a2d3e79f54fefd4d86e399016b90f
+			
+							
+					
+			17678
+			Walter Shepardson
+			Lavalle24223@gmail.com
+			https://www.lickmyballs.com
+			173.245.202.184
+			2019-03-21 01:51:44
+			2019-03-21 01:51:44
+			Did you go to university? <a href="http://teazr.me/01/garden-wall-painting/" rel="nofollow">http://teazr.me/01/garden-wall-painting/</a> tadalafil tablets 20mg megalis 20  “You can’t even look at family members who have MS to say that ‘this is how my MS will behave,'”says Carrie Lyn Sammarco, of the Multiple Sclerosis Comprehensive Care Center at New York University Langone Medical Center in New York City.”MS varies from person to person, and even within the person.”
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1553133104
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1553133104.158669948577880859375;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+							
+					
+			21588
+			Austepils
+			austdut@wmaill.website
+			http://bmamasstransit.com
+			31.184.238.129
+			2019-04-02 14:40:27
+			2019-04-02 14:40:27
+			Healthy Man Cialis Is Cephalexin Penicillin  <a href="http://4nrxuk.com" rel="nofollow">pharmacie ligne</a> Cytotec In South Africa Kamagra Jelly 100 Mg Toulon Sildenafil 100mg India
+			0
+			
+			0
+			0
+						
+	akismet_error
+			1554216027
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1554216027.8951740264892578125;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+							
+					

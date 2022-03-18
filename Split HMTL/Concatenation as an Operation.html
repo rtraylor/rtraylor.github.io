@@ -1,0 +1,658 @@
+
+		
+				Concatenation as an Operation		
+		https://www.themathcitadel.com/concatenation-as-an-operation/
+		Mon, 14 Aug 2017 15:31:42 +0000
+		admin
+		http://www.themathcitadel.com/?p=915
+		
+		
+				Mathematics is like any activity, sport, or skill: it must be honed and practiced. With that in mind, I have been bolstering up my abilities in algebra with a fantastic book&nbsp;<em><a href="https://www.amazon.com/Book-Abstract-Algebra-Edition-Mathematics/dp/0486474178/ref=cm_cr_pr_sims_t" target="_blank" rel="noopener noreferrer">A Book of Abstract Algebra</a></em>, by Charles C. Pinter.[note]Dover editions are amazing. There are many fantastic books for a far more affordable price than the "mainstream" publishers. (Looking at you, Springer)[/note].
+
+As I go through the chapters, I will be posting and discussing selected relevant exercises that have applications. This first post is a short one on operations and concatenation. I discussed operators&nbsp;<a href="https://www.themathcitadel.com/like-clockwork-modulo-addition-and-finite-groups-of-integers/" target="_blank" rel="noopener noreferrer">here</a>, but will revisit the topic.
+<h2>&nbsp;</h2>
+<h2>What's an operation?</h2>
+First, we define an operation. From Pinter:
+
+&nbsp;
+
+<strong>Definition (operation):&nbsp;</strong>An&nbsp;<em>operation</em> on a given set [latex]A[/latex], often denoted [latex]\ast[/latex] is a rule which assigns a pair of elements [latex](a,b)[/latex] in [latex]A[/latex] to&nbsp;<strong>exactly one<em>&nbsp;</em></strong>element denoted [latex]a\ast b[/latex] in [latex]A[/latex]
+
+&nbsp;
+
+Pinter stresses several things about this definition that should not just be read and glossed over. First, [latex]a\ast b[/latex] has to be defined for every single pair of elements in the set [latex]A[/latex]. Some obvious examples include multiplication on integers, or addition on real numbers.
+
+Some rules that try to sneak by, but are&nbsp;<em>not</em> operations including division on the real numbers. Why does this fail? Remember that 0 is a real number. I can divide 0 by anything I like, but can I divide anything by 0? No. A real number divided by 0 is not defined.[note]This is why it's not entirely correct to say that division is the inverse operation of multiplication. Division isn't an operation on the set of real numbers, unless you restrict the space to exclude 0[/note].
+
+Secondly, the rule sends a pair of elements to&nbsp;<strong>exactly one<em>&nbsp;</em></strong>element. Mathematically, this means a rule must be well defined to be an operation. It can't take the same pair of elements and get two possible answers.
+
+Lastly, a rule must be&nbsp;<em>closed</em> to be an operation. Whatever [latex](a,b)[/latex] gets mapped to must also be in the set [latex]A[/latex]. Here again, addition of real numbers is closed. Adding two real numbers yields a real number. Division also becomes our counterexample here, but let's look at division on the space of just integers. Dividing 2 by 3 is certainly defined, but the result is not an integer; it's a rational number.[note] Division is usually a good place to start if you're looking for counterexamples in algebra[/note].
+
+&nbsp;
+<h2>On to Concatenation</h2>
+Operations are not just defined on numbers, and they don't necessarily have to just be your standard arithmetic examples (addition, subtraction, multiplication). We can define operations on any space we want, provided we satisfy the definition. Here we will talk about concatenation as an operation on the space of sequences of symbols. If you're a programmer, you probably assume we're looking at binary sequences, but we concatenate English words too. (We just call these compound words, like "lifetime" or "backbone".)
+
+Let's call [latex]A[/latex] the&nbsp;<em>alphabet</em>. If we are living in binary, then [latex]A = \{0,1\}[/latex]. If we are speaking of English letters, the alphabet is [latex]A = \{a,b,c,\ldots,z\}[/latex]. Now we can call [latex]A^{\ast}[/latex] the set of all sequences of symbols in the alphabet [latex]A[/latex].[note]I didn't specify a length here. So if we are in binary, 00, 01011, and 1 are in the set of sequences of symbols built from the binary alphabet.[/note].
+
+Now we will define an operation on [latex]A^{*}[/latex]: concatenation. Many of you already know what this is, so we'll formally define it here:
+
+If&nbsp;<strong>a</strong> and&nbsp;<strong>b</strong> are two sequences in [latex]A^{*}[/latex], where [latex]\mathbf{a} = a_{1}a_{2}\ldots a_{n}[/latex], and [latex]\mathbf{b} = b_{1}b_{2},\ldots b_{m}[/latex] (and each [latex]a_{i}, b_{i}[/latex] are drawn from the alphabet), then the&nbsp;<strong>concatenation</strong> of&nbsp;<strong>a&nbsp;</strong> and&nbsp;<strong>b&nbsp;</strong>is given by
+
+[latex, display = true]\mathbf{ab} = a_{1}a_{2}\ldots a_{n}b_{1}b_{2}\ldots b_{m}[/latex]
+
+That is, just stick&nbsp;<strong>b</strong> to the end of&nbsp;<strong>a.&nbsp;</strong>Quick example, if we live in binary, then for [latex]\mathbf{a} = 1010[/latex] and [latex]\mathbf{b} = 001[/latex], then
+
+[latex, display = true]\mathbf{ab} = 1010001[/latex]
+
+Let's also note that there is an empty sequence or NULL sequence [latex]\lambda[/latex] that consists of nothing at all. It's pretty easy to check that concatenation meets the definition of an operation. Pinter asks us to do three simple things here:
+<h3><strong>1. Prove that the operation defined above is associative.</strong></h3>
+Associativity is the property of an operation that allows us to group however we like. Addition is associative:
+
+[latex, display = true](1+2) + 3 = 1+ (2+3)[/latex]
+
+In general, to show associativity of an operation, we need to show that for [latex]\mathbf{a,b,c} \in A^{*}[/latex],
+
+[latex, display = true] (\mathbf{ab})\mathbf{c} = \mathbf{a}(\mathbf{bc})[/latex]
+
+First, we will define three generic sequences in our [latex]A^{*}[/latex]. Let
+
+[latex, display = true]\begin{aligned}\mathbf{a} &amp;= a_{1}a_{2}\ldots a_{m}\\\mathbf{b} &amp;=b_{1}b_{2}\ldots b_{n}\\\mathbf{c} &amp;= c_{1}c_{2}\ldots c_{p}\end{aligned}[/latex]
+
+Notice here that I did not specify an alphabet,&nbsp;<em>and</em> that the length of [latex]\mathbf{a,b}[/latex] and [latex]\mathbf{c}[/latex] are different. We need to keep this as general as possible to prove the statement. Every restriction we place (same length, specific alphabet, etc) weakens the argument.
+
+Now we will show associativity formally:
+
+[latex, display = true]\begin{aligned}(\mathbf{ab})\mathbf{c}&amp;=(a_{1}a_{2}\ldots a_{m}b_{1}b_{2}\ldots b_{n})c_{1}c_{2}\ldots c_{p}\\&amp;= a_{1}a_{2}\ldots a_{m}b_{1}b_{2}\ldots b_{n}c_{1}c_{2}\ldots c_{p}\end{aligned}[/latex]
+
+Here we can see that we can put parentheses any way we want to, and it doesn't affect the end word. That is,
+
+[latex, display = true]\begin{aligned}(\mathbf{ab})\mathbf{c}&amp;=(a_{1}a_{2}\ldots a_{m}b_{1}b_{2}\ldots b_{n})c_{1}c_{2}\ldots c_{p}\\&amp;= a_{1}a_{2}\ldots a_{m}b_{1}b_{2}\ldots b_{n}c_{1}c_{2}\ldots c_{p}\\&amp;=a_{1}a_{2}\ldots a_{m}(b_{1}b_{2}\ldots b_{n}c_{1}c_{2}\ldots c_{p})\\&amp;=\mathbf{a}(\mathbf{bc})\end{aligned}[/latex]
+
+So we've concluded that the grouping&nbsp;in which you perform the operation on several elements doesn't matter, and thus we have concluded that concatenation is associative.
+<h3>2. Explain why the operation is not commutative.</h3>
+A&nbsp;<strong>commutative operation</strong> is an operation where the order of the elements in the operation doesn't matter. That is, for an operation [latex]\ast[/latex], [latex]a\ast b = b\ast a[/latex]. Examples of commutative operations are addition and multiplication on real numbers ( 2+5 = 5+2, for example). An example of a noncommutative operation is matrix multiplication. In general, the order in which you multiply matrices matters. As an explicit illustration,
+
+[latex, display = true] \begin{bmatrix}1&amp;2\\1&amp;1\end{bmatrix}\begin{bmatrix}1&amp; 1\\ 1 &amp; 2\end{bmatrix} =\begin{bmatrix} 3 &amp; 5 \\ 2 &amp; 3\end{bmatrix}\neq \begin{bmatrix}2 &amp; 3\\3 &amp; 4\end{bmatrix}=\begin{bmatrix}1&amp; 1\\ 1 &amp; 2\end{bmatrix}\begin{bmatrix}1&amp;2\\1&amp;1\end{bmatrix}[/latex]
+
+We can see now why concatenation is not commutative. If you append [latex]\mathbf{b}[/latex] to [latex]\mathbf{a}[/latex], you will definitely not get the same result as appending [latex]\mathbf{a}[/latex] to [latex]\mathbf{b}[/latex]. &nbsp;"Townhome" and "hometown" are certainly two different words, but the two pieces: "home" and "town" are the same. Switching the order of concatenation gave a different result. Since I have produced a single counter example, concatenation cannot be commutative in general.[note] Feel free to try other alphabets as well: binary, Greek, Cyrillic, hexadecimal, etc. Challenge question: can you find an alphabet and sequence space under which concatenation would be commutative? Matrix multiplication is commutative in very special cases. Does this also hold true for concatenation?[/note]
+<h3>3. Prove there is an identity element for this operation.</h3>
+An <b>identity element</b>&nbsp;is an element that lives in [latex]A^{*}[/latex] that, when applied via the operation in question to any other element in the set, <i>in any order</i>, returns that other element. Formally, [latex]\mathbf{e} \in A^{*}[/latex] is an identity element for operation [latex]\ast[/latex] if and only if [latex]\mathbf{ea} = \mathbf{ae} = \mathbf{a}[/latex] for every single element in [latex]\mathbf{A^{*}}[/latex].
+
+Some examples:
+<ul>
+ 	<li>the identity element for regular addition on the real numbers is 0. 0 + x = x + 0 = x for any real number x</li>
+ 	<li>the identity element for multiplication on the real numbers is 1.</li>
+</ul>
+For concatenation, we seek an element that, when concatenated with any other element, in any order, returns that element. Proving existence has several strategies. The simplest one (in theory) is to find a candidate element, and show it meets the criteria.[note] This seems simple, but some problems do not yield an obvious possible candidate. Sometimes it takes years to find this when proving existence. A lot relies on intuition and experience, which isn't exactly what you want to hear. But in this particular case, we can look at stuff we already are familiar with: 0 and 1, and try to find something "similar" in our new space.[/note]. Here, since concatenation involves essentially "compounding" two things together, the only way we could keep an element "unchanged" is to concatenate nothing to it. The NULL element [latex]\lambda[/latex] (which is certainly a word, just a NULL word. Computer scientists are very familiar with this concept) fits our bill here. Try it out. If you take nothing and concatenate a word to it, you just get that word. Conversely, concatenating nothing to a given word doesn't change the word. So the NULL element is our identity element.
+
+&nbsp;
+<h2>Conclusion</h2>
+Operations and rules aren't equivalent. A rule is anything we make up for some purpose, but an operation has to meet specific criteria to be called one. This post was meant to show that operations are not restricted to just the space of numbers that we deal with every day, but that we can look at spaces of objects, matrices, functions, words, sequences...anything we like. In addition, we can define operations, as long as we satisfy the definition. This represents the power of abstract algebra: we can take structure we thought only belongs to a very restrictive space (like numbers, or even matrices), and look at other things, like concatenation, in a different light.
+<a href="http://creativecommons.org/licenses/by-nc-nd/4.0/" rel="license"><img style="border-width: 0;" src="https://i.creativecommons.org/l/by-nc-nd/4.0/88x31.png" alt="Creative Commons License"></a>
+This work is licensed under a <a href="http://creativecommons.org/licenses/by-nc-nd/4.0/" rel="license">Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License</a>.		
+		
+						
+		915
+		2017-08-14 15:31:42
+		2017-08-14 15:31:42
+		open
+		open
+		concatenation-as-an-operation
+		publish
+		0
+		0
+		post
+		
+		0
+										algebra
+		Algebra
+		Concatenation
+		Set Theory
+		Spines
+						
+		_da_attachments
+		a:0:{}
+		
+							
+		_edit_last
+		2
+		
+							
+		_acp_button_style
+		1
+		
+							
+		_acp_loading_type
+		1
+		
+							
+		_wp_page_template
+		default
+		
+							
+			60
+			Group Theory, XOR, and Binary Codes: Introducing Coding Theory &#8211; The Math Citadel
+			
+			http://www.themathcitadel.com/2017/08/19/group-theory-xor-and-binary-codes-introducing-coding-theory/
+			66.226.74.70
+			2017-08-19 02:53:59
+			2017-08-19 02:53:59
+			[&#8230;] that each of these rules meets the definition of an operation. If you need a refresher, check out this post.) We can also look at binary codes and the bit-wise operations in a more algebraic [&#8230;]
+			1
+			pingback
+			0
+			0
+						
+	akismet_history
+			a:3:{s:4:"time";d:1537552409.6585290431976318359375;s:5:"event";s:11:"report-spam";s:4:"user";s:13:"jasonhathcock";}
+			
+						
+	akismet_user_result
+			false
+			
+						
+	akismet_user
+			jasonhathcock
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1537553464.6583259105682373046875;s:5:"event";s:10:"report-ham";s:4:"user";s:13:"jasonhathcock";}
+			
+							
+					
+			67
+			Taking Things for Granted: Elementary Properties of Groups &#8211; The Math Citadel
+			
+			http://www.themathcitadel.com/2017/08/29/taking-things-for-granted-elementary-properties-of-groups/
+			66.226.74.70
+			2017-08-29 22:56:12
+			2017-08-29 22:56:12
+			[&#8230;] prior discussions of groups. A group is a set G of stuff combined with an&nbsp;operation&nbsp;ast, denoted together as langle G, ast rangle that satisfies three [&#8230;]
+			1
+			pingback
+			0
+			0
+						
+	akismet_history
+			a:3:{s:4:"time";d:1537552409.1484649181365966796875;s:5:"event";s:11:"report-spam";s:4:"user";s:13:"jasonhathcock";}
+			
+						
+	akismet_user_result
+			false
+			
+						
+	akismet_user
+			jasonhathcock
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1537553463.9321858882904052734375;s:5:"event";s:10:"report-ham";s:4:"user";s:13:"jasonhathcock";}
+			
+							
+					
+			93
+			Reduce the Problem: Permutations and Modulo Arithmetic &#8211; The Math Citadel
+			
+			http://www.themathcitadel.com/2017/09/26/reduce-the-problem-permutations-and-modulo-arithmetic/
+			66.226.74.70
+			2017-09-26 17:14:44
+			2017-09-26 17:14:44
+			[&#8230;] the object numbers 1,ldots n, then we can just call the set of the first n integers under the&nbsp;operation&nbsp;permutation&nbsp;forms the symmetric&nbsp;group&nbsp;S_{n}. These groups are so famous they [&#8230;]
+			1
+			pingback
+			0
+			0
+						
+	akismet_history
+			a:3:{s:4:"time";d:1537552408.714970111846923828125;s:5:"event";s:11:"report-spam";s:4:"user";s:13:"jasonhathcock";}
+			
+						
+	akismet_user_result
+			false
+			
+						
+	akismet_user
+			jasonhathcock
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1537553463.327457904815673828125;s:5:"event";s:10:"report-ham";s:4:"user";s:13:"jasonhathcock";}
+			
+							
+					
+			243
+			A Partition by any Other Name &#8211; The Math Citadel
+			
+			http://www.themathcitadel.com/2017/11/14/a-partition-by-any-other-name/
+			66.226.74.70
+			2017-11-14 19:30:46
+			2017-11-14 19:30:46
+			[&#8230;] theorist, despite many of my posts being algebraic in nature. Algebra, as we&#8217;ve seen in&nbsp;several&nbsp;other&nbsp;posts&nbsp;, elegantly generalizes many things in basic arithmetic, leading to [&#8230;]
+			1
+			pingback
+			0
+			0
+						
+	akismet_history
+			a:3:{s:4:"time";d:1537552405.9130609035491943359375;s:5:"event";s:11:"report-spam";s:4:"user";s:13:"jasonhathcock";}
+			
+						
+	akismet_user_result
+			false
+			
+						
+	akismet_user
+			jasonhathcock
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1537553458.2116959095001220703125;s:5:"event";s:10:"report-ham";s:4:"user";s:13:"jasonhathcock";}
+			
+							
+					
+			266
+			Welcome to GF(4) &#8211; The Math Citadel
+			
+			http://www.themathcitadel.com/2017/11/26/welcome-to-gf4/
+			66.226.74.70
+			2017-11-26 20:00:40
+			2017-11-26 20:00:40
+			[&#8230;] seen groups before in several posts. We know that a group is a set of things combined with an operation that [&#8230;]
+			1
+			pingback
+			0
+			0
+						
+	akismet_history
+			a:3:{s:4:"time";d:1537552405.342770099639892578125;s:5:"event";s:11:"report-spam";s:4:"user";s:13:"jasonhathcock";}
+			
+						
+	akismet_user_result
+			false
+			
+						
+	akismet_user
+			jasonhathcock
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1537553457.2388870716094970703125;s:5:"event";s:10:"report-ham";s:4:"user";s:13:"jasonhathcock";}
+			
+							
+					
+			461
+			All the Same Opposites &#8211; The Math Citadel
+			
+			http://www.themathcitadel.com/2018/01/30/all-the-same-opposites/
+			66.226.74.70
+			2018-01-31 15:38:53
+			2018-01-31 15:38:53
+			[&#8230;] more readily encountered than even and odd is binary arithmetic. We have a series of posts here on the theory of coding, and all of it rests on {0,1} when taken with the [&#8230;]
+			1
+			pingback
+			0
+			0
+						
+	akismet_history
+			a:3:{s:4:"time";d:1537552404.105720043182373046875;s:5:"event";s:11:"report-spam";s:4:"user";s:13:"jasonhathcock";}
+			
+						
+	akismet_user_result
+			false
+			
+						
+	akismet_user
+			jasonhathcock
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1537553455.281754016876220703125;s:5:"event";s:10:"report-ham";s:4:"user";s:13:"jasonhathcock";}
+			
+							
+					
+			14228
+			Eddie Asencio
+			Barkle9092@gmail.com
+			https://www.cnn.com
+			85.10.50.186
+			2019-03-08 07:11:52
+			2019-03-08 07:11:52
+			<a href="http://cleanafix.se/gratuitpdf/gratuit-10-317-tapas_101_recettes_faciles_et_rapides.html" rel="nofollow">http://cleanafix.se/gratuitpdf/gratuit-10-317-tapas_101_recettes_faciles_et_rapides.html</a> Auch how to
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1552029112
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552029112.576181888580322265625;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			288efc62c8fefb211158e44109783d35
+			
+							
+					
+			14873
+			Erica Skillett
+			Helfrick70267@gmail.com
+			http://earllovesyou.com
+			64.145.94.196
+			2019-03-10 18:49:30
+			2019-03-10 18:49:30
+			Hi there! Do you know if they make any plugins to safeguardagainst hackers? I’m kinda paranoid about losing everything I’ve worked hard on. Any suggestions?
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1552243770
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552243770.8885929584503173828125;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			1b93af362c40687fbd674dfa439c74bb
+			
+							
+					
+			15027
+			Rudy Modine
+			JolineCarrubba8746@gmail.com
+			https://proxies-free.com/uk-links-post-any-niche-my-lottery-site-can-accept-minimum-da-20-good-quality/
+			192.186.168.230
+			2019-03-11 07:21:29
+			2019-03-11 07:21:29
+			Along with every little thing that appears to be developing within this specific subject material, your viewpoints are actually rather exciting. Even so, I beg your pardon, but I can not give credence to your entire theory, all be it refreshing none the less. It would seem to us that your comments are not completely rationalized and in fact you are your self not even fully certain of the point. In any event I did enjoy examining it.
+			trash
+			
+			0
+			0
+						
+	akismet_error
+			1552288889
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552288889.979238986968994140625;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+							
+					
+			15742
+			las vegas no credit check loans
+			MeghannDurney70913@gmail.com
+			https://audreybrifman0683.webgarden.com/blog/no-credit-check-loans-without
+			209.107.214.131
+			2019-03-14 00:57:39
+			2019-03-14 00:57:39
+			WHY? :)
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1552525059
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552525059.40818500518798828125;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			cba29c16eefbab1e92c7858f2e7eaa41
+			
+							
+					
+			15744
+			web developer
+			darcionus@gmail.com
+			http://www.artkabinett.com/node/225757
+			205.185.209.164
+			2019-03-14 01:13:13
+			2019-03-14 01:13:13
+			Howdy very nice blog!! Guy .. Beautiful ..
+Wonderful .. I'll bookmark your site and take the feeds also?
+I am glad to find a lot of helpful info here within the post, we'd like 
+develop extra strategies on this regard, thanks for sharing.
+. . . . .
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1552525993
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552525993.362288951873779296875;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			a3548d299273e71a6418098e3e75bf5a
+			
+							
+					
+			16229
+			Tyron Welk
+			Nemecek46331@gmail.com
+			http:/suckafatonehomo.com
+			185.108.107.25
+			2019-03-16 00:00:46
+			2019-03-16 00:00:46
+			Wow, this post is fastidious, my sister is analyzing these kinds of things, so Iam going to tell her.
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1552694446
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552694446.0667150020599365234375;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+							
+					
+			16347
+			Gregorio Fowlkes
+			Millie36579@gmail.com
+			http://suckafatonehomo.com
+			81.171.81.48
+			2019-03-16 05:52:31
+			2019-03-16 05:52:31
+			online payday loan <a href="https://paydayloans2018.com/" rel="nofollow">internet payday loan</a> quickloan <a href="https://paydayloans2018.com/" rel="nofollow">pool loan</a> christmas loan <a href="https://personalloans2019.com/" rel="nofollow">personal loans for bad credit</a> personal loans <a href="https://personalloans2019.com/" rel="nofollow">personal loans</a>
+			trash
+			
+			0
+			0
+						
+	akismet_error
+			1552715551
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552715551.34457492828369140625;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+							
+					
+			16665
+			Luana Welson
+			Fiddler81544@gmail.com
+			https://www.kyinwebgroup.com/
+			209.107.196.81
+			2019-03-17 13:39:18
+			2019-03-17 13:39:18
+			Today is one of those days. You’re looking for some fun. The kind of fun that only a cam girl can provide. The best site to find loads of girls on cam is <a href="http://www.camgirl.pw" rel="nofollow">http://www.camgirl.pw</a> The hottest most wildest girls can all be found right there.
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1552829958
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552829958.4136540889739990234375;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			7b0c4cfa5bff71436de93027fd001654
+			
+							
+					
+			17048
+			Daron Brana
+			Wainright10407@gmail.com
+			https://www.youcrazy.com/
+			81.171.57.64
+			2019-03-18 21:46:32
+			2019-03-18 21:46:32
+			Nice to meet you <a href="http://www.exacthubbard.org/how-long-should-i-wait-to-drive-after-taking-valium.htm#repeat" rel="nofollow">valium thrombophlebitis</a>  The Packers appear to be a loose team ahead of their first NFC championship game appearance since the 2010 season
+			trash
+			
+			0
+			0
+						
+	akismet_error
+			1552945592
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552945592.0344181060791015625;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+							
+					
+			17296
+			Social Media
+			ingenorthmore@aol.com
+			http://hyylert.com/comment/html/?165187.html
+			64.145.79.102
+			2019-03-19 20:25:36
+			2019-03-19 20:25:36
+			WOW just what I was searching for. Came here by searching for social media logos for business cards
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1553027136
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1553027136.2791659832000732421875;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			3ced09728e8aceebe2f0c627d5c6d80e
+			
+							
+					
+			17680
+			Katina Hinostroza
+			Teater63608@gmail.com
+			https://www.lickmyballs.com
+			81.171.58.113
+			2019-03-21 01:57:52
+			2019-03-21 01:57:52
+			boots chemist selling sildenafilviagrapid.comgood morning america brain sildenafil[url=http://www.viagrapid.com/]viagra pills[/url]
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1553133472
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1553133472.39713001251220703125;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			9005d272bcac69e152f66214bc1dd779
+			
+							
+					
+			19985
+			canadian pharmacies shipping to usa
+			jtjrrtnrtefege@mail.com
+			http://canadianpharmacyxyz.com/
+			54.38.156.252
+			2019-03-29 16:38:10
+			2019-03-29 16:38:10
+			<a href="http://canadianpharmacyxyz.com/" rel="nofollow">online pharmacies canada</a> 
+http://canadianpharmacyxyz.com/ 
+<a href="http://canadianpharmacyxyz.com/" / rel="nofollow">online pharmacy with no prescription</a>
+			0
+			
+			0
+			0
+						
+	akismet_error
+			1553877490
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1553877490.274394989013671875;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+							
+					
+			21724
+			Apex Legends Octane
+			Vendrick@yahoo.com
+			https://twitter.com/cybertechnews3/status/1108519155253366784
+			216.170.126.130
+			2019-04-02 23:28:05
+			2019-04-02 23:28:05
+			Spot on with this write-up, I actually feel this web site needs a great deal more attention. I’ll probably be returning to see more, thanks for the information!
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1554247685
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1554247685.7950689792633056640625;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			5d30465f772e4703fa712ec2916f9277
+			
+							
+					
+			21992
+			Austepils
+			austdut@wmaill.website
+			http://genericvia.com
+			31.184.238.129
+			2019-04-03 17:30:09
+			2019-04-03 17:30:09
+			Gynecomastie Steroides  <a href="http://buyciali.com" rel="nofollow">online cialis</a> Side Effects Of Kamagra Propecia Assumere
+			0
+			
+			0
+			0
+						
+	akismet_error
+			1554312609
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1554312609.710607051849365234375;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+							
+					

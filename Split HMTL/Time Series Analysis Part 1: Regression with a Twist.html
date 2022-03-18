@@ -1,0 +1,402 @@
+
+		
+				Time Series Analysis Part 1: Regression with a Twist		
+		https://www.themathcitadel.com/time-series-analysis-part-1-regression-with-a-twist/
+		Wed, 08 Nov 2017 15:49:07 +0000
+		admin
+		http://www.themathcitadel.com/?p=1392
+		
+		
+				We're surrounded by time series. It's one of the more common plots we see in day-to-day life. Finance and economics are full of them - stock prices, GDP over time, and 401K value over time to name a few. The plot looks deceptively simple; just a nice univariate squiggle. No crazy vectors, no surfaces, just one predictor - time. It turns out time is a tricky and fickle explanatory variable, which makes analysis of time series a bit more nuanced than first glance. This nuance is obscured by the ease of automatic implementation of time series modeling in languages like R[note]For example, decomposition of time series into trend, seasonal, and noise is done automatically, and ARIMA modeling of that noise can also be done with a simple function call of auto.arima().[/note] As nice as this is for practitioners, the mathematics behind this analysis is lost. Ignoring the mathematics can lead to improper use of these tools. This series will examine some of the mathematics behind stationarity and what is known as ARIMA (<strong>A</strong>uto-<strong>R</strong>egressive <strong>I</strong>ntegrated <strong>M</strong>oving <strong>A</strong>verage) modeling. Part 1 will examine the very basics, showing that time series modeling is really just regression with a twist.<!--more-->
+<h2>Back to Basics: Regression Line</h2>
+We all know the basic equation for a line: [latex]y = mx + b[/latex]. Now, if I change the independent, or explanatory variable[note]Sometimes called the input[/note] to time and denote it [latex]t[/latex], then a basic equation for some phenomenon [latex] y[/latex] that depends linearly with time can be written as&nbsp;
+
+[latex, display = true] y = mt + b[/latex]
+
+Plugging in some numbers, perhaps [latex]y = 2t + 4[/latex]. Next step: make it regular linear regression. That means there's some additional&nbsp;<strong>error terms</strong> that cause our line to be imperfect. These error terms can be due to all sort of things, but typically are attributed to natural variation. For each point in time we take a measurement, we get an error term [latex]\epsilon_{t}[/latex]. Let's denote [latex]y_{t}[/latex] to be the value of [latex]y[/latex] at time [latex] t[/latex]. Then, with our error terms, the regression equation becomes&nbsp;
+
+[latex, display = true] y_{t} = mt + b + \epsilon_{t}[/latex]
+
+Traditional regression analysis typically uses the method of least squares to estimate [latex]m[/latex] and [latex]b[/latex], and assumes that the residuals [latex]\epsilon_{t}[/latex] are all just drawn randomly and independently from the same distribution (typically a normal distribution) with constant variance. That is, it's assumed that the [latex]\epsilon_{t}[/latex] are i.i.d. and don't form a&nbsp;<strong>random process&nbsp;</strong>that actually does depend on previous error terms.&nbsp;
+<h2>Time for the Twist</h2>
+So what happens when those error terms aren't exactly just being drawn randomly out of a hat? As I mentioned in the introduction, time is a bit tricky. We can't assume that the residuals at each point in time are actually truly independent of each other. In time series analysis, we replace that [latex]\epsilon_{t}[/latex] with a&nbsp;<strong>random process</strong> we'll call [latex]X_{t}[/latex]. That is, now we assume there is an actual order to the residuals, and there is some kind of process that governs them. A random process [latex]\{X_{t}, t \geq 0\}[/latex] is a sequence of random variables that may or may not be identically distributed, or even independent. To proceed further, we'll need to define a couple of things: the autocovariance function and the notion of stationarity[note]We have discussed the notion of stationarity in terms of the Poisson process before, but we'll go over it again here in this context.[/note].
+<h3>Autocovariance Function</h3>
+If we take a random process [latex]\{X_{t}\}[/latex], it's really just a collection of random variables with an ordering or indexing. Just like with regular random variables, we can calculate the <a href="https://en.wikipedia.org/wiki/Covariance">covariance</a> between them, measuring the joint variability. Here, we call it the&nbsp;<strong>auto covariance</strong> between two random variables in the time series, and the formula is defined exactly as regular covariance. We denote by [latex]\gamma_{X}[/latex] the auto covariance function of the random process [latex]\{X_{t}\}[/latex], and define it for two points in the sequence [latex]X_{r}, X_{s}[/latex] as&nbsp;
+
+[latex, display = true]\begin{aligned}\gamma_{X}(r,s) &amp;= \text{Cov}(X_{r}, X_{s})\\&amp;= E[(X_{r}-E[X_{r}])(X_{s}-E[X_{s}])]\\&amp;= E[X_{r}X_{s}]-E[X_{r}]E[X_{s}]\end{aligned}[/latex]
+
+where [latex]E[\cdot][/latex] is the expectation (or mean) of the random variable, and [latex]r,s[/latex] are indices. (See <a href="https://www.themathcitadel.com/uncorrelated-and-independent-related-but-not-equivalent/">this post</a> for an explanation of expectation.)
+<h3>Stationarity</h3>
+Stationarity is an important concept in the study of random processes, as its existence yields many mathematical properties we need to make inferences and forecasts later. It was important in discussing&nbsp;<a href="https://www.themathcitadel.com/poisson-processes-and-data-loss/">Poisson processes</a>, and also shows up again here. The definition of stationarity for time series looks a little different, but the meaning is inherently the same.
+
+<hr>
+
+<em><span style="text-decoration: underline;"><strong>Definition: Stationarity</strong></span></em>
+
+A time series [latex]\{X_{t}, t \in \mathbb{Z}\}[/latex] is said to be&nbsp;<strong>stationary&nbsp;</strong>if the following hold:
+
+(i) [latex]E[|X_{t}|^{2}] &lt; \infty[/latex] for all [latex]t[/latex]
+
+(ii)[latex]E[X_{t}] = m[/latex] for all [latex] t[/latex]
+
+(iii)[latex]\gamma_{X}(r,s) = \gamma_{x}(r+t, s+t)[/latex] for all [latex]r,s,t[/latex]
+
+<hr>
+
+We'll pick apart each piece of the definition to understand the notion of stationarity. The first part just ensures we have a finite variance for all points in time. We prefer not to deal with infinity. The second part means that all variables in the random process must have the same mean. If the mean varies with time, it's not a stationary process.&nbsp;
+
+Finally, the third requirement of the definition may be views this way. Two random variables in the sequence [latex]X_{r}[/latex] and [latex]X_{s}[/latex] that are [latex]r-s[/latex] apart[note]WLOG (without loss of generality), we can assume r &gt; s.[/note]have a certain autocovariance. If we shift both variables by the same amount in time [latex]t[/latex], then those two new random variables [latex]X_{r+t}[/latex] and [latex]X_{s+t}[/latex] should have the same autocovariance as the first pair [latex]X_{s}, X_{t}[/latex]. That is, in a stationary process, the autocovariance only depends on the distance apart the variables are in the sequence, not on their location in time.&nbsp;
+
+This means we can actually write the autocovariance function of a stationary process in a special way, one that only shows the distance between the current point [latex]X_{t}[/latex] and some&nbsp;<strong>lag&nbsp;</strong>[latex]X_{t+h}[/latex]:
+
+[latex, display = true]\gamma_{X}(h) = \gamma_{x}(h,0) = \text{Cov}(X_{t+h}, X_{t})[/latex]
+
+for all [latex]t,h[/latex].&nbsp;
+
+Let's test an example of a random process for stationarity. If a random process is indeed stationary, than all parts of the definition should be satisfied, in particular that [latex]\gamma_{X}(h)[/latex] does not have any dependence on [latex]t[/latex] - only on [latex]h[/latex].
+
+<hr>
+
+<strong>Example:&nbsp;</strong>Let's assume [latex]A[/latex] and [latex]B[/latex] are two uncorrelated random variables. (That is, [latex]\text{Cov}(A,B) = 0[/latex]). Assume the mean of both [latex]A[/latex] and [latex]B[/latex] is 0 ([latex]E[A] = E[B] = 0[/latex]), and the variance of [latex]A[/latex] and [latex]B[/latex] is 1. ([latex]\text{Var}[A] = \text{Var}[B] = 1[/latex]). Suppose the angle [latex]\theta \in [-\pi, \pi][/latex], and the random process is given by [latex]X_{t} = A\cos(\theta t) + B\sin(\theta t)[/latex]. Is [latex]\{X_{t}\}[/latex] stationary?
+
+First, note that [latex]A[/latex] and [latex]B[/latex] are the only random variables here. The mean of both is 0, and both cosine and sin stay between [latex]\pm 1[/latex], so we will definitely have part (i) of our definition. Next, we have to make sure the mean is the same for all [latex]X_{t}[/latex]:
+
+[latex, display = true]\begin{aligned}E[X_{t}] &amp;= E[A\cos(\theta t) + B\sin(\theta t)]\end{aligned}[/latex]
+
+Now, [latex]\cos(\theta t)[/latex] and [latex]\sin(\theta t)[/latex] aren't random at all, so the expectation of them is just...well...them. We also know that the expectation is a linear operator[note]If you don't know what this is, don't worry. It just means that the expectation of a sum of stuff equals the sum of the expectations of the individual stuffs.[/note], so
+
+[latex, display = true]\begin{aligned}E[X_{t}] &amp;= E[A\cos(\theta t) + B\sin(\theta t)]\\&amp;= E[A]\cos(\theta t) + E[B]\sin(\theta t)\\&amp;= 0 + 0\end{aligned}[/latex]
+
+because&nbsp;[latex]E[A] = E[B] = 0[/latex]. Good, part (ii) is satisfied.&nbsp;
+
+Finally, we have to see if [latex]\gamma_{X}(h)[/latex] has any [latex]t[/latex] in it:
+
+[latex, display = true]\begin{aligned}\gamma_{X}(h) &amp;= \text{Cov}(X_{t+h},X_{t})\\&amp;=\text{Cov}[A\cos(\theta (t+h)) + B\sin(\theta(t+h)), A\cos(\theta t) + B\sin(\theta t)]\end{aligned}[/latex]
+
+OK, stick with me. We're going to use the fact that [latex]\text{Cov}(u+v, w+z) =\text{Cov}(u,w) +\text{Cov}(u,z) +\text{Cov}(v,w) +\text{Cov}(v,z)[/latex]. Now,
+
+[latex, display = true]\begin{aligned}\gamma_{X}(h) &amp;= \text{Cov}(X_{t+h},X_{t})\\&amp;=\text{Cov}[A\cos(\theta (t+h))+B\sin(\theta(t+h)), A\cos(\theta t)+B\sin(\theta t)]\\&amp;=\text{Cov}(A\cos(\theta(t+h)),A\cos(\theta t))+\text{Cov}(A\cos(\theta(t+h)),B\sin(\theta t))\\&amp;\qquad+\text{Cov}(B\sin(\theta(t+h)),A\cos(\theta t))+\text{Cov}(B\sin(\theta(t+h)),B\sin(\theta t))\end{aligned}[/latex]
+
+Now, remember that the cosines and sines aren't random. That means they are just constants in terms of the covariance, so we can pull them out, multiplying them together. That is,
+
+[latex, display = true]\text{Cov}(A\cos(\theta(t+h)), A\cos(\theta t)) = \cos(\theta(t+h))\cos(\theta t)\text{Cov}(A,A)[/latex]
+
+for the first term. We do the same with the other three terms:
+
+[latex, display = true]\begin{aligned}\gamma_{X}(h) &amp;=\text{Cov}(X_{t+h},X_{t})\\&amp;=\text{Cov}[A\cos(\theta (t+h)) + B\sin(\theta(t+h)), A\cos(\theta t)+B\sin(\theta t)]\\&amp;=\text{Cov}(A\cos(\theta(t+h)),A\cos(\theta t))+\text{Cov}(A\cos(\theta(t+h)),B\sin(\theta t))\\&amp;\qquad+\text{Cov}(B\sin(\theta(t+h)),A\cos(\theta t))+\text{Cov}(B\sin(\theta(t+h)),B\sin(\theta t))\\&amp;=\cos(\theta(t+h))\cos(\theta t)\text{Cov}(A,A)+\cos(\theta(t+h))\sin(\theta t)\text{Cov}(A,B)\\&amp;\qquad+\sin(\theta(t+h))\cos(\theta t)\text{Cov}(B,A)+\sin(\theta(t+h))\sin(\theta t)\text{Cov}(B,B)\end{aligned}[/latex]
+
+Now, we already know that [latex]\text{Cov}(A,B) = \text{Cov}(B,A) = 0[/latex], and [latex]\text{Cov}(A,A) = \text{Var}(A) = 1 = \text{Var}(B) = \text{Cov}(B,B)[/latex]. Then we get
+
+[latex, display = true]\begin{aligned}\gamma_{X}(h) &amp;=\text{Cov}(X_{t+h},X_{t})\\&amp;=\text{Cov}[A\cos(\theta (t+h))+B\sin(\theta(t+h)), A\cos(\theta t)+B\sin(\theta t)]\\&amp;=\text{Cov}(A\cos(\theta(t+h)),A\cos(\theta t))+\text{Cov}(A\cos(\theta(t+h)),B\sin(\theta t))\\&amp;\qquad+\text{Cov}(B\sin(\theta(t+h)),A\cos(\theta t))+\text{Cov}(B\sin(\theta(t+h)),B\sin(\theta t))\\&amp;=\cos(\theta(t+h))\cos(\theta t)\text{Cov}(A,A)+\cos(\theta(t+h))\sin(\theta t)\text{Cov}(A,B)\\&amp;\qquad+\sin(\theta(t+h))\cos(\theta t)\text{Cov}(B,A)+\sin(\theta(t+h))\sin(\theta t)\text{Cov}(A,A)\\&amp;=\cos(\theta (t+h))\cos(\theta t)+\sin(\theta(t+h))\sin(\theta t)\end{aligned}[/latex]
+
+Finally, we can recognize a <a href="http://www.sosmath.com/trig/Trig5/trig5/trig5.html">trigonometric identity</a>[note]All math is connected somehow. You never know when this shows up.[/note]: [latex]\cos(u-v) = \cos(u)\cos(v)+\sin(u)\sin(v)[/latex], where [latex]u = \theta t[/latex] and [latex]v = \theta(t+h)[/latex]. Then we end with
+
+[latex, display = true]\begin{aligned}\gamma_{X}(h) &amp;=\text{Cov}(X_{t+h},X_{t})\\&amp;=\text{Cov}[A\cos(\theta (t+h))+B\sin(\theta(t+h)), A\cos(\theta t)+B\sin(\theta t)]\\&amp;=\text{Cov}(A\cos(\theta(t+h)),A\cos(\theta t))+\text{Cov}(A\cos(\theta(t+h)),B\sin(\theta t))\\&amp;\qquad+\text{Cov}(B\sin(\theta(t+h)),A\cos(\theta t))+\text{Cov}(B\sin(\theta(t+h)),B\sin(\theta t))\\&amp;=\cos(\theta(t+h))\cos(\theta t)\text{Cov}(A,A)+\cos(\theta(t+h))\sin(\theta t)\text{Cov}(A,B)\\&amp;\qquad+\sin(\theta(t+h))\cos(\theta t)\text{Cov}(B,A)+\sin(\theta(t+h))\sin(\theta t)\text{Cov}(A,A)\\&amp;=\cos(\theta (t+h))\cos(\theta t)+\sin(\theta(t+h))\sin(\theta t)\\&amp;=\cos(\theta t-\theta(t+h)\\&amp;=\cos(-\theta h)\\&amp;=\cos(\theta h)\end{aligned}[/latex]
+
+because cosine is an <a href="https://en.wikipedia.org/wiki/Even_and_odd_functions">even function</a>. Notice that the autocovariance function doesn't depend on [latex]t[/latex] so our process is indeed stationary.
+
+<hr>
+
+<h2>Conclusion</h2>
+Now that we understand some terminology we'll need later, we can go to the most high-level definition of a time series. A time series [latex]\{Y_{t}, t \geq 0\}[/latex] is a random process given by the classical decomposition&nbsp;
+
+[latex, display = true]Y_{t} = m_{t} + s_{t} + X_{t}[/latex]
+
+where [latex]m_{t}[/latex] is called the&nbsp;<strong>trend component</strong> (like our line [latex]y = mt + b[/latex]), [latex]s_{t}[/latex] is called the&nbsp;<strong>seasonal component</strong>[note] We didn't discuss this bit in this article. This is just another function that has a seasonal period. It's typically used when we have to account for something like sales peaking at the beginning of a month, as an example[/note], and [latex]X_{t}[/latex] is a&nbsp;<strong>stationary process.&nbsp;</strong>
+
+There is one particular type of stationary process that we can study, called the&nbsp;ARIMA (<strong>A</strong>uto-<strong>R</strong>egressive <strong>I</strong>ntegrated <strong>M</strong>oving <strong>A</strong>verage) process. After removing the trend and seasonal components, we must still estimate [latex]X_{t}[/latex] and get some sort of equation for it (as it's no longer guaranteed to just be from a set of i.i.d. normal random variables). The next articles in this series will take a deeper dive into ARIMA modeling.
+
+Times series analysis can get quite mathematically heavy. However, it is important to at least have a working familiarity with the mathematics behind these models. The easier the implementation, the greater the danger in misuse, because a practitioner (and even some instructors) aren't required to understand the mathematical nuances that can pepper something as complicated as time series.&nbsp;
+<a href="http://creativecommons.org/licenses/by-nc-nd/4.0/" rel="license"><img style="border-width: 0;" src="https://i.creativecommons.org/l/by-nc-nd/4.0/88x31.png" alt="Creative Commons License"></a>
+This work is licensed under a <a href="http://creativecommons.org/licenses/by-nc-nd/4.0/" rel="license">Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License</a>.		
+		
+						
+		1392
+		2017-11-08 15:49:07
+		2017-11-08 15:49:07
+		open
+		open
+		time-series-analysis-part-1-regression-with-a-twist
+		publish
+		0
+		0
+		post
+		
+		0
+										Spines
+		Statistics
+		statistics
+		times series
+						
+		_da_attachments
+		a:0:{}
+		
+							
+		_edit_last
+		2
+		
+							
+		_wp_page_template
+		default
+		
+							
+		_acp_button_style
+		1
+		
+							
+		_acp_loading_type
+		1
+		
+							
+			219
+			An Engineer
+			nick.traylor@gmail.com
+			
+			73.158.103.116
+			2017-11-09 01:01:47
+			2017-11-09 01:01:47
+			Great example! Thanks for breaking it down step by step.
+			1
+			
+			0
+			0
+						
+	akismet_history
+			a:3:{s:4:"time";d:1537552406.9204299449920654296875;s:5:"event";s:11:"report-spam";s:4:"user";s:13:"jasonhathcock";}
+			
+						
+	akismet_user_result
+			false
+			
+						
+	akismet_user
+			jasonhathcock
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1537553459.7243320941925048828125;s:5:"event";s:10:"report-ham";s:4:"user";s:13:"jasonhathcock";}
+			
+							
+					
+			14194
+			Vida Litten
+			Crowdis27721@gmail.com
+			https://www.cnn.com
+			209.107.196.63
+			2019-03-08 06:34:17
+			2019-03-08 06:34:17
+			piller Engelsk, <a href="http://www.donaldneff.com/blog/apotek/menova" rel="nofollow">http://www.donaldneff.com/blog/apotek/menova</a> , uten resept Danmark.
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1552026857
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552026857.475862026214599609375;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			67a2c7e388a13483ff68444e6bb468b9
+			
+							
+					
+			14854
+			Kieth Burg
+			Merrithew30310@gmail.com
+			http://earllovesyou.com
+			81.171.75.56
+			2019-03-10 18:12:03
+			2019-03-10 18:12:03
+			<a href="http://sildenafilbest.us.com/" rel="nofollow">sildenafil 100 mg</a>
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1552241523
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552241523.941277027130126953125;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+							
+					
+			16211
+			Brooke Segalla
+			Whisnant4247@gmail.com
+			http:/suckafatonehomo.com
+			81.171.58.88
+			2019-03-15 23:15:31
+			2019-03-15 23:15:31
+			Hey There. I found your blog the use of msn. That is a very neatly written article.I will be sure to bookmark it and return to read extra of your useful information. Thanks forthe post. I will certainly return.
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1552691731
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552691731.4343929290771484375;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			678dfb3e18305245dd8624d48af5ee66
+			
+							
+					
+			16325
+			Dewey Vahle
+			Rehor67542@gmail.com
+			http://suckafatonehomo.com
+			81.171.74.111
+			2019-03-16 05:09:11
+			2019-03-16 05:09:11
+			I went over this site and I conceive you have a lot of superb info, saved to bookmarks (:. <a href="https://www.24hourwristbands.ca" rel="nofollow">https://www.24hourwristbands.ca</a>
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1552712951
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552712951.138597011566162109375;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+							
+					
+			17012
+			Buford Maxcy
+			Acebedo17898@gmail.com
+			https://www.youcrazy.com/
+			81.171.97.132
+			2019-03-18 19:56:25
+			2019-03-18 19:56:25
+			Aw, this was a really good post. Finding the time and actual effortto make a very good article… but what can I say… I put things offa whole lot and never seem to get nearly anything done.
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1552938985
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552938985.625792026519775390625;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			10419dc05b3c103cc5f1ed9a9a395606
+			
+							
+					
+			17640
+			Joaquina Burttram
+			Lukin65400@gmail.com
+			https://www.lickmyballs.com
+			209.107.216.65
+			2019-03-21 00:05:29
+			2019-03-21 00:05:29
+			Say, you got a nice blog post.Thanks Again.
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1553126729
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1553126729.0764219760894775390625;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			0eb73e66a1eccf4c7d489694c342f90a
+			
+							
+					
+			17653
+			Stewart Poeschel
+			Forrest17706@gmail.com
+			https://www.lickmyballs.com
+			81.171.81.231
+			2019-03-21 01:10:27
+			2019-03-21 01:10:27
+			This post is actually a good one it assists newinternet users, who are wishing for blogging.
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1553130627
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1553130627.362411975860595703125;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			4d6ffd72d3df98535daf01d5a7280c79
+			
+							
+					
+			22288
+			ipfan.info
+			ipfhaf@gmail.com
+			http://es.ipfan.info/category/apple%20tv/
+			178.63.195.3
+			2019-04-04 13:34:58
+			2019-04-04 13:34:58
+			In survival analysis, there is an assumption of homogeneity of treatment and other factors during the follow-up period. However, in a long-term observational study of patients of cancer, the case mix may change over the period of recruitment, or there may be an innovation in ancillary treatment. The KM method assumes that the survival probabilities are the same for subjects recruited early and late in the study. On average, subjects with longer survival times would have been diagnosed before those with shorter times, and changes in treatments, earlier diagnosis or some other change over time may lead to spurious results. The assumption may be tested, provided we have enough data to estimate survival probabilities in different subsets of the data and, if necessary, adjusted for by further analyses (see next section).
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1554384898
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1554384898.2902901172637939453125;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			e85b96acfb3ee1036545be25260fc2ff
+			
+							
+					
+			23795
+			Austepils
+			austdut@wmaill.website
+			http://sildenaf75mg.com
+			31.184.238.129
+			2019-04-08 11:05:48
+			2019-04-08 11:05:48
+			Acheter Viagra France Propecia Shed Generic  <a href="http://sildenaf75mg.com" rel="nofollow">viagra</a> Acquistare Consegna Kamagra 24h
+			0
+			
+			0
+			0
+						
+	akismet_error
+			1554721548
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1554721548.54385089874267578125;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+							
+					

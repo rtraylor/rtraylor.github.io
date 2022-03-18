@@ -1,0 +1,757 @@
+
+		
+				Welcome to GF(4)		
+		https://www.themathcitadel.com/welcome-to-gf4/
+		Sun, 26 Nov 2017 19:54:49 +0000
+		admin
+		http://www.themathcitadel.com/?p=1595
+		
+		
+				Everyone has solved some version of a linear system in either high school or college mathematics. If you've been keeping up with some of my other posts on algebra, you know that I'm about to either take something familiar away, or twist it into a different form. This time is no different; we're going to change the field we operate over, and solve a basic linear system in a Galois field called GF(4).<!--more-->
+<h2>Linear Systems</h2>
+Let's start with an example of a regular, simple linear system in two variables:
+
+[latex, display = true] \begin{aligned}2x+y&amp;=3\\x+2y&amp;=3\end{aligned}[/latex]
+
+The goal here is to figure out all the possible [latex](x,y)[/latex] pairs that satisfy both of these equations at the same time. Both high school and college algebra teach several different methods to solve these types of equations. We can use substitution-- solving perhaps the top equation for [latex]y[/latex] to express [latex]y[/latex] in terms of [latex]x[/latex], then substituting that expressing in the second equation to get an equation with all [latex]x[/latex]. From there, we know how to solve for [latex]x[/latex]. When we get a numeric answer, we can plug it back into our expression for [latex]y[/latex] and get our full solution.
+
+Let's solve the above system this way just to refresh. First, solve the top equation for [latex]y[/latex]
+
+[latex, display = true]y = 3-2x[/latex]
+
+Great. Now substitute the right-hand side of this equation wherever we see [latex]y[/latex] in the second equation:
+
+[latex, display = true]x + 2(3-2x) = 3[/latex]
+
+Now, solve this equation for [latex]x[/latex] to get [latex]x=1[/latex]. Substitute this back and get [latex]y = 3-2 = 1[/latex].&nbsp;
+<h3>Matrix form - a different way to express</h3>
+We can actually express this equation in&nbsp;<strong>matrix form.&nbsp;</strong>This will look like [latex]A\mathbf{x} = \mathbf{v}[/latex], where [latex]\mathbf{x}[/latex] and [latex]\mathbf{v}[/latex] are vectors. The coefficients of the system of equations form the matrix [latex]A[/latex]. The variables we want to solve for are the vector [latex]\mathbf{x}[/latex], and the vector [latex]\mathbf{v}[/latex] represents the right hand sides of the equations. Our system in matrix form is&nbsp;
+
+[latex, display = true]\begin{bmatrix}2&amp;1\\1&amp;2\end{bmatrix}\begin{bmatrix}x\\y\end{bmatrix} = \begin{bmatrix}3\\3\end{bmatrix}[/latex]
+
+Multiplying the left-hand side out will return the original form we saw earlier. This is simply a different way to express the same system of equations. We typically like to use matrix form because arithmetic and algebra on matrices yields many useful properties and methods for solving systems much larger than our example here.[note]I doubt anyone wants to solve a linear system in 100 variables by substitution, for example.[/note]
+<h2>Solving linear systems in matrix form</h2>
+There are several different methods for solving linear systems once we have them in matrix form. Linear algebra courses will discuss a technique called&nbsp;<em>row reduction</em>, which is incredibly useful. We won't discuss that one in this post. We're going to use a really handy rule called&nbsp;<a href="https://en.wikipedia.org/wiki/Cramer%27s_rule"><strong>Cramer's rule</strong></a>. Basically, if we take a linear system with as many equations as we have variables, and a unique solution exists[note]A linear system may have one of three possible options: no solution, one solution, or infinitely many solutions. Because this isn't really a post on linear algebra per se, we're going to safely assume that anything I throw at you in this post will have a unique solution.[/note], then we actually have an explicit formula that gives us the numerical answer for each variable in our system. We'll quickly discuss how to compute a determinant of a [latex]2\times 2[/latex] matrix so we can use Cramer's rule.[note]Matrix theory and determinants deserve their own study for sure. The point of this post isn't really to dive into those. Right now, determinants are just computational tools for us. It's ok to just use a tool and get used to it before we dive into how it works.[/note]
+<h3>Computing a [latex]2\times 2[/latex] determinant</h3>
+The entries of a matrix [latex]A[/latex] are written as [latex]a_{ij}[/latex], where [latex]i[/latex] tells you the row it's in, and [latex]j[/latex] tells you the column. A general [latex]2\times 2[/latex] matrix looks like this:
+
+[latex, display = true]A = \begin{bmatrix}a_{11} &amp; a_{12}\\a_{21}&amp;a_{22}\end{bmatrix}[/latex]
+
+The&nbsp;<strong>determinant&nbsp;</strong> of a [latex]2\times 2[/latex] matrix is a number, and is calculated as[note]The theory of exactly what a determinant is and does can get quite deep and require a bit of legwork to get there. I'm sidestepping it on purpose, because it's not illustrative for this post.[/note]
+
+[latex]\text{det}(A) = a_{11}\cdot a_{22} - a_{12}\cdot a_{21}[/latex]
+
+Back to our linear system, [latex]\text{det}(A) = 2\cdot 2 - 1\cdot 1 = 4-1=3[/latex].
+<h3>Back to Cramer's rule</h3>
+Now, the two variables we need to solve for are [latex]x[/latex] and [latex]y[/latex]. We put them in that order for a reason. The right-hand side was given as the vector [latex]\mathbb{v} =\begin{bmatrix}3\\3\end{bmatrix}[/latex]. We're going to substitute this column in to either the first or second column of [latex]A[/latex] when we're computing the answer for [latex]x[/latex] and [latex]y[/latex], respectively.&nbsp;
+
+Let's say we're focusing on [latex]x[/latex], the first variable. Put that [latex]\mathbb{v}[/latex] where the first column of [latex]A[/latex] was. Then we'll get a new matrix&nbsp;
+
+[latex, display = true]A_{x} = \begin{bmatrix}3 &amp; 1\\ 3 &amp; 2\end{bmatrix}[/latex]
+
+Let's do the same for [latex]y[/latex], only this time we'll put [latex]\mathbb{v}[/latex] in for the 2nd column, since it's our 2nd variable.&nbsp;
+
+[latex, display = true]A_{y} = \begin{bmatrix}2 &amp; 3\\1&amp;3\end{bmatrix}[/latex]
+
+Now, Cramer's rule tells us that&nbsp;
+
+[latex, display = true]x = \text{det}(A)^{-1}\cdot\text{det}(A_{x}) \text{ and } y =\text{det}(A)^{-1}\cdot\text{det}(A_{y})[/latex]
+
+Nice and easy. We already know how to compute the determinant of a [latex]2\times 2[/latex] matrix, so we're basically done. Now, I used very particular notation. I wrote [latex]\text{det}(A)^{-1}[/latex] instead of [latex]\frac{1}{\text{det}(A)}[/latex] on purpose. I wanted to indicate that it is the <a href="https://www.themathcitadel.com/taking-things-for-granted-elementary-properties-of-groups/">multiplicative inverse</a> of the number that is [latex]\text{det}(A)[/latex]. We have to be careful when discussing multiplication and division, because division as an operation doesn't always exist. This will be important when I twist around addition and multiplication soon.&nbsp;
+
+Using our newfound Cramer's rule, we can solve our equation this way. The multiplicative inverse of 3 is the fraction 1/3, because multiplying these two together gives us 1, the multiplicative identity of the real numbers.
+
+[latex, display = true]x = \frac{1}{3}\cdot \text{det}(A_{x}) = \frac{1}{3}\cdot 3 = 1[/latex]
+
+[latex, display = true]y = \frac{1}{3}\cdot\text{det}(A_{y}) = \frac{1}{3}\cdot 3 = 1[/latex]
+
+And we have our answer again, just obtained in a different way.&nbsp;
+<h2>GF(4): our first sighting of a Galois field</h2>
+We've seen <a href="https://www.themathcitadel.com/concatenation-as-an-operation/">groups</a> before in <a href="https://www.themathcitadel.com/group-theory-xor-and-binary-codes-introducing-coding-theory/">several</a> <a href="https://www.themathcitadel.com/theory-of-coding-episode-2-maximum-likelihood-decoding/">posts</a>. We know that a group is a set of things combined with an operation that satisfies certain <a href="https://www.themathcitadel.com/like-clockwork-modulo-addition-and-finite-groups-of-integers/">properties</a>. I'm no longer satisfied with having just one operation on a set anymore. I want two operations - I want addition&nbsp;<em>and</em> multiplication.[note]Addition and multiplication are just the things we're going to name our two operations. They don't have to mean exactly the same thing as addition and multiplication on real numbers, as we'll see shortly.[/note] Now, we'll call these two operations [latex]+[/latex] and [latex]\cdot[/latex]. I'm going to jump ahead a bit of building groups into rings then fields and just go ahead and define a field:
+
+<hr>
+
+A&nbsp;<strong>field</strong> is a set [latex]F[/latex] together with two operations [latex]+[/latex] and [latex]\cdot[/latex] that satisfy the following properties:
+
+(1) [latex](F,+)[/latex] is an abelian group.[note]A group where a+b = b+a[/note]
+
+(2) [latex]F[/latex] is closed under multiplication.[note]The product of two elements doesn't leave the set F[/note]
+
+(3) The nonzero[note]0 is the identity element for the operation +[/note] elements of [latex]F[/latex] form an abelian group under [latex]\cdot[/latex]
+
+(4) We get the distributive law: [latex](a+b)\cdot c = (a\cdot c) + (b\cdot c)[/latex]
+
+<hr>
+
+We just added an operation and some requirements to make sure nothing too weird happens. We can create addition and multiplication tables just like we did here. We're going to take a look at an example of a very specific field called a&nbsp;<strong>Galois field.&nbsp;</strong>This is simply a finite field with [latex]q[/latex] elements, if it exists.[note]Fun fact: Galois fields only exist if the number of elements is a prime or a power of a prime. So there is no Galois field with 6 elements.[/note] We denote a Galois field with [latex]q[/latex] elements [latex]\text{GF}(q)[/latex].&nbsp;
+
+The field [latex]\text{GF}(4)[/latex] has addition and multiplication tables that look like this.[note]Right now, just work with them as given. There is a way to generate the arithmetic over Galois fields in general, but we'll begin tackling that in later posts. We just want to get used to the idea that numbers don't add and multiply the same way anymore. They're just symbols now. 2+3 in GF(4) doesn't have a tactile interpretation like "2 things and three more things".[/note]
+
+[latex, display = true]\begin{array}{l|rrrr}\textcolor{#893B2F}{+}&amp;\textcolor{#893B2F}{0}&amp;\textcolor{#893B2F}{1}&amp;\textcolor{#893B2F}{2}&amp;\textcolor{#893B2F}{3}\\\textcolor{#893B2F}{0}&amp;0&amp;1&amp;2&amp;3\\\textcolor{#893B2F}{1}&amp;1&amp;0&amp;3&amp;2\\\textcolor{#893B2F}{2}&amp;2&amp;3&amp;0&amp;1\\\textcolor{#893B2F}{3}&amp;3&amp;2&amp;1&amp;0\end{array}\qquad\begin{array}{l|rrrr}\textcolor{#893B2F}{\cdot}&amp;\textcolor{#893B2F}{0}&amp;\textcolor{#893B2F}{1}&amp;\textcolor{#893B2F}{2}&amp;\textcolor{#893B2F}{3}\\\textcolor{#893B2F}{0}&amp;0&amp;0&amp;0&amp;0\\\textcolor{#893B2F}{1}&amp;0&amp;1&amp;2&amp;3\\\textcolor{#893B2F}{2}&amp;0&amp;2&amp;3&amp;1\\\textcolor{#893B2F}{3}&amp;0&amp;3&amp;1&amp;2\end{array}[/latex]
+
+Let's note that the additive identity is indeed the "number" 0.[note]When you add it to anything, you get that anything back.[/note] The multiplicative identity is the "number" 1.[note]Again, multiplying it by anything gives the anything back.[/note] Now, spend some time getting comfortable with this table and let's answer a few questions:
+<h3>(1) What's the additive inverse of each element?</h3>
+For each of 0, 1, 2, and 3, which element returns the additive identity 0 when we add it to 0, 1, 2, and 3?
+<ul>
+ 	<li>0 is clearly its own additive inverse. 0+0 = 0</li>
+ 	<li>For 1, which element added to 1 returns 0? Looking at the addition table, we see that 1+1 = 0. Thus, 1 is its own additive inverse. Another way to write it is that -1 = 1, where [latex]-x[/latex] denotes the additive inverse of the element [latex]x[/latex] and&nbsp;<strong>not</strong> the number [latex]-1[/latex] multiplied by [latex]x[/latex]</li>
+ 	<li>Continuing this exercise, we find that each element of GF(4) is its own additive inverse.</li>
+</ul>
+<h3>(2) What's the multiplicative inverse of each element?</h3>
+We'll repeat the same exercise as in (1), except using the multiplication table. The multiplicative identity is 1, so to find the multiplicative inverse of each element [latex]x[/latex], we find another element [latex]y[/latex] such that [latex]x\cdot y = y\cdot x = 1[/latex]. We can read this off our nice multiplication table:
+<ul>
+ 	<li>0 has no multiplicative inverse. Uh oh! Is GF(4) broken? No. Recall part (3) of the field definition above. The elements&nbsp;<em>excluding&nbsp;</em>0 must form an abelian group under multiplication. That means it's totally ok for 0 times everything to return 0, and for 0 to have no multiplicative inverse.[note]We did this on purpose. If we didn't have this definition, the real numbers wouldn't be a field either. When generalizing mathematics, we don't want to break what we already have.[/note]</li>
+ 	<li>1 is its own multiplicative inverse. Makes sense. It's the multiplicative identity.</li>
+ 	<li>The multiplicative inverse of 2 is 3 from the table, so the multiplicative inverse of 3 is 2. [latex]2\cdot 3 = 3\cdot 2 = 1[/latex].</li>
+</ul>
+This is fine. We're defining it this way, and we are allowed to do that, provided anything we define fits the definition of a field. We aren't in the real numbers anymore, friends. The symbols look like real numbers, but they no longer act like real numbers. When we are in GF(4), this is how these numbers behave under addition and multiplication as we define it for GF(4).&nbsp;
+<h2>Solving our earlier system, but now in GF(4)</h2>
+Let's return to our earlier system of equations that we solved using Cramer's rule. The equations look the same, but will we get the same solution if we solve it over GF(4), with our new addition and multiplication tables?
+
+Here's our equation again in matrix form.
+
+[latex, display = true]\begin{bmatrix}2&amp;1\\1&amp;2\end{bmatrix}\begin{bmatrix}x\\y\end{bmatrix} = \begin{bmatrix}3\\3\end{bmatrix}[/latex]
+
+[latex]A_{x}[/latex] and [latex]A_{y}[/latex] are also the same.&nbsp;
+
+[latex, display = true]A_{x}=\begin{bmatrix}3&amp;1\\3&amp;2\end{bmatrix}~\qquad~A_{y}=\begin{bmatrix}2&amp;3\\1&amp;3\end{bmatrix}[/latex]
+
+To apply Cramer's rule, we need the determinant of [latex]A[/latex], [latex]A_{x}[/latex], and [latex]A_{y}[/latex]&nbsp;<em>under the rules of arithmetic in GF(4).</em> The method of computing a [latex]2\times 2[/latex] determinant has not changed, but our answers will.
+<h3>Compute [latex]\text{det}(A)[/latex],&nbsp;[latex]\text{det}(A_{x})[/latex], and&nbsp;[latex]\text{det}(A_{y})[/latex]</h3>
+[latex, display = true]\text{det}(A)=2\cdot 2-1\cdot 1[/latex]
+
+Be careful here, and let's use our addition and multiplication tables for reference. [latex]2\cdot 2 = 3[/latex] now, and [latex]1\cdot 1 = 1[/latex]. So
+
+[latex, display = true]\text{det}(A)=2\cdot 2-1\cdot 1=3-1[/latex]
+
+We need to read carefully again here too. [latex]a-b[/latex] in abstract algebra is [latex]a[/latex] plus the&nbsp;<em>additive inverse&nbsp;</em>of [latex]b[/latex], which isn't the number [latex]-a[/latex] here. Remember, in GF(4) we only get 4 elements: 0, 1, 2, and 3. No negative numbers here. They don't exist. Check above to note that the additive inverse of 1 is 1, so
+
+[latex, display = true]\text{det}(A)=2\cdot 2-1\cdot 1=3-1=3+1=2[/latex]
+
+where 3+1 can be read from the addition table for GF(4).&nbsp;
+
+Pause. Let that sink in. We've twisted arithmetic a bit from what you're used to with real numbers. There were some properties you took for granted, like the existence of negative numbers. The only tools we have are those two group tables above. That tells us everything we need to know to do arithmetic over GF(4).&nbsp;
+
+Let's do this again and find the determinants of [latex]A_{x}[/latex] and [latex]A_{y}[/latex], respectively in the same way we did [latex]\text{det}(A)[/latex]
+
+[latex, display = true]\text{det}(A_{x})=3\cdot 2-3\cdot 1=1-3=1+3=2[/latex]
+
+(Remember that [latex]1-3[/latex] is [latex]1[/latex] plus the additive inverse of [latex]3[/latex], which is [latex]3[/latex], so [latex]1-3=1+3[/latex])
+
+[latex, display = true]\text{det}(A_{y})=2\cdot 3-3\cdot 1=1-3=1+3=2[/latex]
+
+Again, remember that [latex]1-3[/latex] is [latex]1[/latex] plus the additive inverse of [latex]3[/latex]. [latex]3[/latex] is its own additive inverse, so [latex]1-3=1+3=2[/latex].
+<h3>Find the solution</h3>
+We're almost done; we have all the pieces. Cramer's rule tells us that&nbsp;
+
+[latex, display = true]x=\text{det}(A)^{-1}\cdot\text{det}(A_{x})\text{ and }y =\text{det}(A)^{-1}\cdot\text{det}(A_{y})[/latex]
+
+See, there was a reason I wrote it the way I did. There are no fractions in GF(4); fractions are the multiplicative inverses of real numbers. I wrote it in the more general way so we could see that. The multiplicative inverse of [latex]\text{det}(A)=2[/latex] can be read off the multiplication table for GF(4): [latex]\text{det}(A)^{-1}=3[/latex], because [latex]2\cdot 3[/latex] gives us the multiplicative identity [latex]1[/latex].&nbsp;
+
+Finally then, we're down to simple multiplication to get our new solutions in GF(4):
+
+[latex, display = true]x=\text{det}(A)^{-1}\cdot\text{det}(A_{x})=3\cdot 2=1[/latex]
+
+[latex, display = true]y=\text{det}(A)^{-1}\cdot\text{det}(A_{y})=3\cdot 2=1[/latex]
+<h2>Conclusion</h2>
+Notice that this solution is the same as when we lived in our comfortable world of real numbers, but this is a total coincidence. The equations were the same, the numbers involved were the same, but we changed what addition and multiplication did by moving to a new field called GF(4). The purpose of this exercise was to get used to the idea of arithmetic in a new space, and to see what an example of a Galois field looks like. Explaining how to generate these Galois fields in general and defining their addition and multiplication tables&nbsp;will get a bit involved; we'll tackle these soon. For now, it's important just to let go of our tightly held arithmetic notions that are really special properties of real numbers. Systems of equations can yield different solutions when we move to a new world.&nbsp;
+
+&nbsp;
+
+<a href="http://creativecommons.org/licenses/by-nc-nd/4.0/" rel="license"><img style="border-width: 0;" src="https://i.creativecommons.org/l/by-nc-nd/4.0/88x31.png" alt="Creative Commons License"></a>
+This work is licensed under a <a href="http://creativecommons.org/licenses/by-nc-nd/4.0/" rel="license">Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License</a>
+
+&nbsp;		
+		
+						
+		1595
+		2017-11-26 19:54:49
+		2017-11-26 19:54:49
+		open
+		open
+		welcome-to-gf4
+		publish
+		0
+		0
+		post
+		
+		0
+										Algebra
+		Spines
+						
+		_da_attachments
+		a:0:{}
+		
+							
+		_edit_last
+		2
+		
+							
+		_wp_page_template
+		default
+		
+							
+		_acp_button_style
+		1
+		
+							
+		_acp_loading_type
+		1
+		
+							
+			273
+			An Engineer
+			nick.traylor@gmail.com
+			
+			73.158.103.116
+			2017-11-29 03:16:26
+			2017-11-29 03:16:26
+			Really great post. Illuminating and clear.
+			1
+			
+			0
+			0
+						
+	akismet_history
+			a:3:{s:4:"time";d:1537552405.1581809520721435546875;s:5:"event";s:11:"report-spam";s:4:"user";s:13:"jasonhathcock";}
+			
+						
+	akismet_user_result
+			false
+			
+						
+	akismet_user
+			jasonhathcock
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1537553456.962316989898681640625;s:5:"event";s:10:"report-ham";s:4:"user";s:13:"jasonhathcock";}
+			
+							
+					
+			458
+			All the Same Opposites &#8211; The Math Citadel
+			
+			http://www.themathcitadel.com/2018/01/30/all-the-same-opposites/
+			66.226.74.70
+			2018-01-30 14:07:55
+			2018-01-30 14:07:55
+			[&#8230;] operations). Indeed, Dr. Rachel Traylor recently invited readers to finite field theory by way of GF(4), the field with four elements. In this post, I propose to discuss the simplest of all possible [&#8230;]
+			1
+			pingback
+			0
+			0
+						
+	akismet_history
+			a:3:{s:4:"time";d:1537552404.2558109760284423828125;s:5:"event";s:11:"report-spam";s:4:"user";s:13:"jasonhathcock";}
+			
+						
+	akismet_user_result
+			false
+			
+						
+	akismet_user
+			jasonhathcock
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1537553455.54123592376708984375;s:5:"event";s:10:"report-ham";s:4:"user";s:13:"jasonhathcock";}
+			
+							
+					
+			14131
+			Magda Crutison
+			Memo58177@gmail.com
+			https://www.cnn.com
+			81.171.85.100
+			2019-03-08 05:25:13
+			2019-03-08 05:25:13
+			Revolutional update of SEO/SMM package “XRumer 16.0 + XEvil”:captchas breaking of Google, Facebook, Bing, Hotmail, SolveMedia, Yandex,and more than 8400 another subtypes of captchas,with highest precision (80..100) and highest speed (100 img per second).You can connect XEvil 3.0 to all most popular SEO/SMM software: XRumer, GSA SER, ZennoPoster, Srapebox, Senuke, and more than 100 of other programms. Interested? There are a lot of demo videos about XEvil in YouTube.You read it – then IT WORKS!Good luck 😉 XRumer201708
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1552022713
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552022713.7370059490203857421875;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			145ab6277c2cc20e33112b4e1440dfc2
+			
+							
+					
+			14441
+			proshow producer 8.0.3648 full crack
+			Lakins@yahoo.com
+			http://www.carnevale.us/20766/files/photodex-proshow-producer-8-0-3648-crack-serial-key-2017/
+			107.173.201.237
+			2019-03-09 03:36:36
+			2019-03-09 03:36:36
+			I found your weblog site on google and check a couple of of your early posts. Continue to maintain up the excellent operate. I just further up your RSS feed to my MSN Information Reader. Seeking ahead to studying more from you in a while!…
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1552102596
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552102596.091960906982421875;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			d7a27678bc3816a01b0bfe3b5d6a4074
+			
+							
+					
+			14582
+			fast cash now no credit check
+			MarcMoler74725@gmail.com
+			https://unitedmatrix.org/groups/cash-loan-hassle-free-of-charge/
+			216.151.183.160
+			2019-03-09 18:32:36
+			2019-03-09 18:32:36
+			Are you okay? I'm worried about you. Please be good to you.
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1552156356
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552156356.3885900974273681640625;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			d454d25f2894edadd539482d9a08a44c
+			
+							
+					
+			14794
+			no credit check loans in virginia
+			JungHouff87766@gmail.com
+			https://chandadoolan6.populiser.com/blog/the-best-home-loan-on-the-world
+			173.245.203.190
+			2019-03-10 16:22:02
+			2019-03-10 16:22:02
+			Quite well said,  if a bit right-on. Why?
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1552234922
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552234922.3337481021881103515625;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			d475b1ce2470479b96f04d8437de8404
+			
+							
+					
+			14815
+			Mack Eagleman
+			Mahli67776@gmail.com
+			http://earllovesyou.com
+			209.107.214.168
+			2019-03-10 17:10:09
+			2019-03-10 17:10:09
+			<a href="http://valtrexoffers.us.org/" rel="nofollow">valtrex over counter</a>
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1552237809
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552237809.7932949066162109375;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			abbb3a89226817d62c19b1206826837f
+			
+							
+					
+			15003
+			Noe Entress
+			Dunay7651@gmail.com
+			http://vividleds.us/
+			81.171.81.242
+			2019-03-11 05:10:58
+			2019-03-11 05:10:58
+			Very energetic article, I enjoyed that bit. Will therebe a part 2?<a href="https://blog.digi.me/2014/04/09/how-well-do-you-know-your-way-around-your-data/?like_comment=51002&amp;_wpnonce=b88a15b60b" rel="nofollow">Like</a>Like
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1552281058
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552281058.1277220249176025390625;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			6ebdd7c247ce5d5a61fd4e99604b0392
+			
+							
+					
+			15334
+			Deadra Haynam
+			Stockmaster11825@gmail.com
+			http://hinditool.com/paypal-account-kya-hai-or-paypal-account-ko-india-me-kaise-verify-kare/
+			45.118.166.21
+			2019-03-12 11:56:15
+			2019-03-12 11:56:15
+			There a few intriguing points in time in this post but I do not know if  every one of them center to heart. You can find some validity but I’ll take hold opinion until I explore it further. Excellent article , thanks so we want more! Combined with FeedBurner too
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1552391775
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552391775.6730239391326904296875;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			64b07d53f6da6004fbb0f00b46d5f771
+			
+							
+					
+			15695
+			social media Icons Transparent
+			hosearios@yahoo.com
+			http://Www.artkabinett.com/node/222692
+			205.185.209.148
+			2019-03-13 20:55:33
+			2019-03-13 20:55:33
+			Hi there, I wish for to subscribe for this weblog to obtain hottest updates, so where can i do it please help out.
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1552510533
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552510533.7086029052734375;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			1a4ab8580aae23e5ad7634e2c3bb79a9
+			
+							
+					
+			16169
+			Kieth Bajko
+			Yochum41413@gmail.com
+			http:/suckafatonehomo.com
+			81.171.98.57
+			2019-03-15 21:58:03
+			2019-03-15 21:58:03
+			I’d like to send this letter by  <a href="http://rumahminimalisku.web.id/2018/01/17/rumah-minimalis-warna/" rel="nofollow">http://rumahminimalisku.web.id/2018/01/17/rumah-minimalis-warna/</a> zyprexa restless legs  &ldquo;The thing I&rsquo;m against is the things they pump into your face and lips. People who have had it done can look like munchkins! It&rsquo;s peculiar. I&rsquo;m very anti-Botox as I feel it&rsquo;s dangerous.&rdquo;
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1552687083
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552687083.266189098358154296875;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			b6e503cdb1da5ba566b8c8583d53c67c
+			
+							
+					
+			16290
+			Rubin Bunte
+			Sharpton17425@gmail.com
+			http://suckafatonehomo.com
+			81.171.74.110
+			2019-03-16 03:54:07
+			2019-03-16 03:54:07
+			wh0cd134595 <a href="http://buy-propecia.us.org/" rel="nofollow">Propecia 1mg</a>
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1552708447
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552708447.9327900409698486328125;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			46c6e0a27c8e3fc5c547750eb42534ce
+			
+							
+					
+			16934
+			Juan Guyton
+			Rayo58135@gmail.com
+			https://www.ebuyhouse.com/blog
+			45.118.166.21
+			2019-03-18 16:13:26
+			2019-03-18 16:13:26
+			every time I pop in, there is more to learn. Awesome!
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1552925606
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552925606.816504955291748046875;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			07501452c547248a30992a13cc891ddf
+			
+							
+					
+			16943
+			Ramona Macklem
+			Thole84284@gmail.com
+			https://www.youcrazy.com/
+			81.171.98.48
+			2019-03-18 16:20:34
+			2019-03-18 16:20:34
+			brno, <a href="http://www.premiumthemesup.com/wp-content/uploads/2017/01/lekarna/mupirocin.html" rel="nofollow">http://www.premiumthemesup.com/wp-content/uploads/2017/01/lekarna/mupirocin.html</a>  – Lekarna koupit.
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1552926034
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1552926034.5972690582275390625;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			12e6a9b5cf99a7ba6b817b7a1cb6aeaf
+			
+							
+					
+			17224
+			Clyde Mcquire
+			Chatampaya39859@gmail.com
+			https://www.ebuyhouse.com
+			45.118.166.21
+			2019-03-19 13:26:22
+			2019-03-19 13:26:22
+			hybrid cars would be the best thing because they are less polluting to the environment;;
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1553001982
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1553001982.4246079921722412109375;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			d6a4c22ffd346ff2bc83a7f5ea7451ae
+			
+							
+					
+			17252
+			best proxy
+			ElenoraGully87177@gmail.com
+			https://dreamproxies.com/unlimited-proxy
+			23.95.112.126
+			2019-03-19 16:21:03
+			2019-03-19 16:21:03
+			Thanks for the suggestions you are sharing on this blog site. Another thing I'd prefer to say is always that getting hold of some copies of your credit rating in order to check accuracy of any detail is the first motion you have to conduct in credit improvement. You are looking to cleanse your credit history from detrimental details flaws that screw up your credit score.
+			trash
+			
+			0
+			0
+						
+	akismet_error
+			1553012463
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1553012463.0209820270538330078125;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+							
+					
+			17559
+			Allan Melody
+			Miesen49064@gmail.com
+			https://www.lickmyballs.com
+			209.197.30.169
+			2019-03-20 21:08:28
+			2019-03-20 21:08:28
+			While you may expect from this Gold Award Success, the quality of the converted video is all but identical to the original. Our video experts were hard pressed to find any flaws in the picture or audio tracks of the converted data file. To put it briefly, unless you have superhuman vision or ability to hear, there’s no reason to worry about any quality loss when converting videos with Wondershare.
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1553116108
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1553116108.333056926727294921875;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			8c29f4ec2c91736cb3e9fff824b18263
+			
+							
+					
+			18881
+			minecraft
+			carypride@yahoo.de
+			http://j.mp/2EFkSqE
+			104.144.145.202
+			2019-03-25 20:10:58
+			2019-03-25 20:10:58
+			This information is worth everyone's attention. Where can I find out more?
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1553544658
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1553544658.9982221126556396484375;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			11e73047144ad9a5640e6458f2873da6
+			
+							
+					
+			19083
+			minecraft
+			hattie.keisler@gmail.com
+			http://bitly.com/2CwylAH
+			23.229.76.65
+			2019-03-26 15:44:53
+			2019-03-26 15:44:53
+			Every weekend i used to visit this site, for the reason that 
+i want enjoyment, for the reason that this this site conations 
+actually good funny information too.
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1553615093
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1553615093.12213993072509765625;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			b5cc87117b0a897e87e60c4f8123795d
+			
+							
+					
+			22110
+			Apex Legends Season 1
+			Nakajima@yahoo.com
+			https://twitter.com/cybertechnews3
+			216.170.126.130
+			2019-04-04 01:41:55
+			2019-04-04 01:41:55
+			This is a topic that is near to my heart... Thank you! Where are your contact details though?
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1554342115
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1554342115.0346660614013671875;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			66333704964827faefd87834cd541bf4
+			
+							
+					
+			23068
+			KevinMix
+			frame53166@gmail.com
+			http://www.besthomemadepornsites.com/
+			203.210.84.151
+			2019-04-06 07:57:33
+			2019-04-06 07:57:33
+			Hi there, 
+ 
+That's pretty stunning site I've got into, while was looking thru a web. Nothing much, just some <a href="http://www.besthomemadepornsites.com/" / rel="nofollow">best free homemade porn site</a> <a href="http://www.besthomemadepornsites.com/" / rel="nofollow">real amateurs doing porn</a> <a href="http://www.besthomemadepornsites.com/" / rel="nofollow">real amateur porn website</a> <a href="http://www.besthomemadepornsites.com/" / rel="nofollow">actual homemade porn</a>  there :) 
+ 
+Cheers!
+			1
+			
+			0
+			0
+						
+	akismet_error
+			1554537453
+			
+						
+	akismet_history
+			a:3:{s:4:"time";d:1554537453.6318480968475341796875;s:5:"event";s:11:"check-error";s:4:"meta";a:1:{s:8:"response";s:7:"invalid";}}
+			
+						
+	ct_hash
+			1e54edc8bb5790b7a06ed5f949c0bf92
+			
+							
+					

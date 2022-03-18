@@ -1,0 +1,130 @@
+
+		
+				Networking Mathematics: Random Early Detection and TCP synchronization		
+		https://www.themathcitadel.com/networking-mathematics-random-early-detection-and-tcp-synchronization/
+		Tue, 10 Apr 2018 23:14:08 +0000
+		admin
+		http://www.themathcitadel.com/?p=2389
+		
+		
+				Computer networks are something most of us take for granted--speed, reliability, availability are expectations. In fact, network problems tend to make us very angry, whether it's dropped packets (yielding jittery Skype calls), congestion (that huge game download eating all the bandwidth), or simply a network outage. There's an awful lot going on underneath the hood of all devices on a network to load that webpage or download that song for you.&nbsp;
+
+Much of the reliability in networking relies on maintaining good Quality of Service (QoS) policies, which involve buffering and queue management. Networks aren't unlike the roads we travel on; traffic isn't steady, and congestion at interfaces (or intersections on the road) happen. How do we handle that? We'll explore some basic networking principles in order to uncover some interesting mathematics governing buffering and queue management at congested network interfaces.
+
+<i>Update: Mr. Fred Baker reached out to me with a few corrections regarding my interchangeable use of queue and buffer. I've inserted his comments into the "Buffer" section. Incidentally, Mr. Baker was&nbsp;the inventor of the WRED (Weighted Random Early Detection) algorithm mentioned as an extension below.&nbsp;</i>
+
+<!--more-->
+<h2>Networking Terms</h2>
+First, we need to get a few definitions out of the way. One of the main references I'm using is a book called&nbsp;<a href="https://www.amazon.com/Computer-Networking-Problems-Solutions-innovative/dp/1587145049"><em>Computer Networking Problems and Solutions: An Innovative Approach to Building Modern, Resilient Networks</em></a>, by Russ White and Ethan Banks[note]I give a good recommendation for this book. Currently I'm about 300 pages in. The book is aimed for the newbie to networking. I wouldn't call it particularly deep or rigorous, but honestly, that's not its point. There are so many resources on computer networking it's impossible to know where to start learning just the basics. This book does an excellent job of familiarizing the reader with networking terms, protocols, general issues, solutions, and integrates it all together to give a great overview of the field.[/note].
+<h3>TCP (Transport Control Protocol)</h3>
+TCP is the protocol that controls the flow of information across a network connection between two hosts. It runs on top of IP (Internet Protocol), which is responsible for the actual transport of data and multiplexing (the ability for multiple entities to communicate over the shared network)[note]The excellent analogy for multiplexing given in <em>CNPS </em>is air. When multiple people in a room are having simultaneous conversations, they share a medium (air) to do it. Communication gets garbled if everyone shouts across the room, and there's no way to organize the flow of conversations so thoughts get where they're supposed to go.[/note]&nbsp;.
+
+TCP and IP work together to get packets of data from one place to another. For example, TCP/IP worked together to bring you this page, from the server where it is hosted to your computer, phone, or tablet you're reading on.
+
+How fast should packets be transmitted? If packets are transmitted too fast, the receiver may not be able to keep up, and packets may get dropped and transmission data lost. Packet loss manifests in a voice call by jittery video, or perhaps a temporary loss of audio. If packets are transmitted too slowly, there is a lag, or the transmission just isn't as efficient as it could be. The goal is to strive for the fastest transmission we can have without packet loss.
+
+TCP uses a windowing algorithm with a changing window size to constantly react to changing network conditions. When packets are all being transmitted successfully in sequence, the window widens and the transmitter is allowed to send a larger amount of data before the receiver is required to acknowledge receipt. The window increases until a packet is lost, at which point the window size will sharply decrease. Then we start the cycle again, slowly ramping up the window size (and hence amount of data transmitted before acknowledgement) until we experience another packet loss.&nbsp;
+<h3>Buffers</h3>
+How many times have you had to wait for something to buffer when watching Netflix? A buffer is created at network interfaces to handle congestion. Think about an on-ramp to a freeway with the traffic lights on at rush hour, controlling the rate at which cars enter a crowded interstate. If we let all the cars on at the rate they want to go during rush hour, the interstate traffic would be even worse. So we buffer them at on-ramps, controlling the flow at the congested interface.&nbsp;
+
+What happens when a buffer gets full? In basic queuing theory, we typically get around this by assuming a queue (buffer in this case) has infinite capacity. For the most part, we know that's not true.[note]There are mathematical ways to study finite capacity queues. We'll get to these.[/note] If the buffer is full, the most recent packets into the buffer will get turned away, or dropped. There's just no room for them. (Network engineers call this&nbsp;<em>tail drop.)</em>&nbsp;
+
+<em>(Editor's note: Here I'll insert the comments Mr. Fred Baker sent to me regarding my mistaken conflation of buffer and queue. I chose not to change the article itself, but rather insert his comments of correction, for the sake of full transparency.)</em>
+
+From Mr. Baker:&nbsp;
+<blockquote>A buffer is a container, much like a prescription bottle is a container. If a buffer "forms" when data arrives, the corollary would be a prescription bottle coming into being when a pharmacist attempted to put pills into it. It doesn't work that way.
+
+A buffer as a section in memory in which messages are stored, and has a maximum size. When the number of messages or number of bytes exceeds the maximum, one can't put more messages into it. The organization of the buffer is usually some form of queuing system, as simple as a single FIFO queue (common) and as complex as a hierarchy of queues with different methodologies. Each queue has some service discipline, which may be that it is "work conserving", meaning that it rattles data through as quickly as it can, or may not be "work conserving", meaning that it passes data through at some slower rate. A well known example of a non work conserving system is called Virtual Clock, published by Lixia Zhang in SIGCOMM 1990 (IIRC). A queue has a minimum depth (zero), while the buffer containing it has a maximum depth, and individual queues in the buffer may have maximum depths smaller than the buffer's depth or service disciplines (such as RED) that moderate queue depth in some other way (RED and WRED interact with TCP, moderating the TCP window and as a result the amount of data the session keeps in flight at any given time). The Differentiated Services Architecture (RFCs 2474 and 2475) looks at quite a few other aspects of service and queue management as well.</blockquote>
+<h2>Tail Drop and TCP Synchronization</h2>
+Not all packets are created equal. Some packets, when delayed in a buffer, lose their purpose for existence. VoIP calls are the perfect example here. VoIP requires packets to be delivered, and delivered on time. A delayed packet is useless to the end user--the conversation has moved on. This means that a packet at the front of the queue can be useless, and tail-dropped packets (the most recent bits of your Skype conversation) are more needed.
+<h3>Passive Queuing Messes up TCP</h3>
+Simply letting a buffer get full and drop the tail packets is <em>passive queue management</em>. The problem with this goes back to how we explained TCP's functionality above. If a packet gets dropped, TCP shrinks the window size and decreases the amount of data allowed per transmission before the receiver has to acknowledge receipt of packets, effectively throttling traffic. Throttle traffic enough, and we can empty the buffer and packets flow normally without congestion. But then as TCP ramps the window size up again, our buffer gets full, resulting in tail drop, and we start that whole cycle again. The end result is a bandwidth oscillation&nbsp;wherein the poor network goes from highly congested to empty to congested again, because all the TCP-traffic is synchronized.&nbsp;
+<h2>Random Early Detection&nbsp;</h2>
+"Get to the math please!"&nbsp;
+
+So how can we avoid this TCP synchronization phenomenon? We can take what might seem to be a counterintuitive approach and never let the buffer get full. How? We drop packets on purpose, with some probability, which will depend on the queue length inside the buffer. The Random Early Detection (RED) algorithm provides a way to randomly select packets to drop in order to prevent a full buffer and resulting tail-drop. Dropping random packets also desynchronizes different TCP streams, since some packet sequences will have their windows decreased upon packet drop, while those streams whose packets are not selected for drop maintain or increase their window size.&nbsp;
+
+RED [5] calculates a probability for marking a packet for drop based on the current average queue length, calculated by a moving average.&nbsp;
+<h3>(1) Calculate the new average queue size</h3>
+Let [latex]\bar{Q}_{n}[/latex] be the average queue size at discrete time [latex]n[/latex], and let [latex]Q[/latex] be the current queue length. Then
+
+[latex, display = true]\bar{Q}_{n} = (1-w)\bar{Q}_{n-1} + wQ[/latex]
+
+Here, [latex]w[/latex] is a weight we get to choose to decide how much weight we want to give to the current queue length, typically [latex]w\ll 1[/latex]. If [latex]w[/latex] is chosen too small, then RED will react too slowly to current congestion. If [latex]w[/latex] is too large, then RED is sensitive to noise. Recommendations for choices of [latex]w[/latex] vary from 0.001 to 0.07 [3,4].&nbsp;
+<h3>(2) Set minimum and maximum thresholds</h3>
+Next, we set minimum and maximum thresholds for the tolerance of [latex]\bar{Q}_{n}[/latex]. We'll call these [latex]T_{\min}[/latex] and [latex]T_{\max}[/latex]. These thresholds will depend on network capabilities.&nbsp;
+<h3>(3) Calculate the probability of marking an incoming packet for drop</h3>
+When each packet comes in, we have to have a way to calculate a probability of dropping it or letting it join the buffer. The original RED first sets a maximum possible drop probability we'll call [latex]p_{\max}[/latex], and then calculates the drop probability [latex]p_{d}[/latex] in two stages
+<ol>
+ 	<li>Computing an intermediate value [latex]p_{a}[/latex] that grows linearly with the average queue length [latex]\bar{Q}_{n}[/latex]
+[latex, display = true]p_{a} = p_{\max}\frac{\bar{Q}_{n}-T_{\min}}{T_{\max}-T_{\min}}[/latex]</li>
+ 	<li>Computing the final probability based on the number of packets since the last one that was actually marked (we'll call this [latex]c[/latex]) and [latex]p_{a}[/latex] above:
+[latex, display = true]p_{d} = \frac{p_{a}}{1-c\cdot p_{a}}[/latex]</li>
+</ol>
+So why do that second step? Since we're ultimately choosing randomly whether to mark a packet for drop or not, it's possible we don't mark several packets in a row even if [latex]p_{a}[/latex] is high. The idea of Step (2) is to increase the probability of actually marking a packet as the number not marked increases. The purpose of this is to ensure that our interface doesn't wait too long before marking a packet.[note]Remember, all of these things we're calculating are probabilities. Even a high probability doesn't guarantee that an event will occur.[/note]
+<h3>Putting it all together</h3>
+We only invoke Step (3)- calculating the probability of marking a packet if our average queue length [latex]\bar{Q}_{n}[/latex] is inside our boundaries [latex]T_{\min}[/latex] and [latex]T_{\max}[/latex]. If [latex]\bar{Q}_{n} &lt; T_{\min}[/latex], then there's no congestion, so we don't need to drop anything at all. The traffic lights at the interstate on-ramp aren't turned on in the middle of the night when traffic is light.&nbsp;
+
+Now, if [latex]\bar{Q}_{n} &gt; T_{\max}[/latex], then we're really congested, then we mark the incoming packet. Period. This means we have to clear out the buffer ASAP.&nbsp;
+<h2>Conclusion and Future Stuff</h2>
+<h3>Other Variants</h3>
+RED has another variation, WRED (Weighted Random Early Detection), which takes into account the class of the packet arriving. Some packets really are more important than others. When you're in the middle of a VoIP call, those packets are way more important than perhaps some email coming in, because a slight delay of a few milliseconds in email delivery isn't noticed, whereas a few millisecond packet delay causes jitter in your video. WRED deals with classed traffic but is basically the same as RED explored here.&nbsp;
+<h3>Things we can change about RED</h3>
+Notice above that the function to calculate [latex]p_{a}[/latex] was linear in terms of the average queue length [latex]\bar{Q}_{n}[/latex]. Why linear? Well, for one, when RED was first created in 1993, it was easier. Absent further information, simple is best, and linear is simple. There are other functions to calculate the packet drop probability [latex]p_{d}[/latex] that are nonlinear. We'll explore one of those papers next [2], which takes us into the notion of orthogonal polynomials.&nbsp;
+
+We can also discuss the fact that the average queue length was computed by a weighted moving average. Other works out there have looked at the impact of a weighted moving average [1], and other drop functions on the performance of the RED algorithm[2].&nbsp;
+<h3>Where else can we look?</h3>
+Analysis of queues is a huge field. Since everything about network traffic (and general queues as well) is based on random variables, the mathematical study of queuing theory is a rich environment. We can view traffic as discrete random processes, like a birth-death process. We can assume the process is <a href="https://www.themathcitadel.com/time-series-analysis-part-1-regression-with-a-twist/">stationary</a>, or we can look into studying traffic the way we study fluid flow, typically using differential equations.
+
+As networks get more and more complicated, we need this more sophisticated (and hopefully elegant) mathematics to help us understand traffic flow. We never really discussed in this article how to set the thresholds [latex]T_{\min}[/latex] and [latex]T_{\max}[/latex]. Those require a good model and understanding of the particular type of traffic flow in a specific network. Good understanding of queuing behavior yields good threshold design, which yields good queue management schemes, which ultimately yields a better user experience. Not just for networks, but any kind of traffic. &nbsp;
+
+<a href="http://creativecommons.org/licenses/by-nc-nd/4.0/" rel="license"><img style="border-width: 0;" src="https://i.creativecommons.org/l/by-nc-nd/4.0/88x31.png" alt="Creative Commons License"></a>
+This work is licensed under a <a href="http://creativecommons.org/licenses/by-nc-nd/4.0/" rel="license">Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License</a>.
+<h2>References</h2>
+<ol>
+ 	<li>Domanska, J., Domanski, A., Augustyn, D.R.: the Impact of the Modified Weighted Moving Average on the Performance of the RED Mechanism. CN 2011. CCIS, vol. 160, pp. 27-44</li>
+ 	<li>Augustyn, D.R.,&nbsp;Domanski, A.,&nbsp;Domanska, J.: Active Queue Management with non linear packet dropping function. 6th International Conference on Performance Modeling and Evaluation of Heterogenous Networks (2010)</li>
+ 	<li>S. Floyd. Discussions of Setting Parameters, http://www.icir.org/floyd/RED-parameters.txt (1997)</li>
+ 	<li>Zheng, B. and Atiquzzaman, M.: A Framework to Determine the Optimal Weight Parameter of RED in Next-Generation Internet Routers. The University of Dayton, Department of Electrical and Computer Engineering, Tech. Rep., 2000</li>
+ 	<li>Floyd, S., Jacobson, V.: Random Early Detection Gateways for Congestion Avoidance. IEEE/ACM Transactions on Networking 1(4) (1993)</li>
+</ol>
+&nbsp;		
+		
+						
+		2389
+		2018-04-10 23:14:08
+		2018-04-10 23:14:08
+		closed
+		open
+		networking-mathematics-random-early-detection-and-tcp-synchronization
+		publish
+		0
+		0
+		post
+		
+		0
+										Applied Mathematics
+		Probability Theory
+		Queuing Theory
+		Spines
+						
+		_da_attachments
+		a:0:{}
+		
+							
+		_edit_last
+		2
+		
+							
+		_wp_page_template
+		default
+		
+							
+		_acp_button_style
+		2
+		
+							
+		_acp_loading_type
+		1
+		
+							
