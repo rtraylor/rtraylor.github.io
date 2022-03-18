@@ -3,7 +3,7 @@
 <head>
 <title>Maximum-Likelihood Decoding</title>
 <link rel="stylesheet" href="style.css">
-<img src="imgs/tmc_text.jpg" alt="The Math Citadel" width="252" height="122"
+<img src="../imgs/tmc_text.jpg" alt="The Math Citadel" width="252" height="122"
 class="center"/>
 <br>
 </head>
@@ -65,16 +65,16 @@ margin-right: auto;
 
 <br>
 
-<em> This post will now allow us to explore some more interesting topics in coding theory, courtesy of Pinter's <em>A Book of Abstract Algebra</em>. We'll introduce the notion of a code, informations, and parity check equations. </em>
+<i> This post will now allow us to explore some more interesting topics in coding theory, courtesy of Pinter's <i>A Book of Abstract Algebra</i>. We'll introduce the notion of a code, informations, and parity check equations. </i>
 
- Most communication channels are noisy to some extent, which means that a transmitted codeword may have one or more errors. If the recipient of a codeword attempts to decode a message, he needs to be able to determine first if there was a possible error in the code, and then correct it. This will lead us to one method called <em>maximum likelihood decoding.</em>
+ Most communication channels are noisy to some extent, which means that a transmitted codeword may have one or more errors. If the recipient of a codeword attempts to decode a message, he needs to be able to determine first if there was a possible error in the code, and then correct it. This will lead us to one method called <i>maximum likelihood decoding.</i>
 
 
-<a href="group-theory-xor.html">Recall from this post </a>that we denoted $\mathbb{B}^{n}$ as the set of all binary words of length $n$. We will call a subset of $\mathbb{B}^{n}$ a code. The first code we're going to work with is a subset of $\mathbb{B}^{5}$. We'll call this code $C_{1}$, consisting of the following binary words with length 5:
+<a href="articles/group-theory-xor.html">Recall from this post </a>that we denoted $\mathbb{B}^{n}$ as the set of all binary words of length $n$. We will call a subset of $\mathbb{B}^{n}$ a code. The first code we're going to work with is a subset of $\mathbb{B}^{5}$. We'll call this code $C_{1}$, consisting of the following binary words with length 5:
 
 $$C_{1} = \left\{\begin{array}{lr}00000 &amp; 10011\\00111 &amp; 10100\\01001 &amp; 11010\\01110 &amp; 11101\end{array}\right\}$$
 
-This is only a subset of $\mathbb{B}^{5}$. Remember that the full cardinality of $\mathbb{B}^{5} = 2^{5} = 32$. The 8 words in $C_{1}$ are&nbsp;<em>codewords.</em> Anything not in $C_{1}$ is not a codeword. When we design a code, only these codewords are to be transmitted. That means there is an error if any word not in $C_{1}$ was received.
+This is only a subset of $\mathbb{B}^{5}$. Remember that the full cardinality of $\mathbb{B}^{5} = 2^{5} = 32$. The 8 words in $C_{1}$ are&nbsp;<i>codewords.</i> Anything not in $C_{1}$ is not a codeword. When we design a code, only these codewords are to be transmitted. That means there is an error if any word not in $C_{1}$ was received.
 
 If we designed the code well, then it should be very unlikely that an error in transmission results in another codeword. For example, suppose the sender transmitted 10011 but we received 11010. Since 11010 is a codeword, we wouldn't actually know that's not what was meant, and the transmission error would not be detected. We need a good code that makes it easy on us to detect and correct transmission errors. To do that, we're going to need some notions of weight, distance, and redundancy.
 <h2>Weight and Distance of Codewords</h2>
@@ -94,7 +94,7 @@ For example, the weight of 00111 is 3, and the weight of 01001 is 2. The positio
 
 </blockquote>
 
-The distance between 00111 and 01001 is 3. (The two words differ in positions 2,3, and 4.) The astute observer will notice that we can identify the positions in which the two words differ by using the XOR operation. We may also define the <em>minimum distance of a code</em> to be the smallest distance between any two words in the code. Looking up at the code $C_{1}$, we can make pairwise comparisons to see that the minimum distance of this code is 2. (There are 28 such comparisons to make. My suggestion: use the XOR operation from our previous discussion and then add bitwise to get the distance. A simple script can be written in your language of choice for good coding practice.)
+The distance between 00111 and 01001 is 3. (The two words differ in positions 2,3, and 4.) The astute observer will notice that we can identify the positions in which the two words differ by using the XOR operation. We may also define the <i>minimum distance of a code</i> to be the smallest distance between any two words in the code. Looking up at the code $C_{1}$, we can make pairwise comparisons to see that the minimum distance of this code is 2. (There are 28 such comparisons to make. My suggestion: use the XOR operation from our previous discussion and then add bitwise to get the distance. A simple script can be written in your language of choice for good coding practice.)
 
 What does this mean? When we receive a transmitted code over a potentially noisy channel, we will be able to notice we received a code with errors only if the number of errors in the transmitted code is less than this minimum distance; otherwise it is possible to receive a code word, not knowing that's not the code word that was meant.
 
