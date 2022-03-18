@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Maximum-Likelihood Decoding</title>
+<link rel="stylesheet" href="style.css">
+<img src="imgs/tmc_text.jpg" alt="The Math Citadel" width="252" height="122"
+class="center"/>
+<br>
+</head>
+<body>
+
+<div class="navbar">
+    <a href="index.html">Home</a>
+    <div class="dropdown">
+        <button class="dropbtn">About 
+        <i class="fa fa-caret-down"></i>
+        </button>
+    <div class="dropdown-content">
+        <a href="about.html">About Us</a>
+        <a href="people.html">People</a>
+    </div>
+    </div>
+    <div class="dropdown">
+        <button class="dropbtn">Products and Services
+         <i class="fa fa-caret-down"></i>
+         </button>
+    <div class="dropdown-content">
+        <a href="research.html">Research</a>
+        <a href="consulting.html">Consulting</a>
+        <a href="https://shop.spreadshirt.com/mathcitadel/">Shop</a>
+        <a href="https://patreon.com/mathcitadel">Patreon</a>
+    </div>
+    </div>
+    <a href="projects.html">Projects</a>
+    <a href="pubs.html">Papers/Articles</a>
+    <a href="contact.html">Contact</a>
+
+
+    
+</div>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<h2>Maximum-Likelihood Decoding</h2>
+<h4> R. Traylor </h4>
+<style>
+
+img{
+
+display: block;
+
+margin-left: auto;
+
+margin-right: auto;
+
+}
+
+</style>
+
+<br>
+
+<em> This post will now allow us to explore some more interesting topics in coding theory, courtesy of Pinter's <em>A Book of Abstract Algebra</em>. We'll introduce the notion of a code, informations, and parity check equations. </em>
+
+ Most communication channels are noisy to some extent, which means that a transmitted codeword may have one or more errors. If the recipient of a codeword attempts to decode a message, he needs to be able to determine first if there was a possible error in the code, and then correct it. This will lead us to one method called <em>maximum likelihood decoding.</em>
+
+
+<a href="group-theory-xor.html">Recall from this post </a>that we denoted $\mathbb{B}^{n}$ as the set of all binary words of length $n$. We will call a subset of $\mathbb{B}^{n}$ a code. The first code we're going to work with is a subset of $\mathbb{B}^{5}$. We'll call this code $C_{1}$, consisting of the following binary words with length 5:
+
+$$C_{1} = \left\{\begin{array}{lr}00000 &amp; 10011\\00111 &amp; 10100\\01001 &amp; 11010\\01110 &amp; 11101\end{array}\right\}$$
+
+This is only a subset of $\mathbb{B}^{5}$. Remember that the full cardinality of $\mathbb{B}^{5} = 2^{5} = 32$. The 8 words in $C_{1}$ are&nbsp;<em>codewords.</em> Anything not in $C_{1}$ is not a codeword. When we design a code, only these codewords are to be transmitted. That means there is an error if any word not in $C_{1}$ was received.
+
+If we designed the code well, then it should be very unlikely that an error in transmission results in another codeword. For example, suppose the sender transmitted 10011 but we received 11010. Since 11010 is a codeword, we wouldn't actually know that's not what was meant, and the transmission error would not be detected. We need a good code that makes it easy on us to detect and correct transmission errors. To do that, we're going to need some notions of weight, distance, and redundancy.
+<h2>Weight and Distance of Codewords</h2>
+
+
+<blockquote>
+<strong>Definition: weight of a codeword</strong>: The <strong>weight</strong> of a binary word is the number of 1s in the word. Alternatively, we could add the bits (using regular addition.)
+
+</blockquote>
+
+For example, the weight of 00111 is 3, and the weight of 01001 is 2. The position of the 1s is irrelevant; we're just counting them here.
+
+
+<blockquote>
+
+<strong>Definition: distance between codewords:</strong> The <strong>distance</strong> between two binary words is the number of positions in which they differ
+
+</blockquote>
+
+The distance between 00111 and 01001 is 3. (The two words differ in positions 2,3, and 4.) The astute observer will notice that we can identify the positions in which the two words differ by using the XOR operation. We may also define the <em>minimum distance of a code</em> to be the smallest distance between any two words in the code. Looking up at the code $C_{1}$, we can make pairwise comparisons to see that the minimum distance of this code is 2. (There are 28 such comparisons to make. My suggestion: use the XOR operation from our previous discussion and then add bitwise to get the distance. A simple script can be written in your language of choice for good coding practice.)
+
+What does this mean? When we receive a transmitted code over a potentially noisy channel, we will be able to notice we received a code with errors only if the number of errors in the transmitted code is less than this minimum distance; otherwise it is possible to receive a code word, not knowing that's not the code word that was meant.
+
+For instance, in $C_{1}$, we will be able to detect that we received a bad transmission if the number of bits that are in error is 1 or 0. It takes at least 2 errors in transmission before we could possibly be receiving another code word than what was sent.
+
+This gives us a way to design good codes. The more errors needed to change a codeword into another, the better the code is. Even more desirable would be a code with a minimum distance of 3, since 1 or 2 errors will always be detected, and 3 errors are highly unlikely.
+
+<h2>Constructing a Code</h2>
+In every codeword, certain positions are called <i>information positions, </i>and the remaining are <i>redundancy positions, </i>sometimes called <i>parity bits</i>. In $C_{1}$, the first three bits are information positions. Looking at the first three bits each of the eight code words, we can see that every possible 3-bit binary sequence is there:
+
+$$\{000,001,010,011,100,101,110,111\}$$
+
+ How do we decide what those last two bits are? For that, we use <b>parity check equations.</b>
+
+The simplest type of parity is single bit parity, and is either odd or even. That is, only the last position is a redundancy position. For odd parity, if the number of 1s in the binary word is <i>even</i>, then the redundancy position is set to a 1, giving a binary word (with parity) that has an odd number of ones. Otherwise, the parity bit is a 0. We reverse that for even single-bit parity.
+
+So if the word is 1100, under odd single-bit parity, the word with redundancy would be 11001. Under even single-bit parity, the word with redundancy is 11000.
+
+We can also define parity check equations when we want more than one bit of redundancy. For example, in $C_{1}$, the parity check equations are given by
+
+$$a_{4} = a_{1} + a_{3} \bmod 2 \qquad a_{5} = a_{1} + a_{2} + a_{3} \bmod 2$$
+
+Check $C_{1}$ for yourself. The redundancy positions $a_{4}$ and $a_{5}$ for 110 are given by
+
+$$ a_{4} = 1 \oplus 0 = 1 \text{ and } a_{5} = 1\oplus 1 \oplus 0 = 0$$
+
+giving the word 11010 from the code above.
+
+We could create an entirely new code in $\mathbb{B}^{5}$ using the same information positions $\mathbb{B}^{3}$ and different parity check equations.
+
+<h2>Decoding Noisy Communication: Maximum Likelihood Decoding</h2>
+Let's make some shorthand for the distance between two binary words. We'll denote $d(\mathbf{a},\mathbf{b})$ to be the distance between two binary words.
+
+If we receive some transmission, we know it has to be made of words from our given code (in this case, we're working with $C_{1}$). We <i>decode</i>&nbsp;a received word by finding the codeword closest to our received word. That is, if we receive $\mathbf{x}$, we minimize $d(\mathbf{a},\mathbf{x})$ over all the possible codewords $\mathbf{a}$ in our code.
+
+This is <b>maximum likelihood decoding.</b>
+
+If we receive <b>11111</b>, then we need to find the codeword in $C_{1}$ closest. That is, the one that differs in the fewest positions. Likely you have already figured out that this word isn't a codeword, and thus is an erroneous transmission, and that the closest word is <b>11101. </b>You did this quickly by calculating the minimum distance between <b>11111</b>and all the other words.
+
+Since it is not a codeword, and the minimum distance between codewords is 2, we know there must be at least one codeword that differs from <b>11111</b>by one position.
+
+Taking another example, let's assume we received <b>10111. </b>This time, when you go through all the words, we actually find two codewords with a distance of 1 away: <b>10011</b> and <b>00111. </b>That is, either a mistake could have been made in the 3rd position or the first position, but we actually can't tell which it is if we just receive the word (assuming no other context).
+
+This actually makes $C_{1}$ a less desirable code. The codewords are close enough together that we cannot ensure any possible word from $\mathbb{B}^{5}$ received can be uniquely decoded to a single word in $C_{1}$
+
+<h2>How do we find conditions to put on a code design to guarantee unique maximum-likelihood decoding?</h2>
+<i>[Fair warning here, we'll get a little more theoretical and math heavy. But here's where things get interesting.]</i>
+
+Now it's time to get general. Let $m$ be the minimum distance for some general binary code $C$.
+
+First, let's formally state what we've already implicitly played with: as long as there are $m-1$ errors or fewer, we can detect an error. For instance, in $C_{1}$, $m=2$, and thus we can detect an error in one position, but not necessarily 2, since an error in two positions may give us another codeword that wasn't intended. But since we would decode it as a codeword, we wouldn't know that word wasn't the one our partner meant to send.
+
+The goal of this section is to figure out how to separate the codewords in any code to guarantee that any word received will be "closest" to only one word. In other words, the problem with the last code $C_{1}$ is that we found a word in $\mathbb{B}^{5}$ that was equidistant from two codewords. We want to design a code that keeps that from happening.
+
+We're going to define a <b>sphere of radius <i>k</i></b>around a codeword $\mathbb{a}$ as the set of all words in $\mathbb{B}^{n}$(where n is the length of the codewords) whose distance from $\mathbb{a}$ is $k$ or smaller. We'll call this set $S_{k}(\mathbb{a})$. Mathematically, we write this as
+
+$$S_{k}(\mathbb{a}) := \{\mathbb{x} \in \mathbb{B}^{n} : d(\mathbb{a},\mathbb{x}) \leq k \}$$
+
+The symbol $:=$ indicates a definition. The curly braces denote a set. The colon stands for the phrase "such that". So the above reads:
+
+<i>The sphere of radius k around codeword <b>a</b>&nbsp;is defined as the set of all words of binary length n such that the distance from the word to <b>a</b>is less than or equal to the radius k.</i>
+
+If we want to design a good code, then we want to make sure that the spheres for all codewords are completely disjoint (not overlapping). So how big should we make these spheres in terms of the minimum distance of the code?
+
+If we let $t = \frac{1}{2}(m-1)$, then we can show that for any two spheres around generic codewords $\mathbb{a}$ and $\mathbb{b}$ in a generic code $C$ that have radius $t$, then the spheres will have no words in common.
+
+To show this, we'll show it by contradiction. (For all the mathematicians out there, bear with me. My goal is to impart intuition and a geometric reasoning, so I'm going to make a less formal proof here. The argument would center around looking at each position, via the definition of the minimum distance, but I want to relax formality here for clarity. The argument is no less correct, just less scary for non mathematicians.) We'll assume that these two generic spheres have a word in common, say $\mathbb{x}$, and show that this assumption contradicts the notion of the minimum distance $m$.
+
+If $\mathbb{x}$ is in both $S_{t}(\mathbb{a})$ and $S_{t}(\mathbb{b})$, then it must be at most $t= \frac{1}{2}(m-1)$ away from both $\mathbb{a}$ and $\mathbb{b}$. Suppose it's directly in between; that is, suppose $\mathbb{x}$ is $t$ away from both $\mathbb{a}$ and $\mathbb{b}$, but still in the intersection. We know that the minimum distance is $m$, so the middle point between $\mathbb{a}$ and $\mathbb{b}$ is $\frac{m}{2}$.
+
+But $t = \frac{1}{2}(m-1)$. That means if $\mathbb{x}$ lies in $S_{t}(\mathbb{a})$, it can't be $t$ or less from $\mathbb{b}$, and vice versa. In other words, it's impossible for $\mathbb{x}$ to lie in the spheres of both codewords without contradicting the minimum distance $m$ between the two codewords.
+
+So what does this mean? This means that if we have $t$ or fewer errors in transmission, we will be able to uniquely decode $\mathbb{x}$, and won't run into the same problem we did with $C_{1}$.
+<h2>Conclusion</h2>
+Designing a code really relies on the parity check equations. The same information positions with different parity check equations yield totally different codes. We learned that some codes are better than others. Namely, we want a lot of "separation" between codewords, so we don't run into the issue of accidentally decoding the word incorrectly, but being unable to tell we decoded incorrectly.
+
+We want the minimum distance of the code to be as high as reasonable (3+ is considered reasonable, unless your transmission line is really bad). We also used a little geometry to view the notion of separation between codewords as spheres, and we want those spheres to not overlap each other. Overlapping spheres means that we can possibly decode a word incorrectly.
+
+Designing codes using parity check equations isn't an abstract exercise. We use it in data transmission all the time, but it requires a journey into the abstract a little bit to understand what makes some codes better than others. Score another point for algebra.
+</body>
+</html>

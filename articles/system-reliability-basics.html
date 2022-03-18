@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>System Reliability Basics</title>
+<link rel="stylesheet" href="style.css">
+<img src="imgs/tmc_text.jpg" alt="The Math Citadel" width="252" height="122"
+class="center"/>
+<br>
+</head>
+<body>
+
+<div class="navbar">
+    <a href="index.html">Home</a>
+    <div class="dropdown">
+        <button class="dropbtn">About 
+        <i class="fa fa-caret-down"></i>
+        </button>
+    <div class="dropdown-content">
+        <a href="about.html">About Us</a>
+        <a href="people.html">People</a>
+    </div>
+    </div>
+    <div class="dropdown">
+        <button class="dropbtn">Products and Services
+         <i class="fa fa-caret-down"></i>
+         </button>
+    <div class="dropdown-content">
+        <a href="research.html">Research</a>
+        <a href="consulting.html">Consulting</a>
+        <a href="https://shop.spreadshirt.com/mathcitadel/">Shop</a>
+        <a href="https://patreon.com/mathcitadel">Patreon</a>
+    </div>
+    </div>
+    <a href="projects.html">Projects</a>
+    <a href="pubs.html">Papers/Articles</a>
+    <a href="contact.html">Contact</a>
+
+
+    
+</div>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<h2>System Reliability Basics</h2>
+
+<h4> R. Traylor </h4>
+
+<div> 
+
+<em> This article gives a brief overview of some basic system reliability concepts. </em>
+
+</div>
+
+<br>
+Almost everything we use every day can be thought of as a system built from components. Our lungs form a system. A string of lights forms a system. A manufacturing process, and a data center are also systems that are more complicated. Every system is built from <strong>components</strong>, and components are either <em>functional</em> or <em>failed</em>.
+We can get more advanced and consider components in states of varying health and age, but we're going to consider only the binary states of functional and failed.
+
+Suppose a given system has $n$ components. Each component will be either on or off. We call these binary states <strong>component states</strong> and give them a nice, natural mathematical definition.
+
+<blockquote><strong>Definition (Component states)</strong>
+The <strong>state</strong> of component $i$ is denoted $x_{i}$ and is defined by
+
+$$x_{i} := \left\{\begin{array}{lr}1, \& \text{ component }i\text{ is functional}\\0, \& \text{ component }i\text{ is failed}\end{array}\right.$$
+
+
+
+Now, depending on how these components interact, the entire system is either functional or failed. We can write these component states in a vector called the <strong>system state vector</strong>:
+
+</blockquote>
+
+<blockquote><strong>Definition (System State Vector).</strong>
+For $n$components in a system, each with state $x_{i}$, the system state is defined by $\mathbf{x} = (x_{1},\ldots,x_{n})$.
+
+</blockquote>
+
+The system state vector is a combination of 1's and 0's corresponding to which components are functioning or failing. It is not always true that a single component failure (where its component state is 0) will result in a system failure. For example, you can still type with 8 fingers instead of 10, so two fingers in a splint will not keep you from your office duties. We can define a <strong>structure function</strong> that takes a system state vector as an input and tells us if the entire system is functioning or failed. So for example, the structure function of "typing with fingers" should return a 1 (functional) for any system state vector with two 0's adjacent (since a split binds two fingers together). For example if we let $\phi(\mathbf{x})$ be the structure function of the act of typing with fingers, $\phi(1,0,0,1,1,1,1,1,1,1)$ will return a 1, because we can still type with only 8 functioning fingers. Formally,
+
+
+
+<blockquote><strong>Definition (Structure Function)</strong></span>
+The <strong>structure function</strong> of a system $\phi : \mathbf{x} \to \{0,1\}$ is defined as
+$$\phi(\mathbf{x}):= \left\{\begin{array}{lr}1, &amp; \text{ the system is functioning when the state vector is x}\\0, &amp;\text{the system has failed when the state vector is x}\end{array}\right.$$
+
+</blockquote>
+
+For a system with n components, there are $2^n$ possible system state vectors. To see this, remember that if each component state has two possibilities, and there are n states, then there are $2\cdot2\cdots2 = 2^n$ system state vectors
+
+Each system has a<em> topology</em>, i.e. its component arrangement. Here, we are concerned with the <em>reliability topology</em>, which tells us what combinations of components are needed to function in order for our system to be working. We use a tool called <strong>block diagrams</strong> to represent these.
+
+
+<h3>Example (Series System)</h3>
+
+<p><img src="imgs/system-reliability-basics/christmas-lights.png" alt="" width="300" height="112" class="center"/></p>
+
+<p><img class="center" src="imgs/system-reliability-basics/SeriesSystem-1.jpeg" alt="" width="497" height="71"/> </p>
+One of the simplest types of systems is the series system. In this example, if one component fails, the whole system goes down.
+
+
+The block diagram shows us in a clear visual way if the system is functioning. The goal is to be able to move from left to right in the diagram. If a component is functioning, we may move through that node. If not, that "path" is closed. In the series system, there is only one possible path from left to right through every single component. If I cannot find a path from left to right, the system is not functioning when the given set of components is out. Thus, for the series system, removing even one component removes the only path I have to a functioning system.
+
+The structure function for a series system is given by
+$$\phi_{\text{series}}(\mathbf{x}) = \prod_{i=1}^{n}x_{i}$$
+
+Here, we can see that if any state vector is 0, the whole product is 0, which means the system fails. Conversely, the only way $\phi(\mathbf{x})$ can be 1 is if $x_{i} = 1$ for every <em>i</em>.
+
+The Christmas lights happen to physically match that reliability topology given in above. This isn't always the case. The physical arrangement doesn't necessarily correspond to the reliability topology. For example, we can view a simple computer as a processor, a motherboard, a hard drive, and a power supply. These are not physically arranged in a line inside your computer case, but if any one of these components fails, your computer is useless.
+
+
+<h3>Example (Parallel System)</h3>
+<p>
+<img class="left" src="imgs/system-reliability-basics/lungs.jpeg" alt="" width="268" height="268"/> 
+
+<img class="right" src="imgs/system-reliability-basics/ParallelSystem.jpeg" alt="" width="220" height="252"/> </p>
+
+
+The next simplest type of system is the <em>parallel system</em>. This one is the exact opposite of the series system: if even one component in a parallel system is still working, the system still functions.
+
+The structure function for the parallel system is given by
+$$\phi_{\text{parallel}}(\mathbf{x}) = 1-\prod_{i=1}^{n}(1-x_{i})$$
+
+To see this, remember that the component state is 1 when the component functions, and 0 when it fails. A system is the same way. In a parallel system, the system fails if all of the components fail. Each component failure contributes a $(1-x_{i})$, and we must subtract this product from 1, because we want to know when it <em>functions</em>, not fails.
+
+These two are the basic system reliability topologies. We can make ones that are much more complex, but we have a theorem that shows any system's block diagram can be re-structured into a series system of parallel subsystems, or a parallel system of series subsystems.
+From Leemis <em>(Reliability: Probabilistic Models and Statistical Methods, Lawrence M. Leemis 2nd ed.)</em> ,
+
+<blockquote><b>Theorem. (Decomposition of Systems into Series/Parallel Subsystems)</b></h4>
+
+<i>Let $P_{1},...,P_{s}$ be the minimal path sets for a system. Then
+$$\phi(\mathbf{x}) = 1-\prod_{i=1}^{s}\left(1-\prod_{j \in P_{i}}x_{j}\right)$$
+ where $x_{j}$ is the component state vector.</i>
+
+</blockquote>
+<img class="center" src="imgs/system-reliability-basics/GeneralBlockDiagram.jpeg" alt="" width="300" height="220"/> 
+
+
+What are <strong>path sets</strong>? The path sets are the sets of components that form a complete path through the block diagram.
+
+
+If we look at the figure above, we have lots of possible paths from left to right. The sets (1,3), (1,4), (2,4), and (2,5) all provide paths through the diagram. These are also&nbsp;<em>minimum path sets</em> in this case. Focusing on any particular path set, if we drop one component, the path disappears. The theorem gives the mathematical structure function corresponding to a parallel system of the series subsystems that the minimal path sets generate.
+
+In other words, the system is functioning if Components 1 and 3 are functioning, <strong>or</strong> Components 1 and 4 are functioning, <strong>or</strong> Components 2 and 4, etc.
+
+Last, here's an example of how we can take a given block diagram and rearrange it in terms of a parallel system of series subsystems according to the theorem.
+<p>
+<img class="centerleft" src="imgs/system-reliability-basics/bridgesystemdiagram.png" alt="" width="371" height="157"/> 
+
+<img class="centerright" src="imgs/system-reliability-basics/altbridgediagram.png" alt="" width="426" height="328"/> 
+</p>
+
+
+In the figure above, the top diagram represents a topology called a <em>bridge system</em>. The right side is the alternative version where I've arranged this into a parallel system of series subsystems. 
+
+Why do we actually care about this? Engineers will use block diagrams to help them design reliable systems. We can prove mathematically that the series system is the least reliable, and the parallel system is the most reliable, but that doesn't mean we should always put every component in parallel. An airplane with more landing gear than it needs can cause the airplane to weigh too much, for example.
+
+This results in complex system designs, particularly for mechanical and electronic devices. These designs may become too difficult to study visually via block diagrams, but the structure function helps. Studying the form of the structure function in terms if the components can help us determine where a critical component is, for example. A <em>critical component</em> is a component that will fail the whole system if it fails. In a series system, every component is critical. In a parallel system, no one is. Since most system designs are mixtures of these two, identification of a critical component isn't always simple with the block diagram. The structure function allows us to simulate various components failing (having state 0), and quickly seeing its effect on the system.
+
+Upon identification of a critical component, an engineer has a couple options
+<ul>
+ 	<li>he can add redundancy</li>
+ 	<li>he can use a more reliable (and usually more expensive) version of the component</li>
+</ul>
+These kinds of decisions require optimization with cost and other conditions, but these basic reliability building blocks are tools that can help make this easier.</html>
