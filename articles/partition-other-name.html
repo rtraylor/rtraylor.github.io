@@ -32,7 +32,7 @@ class="center"/>
     </div>
     </div>
     <a href="projects.html">Projects</a>
-    <a href="articles.html">Papers/Articles</a>
+    <a href="../articles.html">Papers/Articles</a>
     <a href="contact.html">Contact</a>
 
 
@@ -64,7 +64,7 @@ margin-right: auto;
 
 <br>
 
-<i> This article looks at cosets of a group and notes how they partition a set, then applies the result to coding theory. </i>
+<i> This article looks at cosets of a group and notes how they partition a set, then mentions an application of the result to coding theory. </i>
 		
  Algebra, as we've seen  <a href="articles/concatenation-operation.html">in</a> <a href="articles/mod-add-groups-integers.html" >other</a> <a href="articles/group-theory-xor.html">posts</a>, elegantly generalizes many things in basic arithmetic, leading to highly lucrative applications in <a href="articles/maximum-likelihood-decoding.html">coding theory</a> and data protection.  Some definitions in mathematics may not have obvious "practical use", but turn out to yield theorems and results so powerful we can use them to send image data cleanly from space. 
 
@@ -133,9 +133,8 @@ Each row in this array forms what we call a <strong>left coset of  $H $ in  $G $
 
 We can prove that every element in a finite group shows up in this array, and that no element appears more than once in the array. I'm not going to prove this here. This proof is done by contradiction, and is useful and necessary, but not particularly illuminating to this discussion. What we've actually done is <strong>partitioned</strong> a finite group into these rows using our subgroup  $H $. This partitioning is called a <strong>coset decomposition. </strong>
 
-<em>Remark. In fact, a coset on a finite group is a type of <strong>equivalence relation. </strong>This very elegant fact will play a large role in coding theory <strong>syndromes</strong> in a future post. For a discussion of equivalence relations please see the video below:)</em>
+<em>Remark. In fact, a coset on a finite group is a type of <strong>equivalence relation. </strong>This very elegant fact will plays a large role in coding theory <strong>syndromes</strong>. </em>
 
-[embedyt] https://www.youtube.com/watch?v=ELVrHyPiI9c[/embedyt]
 <h3>LaGrange's Theorem</h3>
 For finite groups, this coset decomposition yields LaGrange's theorem, a particularly beautiful theorem that relates the size of a subgroup, the number of cosets of that subgroup, and the size of a group. Because mathematicians hate writing more than we have to, let's write the number of left (or right) cosets of  $H $ in  $G $ as  $[G:H] $.
 
@@ -143,7 +142,7 @@ For finite groups, this coset decomposition yields LaGrange's theorem, a particu
 
 <em><span style="text-decoration: underline;"><strong>Lagrange's Theorem</strong></span></em>
 
-Suppose  $|G| $ is finite, and  $H \leq G $[note]Remember, that's our notation for "H is a subgroup of G"[/note]. Then 
+Suppose  $|G| $ is finite, and  $H \leq G $ (Remember, that's our notation for "H is a subgroup of G"). Then 
 
  $$|G| = [G:H] |H| $$
 
