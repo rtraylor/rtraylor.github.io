@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>A Partition By Any Other Name</title>
+<link rel="stylesheet" href="style.css">
+<img src="../imgs/tmc_text.jpg" alt="The Math Citadel" width="252" height="122"
+class="center"/>
+<br>
+</head>
+<body>
+
+<div class="navbar">
+    <a href="index.html">Home</a>
+    <div class="dropdown">
+        <button class="dropbtn">About 
+        <i class="fa fa-caret-down"></i>
+        </button>
+    <div class="dropdown-content">
+        <a href="about.html">About Us</a>
+        <a href="people.html">People</a>
+    </div>
+    </div>
+    <div class="dropdown">
+        <button class="dropbtn">Products and Services
+         <i class="fa fa-caret-down"></i>
+         </button>
+    <div class="dropdown-content">
+        <a href="research.html">Research</a>
+        <a href="consulting.html">Consulting</a>
+        <a href="https://shop.spreadshirt.com/mathcitadel/">Shop</a>
+        <a href="https://patreon.com/mathcitadel">Patreon</a>
+    </div>
+    </div>
+    <a href="projects.html">Projects</a>
+    <a href="articles.html">Papers/Articles</a>
+    <a href="contact.html">Contact</a>
+
+
+    
+</div>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+<h2> A Partition By Any Other Name </h2>
+<h4> R. Traylor </h4>
+<style>
+
+img{
+
+display: block;
+
+margin-left: auto;
+
+margin-right: auto;
+
+}
+
+</style>
+
+<br>
+
+<i> This article looks at cosets of a group and notes how they partition a set, then applies the result to coding theory. </i>
+		
+ Algebra, as we've seen  <a href="articles/concatenation-operation.html">in</a> <a href="articles/mod-add-groups-integers.html" >other</a> <a href="articles/group-theory-xor.html">posts</a>, elegantly generalizes many things in basic arithmetic, leading to highly lucrative applications in <a href="articles/maximum-likelihood-decoding.html">coding theory</a> and data protection.  Some definitions in mathematics may not have obvious "practical use", but turn out to yield theorems and results so powerful we can use them to send image data cleanly from space. 
+
+Here we will discuss the notion of a <strong>coset</strong> as a subgroup of a finite group  $G$. For a discussion on the definition of a group, please check out <a href="articles/elementary-properties-groups.html" >this post.</a> Recall that a group is a set  $G$ combined with an <a href="articles/concatenation-operation.html">operation</a> we will denote  $\cdot $ that satisfies the following axioms:
+
+<ol>
+<li> <strong>Closure under  $\cdot $: </strong>If  $a $ and  $b $ are in  $G $, then their product (or sum)[note]Remember that operations aren't just the typical addition or multiplication you use every day. We use addition and multiplication as general operations, and the product is just the name for one element "operation" another.[/note]  $a\cdot b $ is in  $G $</li>
+<li><strong>Associativity:</strong> Let  $a,b $ and  $c $ be elements of  $G $. Then we can group the operation however we like. That is,
+
+ $$ a\cdot (b\cdot c) = (a\cdot b)\cdot c $$ </li>
+<li><strong>Existence of an identity element:</strong> There must be some element  $e $ in  $G $ that, when multiplied on either the left or right by any element  $a $ in  $G $, returns that element. Mathematically, there exists  $e \in G $ such that for any  $a \in G $
+
+ $$e\cdot a = a\cdot e = a $$
+</li>
+<li><strong>Existence of an inverse: </strong>For each element  $a $ in  $G $, there is another element  $a^{-1} $ in  $G $ such that multiplying  $a^{-1} $ on either the left or right by  $a $ yields the identity element  $e $. Formally, for each  $ a \in G $ there exists  $a^{-1} $ in G such that
+
+ $$ a\cdot a^{-1} = a^{-1}\cdot a = e $$
+</li>
+</ol>
+
+Here are some examples of groups:
+<ul>
+ 	<li> $(\mathbb{R}, +) $, all real numbers under regular addition. The identity element is 0, and the inverse of any real number  $a $ is  $-a $.</li>
+ 	<li> $\mathbb{Z}_{n} $, integers modulo  $n $ under <a href="https://www.themathcitadel.com/like-clockwork-modulo-addition-and-finite-groups-of-integers/" target="_blank" rel="noopener noreferrer">modulo addition</a>. </li>
+ 	<li> $n \times n $ matrices under matrix addition</li>
+</ul>
+The number of elements in a group  $G $ can be either finite or infinite and is denoted  $|G| $. In  $\mathbb{Z}_{3} = \{0,1,2\} $,  $|\mathbb{Z}_{3}| = 3 $.  $|\mathbb{R}| $ is infinite. We're going to stick with finite groups; that is, groups with a finite number of elements. 
+<h2>Subgroups</h2>
+A <strong>subset </strong> $T $ of a set  $S $ is simply a set made from some of the elements in  $S $. If  $S = \{0,1,2,3,4,5\} $, then  $T = \{0,2,4\} $ is a subset of  $S $, and we denote it  $T \subseteq S $. The even integers are a subset of all integers. The rational numbers area subset of all real numbers. The set of square matrices is a subset of all matrices. 
+
+If our set has an operation and is actually a group  $G $, then a subset of this group that also fits the definition of a group is called a <strong>subgroup, </strong>and we write  $H \leq G $. Not all subsets of a group are subgroups. To determine if a subset of a group is actually a subgroup, we just have to verify properties (1) and (4) above for the subset. 
+
+Let's focus on finite groups for now. We can have subgroups of infinite groups, but it's easier to get used to these ideas on finite groups first. One possible way to construct a subgroup of a group is to pick an element  $a \in G $. We can take powers of this element and collect them together in a nice bag to create a subgroup called  $H$, denoted $\langle a \rangle $
+
+ $$H = \langle a\rangle = \{a, a^{2} = a\cdot a, a^{3} = a\cdot a \cdot a,\ldots \} $$
+
+Are we ever done taking powers of  $a $? Actually, yes. In a finite group, there are only a finite number of elements total, so we have to stop taking powers at some point. Moreover, we'll get to the point where some power of  $a $ actually gives us the identity element  $e $, and then any further powers just start us over. Let's take an explicit example. 
+
+Suppose we take  $\mathbb{Z}_{6} = \{0,1,2,3,4,5\} $ under modulo addition. Pick 2. Now let's see what happens when we create a subgroup from powers of 2 under modulo 6 addition. 
+
+First, we just have  $2 $. Then  $2^{2} = (2+ 2) \bmod 6 = 4 $ Remember that the operation is addition, so 2 "operation" 2  is 2+2 modulo 6. Next,  $2^{3} = (2+2+2) \bmod 6 = 6 \bmod 6 \equiv 0 $, which is our identity element. That means that  $2^{4} = 2^{3}\cdot 2 = 0 + 2 = 2 $. We've started the cycle over. That means there are only 3 distinct powers of 2 under modulo 6 addition:  $H = \langle 2\rangle = \{0,2,4\} $. This is the <strong>subgroup generated by 2</strong>, which is why we use the notation  $\langle 2\rangle $, because 2 and its powers under this group operation constructs the subgroup.
+
+We call  $|\langle a \rangle | $ the <strong>order</strong> of  $a $. Put another way, the order of an element in a group is the power required to yield the identity element. So, under modulo 6,  $2^{3} \equiv 0 $, so the order of 2 is 3, which is the size of the subgroup generated by 2.
+
+<h2>Coset Decomposition using Subgroups</h2>
+
+We can take a subgroup of a <em>finite group</em>  $G $ and partition it <strong>relative to that subgroup</strong> in a nice, methodical way[note]This only works for finite groups[/note]. Let's take a subgroup generated by some element  $h \in G $. That is, let our subgroup  $H = \langle h \rangle = \{h_{1}, h_{2},\ldots,h_{c} = e\} $ where  $c $ is the order of  $h $. We know the order of the element must be finite, because the group itself is finite, and all groups are closed under operations. Now let's construct an array for visualization. 
+
+First, we'll put the elements of our subgroup  $H $ on the first row:
+
+ $$\begin{array}{ccccc}h_{1}  &h_{2}  &h_{3}  &\ldots  &h_{c}\end{array} $$
+
+Now, pick any  $g \in G $ you want that <em>is not</em> in the subgroup  $H $. Let's name it  $g_{2} $. Put it at the start of the second row, and each element of the second row is formed by multiplying this  $g_{2} $ on the left by the column header  $h_{i} $:
+
+ $$\begin{array}{ccccc}h_{1}  &h_{2}  &h_{3}  &\ldots  &h_{c}\\g_{2}  &g_{2}\cdot h_{2}  & g_{2} \cdot h_{3}  &\ldots  &g_{2} \cdot h_{n}\end{array} $$
+
+ Now pick another  $g_{3}\in G $ that hasn't shown up in the first two rows. Then we'll create the third row in the same way as we created the second:
+
+ $$\begin{array}{ccccc}h_{1}  &h_{2}  &h_{3}  &\ldots  &h_{c}\\g_{2}  &g_{2}\cdot h_{2}  & g_{2} \cdot h_{3}  &\ldots  &g_{2} \cdot h_{n}\\g_{3}  &g_{3}\cdot h_{2}  & g_{3} \cdot h_{3}  &\ldots  &g_{3} \cdot h_{n}\end{array} $$
+
+We may continue making the array in this way until all of our elements are used up. Then we end up with the elements of our group arranged nicely into an  $m \times n $ array:
+
+ $$\begin{array}{ccccc}h_{1}  &h_{2}  &h_{3}  &\ldots  &h_{c}\\g_{2}  &g_{2}\cdot h_{2}  & g_{2} \cdot h_{3}  &\ldots  &g_{2} \cdot h_{n}\\g_{3}  &g_{3}\cdot h_{2}  & g_{3} \cdot h_{3}  &\ldots  &g_{3} \cdot h_{n}\\\vdots  &  &  &  &\\g_{m}  &g_{m}\cdot h_{2}  & g_{m} \cdot h_{3}  &\ldots  &g_{m} \cdot h_{n}\end{array} $$
+
+Each row in this array forms what we call a <strong>left coset of  $H $ in  $G $. </strong> We take an element of the group and multiply each element of the subgroup on the left by that element. Notice that for a finite group, we have  $m $ left cosets. If we had multiplied those  $g_{j} $'s on the right, we would call the rows <strong>right cosets.</strong> If the operation is commutative ( $a\cdot b = b\cdot a $), then left and right cosets are the same thing. 
+
+We can prove that every element in a finite group shows up in this array, and that no element appears more than once in the array. I'm not going to prove this here. This proof is done by contradiction, and is useful and necessary, but not particularly illuminating to this discussion. What we've actually done is <strong>partitioned</strong> a finite group into these rows using our subgroup  $H $. This partitioning is called a <strong>coset decomposition. </strong>
+
+<em>Remark. In fact, a coset on a finite group is a type of <strong>equivalence relation. </strong>This very elegant fact will play a large role in coding theory <strong>syndromes</strong> in a future post. For a discussion of equivalence relations please see the video below:)</em>
+
+[embedyt] https://www.youtube.com/watch?v=ELVrHyPiI9c[/embedyt]
+<h3>LaGrange's Theorem</h3>
+For finite groups, this coset decomposition yields LaGrange's theorem, a particularly beautiful theorem that relates the size of a subgroup, the number of cosets of that subgroup, and the size of a group. Because mathematicians hate writing more than we have to, let's write the number of left (or right) cosets of  $H $ in  $G $ as  $[G:H] $.
+
+<hr>
+
+<em><span style="text-decoration: underline;"><strong>Lagrange's Theorem</strong></span></em>
+
+Suppose  $|G| $ is finite, and  $H \leq G $[note]Remember, that's our notation for "H is a subgroup of G"[/note]. Then 
+
+ $$|G| = [G:H] |H| $$
+
+<hr>
+
+The number of cosets with respect to  $H $ times the size of  $H $ gives us the size of the group. Take a look back at our array we created. That's a visual illustration of this theorem. The number of rows gives us the number of cosets, and the number of columns is the size of our subgroup  $H $. All group elements appeared in the array, so we can see that the number of cosets times the size of the subgroup gives us the size of the original group  $G $.
+<h2>Conclusion</h2>
+Cosets exist for infinite groups as well, though they cannot be constructed quite the same way we did above, since we would never "finish" filling up rows and columns. For those, we just create them by multiplying some element  $ g \in G $ that isn't in a subgroup  $H $ (which may not be finite anymore) on the left or right by all elements in the subgroup. We write a general left coset as 
+
+ $$ gH = \{gh : h \in H\} $$
+
+The product of that  $g $ with all elements of the subgroup  $H $. If the group is infinite, we don't necessarily get a coset decomposition like we had before, and LaGrange's Theorem doesn't apply anymore. 
+
+Sticking with finite groups can yield some extremely powerful applications. For example, if we are to store and decode a binary code that may be transmitted over a noisy channel, the fact that the coset decomposition yields a set of equivalence classes allows us to drastically cut the amount of bits we need to store to fully represent a binary code and its parity check equations. 		
+						
+					
+							
+					
