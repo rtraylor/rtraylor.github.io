@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>All the Same Opposites</title>
+<link rel="stylesheet" href="style.css">
+<img src="../imgs/tmc_text.jpg" alt="The Math Citadel" width="252" height="122"
+class="center"/>
+<br>
+</head>
+<body>
+
+<div class="navbar">
+    <a href="index.html">Home</a>
+    <div class="dropdown">
+        <button class="dropbtn">About 
+        <i class="fa fa-caret-down"></i>
+        </button>
+    <div class="dropdown-content">
+        <a href="about.html">About Us</a>
+        <a href="people.html">People</a>
+    </div>
+    </div>
+    <div class="dropdown">
+        <button class="dropbtn">Products and Services
+         <i class="fa fa-caret-down"></i>
+         </button>
+    <div class="dropdown-content">
+        <a href="research.html">Research</a>
+        <a href="consulting.html">Consulting</a>
+        <a href="https://shop.spreadshirt.com/mathcitadel/">Shop</a>
+        <a href="https://patreon.com/mathcitadel">Patreon</a>
+    </div>
+    </div>
+    <a href="projects.html">Projects</a>
+    <a href="../articles.html">Papers/Articles</a>
+    <a href="contact.html">Contact</a>
+
+
+    
+</div>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+<h2> All the Same Opposites </h2>
+<h4> J. Hathcock </h4>
+<style>
+
+img{
+
+display: block;
+
+margin-left: auto;
+
+margin-right: auto;
+
+}
+
+</style>
+
+<br>
+
+<i> This article examines the surprising richness in the field of two elements.</i>
+		
+See <a href="../article-appendices/all-the-same-opposites-supporting-proofs.pdf">this appendix</a> for supporting proofs.
+
+Fields are among the most convenient algebraic structures, preserving much of the arithmetic we know and love from familiar fields like the rationals  $\mathbb{Q} $ and the real numbers  $\mathbb{R} $.
+
+Now, it is unnecessary that a set possess infinitely many elements to possibly constitute a field (under the right binary operations). Indeed, Dr. Rachel Traylor recently invited readers to finite field theory by way of <a href="articles/welcome-to-gf4.html">GF(4)</a>, the field with four elements. In this post, I propose to discuss the simplest of all possible fields, namely  $\text{GF}(2) $.
+<h2>What <em>is </em> $\text{GF}(2) $?</h2>
+As Dr. Traylor explains in <a href="articles/welcome-to-gf4.html">her post on GF(4)</a>, a <em>field</em> is built via a nonempty set  $\mathbb{F} $ and two binary operations, typically denoted  $+ $ and  $\cdot $ when no further specifying is needed.  Speaking abstractly,  $\text{GF}(2) $ is the case when  $\mathbb{F} $ is taken to be any set of two elements, say,  $\{a,b\} $, satisfying the operation tables below. For proof that the triple $({a,b}, +, /cdot)$ with $+$ and $/cdot$ defined as in the tables satisfies all requirements of a field, see <a href="../article-appendices/all-the-same-opposites-supporting-proofs.pdf">this appendix</a>.  This is perhaps the easiest case proven exhaustively.
+\[\begin{array}{c|cc}
++ & a & b \\
+\hline
+a & a & b \\
+b & b & a  \\
+\end{array}
+\]
+
+\[\begin{array}{c|cc}
+\cdot & a & b \\
+\hline
+a & a & a \\
+b & a & b  \\
+\end{array}
+\]
+ 
+<h2>So, what makes  $\text{GF}(2) $ simplest?</h2>
+Briefly put, there is no field with fewer elements than has  $\text{GF}(2) $. Why is this so? The operations  $+ $ and  $\cdot $ each require an identity element, and these must be distinct. As a result, any field must contain <em>at least</em> two elements. And, as it happens, those are enough to define a fully-fledged field.
+
+As it is the most basic of fields, it might be expected that  $\text{GF}(2) $ is only trivially interesting, or only appears in coverage of the subject on the theoretical front. (No judgment here; sometimes the simplest examples of structures are illustrative of very little. See the trivial topology or trivial algebra of sets on a set  $X $.) However,  $\text{GF}(2) $ is the mathematical representation of many dualities we encounter on a daily basis. We will take a look at some of the prominent cases.
+<h2>Even &amp; Odd</h2>
+Let’s denote by  ${\bf e} $ and  ${\bf o} $ arbitrarily chosen even and odd integers, respectively. <em>Truly, in this way, we are defining two <a href="articles/partition-other-name.html">equivalence classes</a> on the set of integers,  $\mathbb{Z} $, by way of modulo 2 addition.</em>
+
+Reminder, we say an integer  $m $ is <strong>even</strong> to mean there exists an integer  $k $ such that  $m=2k $, and  $m $ is <strong>odd</strong> to mean there exists an integer  $j $ such that  $m=2j+1 $. Collect these in a set:  $\{{\bf e},{\bf o}\} $, and consider this set under ordinary addition  $+ $ and multiplication  $\cdot $ .
+
+These results are summarized in tables.  For instance, in the  $+ $ table below, we can think of  ${\bf e}+{\bf o} $ as
+
+$$(2k)+(2j+1)=2(k+j)+1\equiv{\bf o}, $$
+
+since  $k+j $ is also an integer.
+
+\[\begin{array}{c|cc}
++ & {\bf e} & {\bf o} \\
+\hline
+{\bf e} & {\bf e} & {\bf o} \\
+{\bf o} & {\bf o} & {\bf e}  \\
+\end{array}
+\]
+ 
+\[\begin{array}{c|cc}
++ & {\bf e} & {\bf o} \\
+\hline
+{\bf e} & {\bf e} & {\bf e} \\
+{\bf o} & {\bf e} & {\bf o}  \\
+\end{array}
+\]
+ 
+
+From these tables,  ${\bf e} $ serves as additive identity for the field, and  ${\bf o} $ the multiplicative identity.
+<h2>Binary</h2>
+Even more readily encountered than even and odd is binary arithmetic. We have a <a href="articles/concatenation-operation.html">series</a> <a href="articles/group-theory-xor.html">of</a> <a href="articles/maximum-likelihood-decoding.html/">posts</a> <a href="articles/calculating-new-parity.html">here</a> on the theory of coding, and all of it rests on  $\{0,1\} $ when taken with the operations of  $+_2 $ (addition modulo 2) and  $\cdot $ .
+\[\begin{array}{c|cc}
++_{2} & 0 & 1 \\
+\hline
+0 & 0 & 1 \\
+1 & 1 & 0  \\
+\end{array}
+\]
+ 
+\[\begin{array}{c|cc}
+\cdot & 0 & 1 \\
+\hline
+0 & 0 & 0 \\
+1 & 0 & 1  \\
+\end{array}
+\] 
+
+The similarities to the tables for  $(\{{\bf e},{\bf o}\},+,\cdot) $ are evident.  With binary,  $0 $ is the additive (modulo 2) identity, and  $1 $ is the multiplicative identity.  This seems to follow naturally.  After all,  $0 $ is an even integer, and  $1 $ is an odd integer, so these elements are easily believed to work alike.  With that in mind, I move to an example with a less immediate connection.
+<h2>Truth &amp; Falsehood</h2>
+Now I want to consider the set  $\{{\bf T},{\bf F}\} $ of truth values, (true and false, respectively). This is the lingo used when discussing formal mathematical logic.  Shortly, a mathematical statement must be either true or false, cannot be both, and cannot be neither. 
+
+It is worthwhile to stop and think on which <em>operations</em> make sense for this set. Two are needed to construct a field. Just as even and odd integers may be combined by adding and multiplying, mathematical statements may be combined via disjunction ("or,"  $\vee $), conjunction ("and,"  $\wedge $), and implication ("if, then,"  $\Rightarrow $).  For this case, I am interested in the special "exclusive or," also called XOR[note]Similar to the linguistic usage, where "Option A XOR Option B" means "either Option A or Option B, but not both, and not neither".[/note], denoted by  $\oplus $, and conjunction.
+\[\begin{array}{c|cc}
+\oplus & F & T \\
+\hline
+F & F & T \\
+T & T & F  \\
+\end{array}
+\]  
+\[\begin{array}{c|cc}
+\wedge & F & T \\
+\hline
+F & F & F \\
+T & F & T  \\
+\end{array}
+\] 
+<h2>Opposite... in Precisely the Same Way</h2>
+The only thing setting these examples apart is an exchange of symbols. Truly,
+<p style="text-align: center;"> $a $,  ${\bf e} $,  $0 $, and  ${\bf F} $,</p>
+are interchangeable, just as are
+<p style="text-align: center;"> $b $,  ${\bf o} $,  $1 $, and  ${\bf T} $.</p>
+What matters is that these individual elements <em>behave </em>in <strong>exactly the same way</strong> with respect to their operations.  In the language of algebra, it is said 
+<p style="text-align: center;"> $(\{a,b\},+,\cdot) $, </p>
+<p style="text-align: center;"> $(\{{\bf e},{\bf o}\},+,\cdot) $, </p>
+<p style="text-align: center;"> $(\{0,1\},+_2,\cdot) $, and </p>
+<p style="text-align: center;"> $(\{{\bf F},{\bf T}\},\oplus,\wedge) $</p>
+are <em>isomorphic</em>, that is, structurally equivalent.  
+<blockquote><strong><em>Definition (Isomorphism of fields). </em></strong><em>We say two fields </em> $(\mathbb{F},+,\times) $ <em>and</em>  $(\mathbb{H},\boxplus,\boxtimes) $ <em>are </em>isomorphic<em> to mean there exists a function </em> $\varphi\mathrel{:}\mathbb{F}\to\mathbb{H} $ <em>such that </em> $\varphi $ <em>is one-to-one, onto, and, for all </em> $x,y\in\mathbb{F} $,
+$$\varphi(x+y)=\varphi(x)\boxplus\varphi(y);\quad\varphi(x\times y)=\varphi(x)\boxtimes\varphi(y). $$</p>
+</blockquote>
+In the case of  $\text{GF}(2) $, proving isomorphism amounts to simply defining the function that swaps the symbols as needed.  For example, to show  $(\{{\bf e},{\bf o}\},+,\cdot) $ and  $(\{0,1\},+_2,\cdot) $ are isomorphic, define[note]I encourage all readers to prove this function is an isomorphism by definition. (The curious may find full proof in the <a href="../article-appendices/all-the-same-opposites-supporting-proofs.pdf">appendix</a> attached.) $\varphi\mathrel{:}\{{\bf e},{\bf o}\}\to\{0,1\} $ by putting  $\varphi({\bf e})=0 $ and  $\varphi({\bf o})=1 $.
+<h2>Concluding Remarks</h2>
+Mathematics in many respects is the art[note]And purest science, by the way.[/note] of extension and generalization. The goal is frequently to take an existing object, assume an aerial viewpoint to learn its structure and what makes it work. (This is often carried out by seeing how few pieces of the whole are really needed to accomplish those key characteristics.)  
+
+With the right perspective, even these sets of opposites can bear likeness.  I take comfort in that.  
+
+							
+					
