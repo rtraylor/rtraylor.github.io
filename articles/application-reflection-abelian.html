@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Applications of Reflections: Taking a Group to its Abelian Form</title>
+<link rel="stylesheet" href="style.css">
+<img src="../imgs/tmc_text.jpg" alt="The Math Citadel" width="252" height="122"
+class="center"/>
+<br>
+</head>
+<body>
+
+<div class="navbar">
+    <a href="index.html">Home</a>
+    <div class="dropdown">
+        <button class="dropbtn">About 
+        <i class="fa fa-caret-down"></i>
+        </button>
+    <div class="dropdown-content">
+        <a href="about.html">About Us</a>
+        <a href="people.html">People</a>
+    </div>
+    </div>
+    <div class="dropdown">
+        <button class="dropbtn">Products and Services
+         <i class="fa fa-caret-down"></i>
+         </button>
+    <div class="dropdown-content">
+        <a href="../research.html">Research</a>
+        <a href="../consulting.html">Consulting</a>
+        <a href="https://shop.spreadshirt.com/mathcitadel/">Shop</a>
+        <a href="https://patreon.com/mathcitadel">Patreon</a>
+    </div>
+    </div>
+    <a href="../projects.html">Projects</a>
+    <a href="../articles.html">Papers/Articles</a>
+    <a href="../contact.html">Contact</a>
+
+
+    
+</div>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+<h2> Applications of Reflections: Taking a Group to its Abelian Form </h2>
+<h4> R. Traylor </h4>
+<style>
+
+img{
+
+display: block;
+
+margin-left: auto;
+
+margin-right: auto;
+
+}
+
+</style>
+
+<br>
+
+<i> This article looks at the definition of the categorical concept of a reflection and gives a clear application with full construction.</i>
+
+For some previous discussion of categorical concepts and more basic definitions, see the joint article by R. Traylor and V. Fadeev. 
+
+<hr>
+<blockquote><p><strong>Definition (Subcategory):</strong></p><p>A category $\mathbf{A}$ is a subcategory of a category $\mathbf{B}$ if 
+<ol>
+<li>$\mathrm{Ob}(\mathbf{A}) \subseteq \mathrm{Ob}(\mathbf{B})$</li>
+<li>For each $A, A' \in \mathrm{Ob}(\mathbf{A})$, $\mathrm{hom}_{\mathbf{A}}(A,A') \subseteq \mathrm{hom}_{\mathbf{B}}(A,A')$.</li>
+<li>For each $A \in \mathrm{Ob}(\mathbf{A})$, the $\mathbf{B}-$identity on $A$ is the same as the $\mathbf{A}-$identity on $A$.<br>(4) composition in $\mathbf{A}$ is the restriction of composition in $\mathbf{B}$ to the morphisms of $\mathbf{A}$</li>
+</ol></p><cite>Adámek et al, <em>Abstract and Concrete Categories</em>(1990)<br></cite></blockquote>
+<hr>
+
+<p>Point by point, we'll pick the definition apart. The first part is pretty clear. The collection of objects in a subcategory is contained in the collection of objects in its "parent". The second criterion says that the set of morphisms from one object $A$ to another object $A'$ inside the littler category $\mathbf{A}$ should be a subset of all the morphisms from the same $A$ to the same $A'$, but inside $\mathbf{B}$. That is, there are morphisms from $A \to A'$ in $\mathbf{B}$ that won't live in the subcategory $\mathbf{A}$.</p>
+
+<p>The third criterion just states that the identity morphisms on objects should match in both categories. The final criterion tells us that composition inside the subcategory $\mathbf{A}$ only "works" on the morphisms inside $\mathbf{A}$, but is otherwise the same composition as in $\mathbf{B}$. We just only perform compositions on morphisms in $\mathbf{A}$ when we're in $\mathbf{A}$.</p>
+
+<p>We now define a reflection.</p>
+<hr>
+<blockquote><p><strong>Definition ($A-$ reflection)</strong></p><p>Let $\mathbf{A}$ be a subcategory of $\mathbf{B}$, and let $B \in \mathrm{Ob}(\mathbf{B})$.<br><br>(1) An<strong> $\mathbf{A}-$ reflection</strong> for $B$ is a morphism $B \xrightarrow{r} A$ from $B$ to $A \in \mathrm{Ob}(\mathbf{A})$ such that for any morphism $B \xrightarrow{f} A'$ from $B$ to $A' \in \mathrm{Ob}(\mathbf{A})$ there exists a unique $f': A \to A'$ such that $f = f' \circ r$.<br>(2) $\mathbf{A}$ is a <strong>reflective subcategory</strong> for $\mathbf{B}$ if each $\mathbf{B}-$ object has an $\mathbf{A}-$reflection. </p></blockquote>
+</hr>
+
+<p>Currently, this definition seems a bit abstract. The following sections will illustrate concrete examples of reflections to understand this definition better.</p>
+
+<h2>Taking a Group to Its Abelian Form</h2>
+
+<h3>The Category $\mathbf{Grp}$</h3>
+
+<p>For this example, we'll be working with the category of groups, $\mathbf{Grp}$. The objects in this category are groups, and the morphisms are group homomorphisms. Some elements of this category are:</p>
+
+<ul>
+<li>$(\mathbb{R}, +) \xrightarrow{\phi} (\mathbb{R}^{+}, \cdot)$, $\phi(x) = e^{x}$. The real numbers under addition and the positive real numbers under multiplication are both groups, so they're objects in this category. $\phi$ here is a group homomorphism (actually an isomorphism), so it's a morphism in $\mathbf{Grp}$.</li>
+<li>The dihedral group $D_{6}$, and the permutation group $S_{3}$ are also objects in this class. Recall that the dihedral group $D_{6}$ is commonly visualized using the symmetries of an equilateral triangle. (There are 6 symmetry elements. Three reflections, with the reflection lines passing through each of the three vertices, two rotations of angle $2k\pi/3, k=1,2$, and an identity element that does nothing.), More commonly, the dihedral group is given using the following presentation: 
+$$D_{6} = \langle r,s : r^{3} = s^{2} = 1, sr = r^{-1}s\rangle$$
+ Here, we see that $D_{6}$ is generated by two elements $r$ and $s$ ($r$ is the rotation by $2\pi/3$, and $s$ is one of the reflection lines). $S_{3}$ is the set of permutations on 3 elements-- all permutations of the integers $\{1,2,3\}$. Both of these are groups, and both have 6 elements. If we define $$\phi: \begin{cases} r \to (123) \\ s \to (12)\end{cases}$$ then $\phi$ is a group homomorphism that takes $D_{6}$ to $S_{3}$, and is also thus a morphism in $\mathbf{Grp}$. </li>
+<li>As one last example, let $\mathrm{GL}_{2}(\mathbb{R})$ be the general linear group of degree $2$. This is the group of invertible $2\times 2$ matrices with real entries. Then we can create a group homomorphism $\phi: D_{6} \to \mathrm{GL}_{2}(\mathbb{R})$ by letting 
+$$\phi(r) = \begin{bmatrix}\cos(\theta)  & -\sin(\theta)\\ \sin(\theta)  & \cos(\theta)\end{bmatrix} \qquad \phi(s) = \begin{bmatrix} 0  & 1\\ 1  & 0 \end{bmatrix}$$ so this $\phi$ is also a morphism in $\mathbf{Grp}$.</li>
+</ul>
+
+<h3>The Category $\mathbf{Ab}$</h3>
+
+<p>A subcategory of $\mathbf{Grp}$ is $\mathbf{Ab}$, the category of abelian groups. Morphisms are again group homomorphisms, but this time we are only looking at morphisms between abelian groups. Some examples:</p>
+
+<ol>
+<li>$(\mathbb{R}, +) \xrightarrow{\phi} (\mathbb{R}^{+}, \cdot)$, $\phi(x) = e^{x}$. The real numbers under addition, and the positive real numbers under multiplication are abelian groups, so they're in the subcategory $\mathbf{Ab}$.</li>
+<li>$(\mathbb{Z}_{2} \times \mathbb{Z}_{2}, +)$ and $(\mathbb{Z}_{4}, +)$ are also abelian groups. We can define a group homomorphism $\psi: \mathbb{Z}_{2} \times \mathbb{Z}_{2} \to \mathbb{Z}_{4}$ by 
+$$\psi: \begin{cases} (0,0) \to 0 \\ (1,0) \to 1\\ (0,1) \to 2 \\ (1,1) \to 3\end{cases},$$ 
+so $\psi$ is in the collection of morphisms in $\mathbf{Ab}$. Of course, it's also in the morphisms of $\mathbf{Grp}$ as well.</li>
+<li> $D_{6}$ is not commutative, so it's not an object in $\mathbf{Ab}$. </li>
+<li>$\mathrm{GL}_{2}$ under matrix multiplication is not abelian, because matrix multiplication is not a commutative operation. So neither this group nor the group homomorphism between $D_{6}$ and $\mathrm{GL}_{2}$ are in $\mathbf{Ab}.</li>
+</ol>
+
+<h3>Creating the Commutator Subgroup</h3>
+
+<p>We now discuss the commutator element. The<strong> commutator</strong> of two elements $g,h$ in a group, denoted $[g,h]$ is given by $[g,h] = g^{-1}h^{-1}gh$.</p>
+
+<p><em>Remark: The order matters here.</em></p>
+
+<p>Let's work with a nice easy group of matrices. Let 
+$$G =\left\{I_{2},\begin{bmatrix}0 &1\\1 &0\end{bmatrix},\begin{bmatrix}0 &1\\-1 &-1\end{bmatrix},\begin{bmatrix}-1 &-1\\0 &1\end{bmatrix},\begin{bmatrix}-1 &-1\\1 &0\end{bmatrix},\begin{bmatrix}1  & 0\\-1 &-1\end{bmatrix}\right\}$$
+ under matrix multiplication. We'll name these matrices $\{I,A,B,C,D,K\}$ respectively. This group is not commutative, as shown in the group table below: 
+
+
+\[\begin{array}{c|cccccc}
+\cdot & I & A & B & C & D & K \\
+\hline
+I & I & A & B & C & D & K \\
+A & A & I & C & B & K & D \\
+B & B & K & D & A & I & C \\
+C & C & D & K & I & A & B \\
+D & D & C & I & K & B & A \\
+K & K & B & A & D & C & I \\
+\end{array}
+\]
+
+<p> Next, we're going to form the <strong>commutator subgroup</strong>, which is the subgroup of $G$ consisting of all commutators of $G$. Let's call this subgroup $\tilde{G}$. The quotient $G/\tilde{G}$ is always an abelian group, so "quotienting out by" $\tilde{G}$ and working with the cosets gives us an "abelian version" of our previously non-abelian group. </p>
+
+<p>We'll calculate a few commutator elements to demonstrate how, but will not run through every combination. $$\begin{aligned}[I,X] &=[X,I]=I\\ [A,B] &=A^{-1}B^{-1}AB=ADAB=D\\ [B,A] &=B^{-1}A^{-1}BA=DABA=B\\ [C,D] &=C^{-1}D^{-1}CD=CBCD=B\\ \vdots\end{aligned}$$</p>
+
+<p>Continuing with all combinations, we find that there are only three commutator elements: $\{I, B, D\}$. Thus $\tilde{G} = \{I,B,D\}$. Now, $G/\tilde{G}$ gives us the left cosets of $\tilde{G}$: $$\begin{aligned}A\tilde{G} &= C\tilde{G}=K\tilde{G}=\{A,C,K\}\\ B\tilde{G} &= D\tilde{G}=I\tilde{G}=\{I,B,D\}\end{aligned}$$
+Thus, the commutator subgroup is $G/\tilde{G} = \{A\tilde{G}, \tilde{G}\}$. This two-element group is a bit dull, admittedly, but it certainly is abelian, with the identity element as $\tilde{G}$.</p>
+
+<h3>Back to Reflections</h3>
+
+<p>Something else we can do with this little two-element group is map it to $(\mathbb{Z}_{2}, +)$ via the homomorphism $\phi: G/\tilde{G} \to \mathbb{Z}_{2}$, where $\phi(\tilde{G}) = 0$, and $\phi(A\tilde{G}) = 1$. </p>
+
+<p>What does any of this have to do with reflections? Recall that $G \in \mathrm{Ob}(\mathbf{Grp})$, but not in $\mathrm{Ob}(\mathbf{Ab})$. $G/\tilde{G}$ is in $\mathrm{Ob}(\mathbf{Ab})$, and so is $\mathbb{Z}_{2}$. </p>
+
+<p>A reflection for $G$ into $\mathbf{Ab}$ is a morphism $r$ such that for any morphism $\psi:G \to A'$, $A' \in \mathrm{Ob}(\mathbf{Ab})$, we can find a morphism $\phi$ completely contained in $\mathbf{Ab}$ such that $\psi = \phi \circ r$. </p>
+
+<p>Let $A'= \mathbb{Z}_{2}$, and define $\psi: G \to \mathbb{Z}_{2}$ by $$\psi: \begin{cases}A \to 1 \\ C \to 1 \\ K \to 1 \\ B \to 0\\D \to 0 \\I \to 0\end{cases}$$ 
+This is certainly a homomorphism ($\psi(XY) = \psi(X)\psi(Y)$). </p>
+
+<p>What if we could "bounce" this group $G$ off another group $H$ in $\mathbf{Ab}$, then move from $H$ to $\mathbb{Z}_{2}$? That might reveal a little more about $\psi$ than just the seemingly contrived definition we put forth. </p>
+
+<p>Let $r: G \to G/\tilde{G}$ be the canonical map sending each element of $G$ to the appropriate coset. That is $r(A) = A\tilde{G}$, $r(B) = \tilde{G}$, etc. Then the image of $r$ is $G/\tilde{G}$, and $\phi$ as defined above is the unique morphism that will take $G/\tilde{G}$ to $\mathbb{Z}_{2}$ such that $\psi = \phi \circ r$. </p>
+
+<p>One reflection, $r$, taking $G$ to some object $A$ in $\mathbf{Ab}$. Grab a morphism $\psi$ from $G$ to somewhere else in $\mathbf{Ab}$ (we picked $\mathbb{Z_{2}}$). Then we have to be able to find a unique $\phi$ such that $\psi$ decomposes into the composition of $r$ with that $\phi$. This same $r$ (and thus the same $A$) should be able to perform this action for any $A'$, any $\psi$. In our case, the reflection is the canonical map from $G$ to its commutator subgroup. </p>
+
+<h2>Conclusion</h2>
+
+<p>Reflections can perform many different actions to take objects in one category to objects in a subcategory. We focused on reflections making things "abelian" in a nice way, which helped reveal some structures that would have otherwise been hidden. </p>
