@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Beyond Cookbook Mathematics, Part 2</title>
+<link rel="stylesheet" href="style.css">
+<img src="../imgs/tmc_text.jpg" alt="The Math Citadel" width="252" height="122"
+class="center"/>
+<br>
+</head>
+<body>
+
+<div class="navbar">
+    <a href="index.html">Home</a>
+    <div class="dropdown">
+        <button class="dropbtn">About 
+        <i class="fa fa-caret-down"></i>
+        </button>
+    <div class="dropdown-content">
+        <a href="../about.html">About Us</a>
+        <a href="../people.html">People</a>
+    </div>
+    </div>
+    <div class="dropdown">
+        <button class="dropbtn">Products and Services
+         <i class="fa fa-caret-down"></i>
+         </button>
+    <div class="dropdown-content">
+        <a href="../research.html">Research</a>
+        <a href="../consulting.html">Consulting</a>
+        <a href="https://shop.spreadshirt.com/mathcitadel/">Shop</a>
+        <a href="https://patreon.com/mathcitadel">Patreon</a>
+    </div>
+    </div>
+    <a href="../projects.html">Projects</a>
+    <a href="../articles.html">Papers/Articles</a>
+    <a href="../contact.html">Contact</a>
+
+
+    
+</div>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+<h2> Building a Ground Floor: Topology Basics, Part 1</h2>
+<h4> J. Hathcock </h4>
+<style>
+
+img{
+
+display: block;
+
+margin-left: auto;
+
+margin-right: auto;
+
+}
+
+</style>
+
+<br>
+
+<i> This article gives a short introduction to basic topological concepts, with concrete examples.</i>
+<p>
+Like some other terms in mathematics ("algebra" comes to mind), <em>topology</em> is both a discipline and a mathematical object. Moreover like algebra, topology as a subject of study is at heart an artful mathematical branch devoted to generalizing existing structures like the field of real numbers for their most convenient properties. It is also a favorite subject of mine, ever since my first introduction to it. This is due in large part to its exceedingly simple first principles, which make the wealth of expansion they allow all the more impressive.
+</p>
+<p>
+It is my intent to discuss some of these starting points here, in the first of a short series of posts toward the goal of presenting one of my favorite results arising in topology: <strong>Moore-Smith convergence</strong>, a vast extension of the notion of <a href="articles/cauchy-sequences-close.html">the limit of a sequence</a>. My representation here follows the explanation given by John L. Kelley in his classic text <em>General Topology</em>, which I recommend to all curious readers.
+</p>
+<h2>What <em>is</em> a topology?</h2>
+<hr>
+<blockquote><strong>Definition. </strong>By <em>topology</em> is meant any collection  $\mathscr{T} $ of sets satisfying two conditions:
+$$\begin{array}{lrcl}\text{(1)} &A,B\in\mathscr{T} &\Rightarrow &A\cap B\in\mathscr{T};\\\text{(2)} &\mathscr{C}\subset\mathscr{T} &\Rightarrow &\bigcup\{C\in\mathscr{C}\}\in\mathscr{T}\end{array} $$</p>
+</blockquote>
+<hr>
+It is worthwhile to break this definition down. Condition  $(1) $ requires that the intersection of any two elements of the collection  $\mathscr{T} $ must itself be a member of  $\mathscr{T} $. Condition  $(2) $ states that the union of any subcollection of  $\mathscr{T} $ must also belong to  $\mathscr{T} $. These are referred to as <em>closure to finite intersection</em> and <em>closure to arbitrary union</em>, respectively, in some texts.
+
+Notably, the definition speaks only of a collection of sets with no specification beyond the two conditions. Yet, even with these, one can deduce some further characteristic properties.
+<blockquote><strong>Corollary. </strong>If  $\mathscr{T} $ is a topology, then
+
+$$\begin{array}{ll}\text{(i)} &\emptyset\in\mathscr{T};\\\text{(ii)} &\bigcup\{T\in\mathscr{T}\}\in\mathscr{T}.\end{array} $$</blockquote>
+
+Since  $\emptyset\subset S $ for every set  $S $, and  $\mathscr{T}\subset\mathscr{T} $, it is enough to apply  $(2) $ to both of these cases to prove the corollary. In fact, many texts make the definition  $X\mathrel{:=}\bigcup\{T\in\mathscr{T}\} $, and refer to the pair  $(X,\mathscr{T}) $ as the <em>topological space</em> defined by  $\mathscr{T} $.
+
+This way, the space is given its character by way of the scheme that builds  $\mathscr{T} $, rather than the set  $X $. It is an important distinction, for many topologies are possible on a given set. With that, we can look at some examples.
+
+<h2>From Trivial to Complicated</h2>
+
+<h3>1. The Trivial Topology</h3>
+
+Based on the corollary just presented, it is enough to gather a given set  $X $ and the empty set  $\emptyset $ into a collection  $\{\emptyset,X\} $ and have created a topology on  $X $. Because  $X $ and  $\emptyset $ are its only members, the collection is easily closed to arbitrary union and finite intersection of its elements. This is known as the <em>trivial</em> or <em>indiscrete topology</em>, and it is somewhat uninteresting, as its name suggests, but it is important as an instance of how simple a topology may be. As per the corollary, every topology on  $X $ must contain  $\emptyset $ and  $X $, and so will feature the trivial topology as a subcollection.
+
+<h3>2. The Discrete Topology</h3>
+
+For this example, one can start with an arbitrary set, but in order to better illustrate, take the set of the first three primes:  $\{2,3,5\} $. Suppose we consider the collection of all possible subsets of  $\{2,3,5\} $. This is also referred to as the <em>power set </em>of  $\{2,3,5\} $, and denoted  $\wp(\{2,3,5\}) $. Fortunately, the set is small enough to list exhaustively. (A finite set, say with <em>k</em> elements, has a power set possessing exactly 2<sup><em>k</em></sup> elements.) Here they are listed from top-to-bottom in order of increasing inclusion:
+<table style="width: 25%; background-color: #ffffff;" align="center">
+<tbody>
+<tr>
+<td> </td>
+<td style="text-align: center;"> $\emptyset $</td>
+<td> </td>
+</tr>
+<tr>
+<td style="text-align: center;"> $\{2\} $</td>
+<td style="text-align: center;"> $\{3\} $</td>
+<td style="text-align: center;"> $\{5\} $</td>
+</tr>
+<tr>
+<td style="text-align: center;"> $\{2,3\} $</td>
+<td style="text-align: center;"> $\{2,5\} $</td>
+<td style="text-align: center;"> $\{3,5\} $</td>
+</tr>
+<tr>
+<td> </td>
+<td style="text-align: center;"> $\{2,3,5\} $</td>
+<td> </td>
+</tr>
+</tbody>
+</table>
+ 
+
+Note these are <em>all</em> possible subsets of  $\{2,3,5\} $. It is clear any union or intersection of the pieces in the table above exists as an entry, and so this meets criteria  $(1) $ and  $(2) $. This is a special example, known as the <em>discrete topology</em>. Because the discrete topology collects every existing subset, any topology on  $\{2,3,5\} $ is a <em>subcollection</em> of this one.
+
+For example, taking the sets
+
+$$\emptyset,\quad\{5\},\quad\{2,3\},\quad\{2,3,5\} $$
+
+from the collection in the table is enough to produce a topology. (This claim is an example that can be proven exhaustively.)
+
+<blockquote><strong>Remark. </strong>Given a topological space  $(X,\mathscr{T}) $, the elements of  $\mathscr{T} $ are referred to as <em>open sets</em>. This nomenclature is motivated in the next example.</blockquote>
+
+<h3>3.  $\mathbb{R} $ and Open Intervals</h3>
+
+This example will be more constructive than the previous ones. Consider the set of real numbers,  $\mathbb{R} $. Let us define a special collection  $\mathscr{T} $ of subsets of real numbers the following way: a set  $T $ belongs to  $\mathscr{T} $ if, and only if, for every  $x\in T $, there exist real numbers  $a $ and  $b $ such that  $x\in(a,b) $ and  $(a,b)\subset T. $ That is, we say  $T\in\mathscr{T} $ to mean  $T $ contains an open interval around each of its elements.
+
+It is good practice to take the time to <em>prove</em> this collection defines a topology on  $\mathbb{R} $. To do so, it must be shown that  $\bigcup\{T\in\mathscr{T}\}=\mathbb{R} $, and that  $\mathscr{T} $ meets conditions  $(1) $ and  $(2) $.
+<blockquote>
+
+<em>Proof</em>. To show  $\bigcup\{T\in\mathscr{T}\}=\mathbb{R} $, it must be verified that  $\bigcup\{T\in\mathscr{T}\}\subset\mathbb{R} $ and  $\mathbb{R}\subset\bigcup\{T\in\mathscr{T}\} $. The first containment follows by defining every  $T\in\mathscr{T} $ as a subset of  $\mathbb{R} $ to begin with, so the reverse containment is all that is left. Let  $x\in\mathbb{R} $ be given. Then certainly  $x\in(x-1,x+1) $, and surely  $(x-1,x+1)\in\mathscr{T} $, as it contains an open interval around all its points by its very design. Thus  $x\in\bigcup\{T\in\mathscr{T}\} $.
+<p>
+
+On to proving  $\mathscr{T} $ satisfies  $(1) $ and  $(2) $. For  $(1) $, let  $A,B\in\mathscr{T} $ be given and suppose $x\in A\cap B $. (An important point here: by supposing <em>x</em> ∈ <em>A</em> ∩ <em>B</em>, it is automatically assumed <em>A</em> ∩ <em>B</em> ≠ Ø. To see the empty set belongs to 𝒯 regardless, note that the statement "if <em>x</em> ∈ Ø, then <em>x</em> ∈ (<em>a</em>, <em>b</em>)" is always true.) This holds if, and only if,  $x\in A $ and  $x\in B $. Since  $A $ and  $B $ both belong to  $\mathscr{T} $, there exist real numbers  $a $,  $b $,  $c $, and  $d $ such that  $x\in(a,b)\subset A $, and  $x\in(c,d)\subset B $. But this means  $x\in(a,b)\cap(c,d) $. Fortunately, two intervals of real numbers may only overlap in one way: this means either  $c&lt;b $ or  $a&lt;d $. Without loss of generality, suppose it is the former case, that  $c&lt;b $. Then  $(a,b)\cap(c,d)=(c,b) $, and it is so that  $x\in(c,b) $, an open interval contained in  $A\cap B $ (precisely as desired), and it follows  $A\cap B\in\mathscr{T} $.
+</p>
+<p>
+To show  $(2) $ is much easier. Here, <em>𝒜</em> denotes an arbitrary collection so that the proof is not too specific; similarly <em>α </em>is just an index marker. Let  $\{T_\alpha\}_{\alpha\in\mathscr{A}} $ be a collection of sets belonging to  $\mathscr{T} $, and suppose  $x\in\bigcup_{\alpha\in\mathscr{A}}T_\alpha $. Then there exists an index, say  $\alpha_0\in\mathscr{A} $, such that  $x\in T_{\alpha_0} $. Since  $T_{\alpha_0}\in\mathscr{T} $, there exist real numbers  $a $ and  $b $ such that  $x\in(a,b)\subset T_{\alpha_0} $. But this means  $x\in(a,b)\subset\bigcup_{\alpha\in\mathscr{A}}T_\alpha $. Since  $x $ was chosen arbitrarily, it follows  $\bigcup_{\alpha\in\mathscr{A}}T_\alpha\in\mathscr{T} $.</blockquote>
+</p>
+<p>
+The proof above shows  $(\mathbb{R},\mathscr{T}) $ is a topological space; the collection  $\mathscr{T} $ is referred to as the <em>standard topology</em> on  $\mathbb{R} $. The open sets in this space are all the subsets of real numbers contained in open intervals. Fittingly, then, open intervals are open sets in the standard topology.
+</p>
+<h2>Conclusion</h2>
+This first post is meant to express the simple starting points of topology as a subject of study. It only takes the two criteria mentioned here to define a topology of sets, and yet an entire realm of theory rests upon them. This is a recurring theme in topology, algebra, and mathematics in general. Building the fully-featured universes that hold the answers for more specific inquiry: the complete ordered field of real numbers(the only one like it, up to <a href="articles/all-the-same-opposites.html">isomorphism</a>!)  $\mathbb{R} $, the space  $\mathcal{C}^{\infty}(\mathbb{C}) $ of infinitely differentiable functions  $f\mathrel{:}\mathbb{C}\to\mathbb{C} $, the class of all real-valued Lebesgue-integrable functions on  $\mathbb{R} $, each of these requires a well-made foundation.
+
+The next post in this series will cover the nature of sequences in topological spaces, particularly those instances where the convenient features afforded by the real numbers are no longer available. With the metric space structure stripped away, how does one define convergence and limit of sequences? What does it mean for elements in topological spaces to be close when distance is otherwise without definition?
+
+							
