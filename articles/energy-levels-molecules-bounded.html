@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Energy Levels of Molecules are Bounded Below</title>
+<link rel="stylesheet" href="style.css">
+<img src="../imgs/tmc_text.jpg" alt="The Math Citadel" width="252" height="122"
+class="center"/>
+<br>
+</head>
+<body>
+
+<div class="navbar">
+    <a href="index.html">Home</a>
+    <div class="dropdown">
+        <button class="dropbtn">About 
+        <i class="fa fa-caret-down"></i>
+        </button>
+    <div class="dropdown-content">
+        <a href="../about.html">About Us</a>
+        <a href="../people.html">People</a>
+    </div>
+    </div>
+    <div class="dropdown">
+        <button class="dropbtn">Products and Services
+         <i class="fa fa-caret-down"></i>
+         </button>
+    <div class="dropdown-content">
+        <a href="../research.html">Research</a>
+        <a href="../consulting.html">Consulting</a>
+        <a href="https://shop.spreadshirt.com/mathcitadel/">Shop</a>
+        <a href="https://patreon.com/mathcitadel">Patreon</a>
+    </div>
+    </div>
+    <a href="../projects.html">Projects</a>
+    <a href="../articles.html">Papers/Articles</a>
+    <a href="../contact.html">Contact</a>
+
+
+    
+</div>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+<h2> Energy Levels of Molecules are Bounded Below</h2>
+<h4> N. Lisitsa </h4>
+<style>
+
+img{
+
+display: block;
+
+margin-left: auto;
+
+margin-right: auto;
+
+}
+
+</style>
+
+<br>
+
+<i> This guest submission is from Nikita Lisitsa, a professional software developer and mathematician. You can follow him on <a href="https://twitter.com/lisyarus?lang=en">Twitter</a>.</em><</i>
+
+
+<h2>Are Molecules Perpetual Motion Machines?</h2>
+
+<p>Short answer: no, of course not. Perpetual motion machines do not exist. There are deep theoretical reasons for that, as well as less deep but nevertheless convincing experimental data. That's why we care so much about renewable energy and stuff: we know that energy supply is limited in any real physical system.</p>
+
+<p>From the perspective of mechanics (classical, relativistic, or quantum) when you take some energy from a system, it jumps to a state with lower energy. If there were a system with no lower bound on energy levels, we could withdraw energy forever, forcing the system to fall lower and lower on the energy ladder (this is roughly what forced Dirac to introduce the concept of the Dirac sea). Thus, a sufficiently good mechanical system should have a lower bound on possible energy states.</p>
+
+<p>We now focus on atoms and molecules. What would bound their energy levels from below? To begin, we need a good framework to describe these energy levels. Unfortunately, classical mechanics fails here: the <a href="https://en.wikipedia.org/wiki/Virial_theorem">virial theorem</a> implies that for a potential of the form $V(r) \sim \frac{1}{r}$ the time average of kinetic and potential energies, denoted $\langle T\rangle$ and $\langle V\rangle$, respectively, are related by 
+$$2\langle T \rangle = -\langle V \rangle,$$
+and the total energy $E$ (which is conserved) is given by 
+$$E = \langle E \rangle = \langle T \rangle + \langle V \rangle = \frac{1}{2} \langle V \rangle.$$</p>
+
+<p>For a single electron (which has charge $-e$) moving in a Coulomb field of a nucleus with charge $Ze$, the potential energy is $V(r) = -\frac{kZe^2}{r}$, where $k$ is a Couloumb constant. Thus, if the distance $r$ to the nucleus tends to zero, the potential energy tends to $-\infty$, and so does the total energy $E$. This, together with the fact that an electron orbiting a nucleus would lose energy in the form of electromagnetic waves, was one of the major problems of classical mechanics that needed a "quantum treatment".</p>
+
+<h2>Annoyingly Fast and Heavy Introduction to Quantum Mechanics</h2>
+
+<p>Let's dive into the (non-relativistic) quantum world. Unfortunately, we are immediately forced to accept an approximation; as of this writing, I'm unaware of a solution that doesn't use one. The <a href="https://en.wikipedia.org/wiki/Born-Oppenheimer_approximation">Born-Oppenheimer approximation</a> suggests that since the protons and neutrons are <a href="https://en.wikipedia.org/wiki/Proton-to-electron_mass_ratio">about 2000 times heavier</a> than electrons, they move much slower and can be considered static. Thus, we must now prove that a system of $N$ electrons moving in a field of $K$ fixed nuclei has a lower bound on possible values of energy. </p>
+
+<p>Under this framework, a molecule is a carefully chosen separable Hilbert space of possible states together with a "nice" <em><a href="https://en.wikipedia.org/wiki/Self-adjoint_operator#Essential_self-adjointness">essentially self-adjoint</a> </em>operator acting on it. The Hilbert space we are will use is denoted $(L^2(\mathbb{R}^3))^{\otimes N} \cong L^2(\mathbb{R}^{3N})$, where $\cong$ denotes an <a href="https://www.themathcitadel.com/isomorphisms-making-mathematics-more-convenient/">isomorphism</a>. The notation indicates that we can represent an element of our Hilbert space in two equivalent ways; we'll use the second, which is a square-integrable function of $3N$ real variables which are coordinates of the electrons - 3 coordinates for each of the $N$ electrons. The inner product of two functions $\psi$ and $\phi$ is defined as an integral over the whole $3N$-dimensional space:</p>
+
+<p>$$\langle\psi,\phi\rangle = \int\limits_{\mathbb{R}^{3N}} \overline\psi(r_1\dots r_N) \phi(r_1 \dots r_N) dr_1 \dots dr_N$$</p>
+
+<p><em>Remark: The actual space should be tensored by $\mathbb C^{2^N}$ to account for spin, but the effect of spin on energy is too small for us to care in this case. Nevertheless, it exists. Furthermore, the elements of the space are actually <strong>not</strong> functions;they are equivalence classes of functions modulo function having zero norm. Following the usual colloquial terminology, we'll call them functions nevertheless; we'll refer to them as wavefunctions.</em></p>
+
+<p>A physical state is not the same as a wavefunction: you can multiply the wavefunction by an arbitrary non-zero complex constant, and the result represents the same state. States form some peculiar kind of space; we shall stick to wavefunctions, which are elements of a vector space so we can use the full power of linearity. Thus, it is common to assume wavefunctions to be normalized such that[note]Here we use &lt;,&gt; to denote inner product.[/note] $\langle \psi,\psi\rangle=1$. We shall assume this too.</p>
+
+<p>Next, we need to define the Hamiltonian. Here, the Hamiltonian is similar to that in non-quantum mechanics, with the exception that we must <em>quantize</em> it: turn numbers into operators. The general solution to this problem is unknown. (See <a href="https://en.wikipedia.org/wiki/Canonical_quantization#Groenewold's_theorem">Groenewold's theorem</a> on the inconsistency of canonical quantization and John Baez's <a href="https://johncarlosbaez.wordpress.com/2018/12/01/geometric-quantization-part-1/">article series</a> on some modern approaches). In our case, however, the recipe is simple: turn the kinetic energy $\frac{p_i^2}{2m}$ into $-\frac{\hbar^2}{2m} \Delta_i$ and turn the potential energy $V(r_1,r_2,\dots,r_N)$ into an operator that multiplies a wavefunction by $V$.</p>
+
+<p>The energy consists of </p>
+
+<ul><li>the kinetic energy of electrons,</li><li>the attraction of these electrons to the nuclei, and</li><li>the repulsion energy between electrons</li></ul>
+
+<p>The usual quantum-mechanical way to write this is:
+$$H = -\sum\limits_i \frac{\hbar^2}{2m} \Delta_i - \sum\limits_{i,A} \frac{kZ_Ae^2}{|r_i - R_A|} + \sum\limits_{i,j} \frac{ke^2}{|r_i - r_j|}$$
+ We now detail each item in the above equation</p>
+
+<ul>
+<li>$i,j$ are indices that run over the electrons in the system</li><li>$A$ runs over nuclei</li>
+<li>$\Delta_{i}$ is the Laplacian with respect to $i$-th electron coordinates, i.e. $\frac{\partial^2}{\partial x_i^2}+\frac{\partial^2}{\partial y_i^2}+\frac{\partial^2}{\partial z_i^2}$</li><li>$m$ is the electron mass</li><li>$k$ is the Coulomb constant</li>
+<li>$Z_A$ is the number of protons in the $A$-th nucleus
+</li>
+<li>$e$ is the electron charge</li><li>$r_i$ is the position of $i$-th electron
+</li>
+<li>$R_A$ is the position of $A$-th nucleus (which are fixed by Born-Oppenheimer)
+</li>
+</ul>
+
+<p>Nobody likes constants, right? Let's stick to <a href="https://en.wikipedia.org/wiki/Atomic_units">atomic units</a> instead, where $m=k=e=\hbar=1$, and the speed of light is $137$ (this is exactly $\frac{1}{\alpha}$, where $\alpha$ is the <a href="https://en.wikipedia.org/wiki/Fine-structure_constant">fine-structure constant</a>). The Hamiltonian becomes a bit cleaner: 
+$$H = -\sum\limits_i \frac{1}{2} \Delta_i-\sum\limits_{i,A} \frac{Z_A}{|r_i - R_A|} + \sum\limits_{i,j} \frac{1}{|r_i - r_j|}$$</p>
+
+<p>What does it mean? An operator should act on wavefunctions. For a function $\psi$, the operator takes some second derivatives of $\psi$, multiply $\psi$ by other functions, and adds all this up. The result is another function - the result of operator acting on $\psi$, called $H\psi$. One important thing is that this operator is essentially self-adjoint, though we shall treat it as if it's adjoint: this follows from the Laplacian $\Delta_i$ being self-adjoint, and multiplication by<em>real-valued</em> function being a self-adjoint operator as well.</p>
+
+<p>The energy (well, the <em>average</em> or <em><a href="https://en.wikipedia.org/wiki/Expectation_value_(quantum_mechanics)">expectation value</a></em> energy), of a state $\psi$ is $\langle \psi, H\psi\rangle$ (the inner product of $\psi$ and $H\psi$), which happens to be equal to $\langle H\psi , \psi\rangle$, thanks to self-adjointness. Physicists love to use bra-ket notation for expressions like this, and write it as $\langle \psi | H | \psi\rangle$.</p>
+
+<h2>Concerning Energies</h2>
+
+<p>We have a space of functions, a differential operator acting on these functions, and an integral that we wish to bound from below whenever the functions are normalized. I'll leave a huge number of unpleasant technical issues under the hood - we are going to presume that all equations make sense, that no domain issues occur, etc. Look into "Hall, Quantum Mechanics for Mathematicians" for all the details. </p>
+
+<p>Our way to prove that the expression $\langle \psi, H\psi\rangle$ is indeed bounded below will be broken up into three parts.</p>
+
+<h3>Ignoring Repulsion</h3>
+
+<p>A good thing about the average energy is that it is linear in the energy operator. This means that, for a sum of two operators, we have $$\langle \psi, (H_1+H_2)\psi \rangle = \langle \psi, H_1\psi \rangle + \langle \psi, H_2\psi \rangle,$ which means that we can analyze the terms in the Hamiltonian separately.</p>
+
+<p>Now, the last term is electron-electron repulsion. Let's write it down again:
+$$\sum\limits_{i,j} \frac{1}{|r_i - r_j|}$$
+ The only thing that matters for our purposes is that this operator is multiplication by a <em>nonnegative</em> function, which we'll call $f(r_1,\dots,r_N)=\sum\limits_{i,j} \frac{1}{|r_i - r_j|}$ for now. Non-negativeness implies that the expectation value of this term is never below zero:
+$$\langle \psi, f \cdot \psi \rangle = \int\limits_{\mathbb R^{3N}} |\psi|^2 f dr_1 \dots dr_N \geq 0$$</p>
+
+<p>Thus, since the expectation value is linear, we can simply drop the electron-electron repulsion term: this action can only <em>lower</em> the energy; since we want to find a lower bound on energy levels, this is okay.</p>
+
+<h3>Separating Electrons</h3>
+
+<p>Now the simplified Hamiltonian looks like this:
+$$H' = -\sum\limits_i \frac{1}{2} \Delta_i - \sum\limits_{i,A} \frac{Z_A}{|r_i - R_A|}$$ The electrons do not interact anymore, which makes the total Hamiltonian a sum of single-particle Hamiltonians of individual electrons: 
+$$H' = \sum\limits_i \left[ -\frac{1}{2} \Delta_i - \sum\limits_{A} \frac{Z_A}{|r_i - R_A|}  \right] = \sum\limits_i H_i,$$</p>
+
+<p>where each of $H_i$ depends only on the $i$-th electron coordinates. In the tensor-product-version of the description of our Hilbert space of states, this means that $H_i$ acts on the $i$-th component of the tensor product $(L^2(\mathbb R^3))^{\otimes N}$. Whatever Hilbert space description you use, this implies that the whole system Hamiltonian $H'$ is <a href="https://en.wikipedia.org/wiki/Separation_of_variables">separable</a>, so analyzing the expectation values of $H_i$ is, in essence, a single-particle problem: the wavefunction $\psi(r_1, \dots, r_N)$ does still depend on all electrons' coordinates, but they are ignored by $H_i$. So, if we find a lower bound for each of $H_i$, we are done.</p>
+
+<h3>Reducing to a Hydrogen-Like Atom</h3>
+
+<p>Everything before this section was actually pretty straightforward; it is now that we'll do a simple trick. Look at $H_i$ again:
+$$H_i = -\frac{1}{2} \Delta_i - \sum\limits_{A} \frac{Z_A}{|r_i - R_A|}$$
+It would be awesome if we could put the Laplacian under the sum, for the resulting summands would be just the Hamiltonians of a <a href="https://en.wikipedia.org/wiki/Hydrogen-like_atom">hydrogen-like</a> atom, --- a quantum system with any charged particle orbiting around another charged particle. This is one of the most important quantum systems and one of the few that has an exact and known analytical solution.</p>
+
+<p>So, let's actually put the Laplacian under the sum!</p>
+
+$$H_i = \sum\limits_{A} \left[ -\frac{1}{2M} \Delta_i - \frac{Z_A}{|r_i - R_A|} \right] = \sum\limits_A H_{i,A},$$
+
+<p>where $M$ is the number of nuclei. Now, each term of the sum is the Hamiltonian of an atom-like system, with a nucleus of charge $Z_A$ and an electron orbiting it, except that the electron has mass $M$ instead of $1$. Thankfully, this is not a problem: plug $m_e=M$ into the exact solutions of the hydrogen-like atom, and we get solutions for each $H_{i,A}$ term of the sum above. We don't need the actual solutions, though; all we need is the fact that <em>expectation value of energy is bounded below</em> in this solution.</p>
+
+<h3>Summing It Up</h3>
+
+<p>So, what we've done is shown 
+$$H \geq H' = \sum\limits_i H_i = \sum\limits_{i,A} H_{i,A},$$
+and the expectation value of each $H_{i,A}$ is bounded below, therefore the expectation value of $H$ itself is bounded below.</p>
+
+<p>This whole idea was inspired by the paper of Tosio Kato "Fundamental properties of Hamiltonian operators of Shrödinger type". You'll find many more details on the topic there.</p>
+
+<p>All this is just a tiny bit of the whole story of why the world around us doesn't explode/freeze/break apart. For a full exposition, check out "The stability of matter: from atoms to stars" by Elliott H. Lieb. I should thank <a href="https://twitter.com/ValFadeev">Valentin Fadeev</a> for introducing me to this awesome work.</p>
+
+<h2>References</h2>
+
+<ul><li>Kato, T.,<a href="https://www.ams.org/journals/tran/1951-070-02/S0002-9947-1951-0041010-X/S0002-9947-1951-0041010-X.pdf"> <em>Fundamental properties of Hamiltonian operators of Shrödinger type</em>. </a>Transactions of the American Mathematical Society, Vol. 70, No. 2 (Mar., 1951), pp. 195-211</li></ul>
+
+<ul><li>Elliott H. Lieb, <a href="https://projecteuclid.org/euclid.bams/1183555452">The stability of matter: from atoms to stars</a></li><li> Brian C. Hall, <em>Quantum Theory for Mathematicians</em>. Springer, 2013.</li></ul>
+
