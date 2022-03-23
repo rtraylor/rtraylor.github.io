@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Cauchy Sequences</title>
+<link rel="stylesheet" href="style.css">
+<img src="../imgs/tmc_text.jpg" alt="The Math Citadel" width="252" height="122"
+class="center"/>
+<br>
+</head>
+<body>
+
+<div class="navbar">
+    <a href="index.html">Home</a>
+    <div class="dropdown">
+        <button class="dropbtn">About 
+        <i class="fa fa-caret-down"></i>
+        </button>
+    <div class="dropdown-content">
+        <a href="../about.html">About Us</a>
+        <a href="../people.html">People</a>
+    </div>
+    </div>
+    <div class="dropdown">
+        <button class="dropbtn">Products and Services
+         <i class="fa fa-caret-down"></i>
+         </button>
+    <div class="dropdown-content">
+        <a href="../research.html">Research</a>
+        <a href="../consulting.html">Consulting</a>
+        <a href="https://shop.spreadshirt.com/mathcitadel/">Shop</a>
+        <a href="https://patreon.com/mathcitadel">Patreon</a>
+    </div>
+    </div>
+    <a href="../projects.html">Projects</a>
+    <a href="../articles.html">Papers/Articles</a>
+    <a href="../contact.html">Contact</a>
+
+
+    
+</div>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+<h2> Cauchy Sequences: The Importance of Getting Close</h2>
+<h4> R. Traylor </h4>
+<style>
+
+img{
+
+display: block;
+
+margin-left: auto;
+
+margin-right: auto;
+
+}
+
+</style>
+
+<br>
+
+<i> This article gives a quick overview of the notion of a Cauchy sequence of numbers.</i>
+
+<p>
+Augustin Louis Cauchy can be argued as one of the most influential mathematicians in history, pioneering rigor in the study of calculus, almost singlehandedly inventing complex analysis and real analysis, though he also made contributions to number theory, algebra, and physics. 
+</p>
+<p>
+One of the fundamental areas he studied was sequences and their notion of convergence. Suppose I give you a sequence of numbers, and ask you what happens to this sequence if I kept appending terms forever? Would the path created by the sequence lead somewhere? 
+</p>
+<p>
+Let's start with a nice, basic sequence, and assume we are living on the space of real numbers:
+</p>
+$$s = (1, 1/2, 1/3, 1/4, 1/5, 1/6,\ldots)$$
+
+This tuple notation denotes an ordered <em>sequence</em> of stuff. We can make sequences of anything we want to: matrices, numbers, functions, or even more general objects. We'll stick with numbers for this discussion. The individual elements are <em>terms</em> of the sequence. The first term in $s$ above is 1, called $s_{1}$. So $s_{6} = 1/6$. Some people start indexing terms at 0. Either one is fine, just be aware of which one you have or choose. The ellipses tell you that there is no end to the sequence; that it goes on forever.
+
+<h2>First question: what's the pattern?</h2>
+
+If we're going to study sequences, we need to know how to refer to one in general. What's the 100th term of the sequence I showed you? The millionth? The general $n$th term of the sequence is a function of its index. (Actually, a sequence is a function that maps an index, typically the natural (counting) numbers onto some other space.) 
+
+In our sequence above, $s_{1} = 1$, $s_{2} = 1/2$, $s_{3} = 1/3$... Is there a pattern? How can we use the index to generate terms of the sequence?
+
+$s_{n} = 1/n$; that is, the $n$th term of the sequence is obtained by dividing 1 by the index $n$. So we can actually represent the sequence a bit shorter: 
+
+$$s_{n} = \left(\frac{1}{n}\right)$$
+
+This tells us how to generate the entire sequence, term by term. Now we can speak about a generic sequence $a$ with terms $a_{n}$, where $n$ is the index.
+
+<h2>The Cauchy property</h2>
+One of the biggest questions we can ask of a sequence is regarding <em>convergence. </em>Where do the terms lead, if anywhere? Convergence theory of both sequences and series (the sum of a sequence) is quite a rabbit hole to dive down, but in short, we want to know if there is some "destination" of the sequence. Proving convergence is required; it's not enough to just say where we think they go. We'll visit a few specific examples.
+
+<h3>$(1, 1/2, 1/3, 1/4, 1/5,\ldots)$</h3>
+This one is a sequence of fractions, given by the general term $s = \left(\frac{1}{n}\right)$. The most natural guess for the limit of this sequence is 0. We can prove this formally, but I want to develop a sense of intuition in the reader without getting bogged down in details. 
+
+
+<h3>$(1,0,1,0,1,0,\ldots)$</h3>
+This sequence alternates between 0 and 1 forever. So where does it lead? In this case, nowhere. This is an eternal tennis match between 0 and 1.
+
+One last example:
+<h3>$(1, 1, 2, 3, 5, 8, 13, \ldots)$</h3>
+This one is the famous Fibonnaci sequence. The next term is generated by adding the two previous terms. So if we kept generating terms of the sequence forever, where would we go? The terms just keep getting bigger and bigger, so we would never actually converge to any finite number.
+
+
+All three of these are sequences, but only one of them has a very useful and famous property- the <strong>Cauchy Property</strong>.
+
+In a nutshell, a sequence that has the Cauchy property (or is <em>Cauchy</em>), has terms that get arbitrarily close after a certain point. Put formally, for every tiny $\epsilon &gt; 0$ there exists some number $N$ such that for any two indices $m$ and $n$ that are greater than this $N$, 
+
+$$|a_{m}-a_{n}| < \epsilon$$
+
+
+<h3>What does this definition <i>mean</i>?</h3>
+<ul>
+<li>"For every $\epsilon > 0$" means that we can pick any arbitrary number, no matter how tiny. </li>
+<li> "There exists some number $N$": This means that given the particular $\epsilon$ we picked in the previous step no matter how tiny, and we will find a corresponding natural number $N$ that depends on this epsilon. I could also write $N_{\epsilon}$ to explicitly show this dependence. </li>
+<li>"such that for any two indices $m$ and $n$ greater than $N$": meaning that if $N = 6$, any terms with indices higher than 6, e.g. $a_{8}$ and $a_{118}$</li>
+<li>$|a_{m} - a_{n}| < \epsilon$: The absolute value of the difference between any terms whose indices are both greater than the $N$ corresponding to the $\epsilon$ we picked is less than that $\epsilon$.</li>
+</ul>
+
+Let's work with our sequence $ s = \left(\frac{1}{n}\right)$. If you picked $\epsilon = \frac{1}{4}$, then after which index are any two terms less than 1/4 apart? Is it $N = 2$? 
+
+Well, the difference between any two subsequent terms are obviously going to get smaller, so the largest difference between two subsequent terms would be between 1/2 and 1/3. (We left out the first term, because we want to see if after the second term, all terms are less than 1/4 apart.)
+
+But wait. Let's go back to the definition. It says that we have to find an $N$ such that <em><strong>for any two</strong></em> terms afterwards. That means we can't just check the difference between terms next to each other. We have to know that it's true for any two, such as the second and fifth, or fourth and twentieth. All the terms have to be bunching together after a certain point. 
+
+So in our case, for example, $1/2 - 1/5 = 3/10 > 1/4$, so $N = 2$ isn't our $N$.
+
+<h3>How do we actually show a sequence is Cauchy?</h3>
+
+Testing every possible $\epsilon$ and finding its corresponding $N$ is going to be impossible. It's a pain just to do it for $\epsilon = \frac{1}{4}$ above. This means we do need to attack this problem abstractly. Showing a sequence is Cauchy is actually pretty formulaic, because we have to satisfy a definition. We'll walk through it on our sequence $s = \left(\frac{1}{n}\right)$, because this exercise forces us to really understand the definition.
+
+First, the definition says "for every $\epsilon > 0$". That means we need to grab one - a generic one. So let's do that. We say: <strong>Let $\epsilon > 0$</strong> to start out. Now we have one. The goal is to find the $N$ in terms of our generic $\epsilon$ such that any two terms of $s = \left(\frac{1}{n}\right)$ with indices greater than this $N$ have a difference no larger than our chosen (but unknown) $\epsilon$. 
+
+So let's set up what we need: $\left|\frac{1}{n}-\frac{1}{m}\right| &lt; \epsilon$. We'll need to just play with it algebraically to get somewhere.
+
+$$\begin{aligned}\left|\frac{1}{n}-\frac{1}{m}\right| &= \left|\frac{m-n}{mn}\right|\end{aligned}$$
+
+All I did in the line above was combine the fraction. If I subtract $n$ from $m$ in the numerator, that's less than not subtracting anything at all. That means that 
+
+$$\begin{aligned}\left|\frac{1}{n}-\frac{1}{m}\right| &= \left|\frac{m-n}{mn}\right|\\&<\left|\frac{m}{mn}\right|\\&= \frac{1}{n}\end{aligned}$$
+
+Why did I do this? I want to bound what looked gross by something that looks nicer to work with. In my experience, analysis is a game of bounding arguments. It's a neat way to sidestep some really nasty arithmetic or calculus. How do we ensure that $\frac{1}{n}$ is less than an $\epsilon$ we don't know? This is where our $N$ comes in. What should $N$ be in terms of our $\epsilon$ to guarantee this?
+
+If $ N = \frac{1}{\epsilon}$, and $n > N$, then $\frac{1}{n} < \frac{1}{N} = \frac{1}{1/\epsilon} = \epsilon$. 
+
+That means that for $N = \frac{1}{\epsilon}$, and for any two $m,n$ that are greater than $N$
+
+$$\begin{aligned}\left|\frac{1}{n}-\frac{1}{m}\right| &= \left|\frac{m-n}{mn}\right|\\&<;\left|\frac{m}{mn}\right|\\&= \frac{1}{n}\\&<\epsilon\end{aligned}$$
+
+We're done! We took a generic $\epsilon$ and found the corresponding $N$ that ensured any two terms with an index greater than $N$ are no further than $\epsilon$ apart. Because we didn't "hard code" anything, we showed that this is true no matter what $\epsilon$ you picked. Therefore, we conclude that the sequence $s = \left(\frac{1}{n}\right)$ is a Cauchy sequence. 
+
+(<em>Some notes: I want to point out here that a Cauchy sequence doesn't have to be super neat. As long as it "calms down" after a certain finite point, it can be wild and crazy. For example, the first 10 terms of a sequence can be 1,000,000, and then from the 11th term onward be something like $\left(\frac{1}{n^{2}}\right)$. When we talk about sequences, we actually don't care at all about the first bits of a sequence. It's the tail we care about almost always.)</em>
+<h2>So what does this give us? </h2>
+The Cauchy property actually yields quite a few things that can help us when we study convergence of both sequences and series. Here are a few things we can prove if we know a sequence is Cauchy:
+<ol>
+<li><strong>Every Cauchy sequence of real or complex numbers is bounded. </strong>
+</li>
+<li>
+<strong>A Cauchy sequence that has a convergent subsequence is itself convergent. </strong> A subsequence is a sequence made from selecting certain terms of the sequence to make a new one, like all the odd terms, or all the evens, or every third one, etc. This can reduce the problem of showing convergence of a complicated sequence if we can find a subsequence that leads somewhere. 
+</li>
+<li>
+<strong>Every Cauchy sequence of real numbers converges. </strong>
+This is actually a very specific case of a more general statement, that every Cauchy sequence in n-dimensional real space is convergent. This is extremely helpful when we want to show a sequence converges, but we can't really figure out what the limit might be by intuition. 
+</li>
+</ol>
+
+
+<h2>Conclusion</h2>
+
+The Cauchy property is much more broad in its applications and implications than what has been explored here. It's not just used for sequences of numbers, but can be used to study sequences of functions, spaces, or anything else we like, as long as we define an idea of "closeness". It's a powerful analytic property that gives stronger implications than what we detailed above for more advanced topics, such as the notion of completeness of a space. (That is, the idea that a space contains the limit points of its Cauchy sequences.)
