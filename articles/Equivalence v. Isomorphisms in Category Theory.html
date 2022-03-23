@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Equivalence v. Isomorphisms in Category Theory</title>
+<link rel="stylesheet" href="style.css">
+<img src="../imgs/tmc_text.jpg" alt="The Math Citadel" width="252" height="122"
+class="center"/>
+<br>
+</head>
+<body>
+
+<div class="navbar">
+    <a href="index.html">Home</a>
+    <div class="dropdown">
+        <button class="dropbtn">About 
+        <i class="fa fa-caret-down"></i>
+        </button>
+    <div class="dropdown-content">
+        <a href="../about.html">About Us</a>
+        <a href="../people.html">People</a>
+    </div>
+    </div>
+    <div class="dropdown">
+        <button class="dropbtn">Products and Services
+         <i class="fa fa-caret-down"></i>
+         </button>
+    <div class="dropdown-content">
+        <a href="../research.html">Research</a>
+        <a href="../consulting.html">Consulting</a>
+        <a href="https://shop.spreadshirt.com/mathcitadel/">Shop</a>
+        <a href="https://patreon.com/mathcitadel">Patreon</a>
+    </div>
+    </div>
+    <a href="../projects.html">Projects</a>
+    <a href="../articles.html">Papers/Articles</a>
+    <a href="../contact.html">Contact</a>
+
+
+    
+</div>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+<h2> Equivalence v. Isomorphisms in Category Theory</h2>
+<h4> V. Fadeev and R. Traylor</h4>
+<style>
+
+img{
+
+display: block;
+
+margin-left: auto;
+
+margin-right: auto;
+
+}
+
+</style>
+
+<br>
+
+<i> This article discusses the subtle differences between an equivalence and an isomorphism in categorical language.</i>
+
+
+<h2>Introduction</h2>
+
+<em>Editor's Note: The article is co-written by Rachel Traylor (The Math Citadel) and Valentin Fadeev (The Open University, UK). Substantial additional review, contributions, and discussions were provided by Matt Kukla and Jason Hathcock. A pdf is available for download at the end of this post.</em>
+
+<p>The biggest challenge we have found in studying category theory is the lack of "concrete" examples to illustrate concepts that aren't themselves highly abstract. This may be due to our more "vulgar" nature as a primarily applied mathematician (from the viewpoint of many academic mathematicians). However, we firmly believe that if category theory wishes to deliver on the promises it makes to help bind many branches of mathematics (and even the sciences) together, it needs a little boring vulgarity sometimes when illustrating concepts as opposed to a never-ending march towards greater abstraction and generality. </p>
+
+
+
+<p>Perhaps we are better poised than many to do the dirty work of illustrating some of these concepts in a more boring way, on topics so familiar many mathematicians ignore them. For this particular article, we will elaborate on the difference between isomorphic categories and equivalent categories. The difference between the two has a degree of subtlety, but exploring a tangible example involving matrices and finite-dimensional vector spaces really clarified these concepts for us. <br></p>
+
+
+
+<h2>Necessary Definitions</h2>
+
+
+
+<p>We will not assume a familiarity with all the terms we will be using, so some definitions for reference are provided here. It is perfectly acceptable to skim these until they are invoked later, then return for further examination. For reference, please see <em>Abstract and Concrete Categories</em> by Adámek, Herrlich, and Strecker (1990).</p>
+
+
+<hr>
+<blockquote>
+<p>
+<em><strong>Definition (Category)</strong></em>
+</p>
+<p>
+A <strong>category</strong> is a quadruple $\mathbf{A} = (\mathscr{O}, \text{hom}, \text{id}, \circ)$ that consists of
+</p>
+
+<ol>
+<li> A class $\mathscr{O}$ whose members are called $\mathbf{A}-$objects. A class is a generalization of the notion of a set. This concept was created to sidestep issues with Russell's Paradox that sets generate. We couldn't talk about the "set of all sets", or the "set of all vector spaces" without running into a paradox, so we created classes which allow for the creation of a class of all sets with any particular property P. For the purposes of this article, accepting a class as a "bigger set" is sufficient.</li>
+
+<li> For each pair $(A,B)$ of $\mathbf{A}-$objects, a set $\hom(A,B)$ whose elements are called <em>morphisms</em> from $A$ to $B$. Denoted $A \xrightarrow{f} B$ or $f: A \to B$. The collection of all morphisms in $\mathbf{A}$ is denoted $\text{Mor}(\mathbf{A})$.</li>
+
+<li>For each $\mathbf{A}-$object $A$, there is an <em>identity morphism</em> $A \xrightarrow{id_{A}} A$.</li><li> A <em>composition law</em> that associates with each $\mathbf{A}-$morphism $A \xrightarrow{f} B$ and $B \xrightarrow{g} C$ an $\mathbf{A}-$morphism $A \xrightarrow{g \circ f} C$ we call the<em> composite</em> of $f$ and $g$. We first apply f to get into B, then apply g to move into C. Thus we perform compositions right to left. This composite map $g\circ f$ is subject to the following conditions:</li>
+
+<ul>
+<li> Composition is associative. That is, for $A \xrightarrow{f} B$, $B \xrightarrow{g} C$, and $C \xrightarrow{h} D$, </p><p>$$ h \circ (g\circ f) = (h \circ g) \circ f.$</li>
+
+<li> For any morphism $A \xrightarrow{f} B$, $id_{B} \circ f = f$ and $f \circ id_{A} = f$.[note]We just want to make sure that composing with identity morphisms doesn't change anything.[/note]</li>
+
+<li> The sets $\hom(A,B)$ are pairwise-disjoint, meaning that a morphism $f$ cannot belong to $\hom(A,B)$ and $\hom(A',B')$ at the same time. It can only be in one set of morphisms. This condition guarantees each morphism has a unique domain (where we're mapping from) and codomain (where we map to).</li>
+</ul>
+
+</ol>
+
+<cite>Abstract and Concrete Categories, Adámek, Herrlich, Strecker (1990)</cite>
+</blockquote>
+<hr>
+
+
+<p>For those who have never seen any category theory at all, it is worth a pause to list a couple examples of categories. We shall only list the ones that of interest to this article. There are many more examples, and many more "types" of categories beyond these.</p>
+
+
+
+<ul><li>$\mathbf{Set}$ is the category of all sets. $\mathscr{O}$ is the class of all sets. (Here a particular set is an object. $\mathbb{N}$ is an object in this category, as is the set of all permutations of the numbers $\{1,2,3\}$. We don't care about individual elements of these sets. We move from one whole set to another whole set. $\hom(A,B)$ is the set of all functions from set $A$ to set $B$. $id_{A}$ is just the identity function on a set $A$, and $\circ$ is our standard composition of functions.</li><li>$\mathbf{Vect}$ is the category whose objects are all real vector spaces. Morphisms in this category are linear transformations from one vector space to another, so $\hom(A,B)$ is the set of all linear transformations from vector space $A$ to vector space $B$. Later we'll restrict our attention to only finite dimensional vector spaces.  The identity morphisms are identity transformations, and composition in this category is the standard composition of linear maps.</li></ul>
+
+
+
+<img src="../article-imgs/mat-category.png" alt=""  width="341" height="352"/>
+
+
+<ul><li>$\mathbf{Mat}$ an interesting category worth spending some time on. Objects here are <em>not</em> matrices, as one might guess. Objects in $\mathbf{Mat}$ are natural numbers. Morphisms are $m \times n$ real-valued matrices. (We can generalize this concept to $\mathbf{Mat}_{R}$, where the entries of the matrices are the elements of a particular specified ring $R$, but let's just stick with real-valued matrices here. Put differently, morphisms take a natural number $m$ "to" a natural number $n$ by assigning it a matrix of dimensions $m \times n$ with real-valued entries. $\hom(m,n)$ is the set of all $m\times n$ real-valued matrices. Structurally, there is only one morphism from $m$ to $n$. While we can have different $m\times n$ matrices that perform the task of mapping $m$ to $n$, they are structurally equivalent in that they map two natural numbers to the same dimensions. In this category, the identity morphism $id_{m}$ are $m \times m$ identity matrices. Composition in this category is defined by $A \circ B = BA$, where $BA$ is just the usual matrix multiplication. It's worth noting here that a category doesn't require that all morphisms be composable. $\mathbf{Mat}$ provides a nice example of this. We can only multiply matrices when the dimensions are appropriate to do so, which means only certain morphisms are composable. This doesn't violate the definition of a category or associativity, etc. Composition must be associative when composition can be done.</li></ul>
+
+
+
+<p>Morphisms allow us to move between objects in a category. If we want to move from one category to another, we'll need the concept of a functor.</p>
+
+
+<hr>
+<blockquote><p><strong><em>Definition (Functor)</em></strong></p><p>If $\mathbf{A}$ and $\mathbf{B}$ are categories, then a <strong>functor</strong> $F$ from $\mathbf{A}$ to $\mathbf{B}$ is a mapping that assigns to each $\mathbf{A}-$object $A$ and $\mathbf{B}-$object $FA$. It also assigns to each $\mathbf{A}-$morphism $A \xrightarrow{f} A'$ a $\mathbf{B}$-morphism $FA \xrightarrow{Ff} FA'$ such that the following conditions hold:</p>
+<ol>
+<li>$F(f\circ g) = Ff \circ Fg$ (Composition is preserved whenever $f\circ g$ is defined.)
+</li>
+<li> For every $\mathbf{A}-$object $A$, $F(id_{A}) = id_{FA}$. This makes sure the functor maps the identity morphism on $A$ to the identity morphism on the object that $A$ maps to in the category $\mathbf{B}$.</li></ol></blockquote>
+<hr>
+
+
+<p>Notationally, we'll see functors written $F: \mathbf{A} \to \mathbf{B}$, or $F(A\xrightarrow{f}B)$, which shows more clearly that functors move objects<em> and</em> morphisms. </p>
+
+
+
+<p>Functors themselves can have different properties, that are a bit similar to concepts from studying regular functions (e.g. injectivity, surjectivity). We can also compose functors, and that composite functor is indeed a functor.</p>
+
+
+<hr>
+<blockquote><p><em><strong>Definition (Isomorphism as a functor)</strong></em></p><p>A functor $F : \mathbf{A} \to \mathbf{B}$ is called an <strong>isomorphism</strong> if there is a functor $\mathbf{G}: \mathbf{B} \to \mathbf{A}$ such that $G \circ F = id_{\mathbf{A}}$ and $F \circ G = id_{\mathbf{B}}$. </p></blockquote>
+<hr>
+
+
+<p>Note $id_{\cdot}$ here is the identity functor for a category, not the identity morphism on an object. The identity functor will just take all objects to themselves, and all morphisms to themselves, but the identity functor acts on a category, whereas the identity morphism acts on an object within a category.</p>
+
+
+<hr>
+<blockquote><p> <em><strong>Definition (Faithful Functor)</strong></em></p><p>A functor is <strong>faithful</strong> if all the hom-set restrictions $F: \hom_{\mathbf{A}}(A,A') \to \hom_{\mathbf{B}}(FA, FA')$ are injective.</p></blockquote>
+</hr>
+
+
+<p>Here, this means that if a morphism $f \in \text{hom}_{\mathbf{A}}(A,A')$ maps to $Ff \in \hom_{\mathbf{B}}(FA, FA')$, and another morphism $g \in \hom_{\mathbf{A}}(A,A')$ maps to $Fg \in \hom_{\mathbf{B}}(FA, FA')$ we have that $Ff = Fg$ (the two "target" morphisms are the same), then $f = g$. This needs to hold for all sets of morphisms between any two objects.</p>
+
+
+<hr>
+<blockquote><p><em><strong>Definition (Full Functor)</strong></em></p><p>A functor $F$ is <strong>full</strong> if all the hom-set restrictions $F: \hom_{\mathbf{A}}(A,A') \to \hom_{\mathbf{B}}(FA, FA')$ are surjective.</p></blockquote>
+<hr>
+
+
+<p>In other words, for a functor to be full, we need a morphism $g$ in $\hom_{\mathbf{B}}(FA, FA')$ to have a morphism $f$ in $\hom_{\mathbf{A}}(A,A')$ such that $Ff = g$. $g$ should have a "preimage" under the functor. </p>
+
+
+<hr>
+<blockquote><p><em><strong>Definition (Isomorphism Dense)</strong></em></p><p>A functor is <strong>isomorphism-dense</strong> if for any $\mathbf{B}-$object $B$ there exists some $\mathbf{A}-$object $A$ such that $FA \cong B$. </p></blockquote>
+<hr>
+
+
+<p>Two objects $FA$ and $B$ in a category $\mathbf{B}$ are <em>isomorphic</em> if there exists a morphism between the two that is an isomorphism. It is worth clearly noting the definition of an isomorphism at it pertains to morphisms in a category:</p>
+
+
+<hr>
+<blockquote><p><em><strong>Definition (Isomorphism for Morphisms)</strong></em></p><p>A morphism $f: A \to B$ in a category $\mathbf{A}$ is an isomorphism if there exists a morphism $g: B \to A$ in $\text{Mor}(\mathbf{A})$ such that $f\circ g = id_{B}$ and $g\circ f = id_{A}$ where $id_{A}$ and $id_{B}$ are the identity morphisms for the objects $A$ and $B$.</p></blockquote>
+<hr>
+
+
+<p>Finally, we can combine a few of these to get the notion of an <em>equivalence</em>:</p>
+
+
+<hr>
+<blockquote><p><strong><em>Definition (Equivalence}</em></strong></p><p>A functor is an <strong>equivalence</strong> if it is full, faithful, and isomorphism-dense.</p></blockquote>
+<hr>
+
+
+<p>If we re-write the definition of an isomorphism (functor), then an isomorphism is a functor that is full, faithful, and bijective on objects, whereas an equivalence is a functor that is full, faithful, and isomorphism-dense. The only difference between these two is the notion of being bijective on objects v. being isomorphism-dense. An isomorphism is more restrictive than an equivalence in the sense that all  isomorphisms are equivalences, but we can exhibit equivalences that are not isomorphisms. When we talk about categories being either equivalent or isomorphic, these two words are not interchangeable. In the next sections, we'll discuss this difference, and illustrate with an explicit example. </p>
+
+
+
+<h2>Linear Algebra and Matrices</h2>
+
+
+
+<p>At this point, we'll revisit briefly some standard results from linear algebra, focusing on real vector spaces. In most undergraduate linear algebra courses, the notion that a linear transformation can be represented in matrix form is simply stated (sometimes proven, but not often). In particular, those linear algebra courses designed for engineers may only focus on linear systems of equations (which are linear transformations) and omit much talk of linear transformations at all. We then consider it reasonable to revisit some of these ideas. For more details, please consult your favorite linear algebra text.</p>
+
+
+
+<h3>Linear Spaces (Vector Spaces)</h3>
+
+
+
+<p><em>Remark: The terms linear space and vector space are interchangeable. Different texts will use different terms.</em></p>
+
+
+<hr>
+<blockquote><p><strong><em>Definition (Linear Space)</em></strong></p><p>A <strong>linear space</strong> over a field $\mathbb{F}$ is a set of elements (vectors) $V$ with two operations $+, \cdot$. The operation $+$ is called <strong>vector addition</strong> takes two elements $v, w \in V$ and returns another element $v+w \in V$. The operation $\cdot$ is scalar multiplication, and takes a scalar element $\alpha$ from the field $\mathbb{F}$ and multiplies it by an element $v \in V$ and returns a "scaled" element $\alpha v \in V$. We require <em>closure</em> under linear combinations. For any $\alpha_{1},\alpha_{2},\ldots,\alpha_{n} \in \mathbb{F}$ and $\mathbf{v}_{1}, \mathbf{v}_{2},\ldots,\mathbf{v}_{n} \in V$,<br> $$\sum_{i=1}^{n}\alpha_{i}\mathbf{v}_{i} \in V.$$ This is a consolidation of the ten axioms a linear space must satisfy. The expanded axioms are relegated to the appendix.</p></blockquote>
+<hr>
+
+
+<p>We're going to focus on real vector spaces rather than this abstract definition. Real vector spaces have $\mathbb{R}$ as our field (so we multiply vectors by real numbers). </p>
+
+
+
+<p>The vector spaces most often encountered in engineering problems are $\mathbb{R}^{n}$--the standard $n-$dimensional real vector spaces on real-valued vectors. (Also known as a standard Euclidean space.) </p>
+
+
+
+<p>Now suppose we wish to move from one vector space $V$ to another $W$. There are many ways we can define such a move, but the one we're interested in are <em>linear transformations</em>.</p>
+
+
+<hr>
+<blockquote><p><strong><em>Definition (Linear Transformation)</em></strong></p><p>If $V,W$ are linear spaces, then a function $T: V \to W$ is a linear transformation if </p>
+<ol>
+<li>$T(x+y) = T(x) + T(y)$ for all $x,y \in V$. If we add two vectors, and then transform the result into the space $W$, it should yield the same vector in $W$ as if we transformed each of $x$ and $y$ into the space $W$, then added them together.
+</li>
+<li>$T(\alpha x) = \alpha T(x)$ for all $\alpha \in \mathbb{F}$, $x \in V$. (We can "factor out" scalars.)
+</li>
+</ol>
+</blockquote>
+<hr>
+
+
+<p>We can take linear transformations from $\mathbb{R}^{m} \to \mathbb{R}^{n}$ by transforming coordinates as in the following example:</p>
+
+
+
+<p>$T:\mathbb{R}^{2} \to \mathbb{R}^{2}$ is given by $T(x) = x+2y$ and $T(y) = 3y$. </p>
+
+
+
+<p>From linear algebra, we know we may rewrite the transformation in vector form, since we live in "vector space" (in 2 dimensions here):</p>
+
+
+
+<p>$$T\left(\begin{bmatrix}x\\y\end{bmatrix}\right) = \begin{bmatrix}x+2y\\3y\end{bmatrix}$$</p>
+
+
+
+<p>Typically the next step in linear algebra is to say that we may represent the transformation $T$ in matrix form such that multiplication of our "source vector" by the matrix yields the result of the linear transformation. For our example, the matrix $A$ corresponding to the linear transformation $T$ is </p>
+
+
+<p>
+$$A = \begin{bmatrix}1 & 2 \\ 0 & 3\end{bmatrix},$$
+
+so that for $\mathbf{x} = \begin{bmatrix}x\\y\end{bmatrix}$</p>
+
+
+
+<p>$$A\mathbf{x} = \begin{bmatrix}x+2y \\ 3y\end{bmatrix}$$</p>
+
+
+
+<p>At this point, this equivalence between linear transformations and matrix representation (with operation matrix/vector multiplication) is simply stated and expected to be accepted. However, we're going to use the notion of equivalences in category theory to establish this formally.</p>
+
+
+
+<h2>Moving from <strong>Mat</strong> to <strong>Vect</strong><br></h2>
+
+
+
+<p>As mentioned before, we're going to focus only on finite dimensional vector spaces ($\mathbb{R}^{n}$ for various values of $n$ or other spaces of finite dimension ) and real-valued matrices to keep things simple. These concepts generalize much further, though. Since we're operating on real-valued matrices, we'll be using $\mathbf{Mat}_{\mathbb{R}}$ If we changed the values of the matrices to, say, complex numbers, we would be using a totally separate category. Changing the values of the matrices changes the ring and thus denotes a completely separate category of matrices.</p>
+
+
+
+<img src="../article-imgs/functor-cat.png" alt="" width = "512" height = "273"/>
+
+
+
+<p>To show the equivalence between$\mathbf{Vect}$ and $\mathbf{Mat}$, we must establish an equivalence functor between the two that allows us to map $\mathbf{Mat}$ to $\mathbf{Vect}$. We define the functor as follows:</p>
+
+
+
+<p> $ F:\mathbf{Mat}\to\mathbf{Vect}$ assigns objects $n$ in $\mathbf{Mat}$ the vector space $\mathbb{R}^{n}$. Thus, we simply assign a natural number $n$ in $\mathbf{Mat}$ to the corresponding $n$-dimensional real vector space in $\mathbf{Vect}$, which is an object in $\mathbf{Vect}$.</p>
+
+
+
+<p>Functors also map morphisms in the source category ($\mathbf{Mat}$ in our case) to morphism in the destination category ($\mathbf{Vect}$ here). Morphisms in $\mathbf{Mat}$ are $m \times n$ matrices with real values. Morphisms in $\mathbf{Vect}$ are linear transformations. Thus, it's natural to have our functor take an $m \times n$ matrix $A$ in$\mathbf{Mat}$ and assign to it the linear map $T$ in $\text{Mor}(\textbf{Vect})$ from $\mathbb{R}^{m} \to \mathbb{R}^{n}$ that takes an $m-$dimensional vector $\mathbf{x}=\begin{bmatrix}x_{1}\\\vdots \\x_{m}\end{bmatrix} \in \mathbb{R}^{m}$ maps it to the $n-$dimensional vector $\mathbf{y} = \begin{bmatrix}y_{1}\\\vdots\\y_{n}\end{bmatrix}^{T} \in \mathbb{R}^{n}$ given by $\mathbf{x}^{T}A$. (T is transpose here, and we only needed to shift some things (like multiplying on the right) to keep our "direction" matching the m x n matrix dimension and appropriateness of matrix multiplication.)]</p>
+
+
+
+<p>We need to check that this functor satisfies the definition of both a functor and an equivalence. That $F$ is a functor follows from matrix multiplication on one hand, and from composition of linear maps on the other. To ensure it satisfies the definition of an equivalence, we must check to see that the functor is full, faithful, and isomorphism-dense.</p>
+
+
+
+<p>To show the functor is faithful, take two linear transformations $T$ and $T'$ in $\mathbf{Vect}$ such that $T = T'$. In other words, these two transformations do the exact same thing to input vectors. It's clear there can if we had two different matrices $A$ and $A'$ such that multiplication by $\mathbf{x}$ yields the exact same vector $\mathbf{y}$, then $A = A'$. Thus the functor is indeed faithful. To show the functor is full, we need to show that for any linear transformation $T \in \text{Mor}(\mathbf{Vect})$, there is a matrix $A \in \text{Mor}(\mathbf{Mat})$ such that $F(A) = T$. A linear transformation by definition (see above) results in a component $x_{i} \in \mathbb{R}^{m}$ being taken to a linear combination of components $x_{j} \in \mathbb{R}^{n}$. Refer back to the example above, where we mapped from $\mathbb{R}^{2}$ to $\mathbb{R}^{2}$.</p>
+
+
+
+<p>$$T\left(\begin{bmatrix}x\\y\end{bmatrix}\right) = \begin{bmatrix}x+2y\\3y\end{bmatrix}$$</p>
+
+
+
+<p>Since multiplication of matrices results in components which are linear combinations of the source vector by definition of matrix multiplication, there is certainly a matrix $A \in \text{Mor}(\mathbf{Mat})$ that will map to $T \in \text{Mor}(\mathbf{Vect})$ for any linear transformation $T$. Thus, $F$ is certainly a full functor. </p>
+
+
+
+<p>It remains to show that $F$ is isomorphism-dense. To do so, we're going to attempt to create its "inverse" functor $G : \mathbf{Vect} \to \mathbf{Mat}$. It is at this point we'll really understand the difference between being isomorphism-dense and being a true isomorphism.</p>
+
+
+
+<h2>Creating the Inverse Functor</h2>
+
+
+
+<img src="../article-imgs/inv-functor.png" alt="" width = "512" height = "346"/>
+
+
+<p>We're going to create a functor $G$ that maps $\mathbf{Vect}$ to $\mathbf{Mat}$. For this, we'll define it as the "natural" inverse. $G$ will take vector spaces in $\mathbf{Vect}$ to their dimension $n \in \mathbb{N}$, which is an object in $\mathbf{Mat}$. We'll also take $T \in \text{Mor}(\mathbf{Vect})$ to its corresponding matrix $A \in \text{Mor}(\mathbf{Mat})$, simply "reversing" the direction. </p>
+
+
+
+<p>We can show in an identical manner to what we did for $F$ that the functor $G$ is full. Isomorphisms in $\mathbf{Vect}$ are invertible linear maps between vector spaces. Since the objects of $\mathbf{Mat}$ are natural numbers, we cannot have isomorphisms between different objects. That is, $m$ cannot be isomorphic to $n$ inside $\mathbf{Mat}$ unless $m=n$. </p>
+
+
+
+<p>We now illustrate the key difference between isomorphism and isomorphism-dense functors. Take the space of polynomials of order $m$ with real coefficients. This is indeed a real vector space, and belongs to $\mathbf{Vect}$. This polynomial space is isomorphic to $\mathbb{R}^{m}$ inside of $\mathbf{Vect}$, meaning that there is an invertible linear map $K$ from the polynomial space to $\mathbb{R}^{m}$. Recall that functors not only map objects to objects, but they also map morphisms to morphisms. Since all the functor $F$ originating $\mathbf{Mat}$ cares about is the dimension of the space, the isomorphism $K$ between the polynomial space and $\mathbb{R}^{m}$ is "invisible" in the category $\mathbf{Mat}$, because $\mathbf{Mat}$ sees the polynomial space and $\mathbb{R}^{m}$ just as "some" $m-$dimensional spaces. Thus the morphism $K \in \text{Mor}(\textbf{Vect})$ has no morphism in $\text{Mor}(\textbf{Mat})$ that will map to it. </p>
+
+
+
+<p>The functor $G$ is not faithful because $T$ and $L$ will map to the same matrix $A_{m\times n}$ in $\text{Mor}(\textbf{Mat})$. </p>
+
+
+
+<p>Therefore, the two categories $\mathbf{Vect}$ and $\mathbf{Mat}$ are equivalent, but not isomorphic, because $F$ is only isomorphism-dense, not fully isomorphic.</p>
+
+
+
+<h2>Conclusion</h2>
+
+
+
+<p>We exhibited an explicit example involving the category $\mathbf{Mat}$ of matrices over $\mathbb{R}$ and the category $\mathbf{Vect}$ of finite dimensional real vector spaces to illustrate the difference between functors that are isomorphisms and functors that are equivalences. The key difference is the notion of <em>isomorphism-dense</em>, which means that an object in the target category of a functor may not have a "preimage" in the source space, but is isomorphic inside the target category to an object which does have a "preimage" in the source space. </p>
+
+
+
+<h2>Appendix</h2>
+
+
+
+<p>For a linear space $V$ over a field $\mathbb{F}$, the following axioms regarding the two operations must be satisfied:</p>
+
+
+<ol><li>For $x,y \in V$, $x+y \in V$. That is, if we perform the addition operation on two elements of $V$, the result can't be outside the set $V$.</li><li>For each $\alpha \in \mathbb{F}$ and $v \in V$, $\alpha v \in V$. Multiplying an element by a scalar shouldn't "knock" us outside the set $V$.</li><li>For $x,y \in V$, $x+y = y+x$. (Commutativity)</li><li>For $x,y,z \in V$, $x+(y+z) = (x+y)+z$ (Associativity)</li><li>There must be some element in $V$, denoted $0_{V}$ that is an \textit{additive identity}. That is, for any $x \in V$, $x + 0_{V} = 0_{V} + x = x$.</li><li>For every $x \in V$, the element $(-1)x$ has the property that $x + (-1)x = 0_{V}$. (Existence of "negatives", or additive inverses)</li><li>For $\alpha, \beta \in \mathbb{F}$, $v \in V$, $\alpha(\beta v) = (\alpha\beta)v$. (Associativity of multiplication)</li><li>For all $x,y \in V$, and for all $\alpha \in \mathbb{F}$, $\alpha(x+y) = \alpha x + \alpha y$ (Distributivity of vector addition)</li><li>For all $\alpha, \beta \in \mathbb{F}$, $v \in V$, $(\alpha + \beta)v = \alpha v + \beta v$.[note]Addition of α and β is performed in the field, and may not be the same as vector addition. Vector addition gives a vector. Scalar addition give scalars[/note]</li><li>For every $v \in V$, we have that $1v = v$, where $1$ is the multiplicative identity in $\mathbb{F}$.</li></ol>
+
+
+
+<h2>Acknowledgements</h2>
+
+
+
+<p>We'd like to gratefully acknowledge Matt Kukla and Jason Hathcock for their insights, review, and meaningful discussion.</p>
+
+
