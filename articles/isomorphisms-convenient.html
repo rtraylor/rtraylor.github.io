@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>The Convenience of Isomorphisms</title>
+<link rel="stylesheet" href="style.css">
+<img src="../imgs/tmc_text.jpg" alt="The Math Citadel" width="252" height="122"
+class="center"/>
+<br>
+</head>
+<body>
+
+<div class="navbar">
+    <a href="index.html">Home</a>
+    <div class="dropdown">
+        <button class="dropbtn">About 
+        <i class="fa fa-caret-down"></i>
+        </button>
+    <div class="dropdown-content">
+        <a href="../about.html">About Us</a>
+        <a href="../people.html">People</a>
+    </div>
+    </div>
+    <div class="dropdown">
+        <button class="dropbtn">Products and Services
+         <i class="fa fa-caret-down"></i>
+         </button>
+    <div class="dropdown-content">
+        <a href="../research.html">Research</a>
+        <a href="../consulting.html">Consulting</a>
+        <a href="https://shop.spreadshirt.com/mathcitadel/">Shop</a>
+        <a href="https://patreon.com/mathcitadel">Patreon</a>
+    </div>
+    </div>
+    <a href="../projects.html">Projects</a>
+    <a href="../articles.html">Papers/Articles</a>
+    <a href="../contact.html">Contact</a>
+
+
+    
+</div>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+<h2> The Convenience of Isomorphisms</h2>
+<h4>R. Traylor</h4>
+<style>
+
+img{
+
+display: block;
+
+margin-left: auto;
+
+margin-right: auto;
+
+}
+
+</style>
+
+<br>
+
+<i> This article gives a simple introduction to the utility of isomorphisms, using an example on $\mathbb{Z}_{4}$ and a group of complex numbers.</i>
+
+<p>
+Much of pure mathematics exists to simplify our world, even if it means entering an abstract realm (or creating one) to do it. The<em>isomorphism</em> is one of the most powerful tools for discovering structural similarities (or that two groups are identical structurally) between two groups that on the surface look completely unrelated. In this post, we'll look at what an isomorphism is.
+</p>
+
+<h2>What's an isomorphism?</h2>
+<p>
+Pinter's <em>Abstract Algebra</em> gives a fantastic motivation for studying <em>isomorphic</em> things: we want to know if two objects we're looking at are really just the same object with, say, different outfits on. Take the two palindromes MADAM and ROTOR. They're two different words, but if we replace M with R, A with O, and D with T, we can transform MADAM into ROTOR. This tells us that these two palindromes have the same structure. In this case, that they are essentially a "word reflection" about the middle letter. MADAM and ROTOR are just wearing two different outfits. We can replace the letters "M", "A", "D" with any three other letters, then reflect the first two about the third to create another word palindrome with the same structure. (Now, picking any three letters at random might not guarantee the palindrome you make is an English word.)
+</p>
+<p>
+Let's take this into a mathematical realm. We could create a function $f$ that maps the three letters "M", "A", "D" with the structure of the palindrome MADAM onto three new letters, maintaining that structure. So the function
+</p>
+$$f = \begin{pmatrix}M&A&D\\\downarrow&\downarrow&\downarrow\\R&O&T\end{pmatrix}$$
+
+transforms MADAM into ROTOR. The correspondence is<em>injective</em>(a one-to-one mapping, taking one element of $\{M,A,D\}$ to only one element of $\{R,O,T\}$, and<em>surjective</em> (every letter "R", "O", "T" has something that maps to it), and therefore is called<em>bijective.</em>This means we can actually move back and forth from MADAM to ROTOR by taking the inverse of the function $f$ that mapped us from "M","A","D", to "R","O","T". Such a function between two groups that preserves the structure of the groups is called an<strong><em>isomorphism</em></strong> and the two groups are said to be<em><strong>isomorphic.</strong></em>
+</p>
+
+<h3>Formal Definition of Isomorphism</h3>
+
+Now that we've developed an intuition of an isomorphism, we will define it formally. (Note, for a refresher on what groups are, please see our previous articles <a href="articles/elementary-properties-groups.html">here, <a href="articles/group-theory-xor.html">here</a>, <a href="articles/mod-add-groups-integers.html">here</a>, and <a href="articles/permutations-mod-arithmetic.html">here</a>.)
+
+<hr>
+
+<em><strong>Definition (isomorphism):</strong></em>. Suppose $G_{1}$ and $G_{2}$ are groups, and let the operation for $G_{1}$ be denoted $\cdot$, and the operation for $G_{2}$ be denoted $\star$. A bijective function $f:G_{1}\to G_{2}$ such that for any two elements $a$ and $b$ in $G_{1}$
+
+$$f(a\cdot b) = f(a)\star f(b)$$
+
+is called an <em><strong>isomorphism</strong></em> from $G_{1}$ to $G_{2}$, and the two groups are said to be <em><strong>isomorphic</strong></em>.
+
+<hr>
+
+<h2>How do we find out if two groups are isomorphic?</h2>
+
+Short answer: we find the isomorphism between the two groups. Now, note that since isomorphisms are bijective, we can decide whether we'll try to find a function from $G_{1}$ to $G_{2}$ or from $G_{2}$ to $G_{1}$. It's a simple task to say, but in practice this can actually be extremely difficult, requiring some guesswork and refinement once we find what we think the function might look like.
+
+Let's take an example and look at $\mathbb{Z}_{4}$ and the group $ \langle G, \cdot\rangle = \langle\{1,-1,i,-i\},\cdot\rangle$. (<a href="articles/mod-add-groups-integers.html">Remember</a> that $\mathbb{Z}_{4}$ is the group of integers modulo 4 under addition.) We're going to show these two groups are isomorphic by finding the mapping from $\mathbb{Z}_{4}$ to $G$ that preserves the structure of their operation tables.
+
+The operation table of $\mathbb{Z}_{4}$ under addition modulo 4 is given by
+
+$$\begin{array}{r|rrrr}\langle\mathbb{Z}_{4},+\rangle& 0 & 1&2&3\\\hline 0 &0&1&2&3\\1&1&2&3&0\\2&2&3&0&1\\3&3&0&1&2\end{array}$$
+
+The operation table of $G$ under multiplication is
+
+$$\begin{array}{r|rrrr}\langle G,\cdot\rangle&1&i&-1&-i\\\hline 1&1&i&-1&-i\\i&i&-1&-i&1\\-1&-1&-i&1&i\\-i&-i&1&i&-1\end{array}$$
+
+<p>
+I wrote the multiplication table for $G$ using that particular order for a reason, mostly to make the isomorphism easier to see. We needed to play with mapping $0$, $1$, $2$, and $3$ to the set $G$ such that the table structures are preserved.
+</p>
+<p>
+There are $4!=24$ possible mappings. We can try each one, which is a pain. Each person can develop his own strategy, but mine was first to note that the identity element in one group must map to the identity element in the other group. Thus, we know that $0 \in \mathbb{Z}_{4}$ must map to $1 \in G$. From there, I need to figure out what pairs of elements generate the respective identity elements under the respective operations. So whatever element in $G$ that $1 \in \mathbb{Z}_{4}$ maps to must<em>multiply</em> (remember we have to use the group element of $G$ when we're over there) with whatever element in $G$ that $3 \in \mathbb{Z}_{4}$ maps to to give $1 \in G$.
+</p>
+<p>
+We can look at the operation table for $G$ and see that $i\cdot -i = 1$, so we note that perhaps we'll map $1\in Z_{4} \to i \in G$, and $3 \in \mathbb{Z}_{4} \to -i \in G$. That leaves us mapping $2\in \mathbb{Z}_{4} \to -1 \in G$. We then see if that mapping allows us to interchange the elements of $\mathbb{Z}_{4}$ under mod 4 addition with the elements of $G$ under multiplication[note]Remember to change operations![/note] to see if we get the same table. As it turns out, we do, so
+</p>
+
+$$f:\langle \mathbb{Z}_{4},+\rangle \to \langle G, \cdot\rangle \text{ given by } f =\begin{pmatrix}0&1&2&3\\\downarrow&\downarrow&\downarrow&\downarrow\\1&i&-1&-i\end{pmatrix}$$
+
+is our isomorphism. (You can also check for yourself that for any elements $a$ and $b$ in $\mathbb{Z}_{4}$, $f((a+b)\bmod 4) = f(a)\cdot f(b)$.)
+
+<h2>How do we find out if two groups are not isomorphic?</h2>
+
+Proving no such function that satisfies the definition of an isomorphism exists for two given groups is far harder in many cases than finding one.[note]In fact, proving something doesn't exist is one of the hardest things to do in mathematics.[/note] Isomorphisms require that the structure and properties of a group be preserved when being mapped to another group. Some possible things to look for that can easily show two groups are<em>not</em> isomorphic:
+<ol>
+ 	<li>One group may be commutative, and the other isn't. Commutativity is a structural property, so if the two groups don't share that property, they can't have the same structure.</li>
+ 	<li>One group may have an element (or a few) that are their own inverses, and the other either has none with this property, or a different number of elements with this property.</li>
+ 	<li>Obvious one: if the two groups can't be put into 1-1 correspondence (because they have differing numbers of elements), then they cannot be isomorphic.</li>
+</ol>
+These aren't the only things to look for by any means. Determining whether or not two groups are isomorphic generally requires quite a bit of lateral thinking. However, a mathematician named Arthur Cayley gave us a classic theorem of modern algebra that allows us to simplify the problem by showing that every group is isomorphic to some group of permutations. 
