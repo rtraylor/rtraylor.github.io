@@ -125,7 +125,7 @@ A <strong>category</strong> is a quadruple $\mathbf{A} = (\mathscr{O}, \text{hom
 
 
 
-<img src="../article-imgs/mat-category.png" alt=""  width="341" height="352"/>
+<img src="article-imgs/mat-category.png" alt=""  width="341" height="352"/>
 
 
 <ul><li>$\mathbf{Mat}$ an interesting category worth spending some time on. Objects here are <em>not</em> matrices, as one might guess. Objects in $\mathbf{Mat}$ are natural numbers. Morphisms are $m \times n$ real-valued matrices. (We can generalize this concept to $\mathbf{Mat}_{R}$, where the entries of the matrices are the elements of a particular specified ring $R$, but let's just stick with real-valued matrices here. Put differently, morphisms take a natural number $m$ "to" a natural number $n$ by assigning it a matrix of dimensions $m \times n$ with real-valued entries. $\hom(m,n)$ is the set of all $m\times n$ real-valued matrices. Structurally, there is only one morphism from $m$ to $n$. While we can have different $m\times n$ matrices that perform the task of mapping $m$ to $n$, they are structurally equivalent in that they map two natural numbers to the same dimensions. In this category, the identity morphism $id_{m}$ are $m \times m$ identity matrices. Composition in this category is defined by $A \circ B = BA$, where $BA$ is just the usual matrix multiplication. It's worth noting here that a category doesn't require that all morphisms be composable. $\mathbf{Mat}$ provides a nice example of this. We can only multiply matrices when the dimensions are appropriate to do so, which means only certain morphisms are composable. This doesn't violate the definition of a category or associativity, etc. Composition must be associative when composition can be done.</li></ul>
@@ -285,7 +285,7 @@ so that for $\mathbf{x} = \begin{bmatrix}x\\y\end{bmatrix}$</p>
 
 
 
-<img src="../article-imgs/functor-cat.png" alt="" width = "512" height = "273"/>
+<img src="article-imgs/functor-cat.png" alt="" width = "512" height = "273"/>
 
 
 
@@ -325,7 +325,7 @@ so that for $\mathbf{x} = \begin{bmatrix}x\\y\end{bmatrix}$</p>
 
 
 
-<img src="../article-imgs/inv-functor.png" alt="" width = "512" height = "346"/>
+<img src="article-imgs/inv-functor.png" alt="" width = "512" height = "346"/>
 
 
 <p>We're going to create a functor $G$ that maps $\mathbf{Vect}$ to $\mathbf{Mat}$. For this, we'll define it as the "natural" inverse. $G$ will take vector spaces in $\mathbf{Vect}$ to their dimension $n \in \mathbb{N}$, which is an object in $\mathbf{Mat}$. We'll also take $T \in \text{Mor}(\mathbf{Vect})$ to its corresponding matrix $A \in \text{Mor}(\mathbf{Mat})$, simply "reversing" the direction. </p>
