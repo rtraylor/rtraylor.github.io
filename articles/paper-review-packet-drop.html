@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Paper Review: Active Queue Management with Non-Linear Packet Dropping Function </title>
+<link rel="stylesheet" href="style.css">
+<img src="../imgs/tmc_text.jpg" alt="The Math Citadel" width="252" height="122"
+class="center"/>
+<br>
+</head>
+<body>
+
+<div class="navbar">
+    <a href="index.html">Home</a>
+    <div class="dropdown">
+        <button class="dropbtn">About 
+        <i class="fa fa-caret-down"></i>
+        </button>
+    <div class="dropdown-content">
+        <a href="../about.html">About Us</a>
+        <a href="../people.html">People</a>
+    </div>
+    </div>
+    <div class="dropdown">
+        <button class="dropbtn">Products and Services
+         <i class="fa fa-caret-down"></i>
+         </button>
+    <div class="dropdown-content">
+        <a href="../research.html">Research</a>
+        <a href="../consulting.html">Consulting</a>
+        <a href="https://shop.spreadshirt.com/mathcitadel/">Shop</a>
+        <a href="https://patreon.com/mathcitadel">Patreon</a>
+    </div>
+    </div>
+    <a href="../projects.html">Projects</a>
+    <a href="../articles.html">Papers/Articles</a>
+    <a href="../contact.html">Contact</a>
+
+
+    
+</div>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+<h2> Paper Review: Active Queue Management with Non-Linear Packet Dropping Function</h2>
+<h4>R. Traylor</h4>
+<style>
+
+img{
+
+display: block;
+
+margin-left: auto;
+
+margin-right: auto;
+
+}
+
+</style>
+
+<br>
+
+
+<i> This article reviews a network engineering paper and points out some issues.</i>
+
+<p>				
+I plan to review <a href="https://pdfs.semanticscholar.org/fcee/e3b8669a5daa5c9b7148a1407a02f9081bf9.pdf">Reference 2</a>, <em>Active Queue Management with Non-Linear Packet Dropping Function,</em>by D. Augustyn, A. Domanski, and J. Domanska, published in HET-NETs 2010,which discusses a change in the structure of the packet drop probability function using the average queue length in a buffer. I mentioned previously that choosing a linear function of the average queue length can be viewed as a bit of an arbitrary choice, since we're designing a control mechanism here, and this paper attempts to define a new form of this packet drop probability function.
+</p>
+<p>
+In summary, the best lesson one can take from this paper is that publication in a journal or conference proceedings does not guarantee that the paper withstands scrutiny. The paper is linked above for the interested reader to peruse himself, and to investigate the claims.
+</p>
+
+<h2>Summary</h2>
+
+The paper intended to give a new function to calculate the probability of proactively dropping a packet in a queue in order to prevent a full buffer. It seemed to be presented as an alternative to <a href="articles/networking-math-tcp.html">RED</a>, described in my previous article. The authors define this new function, then set up a simulation in order to examine the effects.
+
+<h2>When Orthogonality is Abused</h2>
+<p>
+The authors describe using a finite linear combination of orthogonal basis polynomials defined on a finite interval as the underlying mathematical structure.
+</p>
+<p>
+First, we should discuss what we mean by orthogonal in context of functions.<em>Orthogonal</em>is most commonly understood in terms of vectors, and when we're in two dimensions,<i>orthogonal</i>becomes our familiar<i>perpendicular.</i>
+</p>
+<h3>Orthogonality</h3>
+<p>
+Beginning with the familiar notion of perpendicular, we can generalize this to understand orthogonality. The geometric interpretation of two vectors being perpendicular is that the angle between them is $90^{\circ}$. Once we leave two and three dimensions (or jump to the space of polynomials, as we'll do soon), the concept of an angle isn't as helpful.
+</p>
+<p>
+Another way to define perpendicular is through an operation known as the<strong>dot product<em>.</em></strong>Suppose we take two 2D vectors, $\mathbf{x}$ and $\mathbf{y}$. Each vector will have coordinates: $\mathbf{x} = (x_{1},x_{2})$ and $\mathbf{y} = (y_{1}, y_{2})$. The<strong>dot product</strong> is a special type of multiplication defined on vectors, and denoted $\cdot$:
+</p>
+
+$$\mathbf{x}\cdot\mathbf{y} = x_{1}y_{1} + x_{2}y_{2}$$
+
+<p>
+The dot product can be described in words as the sum of the component-wise multiplication of the coordinates of the two vectors.
+</p>
+<p>
+Now, we can say that two vectors are perpendicular if their dot product is 0. That is, $\mathbf{x}$ and $\mathbf{y}$ are perpendicular if $\mathbf{x}\cdot\mathbf{y} = 0$. (<a href="https://betterexplained.com/articles/vector-calculus-understanding-the-dot-product/">This article</a> gives a nice overview of how we move from the algebraic to the geometric definition of perpendicular and orthogonal.)
+</p>
+<p>
+Remember, perpendicular doesn't make sense once we get into higher dimensions.<strong>Orthogonal</strong>is a more general notion of vectors being perpendicular, and is defined for two vectors (of any length) as their dot product equalling zero.
+</p>
+
+<h3>From Dot Product to Inner Product</h3>
+<p>
+The dot product is used on vectors, and defines another type of product that is different from the scalar multiplication we know. In fact, we can generalize the notion of a dot product to something called an<strong><em>inner product</em></strong>, which can be defined on many different spaces than just vectors. We can define operations and products however we like, but for our definition to qualify as an inner product (denoted $\langle \cdot, \cdot\rangle$), it must meet certain <a href="http://mathworld.wolfram.com/InnerProduct.html">criteria</a>.
+</p>
+<p>
+For instance, on the set of real valued functions with domain $[a,b]$, we define the inner product of two functions $f(x)$ and $g(x)$ as
+$$\langle f, g\rangle := \int_{a}^{b}f(x)g(x)dx$$
+</p>
+<p>
+The concept of orthogonality generalizes to an inner product as well. If the inner product of two functions is zero (as defined above), we say the functions are orthogonal.
+</p>
+
+<h3>Back to the paper</h3>
+<p>
+The authors claim to be using a set of orthogonal polynomials to define their drop probability function, and they give the structure of such functions. For a domain $[a,b]$, and for $\phi_{j}$ in the set of polynomials, they define $\phi_{j} = (x-a)^{j-1}(b-x)$. So, for example, $\phi_{1} = (b-x)$, and $\phi_{5} = (x-a)^{4}(b-x)$.
+</p>
+<p>
+Now, in order to be an orthogonal basis for a space, the set of functions that are claimed to form the basis of the set must be pairwise orthogonal. That is, I need to be able to take the inner product of any two functions $\phi_{i}$ and $\phi_{j}$ and get 0. If that isn't true for even one pair, then the set is not orthogonal.
+</p>
+<p>
+As it turns out, if we take the inner product of any two functions in the basis set over the domain given, we find that there are<em>no</em> pairs that are orthogonal. To do this in general, we compute the integral
+</p>
+$$\int_{a}^{b}(x-a)^{i-1}(b-x)\cdot (x-a)^{j-1}(b-x)dx$$
+<p>
+The integral computation is one of simple polynomial integration, and can be done either by hand or using your favorite software (Mathematica) of choice. What we find here is that this set of functions defined in general this way is never orthogonal, yet the paper claims they are.
+</p>
+<p>
+Applying to the particular situation of designing a drop probability function, they give the following for average queue length thresholds $T_{\min}$ and $T_{\max}$
+</p>
+$$p(x,a_{1},a_{2}) = \left\{\begin{array}{lr}0, &x &lt; T_{\min}\\\phi_{0} + a_{1}\phi_{1}(x) + a_{2}\phi_{2}(x),&T_{\min}\leq x \leq T_{\max}\\1,&x &gt; T_{\max}\end{array}\right.$$
+
+where the basis functions are
+
+$$\begin{aligned}\phi_{0}(x) &= p_{m}\frac{x-T_{\min}}{T_{\max}-T_{\min}}\\\phi_{1}(x) &= (x-T_{\min})(T_{\max}-x)\\\phi_{2}(x) &= (x-T_{\min})^{2}(T_{\max}-x)\end{aligned}$$
+
+The reader will recognize $\phi_{0}$ as the original drop probability function from the RED algorithm. These functions are absolutely not orthogonal though (as the authors claim), and a simple check as we did above will verify it.
+
+<h2>Other issues</h2>
+<p>
+Another issue is that these mysterious coefficients $a_{1}$ and $a_{2}$ need to be determined. How? The authors do not say, other than to note that one can define "a functional" implicit on the unknown $p(x,a_{1},a_{2})$ that can be minimized to find the optimal values for those coefficients. They write that this mysterious functional can be based on either the average queue length or average waiting time, yet provide no details whatsoever as to the functional they have chosen for this purpose. (I did not make a typo. A functional is a mapping that takes functions as input.) They provide a figure with a sample function, but give no further details as to how it was obtained.
+</p>
+<p>
+One other issue I have in their methodology is discussing the order of estimation. For those familiar with all sorts of ways to estimate unknown functions, from Taylor series, to splines, to Fourier series, we know that a function is exactly equal to<em>an infinite sum</em> of such functions. Any finite sum is an estimation, and the number of terms we use for estimation with a desired accuracy may change with the function being estimated.
+</p>
+<p>
+For instance, if I want to use Taylor series (a linear combination of polynomials) to estimate a really icky function, how many terms should I include to ensure my accuracy at a point is within 0.001 of the real value? It depends on the function. Many engineers use a first or second order approximation as a rule of thumb, though it really should still be verified that higher order terms contribute a negligible amount first.
+</p>
+<p>
+The authors simply claim that a second order term is appropriate in this case. The issue I take with that is these queueing management drop probability functions are designed. We're not estimating a function describing a phenomenon, we are designing a control policy to seek some sort of optimal behavior. Fundamentally, the authors posing this as an estimation problem of some unknown drop probability function is incorrect. This isn't a law of nature we seek to observe; it's a control policy we seek to design and implement and optimize. Using language that implies the authors are estimating some "true function" is misleading.
+</p>
+<p>
+Regarding the simulation itself, since the design was arbitrary, and not based on sound mathematical principles, I cannot give any real comment to the simulations and the results. The authors briefly discuss and cite some papers that explore the behavior of network traffic, and claim to take this into account in their simulations. To those, I cannot comment yet.
+</p>
+<h2>Conclusion</h2>
+<p>
+Always verify a paper for yourself, and don't accept anything at face value. Research and technical publications should be completely transparent as to choices and methodologies (and obviously free of mathematical inaccuracies), and derivations and proofs should be present when necessary, even if in an appendix.
+</p>
+	
