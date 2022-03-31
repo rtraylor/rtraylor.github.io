@@ -1,13 +1,12 @@
 <!DOCTYPE html>
-<html>
-<head>
+<html lang="en">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8">
 <title>Uncorrelated And Independent: Related But Not Equivalent</title>
 <link rel="stylesheet" href="style.css">
 <img src="imgs/tmc_text.jpg" alt="The Math Citadel" width="252" height="122"
 class="center"/>
 <br>
-</head>
-<body>
 
 <div class="navbar">
     <a href="index.html">Home</a>
@@ -42,8 +41,7 @@ class="center"/>
 <script type="text/x-mathjax-config">
   MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
 </script>
-<script type="text/javascript"
-  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
 <h2>Uncorrelated And Independent: Related But Not Equivalent </h2>
 
@@ -140,7 +138,7 @@ Finally, we put it all together:
 
 <p>Here’s the start of where the confusion lies. First, it is absolutely true that if two random variables are independent, then they are uncorrelated. It’s important to prove this, so I will do it. I will prove this for discrete random variables to avoid calculus, but this holds for all random variables, both continuous and discrete.</p>
 
-<blockquote> <b><u>Theorem.</b></u> If two random variables $X$ and $Y$ are independent, then they are uncorrelated.</blockquote>
+<blockquote> <u>Theorem.</u> If two random variables $X$ and $Y$ are independent, then they are uncorrelated.</blockquote>
 
 <p><i>Proof.</i> Uncorrelated means that their correlation is 0, or, equivalently, that the covariance between them is 0. Therefore, we want to show that for two given (but unknown) random variables that are independent, then the covariance between them is 0.</p>
 
@@ -159,7 +157,9 @@ Finally, we put it all together:
 \[\begin{aligned}E[XY] &= \sum_{x}\sum_{y}x\cdot y\cdot P(X=x, Y=y)\\&=\sum_{x}\sum_{y}x\cdot y\cdot P(X=x)P(Y=y)\end{aligned}\]
 ​	
  
-</p>If I sum over $Y$ first, then everything related to $X$ is constant with respect to $Y$. Then I can factor out everything related to $X$ from the sum over $y$:</p>
+<p>If I sum over $Y$ first, then everything related to $X$ is constant with
+respect to $Y$. Then I can factor out everything related to $X$ from the sum
+over $y$:</p>
 
 \[\begin{aligned}E[XY] &= \sum_{x}\sum_{y}x\cdot y\cdot P(X=x, Y=y)\\&=\sum_{x}\sum_{y}x\cdot y\cdot P(X=x)P(Y=y)\\&= \sum_{x}x\cdot P(X=x)\sum_{y}y\cdot P(Y=y)\end{aligned}\]
 ​	

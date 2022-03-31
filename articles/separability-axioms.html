@@ -1,13 +1,12 @@
 <!DOCTYPE html>
-<html>
-<head>
-<title>Page Title</title>
+<html lang="en">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8">
+<title>Seperability Axioms</title>
 <link rel="stylesheet" href="style.css">
 <img src="imgs/tmc_text.jpg" alt="The Math Citadel" width="252" height="122"
 class="center"/>
 <br>
-</head>
-<body>
 
 <div class="navbar">
     <a href="index.html">Home</a>
@@ -42,8 +41,7 @@ class="center"/>
 <script type="text/x-mathjax-config">
   MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
 </script>
-<script type="text/javascript"
-  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
 <h2> Making Sense of Separation Axioms </h2>
 
@@ -59,10 +57,9 @@ class="center"/>
 
 <h3> 1. Introduction </h3>
 
-<p> We saw with the cofinite topology on certain sets that strange things can happen with sequences, and the reason that particular strange thing happened was because it wasn't a Hausdorff space. In a sense, we were able to make the sequence $(1,2,\ldots)$ converge to any integer we wanted to on the cofinite topology of integers because we couldn't "separate" the points enough to get unique limits. How "separate" do we need to make points? Sets? What does "separate" mean in a topological sense? Is it related to "separable"? This article will attempt to put some concreteness to the notion of separation in topological spaces. 
+<p>We saw with the cofinite topology on certain sets that strange things can happen with sequences, and the reason that particular strange thing happened was because it wasn't a Hausdorff space. In a sense, we were able to make the sequence $(1,2,\ldots)$ converge to any integer we wanted to on the cofinite topology of integers because we couldn't "separate" the points enough to get unique limits. How "separate" do we need to make points? Sets? What does "separate" mean in a topological sense? Is it related to "separable"? This article will attempt to put some concreteness to the notion of separation in topological spaces. 
 
-Firstly, the term <em>separable</em> in topology belongs in the hierarchy of countability rather than separability. Why choose the word separable and have it not mean "separability"? I don't know. I didn't make the rules. A topological space is <em>separable</em> if it contains a countable dense subset. That is, there needs to be a countable subset of the set $X$ whose closure is the whole space. The real numbers are separable, because the rational numbers are a subset of the reals which are countable, and every real number is the limit point of some rational number.\footnote{Think about rational approximations to irrational numbers, like decimal approximations of $\pi.$}. Second-countability is also called </em>completely separable</em>, but doesn't have anything to do with the separation axioms this article will investigate. Try to remember to distinguish "separability" from "separable" in topology, and get mad at the topologists who chose poor terminology.
-
+Firstly, the term <em>separable</em> in topology belongs in the hierarchy of countability rather than separability. Why choose the word separable and have it not mean "separability"? I don't know. I didn't make the rules. A topological space is <em>separable</em> if it contains a countable dense subset. That is, there needs to be a countable subset of the set $X$ whose closure is the whole space. The real numbers are separable, because the rational numbers are a subset of the reals which are countable, and every real number is the limit point of some rational number.\footnote{Think about rational approximations to irrational numbers, like decimal approximations of $\pi.$}. Second-countability is also called <em>completely separable</em>, but doesn't have anything to do with the separation axioms this article will investigate. Try to remember to distinguish "separability" from "separable" in topology, and get mad at the topologists who chose poor terminology.
 
 </p>
 
@@ -148,7 +145,7 @@ Let the set $X = \{(x,y): y \geq 0, x,y \in \mathbb{Q}\}$. Then we're looking at
 
 <p>
 Here, we'll make the subbase out of sets that are comprised of two intervals and a single point. Fix an irrational number $\theta$. Let $B_{\epsilon}(\eta) = \{r \in \mathbb{Q}: |r-\eta| < \epsilon\}$ be a normal ball centered at $\eta$ of radius epsilon. Then take $N_{\epsilon}((x,y)) = \{(x,y)\} \cup B_{\epsilon}(x+y/\theta) \cup B_{\epsilon}(x-y/\theta)\}$. Then each set in our subbase is some $N_{\epsilon}((x,y))$ that consists of the point $(x,y)$ and two intervals on the $x-$axis centered at $x \pm y/\theta$ comprised of rational points of length $2\epsilon$. Note that the center of each interval is an irrational number. 
-<p>
+</p>
 
 <p>
 Then the lines that join the centers of the intervals to the point $(x,y)$ have slope $\theta$, which is irrational. 

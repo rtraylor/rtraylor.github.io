@@ -1,13 +1,12 @@
 <!DOCTYPE html>
-<html>
-<head>
+<html lang="en">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8">
 <title>Group Theory, XOR, and Binary Codes: Introducing Coding Theory</title>
 <link rel="stylesheet" href="style.css">
 <img src="../imgs/tmc_text.jpg" alt="The Math Citadel" width="252" height="122"
 class="center"/>
 <br>
-</head>
-<body>
 
 <div class="navbar">
     <a href="index.html">Home</a>
@@ -42,27 +41,13 @@ class="center"/>
 <script type="text/x-mathjax-config">
   MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
 </script>
-<script type="text/javascript"
+<script
   src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
 
 
 <h2>Group Theory, XOR, and Binary Codes: Introducing Coding Theory </h2>
 <h4> R. Traylor </h4>
-<style>
-
-img{
-
-display: block;
-
-margin-left: auto;
-
-margin-right: auto;
-
-}
-
-</style>
-
 <br>
 
 <i> This article gives an introduction to coding theory by looking at the group structure of binary words under the exclusive-or operation.</i>
@@ -101,7 +86,7 @@ We want to show that this set along with the XOR operation forms an algebraic st
 <li><i>(G1: Associativity of the operation)</i> The operation $\ast$ is associative. $a\ast(b\ast c) = (a\ast b)\ast c$ for any $a,b,c \in G$.
 <li><i>(G2: Existence of an identity element)</i> There is an identity element inside the set $G$ that we will call $e$ such that for every element $g \in G$, $e\ast g = g\ast e =g$
 <li><i>(G3: Existence of an inverse for every element)</i> For every element $g \in G$, there is a corresponding element $ g^{-1} \in G$ such that $g\ast g^{-1} = g^{-1}\ast g = e$
-<ul>
+</ul>
 </blockquote>
 
 It's important to note that a group is a set and an operation. If we change one of these, then we either have a different group, or we lose the group classification. Real numbers under addition are a group, as are nonzero real numbers under multiplication, but those are two different groups. Integers under addition are also a group, but a different group than real numbers under addition.
@@ -144,6 +129,4 @@ This actually can be done quite simply by exploiting two things we already know:
 <h3>Conclusion</h3>
 
 We explored the definition of a group using a common operation and set from computer science. We needed this foundation to be able to study more. The next post in the coding theory and algebra series will take an in depth look at maximum likelihood decoding. This decoding process is a way to attempt to decode and correct errors in transmission when the communication channel is noisy (and most are, somewhat).Abstract algebra is a powerful branch of mathematics that touches many more things than most of us realize. Now that we know binary words under the XOR operation is a group, we can start extending this and studying it as a structure, or skeleton, rather than focusing on the individual elements. The elements and operation are really just the drywall. The algebraic structure is the frame of beams inside. We learn a lot more by studying the structure than the covering, which is why it is important to enter that abstract realm. We will uncover similarities in strange places, and applications we didn't know were possible.
-</p>
-</body>
 </html>

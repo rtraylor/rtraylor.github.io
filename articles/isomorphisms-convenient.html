@@ -1,13 +1,12 @@
 <!DOCTYPE html>
-<html>
-<head>
+<html lang="en">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8">
 <title>The Convenience of Isomorphisms</title>
 <link rel="stylesheet" href="style.css">
 <img src="../imgs/tmc_text.jpg" alt="The Math Citadel" width="252" height="122"
 class="center"/>
 <br>
-</head>
-<body>
 
 <div class="navbar">
     <a href="index.html">Home</a>
@@ -42,26 +41,11 @@ class="center"/>
 <script type="text/x-mathjax-config">
   MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
 </script>
-<script type="text/javascript"
-  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
 
 <h2> The Convenience of Isomorphisms</h2>
 <h4>R. Traylor</h4>
-<style>
-
-img{
-
-display: block;
-
-margin-left: auto;
-
-margin-right: auto;
-
-}
-
-</style>
-
 <br>
 
 <i> This article gives a simple introduction to the utility of isomorphisms, using an example on $\mathbb{Z}_{4}$ and a group of complex numbers.</i>
@@ -76,7 +60,6 @@ Pinter's <em>Abstract Algebra</em> gives a fantastic motivation for studying <em
 </p>
 <p>
 Let's take this into a mathematical realm. We could create a function $f$ that maps the three letters "M", "A", "D" with the structure of the palindrome MADAM onto three new letters, maintaining that structure. So the function
-</p>
 $$f = \begin{pmatrix}M&A&D\\\downarrow&\downarrow&\downarrow\\R&O&T\end{pmatrix}$$
 
 transforms MADAM into ROTOR. The correspondence is<em>injective</em>(a one-to-one mapping, taking one element of $\{M,A,D\}$ to only one element of $\{R,O,T\}$, and<em>surjective</em> (every letter "R", "O", "T" has something that maps to it), and therefore is called<em>bijective.</em>This means we can actually move back and forth from MADAM to ROTOR by taking the inverse of the function $f$ that mapped us from "M","A","D", to "R","O","T". Such a function between two groups that preserves the structure of the groups is called an<strong><em>isomorphism</em></strong> and the two groups are said to be<em><strong>isomorphic.</strong></em>
@@ -84,7 +67,9 @@ transforms MADAM into ROTOR. The correspondence is<em>injective</em>(a one-to-on
 
 <h3>Formal Definition of Isomorphism</h3>
 
-Now that we've developed an intuition of an isomorphism, we will define it formally. (Note, for a refresher on what groups are, please see our previous articles <a href="articles/elementary-properties-groups.html">here, <a href="articles/group-theory-xor.html">here</a>, <a href="articles/mod-add-groups-integers.html">here</a>, and <a href="articles/permutations-mod-arithmetic.html">here</a>.)
+Now that we've developed an intuition of an isomorphism, we will define it formally.
+  (Note, for a refresher on what groups are, please see our previous articles 
+  <a href="articles/elementary-properties-groups.html">here</a>, <a href="articles/group-theory-xor.html">here</a>, <a href="articles/mod-add-groups-integers.html">here</a>, and <a href="articles/permutations-mod-arithmetic.html">here</a>.)
 
 <hr>
 

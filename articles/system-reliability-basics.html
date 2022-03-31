@@ -1,13 +1,12 @@
 <!DOCTYPE html>
-<html>
-<head>
+<html lang="en">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8">
 <title>System Reliability Basics</title>
 <link rel="stylesheet" href="style.css">
 <img src="imgs/tmc_text.jpg" alt="The Math Citadel" width="252" height="122"
 class="center"/>
 <br>
-</head>
-<body>
 
 <div class="navbar">
     <a href="index.html">Home</a>
@@ -42,7 +41,7 @@ class="center"/>
 <script type="text/x-mathjax-config">
   MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
 </script>
-<script type="text/javascript"
+<script
   src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
 <h2>System Reliability Basics</h2>
@@ -81,7 +80,7 @@ The system state vector is a combination of 1's and 0's corresponding to which c
 
 
 
-<blockquote><strong>Definition (Structure Function)</strong></span>
+<blockquote><strong>Definition (Structure Function)</strong>
 The <strong>structure function</strong> of a system $\phi : \mathbf{x} \to \{0,1\}$ is defined as
 $$\phi(\mathbf{x}):= \left\{\begin{array}{lr}1, &amp; \text{ the system is functioning when the state vector is x}\\0, &amp;\text{the system has failed when the state vector is x}\end{array}\right.$$
 
@@ -127,7 +126,7 @@ To see this, remember that the component state is 1 when the component functions
 These two are the basic system reliability topologies. We can make ones that are much more complex, but we have a theorem that shows any system's block diagram can be re-structured into a series system of parallel subsystems, or a parallel system of series subsystems.
 From Leemis <em>(Reliability: Probabilistic Models and Statistical Methods, Lawrence M. Leemis 2nd ed.)</em> ,
 
-<blockquote><b>Theorem. (Decomposition of Systems into Series/Parallel Subsystems)</b></h4>
+<blockquote><b>Theorem. (Decomposition of Systems into Series/Parallel Subsystems)</b>
 
 <i>Let $P_{1},...,P_{s}$ be the minimal path sets for a system. Then
 $$\phi(\mathbf{x}) = 1-\prod_{i=1}^{s}\left(1-\prod_{j \in P_{i}}x_{j}\right)$$

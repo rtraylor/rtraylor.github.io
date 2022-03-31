@@ -1,13 +1,12 @@
 <!DOCTYPE html>
-<html>
-<head>
+<html lang="en">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8">
 <title>Equivalence v. Isomorphisms in Category Theory</title>
 <link rel="stylesheet" href="style.css">
 <img src="../imgs/tmc_text.jpg" alt="The Math Citadel" width="252" height="122"
 class="center"/>
 <br>
-</head>
-<body>
 
 <div class="navbar">
     <a href="index.html">Home</a>
@@ -42,26 +41,11 @@ class="center"/>
 <script type="text/x-mathjax-config">
   MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
 </script>
-<script type="text/javascript"
-  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
 
 <h2> Equivalence v. Isomorphisms in Category Theory</h2>
 <h4> V. Fadeev and R. Traylor</h4>
-<style>
-
-img{
-
-display: block;
-
-margin-left: auto;
-
-margin-right: auto;
-
-}
-
-</style>
-
 <br>
 
 <i> This article discusses the subtle differences between an equivalence and an isomorphism in categorical language.</i>
@@ -102,13 +86,11 @@ A <strong>category</strong> is a quadruple $\mathbf{A} = (\mathscr{O}, \text{hom
 
 <li>For each $\mathbf{A}-$object $A$, there is an <em>identity morphism</em> $A \xrightarrow{id_{A}} A$.</li><li> A <em>composition law</em> that associates with each $\mathbf{A}-$morphism $A \xrightarrow{f} B$ and $B \xrightarrow{g} C$ an $\mathbf{A}-$morphism $A \xrightarrow{g \circ f} C$ we call the<em> composite</em> of $f$ and $g$. We first apply f to get into B, then apply g to move into C. Thus we perform compositions right to left. This composite map $g\circ f$ is subject to the following conditions:</li>
 
-<ul>
-<li> Composition is associative. That is, for $A \xrightarrow{f} B$, $B \xrightarrow{g} C$, and $C \xrightarrow{h} D$, </p><p>$$ h \circ (g\circ f) = (h \circ g) \circ f.$$</li>
+<li> Composition is associative. That is, for $A \xrightarrow{f} B$, $B \xrightarrow{g} C$, and $C \xrightarrow{h} D$, $$ h \circ (g\circ f) = (h \circ g) \circ f.$$</li>
 
 <li> For any morphism $A \xrightarrow{f} B$, $id_{B} \circ f = f$ and $f \circ id_{A} = f$.[note]We just want to make sure that composing with identity morphisms doesn't change anything.[/note]</li>
 
 <li> The sets $\hom(A,B)$ are pairwise-disjoint, meaning that a morphism $f$ cannot belong to $\hom(A,B)$ and $\hom(A',B')$ at the same time. It can only be in one set of morphisms. This condition guarantees each morphism has a unique domain (where we're mapping from) and codomain (where we map to).</li>
-</ul>
 
 </ol>
 
@@ -161,7 +143,7 @@ A <strong>category</strong> is a quadruple $\mathbf{A} = (\mathscr{O}, \text{hom
 
 <hr>
 <blockquote><p> <em><strong>Definition (Faithful Functor)</strong></em></p><p>A functor is <strong>faithful</strong> if all the hom-set restrictions $F: \hom_{\mathbf{A}}(A,A') \to \hom_{\mathbf{B}}(FA, FA')$ are injective.</p></blockquote>
-</hr>
+<hr>
 
 
 <p>Here, this means that if a morphism $f \in \text{hom}_{\mathbf{A}}(A,A')$ maps to $Ff \in \hom_{\mathbf{B}}(FA, FA')$, and another morphism $g \in \hom_{\mathbf{A}}(A,A')$ maps to $Fg \in \hom_{\mathbf{B}}(FA, FA')$ we have that $Ff = Fg$ (the two "target" morphisms are the same), then $f = g$. This needs to hold for all sets of morphisms between any two objects.</p>

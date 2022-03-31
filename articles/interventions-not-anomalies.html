@@ -1,13 +1,12 @@
 <!DOCTYPE html>
-<html>
-<head>
+<html lang="en">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8">
 <title>Interventions, not Anomalies</title>
 <link rel="stylesheet" href="style.css">
 <img src="../imgs/tmc_text.jpg" alt="The Math Citadel" width="252" height="122"
 class="center"/>
 <br>
-</head>
-<body>
 
 <div class="navbar">
     <a href="index.html">Home</a>
@@ -42,26 +41,12 @@ class="center"/>
 <script type="text/x-mathjax-config">
   MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
 </script>
-<script type="text/javascript"
-  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
 
 
 <h2> Interventions, not Anomalies </h2>
 <h4> R. Traylor </h4>
-<style>
-
-img{
-
-display: block;
-
-margin-left: auto;
-
-margin-right: auto;
-
-}
-
-</style>
 
 <br>
 
@@ -84,7 +69,7 @@ Before we discuss how to detect anomalies/abnormalities/outliers, the term must 
 
 <blockquote>
 Anything that lies outside the median $\pm$ 1.5IQR
-<\blockquote>
+</blockquote>
 
 <p>
 In all of these cases, these statements are all relative to some definition of “typical” or “normal”, and defining an outlier to lie “too far” according to some distance metric away from it. Many debates focus on exactly which metric to use, depending on the type of data ($L^{2}$ norm, absolute distance away from the median, more than three standard deviations away from the mean, etc), but the crux of the issue is sidestepped.
@@ -134,9 +119,11 @@ When we express a desire for an “anomaly detection system”, this is the fund
 <li><b>Temporary Change</b>: The model experiences a level shift that has a decaying effect over time.</li>
 <li><b>Innovation Outlier</b>: This is the most complex type, typically is defined to represent the onset of a causal effect or a change in the model itself.</li>
 <li><b>Additive Outlier</b>: the “point outlier”. It has no effect on future behavior.</li>
+</ol>
 
 <p>
-For examples of each, visit <a href = "https://online.stat.psu.edu/stat510/lesson/9/9.2"><this page</a> for a good introductory description. 
+
+For examples of each, visit <a href="https://online.stat.psu.edu/stat510/lesson/9/9.2">this page</a> for a good introductory description. 
 The important aspect with this approach is that a model is formally defined (for time series, ARIMA), as well as changes to that model. Thus, when we talk about a level shift, there is no ambiguity. Moreover, with formal definitions, we can classify a change according to the effect the point has on the future points.
 </p>
 
@@ -162,8 +149,9 @@ In order to identify and solve business problems effectively, the terms must be 
 <h3> References </h3>
 
 <ol>
-<li>Grubbs, F. E. (February 1969). “Procedures for detecting outlying observations in samples”. <i>Technometrics<i>. 11 (1): 1–21. doi:10.1080/00401706.1969.10490657. </li>
+<li>Grubbs, F. E. (February 1969). “Procedures for detecting outlying
+observations in samples”. <i>Technometrics</i>. 11 (1): 1–21. doi:10.1080/00401706.1969.10490657. </li>
 <li>Maddala, G. S. (1992). “Outliers”. Introduction to Econometrics (2nd ed.). New York: MacMillan. pp. 88–96 [p. 89]. ISBN 0-02-374545-2.</li>
 <li>Chung Chen and Lon-Mu Liu. Joint Estimation of Model Parameters and Outlier Effects in Time Series. Journal of the American Statistical Association Vol. 88 , Iss. 421,1993</li>
-</body>
+</ol>
 </html>
