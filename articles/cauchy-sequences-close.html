@@ -1,13 +1,12 @@
 <!DOCTYPE html>
-<html>
-<head>
+<html lang="en">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8">
 <title>Cauchy Sequences</title>
 <link rel="stylesheet" href="style.css">
 <img src="../imgs/tmc_text.jpg" alt="The Math Citadel" width="252" height="122"
 class="center"/>
 <br>
-</head>
-<body>
 
 <div class="navbar">
     <a href="index.html">Home</a>
@@ -42,25 +41,11 @@ class="center"/>
 <script type="text/x-mathjax-config">
   MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
 </script>
-<script type="text/javascript"
-  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
 
 <h2> Cauchy Sequences: The Importance of Getting Close</h2>
 <h4> R. Traylor </h4>
-<style>
-
-img{
-
-display: block;
-
-margin-left: auto;
-
-margin-right: auto;
-
-}
-
-</style>
 
 <br>
 
@@ -149,7 +134,7 @@ If $ N = \frac{1}{\epsilon}$, and $n > N$, then $\frac{1}{n} < \frac{1}{N} = \fr
 
 That means that for $N = \frac{1}{\epsilon}$, and for any two $m,n$ that are greater than $N$
 
-$$\begin{aligned}\left|\frac{1}{n}-\frac{1}{m}\right| &= \left|\frac{m-n}{mn}\right|\\&<;\left|\frac{m}{mn}\right|\\&= \frac{1}{n}\\&<\epsilon\end{aligned}$$
+$$\begin{aligned}\left|\frac{1}{n}-\frac{1}{m}\right| &= \left|\frac{m-n}{mn}\right|\\&<;\left|\frac{m}{mn}\right|\\&= \frac{1}{n}\\& < \epsilon\end{aligned}$$
 
 We're done! We took a generic $\epsilon$ and found the corresponding $N$ that ensured any two terms with an index greater than $N$ are no further than $\epsilon$ apart. Because we didn't "hard code" anything, we showed that this is true no matter what $\epsilon$ you picked. Therefore, we conclude that the sequence $s = \left(\frac{1}{n}\right)$ is a Cauchy sequence. 
 

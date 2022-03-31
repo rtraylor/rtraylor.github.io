@@ -1,14 +1,27 @@
 <!DOCTYPE html>
-<html>
-<head>
+<html lang="en">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8">
 <title>Applications of Reflections: Taking a Group to its Abelian Form</title>
 <link rel="stylesheet" href="style.css">
+
+<style>
+
+img{
+
+display: block;
+
+margin-left: auto;
+
+margin-right: auto;
+
+}
+
+</style>
+
 <img src="../imgs/tmc_text.jpg" alt="The Math Citadel" width="252" height="122"
 class="center"/>
 <br>
-</head>
-<body>
-
 <div class="navbar">
     <a href="index.html">Home</a>
     <div class="dropdown">
@@ -42,28 +55,12 @@ class="center"/>
 <script type="text/x-mathjax-config">
   MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
 </script>
-<script type="text/javascript"
-  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
 
 <h2> Applications of Reflections: Taking a Group to its Abelian Form </h2>
 <h4> R. Traylor </h4>
-<style>
-
-img{
-
-display: block;
-
-margin-left: auto;
-
-margin-right: auto;
-
-}
-
-</style>
-
 <br>
-
 <i> This article looks at the definition of the categorical concept of a reflection and gives a clear application with full construction.</i>
 
 For some previous discussion of categorical concepts and more basic definitions, see the joint article by R. Traylor and V. Fadeev. 
@@ -74,7 +71,7 @@ For some previous discussion of categorical concepts and more basic definitions,
 <li>$\mathrm{Ob}(\mathbf{A}) \subseteq \mathrm{Ob}(\mathbf{B})$</li>
 <li>For each $A, A' \in \mathrm{Ob}(\mathbf{A})$, $\mathrm{hom}_{\mathbf{A}}(A,A') \subseteq \mathrm{hom}_{\mathbf{B}}(A,A')$.</li>
 <li>For each $A \in \mathrm{Ob}(\mathbf{A})$, the $\mathbf{B}-$identity on $A$ is the same as the $\mathbf{A}-$identity on $A$.<br>(4) composition in $\mathbf{A}$ is the restriction of composition in $\mathbf{B}$ to the morphisms of $\mathbf{A}$</li>
-</ol></p><cite>Adámek et al, <em>Abstract and Concrete Categories</em>(1990)<br></cite></blockquote>
+</ol><cite>Adámek et al, <em>Abstract and Concrete Categories</em> (1990)<br></cite></blockquote>
 <hr>
 
 <p>Point by point, we'll pick the definition apart. The first part is pretty clear. The collection of objects in a subcategory is contained in the collection of objects in its "parent". The second criterion says that the set of morphisms from one object $A$ to another object $A'$ inside the littler category $\mathbf{A}$ should be a subset of all the morphisms from the same $A$ to the same $A'$, but inside $\mathbf{B}$. That is, there are morphisms from $A \to A'$ in $\mathbf{B}$ that won't live in the subcategory $\mathbf{A}$.</p>
@@ -166,3 +163,4 @@ This is certainly a homomorphism ($\psi(XY) = \psi(X)\psi(Y)$). </p>
 <h2>Conclusion</h2>
 
 <p>Reflections can perform many different actions to take objects in one category to objects in a subcategory. We focused on reflections making things "abelian" in a nice way, which helped reveal some structures that would have otherwise been hidden. </p>
+</html>

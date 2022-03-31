@@ -81,3 +81,9 @@ color: rgb(116,151,161)
 h4 {
 color: rgb(78,96,90) 
 }
+
+img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}

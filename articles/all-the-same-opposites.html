@@ -1,14 +1,25 @@
 <!DOCTYPE html>
-<html>
-<head>
+<html lang="en">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8">
 <title>All the Same Opposites</title>
 <link rel="stylesheet" href="style.css">
+<style>
+img{
+
+display: block;
+
+margin-left: auto;
+
+margin-right: auto;
+
+}
+
+</style>
+
 <img src="../imgs/tmc_text.jpg" alt="The Math Citadel" width="252" height="122"
 class="center"/>
 <br>
-</head>
-<body>
-
 <div class="navbar">
     <a href="index.html">Home</a>
     <div class="dropdown">
@@ -42,25 +53,11 @@ class="center"/>
 <script type="text/x-mathjax-config">
   MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
 </script>
-<script type="text/javascript"
-  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
 
 <h2> All the Same Opposites </h2>
 <h4> J. Hathcock </h4>
-<style>
-
-img{
-
-display: block;
-
-margin-left: auto;
-
-margin-right: auto;
-
-}
-
-</style>
 
 <br>
 
@@ -171,7 +168,7 @@ What matters is that these individual elements <em>behave </em>in <strong>exactl
 <p style="text-align: center;"> $(\{{\bf F},{\bf T}\},\oplus,\wedge) $</p>
 are <em>isomorphic</em>, that is, structurally equivalent.  
 <blockquote><strong><em>Definition (Isomorphism of fields). </em></strong><em>We say two fields </em> $(\mathbb{F},+,\times) $ <em>and</em>  $(\mathbb{H},\boxplus,\boxtimes) $ <em>are </em>isomorphic<em> to mean there exists a function </em> $\varphi\mathrel{:}\mathbb{F}\to\mathbb{H} $ <em>such that </em> $\varphi $ <em>is one-to-one, onto, and, for all </em> $x,y\in\mathbb{F} $,
-$$\varphi(x+y)=\varphi(x)\boxplus\varphi(y);\quad\varphi(x\times y)=\varphi(x)\boxtimes\varphi(y). $$</p>
+$$\varphi(x+y)=\varphi(x)\boxplus\varphi(y);\quad\varphi(x\times y)=\varphi(x)\boxtimes\varphi(y). $$
 </blockquote>
 In the case of  $\text{GF}(2) $, proving isomorphism amounts to simply defining the function that swaps the symbols as needed.  For example, to show  $(\{{\bf e},{\bf o}\},+,\cdot) $ and  $(\{0,1\},+_2,\cdot) $ are isomorphic, define[note]I encourage all readers to prove this function is an isomorphism by definition. (The curious may find full proof in the <a href="../article-appendices/all-the-same-opposites-supporting-proofs.pdf">appendix</a> attached.) $\varphi\mathrel{:}\{{\bf e},{\bf o}\}\to\{0,1\} $ by putting  $\varphi({\bf e})=0 $ and  $\varphi({\bf o})=1 $.
 <h2>Concluding Remarks</h2>
