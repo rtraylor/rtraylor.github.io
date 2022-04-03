@@ -4,12 +4,12 @@
 <meta charset="utf-8">
 <title>System Reliability Basics</title>
 <link rel="stylesheet" href="style.css">
-<img src="imgs/tmc_text.jpg" alt="The Math Citadel" width="252" height="122"
+<img src="../imgs/tmc_text.jpg" alt="The Math Citadel" width="252" height="122"
 class="center"/>
 <br>
 
 <div class="navbar">
-    <a href="index.html">Home</a>
+    <a href="../index.html">Home</a>
     <div class="dropdown">
         <button class="dropbtn">About 
         <i class="fa fa-caret-down"></i>
@@ -93,9 +93,9 @@ Each system has a<em> topology</em>, i.e. its component arrangement. Here, we ar
 
 <h3>Example (Series System)</h3>
 
-<p><img src="imgs/system-reliability-basics/christmas-lights.png" alt="" width="300" height="112" class="center"/></p>
+<p><img src="../imgs/system-reliability-basics/christmas-lights.png" alt="" width="300" height="112" class="center"/></p>
 
-<p><img class="center" src="imgs/system-reliability-basics/SeriesSystem-1.jpeg" alt="" width="497" height="71"/> </p>
+<p><img class="center" src="../imgs/system-reliability-basics/SeriesSystem-1.jpeg" alt="" width="497" height="71"/> </p>
 One of the simplest types of systems is the series system. In this example, if one component fails, the whole system goes down.
 
 
@@ -111,9 +111,9 @@ The Christmas lights happen to physically match that reliability topology given 
 
 <h3>Example (Parallel System)</h3>
 <p>
-<img class="left" src="imgs/system-reliability-basics/lungs.jpeg" alt="" width="268" height="268"/> 
+<img class="left" src="../imgs/system-reliability-basics/lungs.jpeg" alt="" width="268" height="268"/> 
 
-<img class="right" src="imgs/system-reliability-basics/ParallelSystem.jpeg" alt="" width="220" height="252"/> </p>
+<img class="right" src="../imgs/system-reliability-basics/ParallelSystem.jpeg" alt="" width="220" height="252"/> </p>
 
 
 The next simplest type of system is the <em>parallel system</em>. This one is the exact opposite of the series system: if even one component in a parallel system is still working, the system still functions.
@@ -133,7 +133,7 @@ $$\phi(\mathbf{x}) = 1-\prod_{i=1}^{s}\left(1-\prod_{j \in P_{i}}x_{j}\right)$$
  where $x_{j}$ is the component state vector.</i>
 
 </blockquote>
-<img class="center" src="imgs/system-reliability-basics/GeneralBlockDiagram.jpeg" alt="" width="300" height="220"/> 
+<img class="center" src="../imgs/system-reliability-basics/GeneralBlockDiagram.jpeg" alt="" width="300" height="220"/> 
 
 
 What are <strong>path sets</strong>? The path sets are the sets of components that form a complete path through the block diagram.
@@ -145,9 +145,9 @@ In other words, the system is functioning if Components 1 and 3 are functioning,
 
 Last, here's an example of how we can take a given block diagram and rearrange it in terms of a parallel system of series subsystems according to the theorem.
 <p>
-<img class="centerleft" src="imgs/system-reliability-basics/bridgesystemdiagram.png" alt="" width="371" height="157"/> 
+<img class="centerleft" src="../imgs/system-reliability-basics/bridgesystemdiagram.png" alt="" width="371" height="157"/> 
 
-<img class="centerright" src="imgs/system-reliability-basics/altbridgediagram.png" alt="" width="426" height="328"/> 
+<img class="centerright" src="../imgs/system-reliability-basics/altbridgediagram.png" alt="" width="426" height="328"/> 
 </p>
 
 

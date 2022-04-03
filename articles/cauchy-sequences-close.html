@@ -4,12 +4,12 @@
 <meta charset="utf-8">
 <title>Cauchy Sequences</title>
 <link rel="stylesheet" href="style.css">
-<img src="imgs/tmc_text.jpg" alt="The Math Citadel" width="252" height="122"
+<img src="../imgs/tmc_text.jpg" alt="The Math Citadel" width="252" height="122"
 class="center"/>
 <br>
 
 <div class="navbar">
-    <a href="index.html">Home</a>
+    <a href="../index.html">Home</a>
     <div class="dropdown">
         <button class="dropbtn">About 
         <i class="fa fa-caret-down"></i>
@@ -74,7 +74,7 @@ $s_{n} = 1/n$; that is, the $n$th term of the sequence is obtained by dividing 1
 
 $$s_{n} = \left(\frac{1}{n}\right)$$
 
-This tells us how to generate the entire sequence, term by term. Now we can speak ../about a generic sequence $a$ with terms $a_{n}$, where $n$ is the index.
+This tells us how to generate the entire sequence, term by term. Now we can speak about a generic sequence $a$ with terms $a_{n}$, where $n$ is the index.
 
 <h2>The Cauchy property</h2>
 One of the biggest questions we can ask of a sequence is regarding <em>convergence. </em>Where do the terms lead, if anywhere? Convergence theory of both sequences and series (the sum of a sequence) is quite a rabbit hole to dive down, but in short, we want to know if there is some "destination" of the sequence. Proving convergence is required; it's not enough to just say where we think they go. We'll visit a few specific examples.
@@ -138,7 +138,12 @@ $$\begin{aligned}\left|\frac{1}{n}-\frac{1}{m}\right| &= \left|\frac{m-n}{mn}\ri
 
 We're done! We took a generic $\epsilon$ and found the corresponding $N$ that ensured any two terms with an index greater than $N$ are no further than $\epsilon$ apart. Because we didn't "hard code" anything, we showed that this is true no matter what $\epsilon$ you picked. Therefore, we conclude that the sequence $s = \left(\frac{1}{n}\right)$ is a Cauchy sequence. 
 
-(<em>Some notes: I want to point out here that a Cauchy sequence doesn't have to be super neat. As long as it "calms down" after a certain finite point, it can be wild and crazy. For example, the first 10 terms of a sequence can be 1,000,000, and then from the 11th term onward be something like $\left(\frac{1}{n^{2}}\right)$. When we talk ../about sequences, we actually don't care at all ../about the first bits of a sequence. It's the tail we care ../about almost always.)</em>
+(<em>Some notes: I want to point out here that a Cauchy sequence doesn't have to
+be super neat. As long as it "calms down" after a certain finite point, it can
+be wild and crazy. For example, the first 10 terms of a sequence can be
+1,000,000, and then from the 11th term onward be something like
+$\left(\frac{1}{n^{2}}\right)$. When we talk about sequences, we actually don't
+care at all about the first bits of a sequence. It's the tail we care about almost always.)</em>
 <h2>So what does this give us? </h2>
 The Cauchy property actually yields quite a few things that can help us when we study convergence of both sequences and series. Here are a few things we can prove if we know a sequence is Cauchy:
 <ol>
