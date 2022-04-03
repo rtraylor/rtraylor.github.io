@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <title>Mailbox Answers: Calculating New Parity After An Overwrite </title>
 <link rel="stylesheet" href="style.css">
-<img src="../imgs/tmc_text.jpg" alt="The Math Citadel" width="252" height="122"
+<img src="imgs/tmc_text.jpg" alt="The Math Citadel" width="252" height="122"
 class="center"/>
 <br>
 
@@ -15,7 +15,7 @@ class="center"/>
         <i class="fa fa-caret-down"></i>
         </button>
     <div class="dropdown-content">
-        <a href="../about.html">About Us</a>
+        <a href="../about-us.html">About Us</a>
         <a href="../people.html">People</a>
     </div>
     </div>
@@ -63,7 +63,7 @@ Let us consider the case of a $10+1$ RAID 5 set with a strip size of 64KB.When a
  	<li>Read however much other data as would be needed to recalculate the parity strip for this stripe</li>
  	<li>Write the new data and new parity strip (Min 1 4KB write, 1 64KB write)</li>
 </ol>
-When we casually talk about this condition we say the RAID controller would need to read all 10 data strips in the stripe so it can XOR all ten together as part of step 4.I, however have been thinking about XOR and think that rather than requiring N+1 total I/Os I can get it down to three.
+When we casually talk ../about this condition we say the RAID controller would need to read all 10 data strips in the stripe so it can XOR all ten together as part of step 4.I, however have been thinking ../about XOR and think that rather than requiring N+1 total I/Os I can get it down to three.
 
 If $P$, the parity strip, already contains
 
@@ -130,7 +130,7 @@ $$P \oplus C = 001 \oplus 111 = 110$$
 
 Success! This doesn't mean we're done.<em>One example doesn't constitute proof.</em> We have to show this is true for<em>any</em> finite number of binary words of<em>any</em> length.
 <h3>Prove this statement is true</h3>
-Let $D_{1},...,D_{K}$ be binary words of generic length $l$. Choose one word $D_{j}$ and modify it to form the new word $D_{j}'$. Let $C = D_{j} \oplus D_{j}'$ denote the change vector. Then
+Let $D_{1},..,D_{K}$ be binary words of generic length $l$. Choose one word $D_{j}$ and modify it to form the new word $D_{j}'$. Let $C = D_{j} \oplus D_{j}'$ denote the change vector. Then
 
 $$\begin{aligned}P^{\prime}&=D_{1}\oplus D_{2}\oplus\ldots D^{\prime}_{j}\oplus\ldots D_{K}\end{aligned}$$
 
@@ -160,6 +160,6 @@ What if we modified more than one word in our original sum $P$? It's a pretty si
 
 <h2>Conclusion</h2>
 
-Mr. Marks brought this up because he was seeking a way to compute the new parity strip in a more efficient way (with fewer arithmetic steps) than simply following the definition. You can absolutely "brute force" your way to calculating the new parity strip. Companies and startups are always concerned about "scalability". Sure, you won't notice the time different between 10 extra things added together. But what about 10 million? 1 billion? More than that? None of those numbers are infeasible for the amount of calculations we perform on data now. In those cases, the brute force method of simply using the definition starts to cause performance problems. It was worth taking the time to "be clever" and search for a nice, elegant way that cuts down the number of operations necessary to calculate a new parity strip. It took a little upfront work, but the result speaks loudly for itself.
+Mr. Marks brought this up because he was seeking a way to compute the new parity strip in a more efficient way (with fewer arithmetic steps) than simply following the definition. You can absolutely "brute force" your way to calculating the new parity strip. Companies and startups are always concerned ../about "scalability". Sure, you won't notice the time different between 10 extra things added together. But what ../about 10 million? 1 billion? More than that? None of those numbers are infeasible for the amount of calculations we perform on data now. In those cases, the brute force method of simply using the definition starts to cause performance problems. It was worth taking the time to "be clever" and search for a nice, elegant way that cuts down the number of operations necessary to calculate a new parity strip. It took a little upfront work, but the result speaks loudly for itself.
 
 

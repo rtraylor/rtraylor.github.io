@@ -15,8 +15,8 @@ class="center"/>
         <i class="fa fa-caret-down"></i>
         </button>
     <div class="dropdown-content">
-        <a href="about.html">About Us</a>
-        <a href="people.html">People</a>
+        <a href="../about-us.html">About Us</a>
+        <a href="../people.html">People</a>
     </div>
     </div>
     <div class="dropdown">
@@ -24,15 +24,15 @@ class="center"/>
          <i class="fa fa-caret-down"></i>
          </button>
     <div class="dropdown-content">
-        <a href="research.html">Research</a>
-        <a href="consulting.html">Consulting</a>
+        <a href="../research.html">Research</a>
+        <a href="../consulting.html">Consulting</a>
         <a href="https://shop.spreadshirt.com/mathcitadel/">Shop</a>
         <a href="https://patreon.com/mathcitadel">Patreon</a>
     </div>
     </div>
-    <a href="projects.html">Projects</a>
+    <a href="../projects.html">Projects</a>
     <a href="pubs.html">Papers/Articles</a>
-    <a href="contact.html">Contact</a>
+    <a href="../contact.html">Contact</a>
 
 
     
@@ -52,7 +52,7 @@ class="center"/>
 
 <em> This article gives a few of the standard ways to represent the random lifetime of a non-repairable object. </em>
 
-<p> Every item, system, person, or animal has a lifetime. For people and animals, we typically just measure the lifetime in years, but we have other options for items and systems. We can measure airplane reliability in flight hours (hours actually flown), or stress test a manufacturing tool in cycles. Regardless of the units we use, there are many things in common. We don’t know how long any item will “live” before it’s manufactured or deployed, so an item’s lifetime is a random variable. We wish to make decisions about manufacturing, warranties, or even purchasing by taking the reliability of an object into account.
+<p> Every item, system, person, or animal has a lifetime. For people and animals, we typically just measure the lifetime in years, but we have other options for items and systems. We can measure airplane reliability in flight hours (hours actually flown), or stress test a manufacturing tool in cycles. Regardless of the units we use, there are many things in common. We don’t know how long any item will “live” before it’s manufactured or deployed, so an item’s lifetime is a random variable. We wish to make decisions ../about manufacturing, warranties, or even purchasing by taking the reliability of an object into account.
 </p>
 
 <p>
@@ -85,7 +85,7 @@ From the graph above, we can simply plug $t=5$ into the survivor function to get
 </p>
 
 \[S(5) = e^{-5/3} \approx 0.189\]
-or about an 18.9% chance.
+or ../about an 18.9% chance.
 
 <p>
 We could use the survivor function to help NSR decide where to place the cutoff for warranty claims. Depending on the cost of either repairing the NS4 or replacing the NS4 with the NS5, we can backsolve to find out what $t$ would satisfy management. Suppose the cost function requires that the probability of surviving past the cutoff $t$ is 85%. Then we can use the survivor function to backsolve for $t$:
@@ -96,11 +96,11 @@ We could use the survivor function to help NSR decide where to place the cutoff 
 0.49 &\approx t
 \end{align*}\]
 
-Thus, we would set the warranty claims to be valid only for about the first half year after the NS4 is purchased.
+Thus, we would set the warranty claims to be valid only for ../about the first half year after the NS4 is purchased.
 </p>
 
 <p>
-<em>Remark. Another way to judge an item is by looking at the shape of the survivor function. A steep decline like the one shown in the above graph tells us that the NS4 isn’t exactly the most reliable robot. Only about half of them survive two years.</em>
+<em>Remark. Another way to judge an item is by looking at the shape of the survivor function. A steep decline like the one shown in the above graph tells us that the NS4 isn’t exactly the most reliable robot. Only ../about half of them survive two years.</em>
 </p>
 
 <h3> Conditional Survivor Function </h3>
@@ -128,7 +128,7 @@ We are looking for the probability that the NS4 is still operational after more 
 
 \[S_{Y|Y\geq 2}(5) = \frac{S(5)}{S(2)} = \frac{e^{-5/3}}{e^{-2/3}} = \frac{1}{e} \approx 0.367\]
 
-Thus, we only have a 36.7% chance of getting more than 3 years out of our used NS4. Perhaps we may want to consider haggling for a lower price ... </p>
+Thus, we only have a 36.7% chance of getting more than 3 years out of our used NS4. Perhaps we may want to consider haggling for a lower price .. </p>
 
 <h3> Cumulative Distribution Function </h3>
 
@@ -178,7 +178,7 @@ The hazard function is commonly used in engineering maintenance to determine sch
 </p>
 
 <p>
-There are other forms we can use to express the distribution of an object’s lifetime, but these are the most common. Another thing to note is that we can easily move from one form to another. They all represent the same thing–lifetime of a system, but in slightly different ways. We were able to make several different decisions about USR’s NS4 robots thanks to these different representations.
+There are other forms we can use to express the distribution of an object’s lifetime, but these are the most common. Another thing to note is that we can easily move from one form to another. They all represent the same thing–lifetime of a system, but in slightly different ways. We were able to make several different decisions ../about USR’s NS4 robots thanks to these different representations.
 </p>
 </body>
 </html>

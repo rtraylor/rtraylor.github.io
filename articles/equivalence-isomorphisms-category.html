@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <title>Equivalence v. Isomorphisms in Category Theory</title>
 <link rel="stylesheet" href="style.css">
-<img src="../imgs/tmc_text.jpg" alt="The Math Citadel" width="252" height="122"
+<img src="imgs/tmc_text.jpg" alt="The Math Citadel" width="252" height="122"
 class="center"/>
 <br>
 
@@ -15,7 +15,7 @@ class="center"/>
         <i class="fa fa-caret-down"></i>
         </button>
     <div class="dropdown-content">
-        <a href="../about.html">About Us</a>
+        <a href="../about-us.html">About Us</a>
         <a href="../people.html">People</a>
     </div>
     </div>
@@ -80,7 +80,7 @@ A <strong>category</strong> is a quadruple $\mathbf{A} = (\mathscr{O}, \text{hom
 </p>
 
 <ol>
-<li> A class $\mathscr{O}$ whose members are called $\mathbf{A}-$objects. A class is a generalization of the notion of a set. This concept was created to sidestep issues with Russell's Paradox that sets generate. We couldn't talk about the "set of all sets", or the "set of all vector spaces" without running into a paradox, so we created classes which allow for the creation of a class of all sets with any particular property P. For the purposes of this article, accepting a class as a "bigger set" is sufficient.</li>
+<li> A class $\mathscr{O}$ whose members are called $\mathbf{A}-$objects. A class is a generalization of the notion of a set. This concept was created to sidestep issues with Russell's Paradox that sets generate. We couldn't talk ../about the "set of all sets", or the "set of all vector spaces" without running into a paradox, so we created classes which allow for the creation of a class of all sets with any particular property P. For the purposes of this article, accepting a class as a "bigger set" is sufficient.</li>
 
 <li> For each pair $(A,B)$ of $\mathbf{A}-$objects, a set $\hom(A,B)$ whose elements are called <em>morphisms</em> from $A$ to $B$. Denoted $A \xrightarrow{f} B$ or $f: A \to B$. The collection of all morphisms in $\mathbf{A}$ is denoted $\text{Mor}(\mathbf{A})$.</li>
 
@@ -103,7 +103,7 @@ A <strong>category</strong> is a quadruple $\mathbf{A} = (\mathscr{O}, \text{hom
 
 
 
-<ul><li>$\mathbf{Set}$ is the category of all sets. $\mathscr{O}$ is the class of all sets. (Here a particular set is an object. $\mathbb{N}$ is an object in this category, as is the set of all permutations of the numbers $\{1,2,3\}$. We don't care about individual elements of these sets. We move from one whole set to another whole set. $\hom(A,B)$ is the set of all functions from set $A$ to set $B$. $id_{A}$ is just the identity function on a set $A$, and $\circ$ is our standard composition of functions.</li><li>$\mathbf{Vect}$ is the category whose objects are all real vector spaces. Morphisms in this category are linear transformations from one vector space to another, so $\hom(A,B)$ is the set of all linear transformations from vector space $A$ to vector space $B$. Later we'll restrict our attention to only finite dimensional vector spaces.  The identity morphisms are identity transformations, and composition in this category is the standard composition of linear maps.</li></ul>
+<ul><li>$\mathbf{Set}$ is the category of all sets. $\mathscr{O}$ is the class of all sets. (Here a particular set is an object. $\mathbb{N}$ is an object in this category, as is the set of all permutations of the numbers $\{1,2,3\}$. We don't care ../about individual elements of these sets. We move from one whole set to another whole set. $\hom(A,B)$ is the set of all functions from set $A$ to set $B$. $id_{A}$ is just the identity function on a set $A$, and $\circ$ is our standard composition of functions.</li><li>$\mathbf{Vect}$ is the category whose objects are all real vector spaces. Morphisms in this category are linear transformations from one vector space to another, so $\hom(A,B)$ is the set of all linear transformations from vector space $A$ to vector space $B$. Later we'll restrict our attention to only finite dimensional vector spaces.  The identity morphisms are identity transformations, and composition in this category is the standard composition of linear maps.</li></ul>
 
 
 
@@ -178,7 +178,7 @@ A <strong>category</strong> is a quadruple $\mathbf{A} = (\mathscr{O}, \text{hom
 <hr>
 
 
-<p>If we re-write the definition of an isomorphism (functor), then an isomorphism is a functor that is full, faithful, and bijective on objects, whereas an equivalence is a functor that is full, faithful, and isomorphism-dense. The only difference between these two is the notion of being bijective on objects v. being isomorphism-dense. An isomorphism is more restrictive than an equivalence in the sense that all  isomorphisms are equivalences, but we can exhibit equivalences that are not isomorphisms. When we talk about categories being either equivalent or isomorphic, these two words are not interchangeable. In the next sections, we'll discuss this difference, and illustrate with an explicit example. </p>
+<p>If we re-write the definition of an isomorphism (functor), then an isomorphism is a functor that is full, faithful, and bijective on objects, whereas an equivalence is a functor that is full, faithful, and isomorphism-dense. The only difference between these two is the notion of being bijective on objects v. being isomorphism-dense. An isomorphism is more restrictive than an equivalence in the sense that all  isomorphisms are equivalences, but we can exhibit equivalences that are not isomorphisms. When we talk ../about categories being either equivalent or isomorphic, these two words are not interchangeable. In the next sections, we'll discuss this difference, and illustrate with an explicit example. </p>
 
 
 
@@ -318,7 +318,7 @@ so that for $\mathbf{x} = \begin{bmatrix}x\\y\end{bmatrix}$</p>
 
 
 
-<p>We now illustrate the key difference between isomorphism and isomorphism-dense functors. Take the space of polynomials of order $m$ with real coefficients. This is indeed a real vector space, and belongs to $\mathbf{Vect}$. This polynomial space is isomorphic to $\mathbb{R}^{m}$ inside of $\mathbf{Vect}$, meaning that there is an invertible linear map $K$ from the polynomial space to $\mathbb{R}^{m}$. Recall that functors not only map objects to objects, but they also map morphisms to morphisms. Since all the functor $F$ originating $\mathbf{Mat}$ cares about is the dimension of the space, the isomorphism $K$ between the polynomial space and $\mathbb{R}^{m}$ is "invisible" in the category $\mathbf{Mat}$, because $\mathbf{Mat}$ sees the polynomial space and $\mathbb{R}^{m}$ just as "some" $m-$dimensional spaces. Thus the morphism $K \in \text{Mor}(\textbf{Vect})$ has no morphism in $\text{Mor}(\textbf{Mat})$ that will map to it. </p>
+<p>We now illustrate the key difference between isomorphism and isomorphism-dense functors. Take the space of polynomials of order $m$ with real coefficients. This is indeed a real vector space, and belongs to $\mathbf{Vect}$. This polynomial space is isomorphic to $\mathbb{R}^{m}$ inside of $\mathbf{Vect}$, meaning that there is an invertible linear map $K$ from the polynomial space to $\mathbb{R}^{m}$. Recall that functors not only map objects to objects, but they also map morphisms to morphisms. Since all the functor $F$ originating $\mathbf{Mat}$ cares ../about is the dimension of the space, the isomorphism $K$ between the polynomial space and $\mathbb{R}^{m}$ is "invisible" in the category $\mathbf{Mat}$, because $\mathbf{Mat}$ sees the polynomial space and $\mathbb{R}^{m}$ just as "some" $m-$dimensional spaces. Thus the morphism $K \in \text{Mor}(\textbf{Vect})$ has no morphism in $\text{Mor}(\textbf{Mat})$ that will map to it. </p>
 
 
 

@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <title>Networking Mathematics: Random Early Detection and TCP Synchronization</title>
 <link rel="stylesheet" href="style.css">
-<img src="../imgs/tmc_text.jpg" alt="The Math Citadel" width="252" height="122"
+<img src="imgs/tmc_text.jpg" alt="The Math Citadel" width="252" height="122"
 class="center"/>
 <br>
 
@@ -15,7 +15,7 @@ class="center"/>
         <i class="fa fa-caret-down"></i>
         </button>
     <div class="dropdown-content">
-        <a href="../about.html">About Us</a>
+        <a href="../about-us.html">About Us</a>
         <a href="../people.html">People</a>
     </div>
     </div>
@@ -81,7 +81,7 @@ TCP uses a windowing algorithm with a changing window size to constantly react t
 
 <h3>Buffers</h3>
 <p>
-How many times have you had to wait for something to buffer when watching Netflix? A buffer is created at network interfaces to handle congestion. Think about an on-ramp to a freeway with the traffic lights on at rush hour, controlling the rate at which cars enter a crowded interstate. If we let all the cars on at the rate they want to go during rush hour, the interstate traffic would be even worse. So we buffer them at on-ramps, controlling the flow at the congested interface.
+How many times have you had to wait for something to buffer when watching Netflix? A buffer is created at network interfaces to handle congestion. Think ../about an on-ramp to a freeway with the traffic lights on at rush hour, controlling the rate at which cars enter a crowded interstate. If we let all the cars on at the rate they want to go during rush hour, the interstate traffic would be even worse. So we buffer them at on-ramps, controlling the flow at the congested interface.
 </p>
 <p>
 What happens when a buffer gets full? In basic queuing theory, we typically get around this by assuming a queue (buffer in this case) has infinite capacity. For the most part, we know that's not true.[note]There are mathematical ways to study finite capacity queues. We'll get to these.[/note] If the buffer is full, the most recent packets into the buffer will get turned away, or dropped. There's just no room for them. (Network engineers call this<em>tail drop.)</em>
@@ -147,7 +147,7 @@ If $\bar{Q}_{n} &gt; T_{\max}$, then we're really congested, then we mark the in
 
 RED has another variation, WRED (Weighted Random Early Detection), which takes into account the class of the packet arriving. Some packets really are more important than others. When you're in the middle of a VoIP call, those packets are way more important than perhaps some email coming in, because a slight delay of a few milliseconds in email delivery isn't noticed, whereas a few millisecond packet delay causes jitter in your video. WRED deals with classed traffic but is basically the same as RED explored here.
 
-<h3>Things we can change about RED</h3>
+<h3>Things we can change ../about RED</h3>
 <p>
 Notice above that the function to calculate $p_{a}$ was linear in terms of the average queue length $\bar{Q}_{n}$. Why linear? Well, for one, when RED was first created in 1993, it was easier. Absent further information, simple is best, and linear is simple. There are other functions to calculate the packet drop probability $p_{d}$ that are nonlinear. We'll explore one of those papers next [2], which takes us into the notion of orthogonal polynomials.
 </p>
@@ -157,7 +157,7 @@ We can also discuss the fact that the average queue length was computed by a wei
 
 <h3>Where else can we look?</h3>
 <p>
-Analysis of queues is a huge field. Since everything about network traffic (and general queues as well) is based on random variables, the mathematical study of queuing theory is a rich environment. We can view traffic as discrete random processes, like a birth-death process. We can assume the process is <a href="articles/time-series-regression.html">stationary</a>, or we can look into studying traffic the way we study fluid flow, typically using differential equations.
+Analysis of queues is a huge field. Since everything ../about network traffic (and general queues as well) is based on random variables, the mathematical study of queuing theory is a rich environment. We can view traffic as discrete random processes, like a birth-death process. We can assume the process is <a href="articles/time-series-regression.html">stationary</a>, or we can look into studying traffic the way we study fluid flow, typically using differential equations.
 </p>
 <p>
 As networks get more and more complicated, we need this more sophisticated (and hopefully elegant) mathematics to help us understand traffic flow. We never really discussed in this article how to set the thresholds $T_{\min}$ and $T_{\max}$. Those require a good model and understanding of the particular type of traffic flow in a specific network. Good understanding of queuing behavior yields good threshold design, which yields good queue management schemes, which ultimately yields a better user experience. 

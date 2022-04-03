@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <title>Taking Things for Granted: Elementary Properties of Groups</title>
 <link rel="stylesheet" href="style.css">
-<img src="../imgs/tmc_text.jpg" alt="The Math Citadel" width="252" height="122"
+<img src="imgs/tmc_text.jpg" alt="The Math Citadel" width="252" height="122"
 class="center"/>
 <br>
 
@@ -15,8 +15,8 @@ class="center"/>
         <i class="fa fa-caret-down"></i>
         </button>
     <div class="dropdown-content">
-        <a href="about.html">About Us</a>
-        <a href="people.html">People</a>
+        <a href="../about-us.html">About Us</a>
+        <a href="../people.html">People</a>
     </div>
     </div>
     <div class="dropdown">
@@ -24,15 +24,15 @@ class="center"/>
          <i class="fa fa-caret-down"></i>
          </button>
     <div class="dropdown-content">
-        <a href="research.html">Research</a>
-        <a href="consulting.html">Consulting</a>
+        <a href="../research.html">Research</a>
+        <a href="../consulting.html">Consulting</a>
         <a href="https://shop.spreadshirt.com/mathcitadel/">Shop</a>
         <a href="https://patreon.com/mathcitadel">Patreon</a>
     </div>
     </div>
-    <a href="projects.html">Projects</a>
-    <a href="articles.html">Papers/Articles</a>
-    <a href="contact.html">Contact</a>
+    <a href="../projects.html">Projects</a>
+    <a href="../articles.html">Papers/Articles</a>
+    <a href="../contact.html">Contact</a>
 
 
     
@@ -88,7 +88,7 @@ and
 
  
 
-The proof isn't hard, and not really the focus here. What's important to note is that there are <i>two</i> different cancellations. One where I cancel $a$ when it is multiplied on the left of $b$ and $c$, and one where $a$ is multiplied on the right. Multiplying on the left and on the right is <strong>not</strong> the same thing <i>unless we have commutativity. </i>(Read about commutativity <a href="articles/group-theory-xor.html" >here</a>). Unless we have commutativity as a property of our group (and often we do not, such as in matrix multiplication), $ba = ac$ <strong>does not imply</strong> that $b=c$. 
+The proof isn't hard, and not really the focus here. What's important to note is that there are <i>two</i> different cancellations. One where I cancel $a$ when it is multiplied on the left of $b$ and $c$, and one where $a$ is multiplied on the right. Multiplying on the left and on the right is <strong>not</strong> the same thing <i>unless we have commutativity. </i>(Read ../about commutativity <a href="articles/group-theory-xor.html" >here</a>). Unless we have commutativity as a property of our group (and often we do not, such as in matrix multiplication), $ba = ac$ <strong>does not imply</strong> that $b=c$. 
 
 I've taken away that thing you have all just assumed would be there, and likely relied on in your high school algebra classes. Now when we solve for $x$, as we will do shortly, we're going to have to be a little more clever. First, we'll also need a tool to handle inverses, a more general form of "subtract from both sides" that you used to use.
 
@@ -108,7 +108,7 @@ Again, the proof isn't actually what's important here, although it's a fun thing
 
 The second one states formally what we would expect to be true. The inverse of an inverse returns the original element. 
 <h2>Let's do some algebra! </h2>
-Let's revisit some of that high school algebra. This time we aren't doing it on unknown numbers, but rather an entirely general group with an entirely general operation. The cool part? As long as we're careful about the rules we have and don't, solving for $x$ is just as easy as it was in high school. 
+Let's revisit some of that high school algebra. This time we aren't doing it on unknown numbers, but rather an entirely general group with an entirely general operation. The cool part? As long as we're careful ../about the rules we have and don't, solving for $x$ is just as easy as it was in high school. 
 
 For these next few exercises, all we're going to get is that $a,b,c,$ and $x$ are in a group G. Our goal? Solve for $x$.
 <h3>$axb = c$</h3>
@@ -152,9 +152,9 @@ From here, the problem is even easier than the first one we did. Multiply on the
 
 I didn't really do much to the first problem; I just scared you by multiplying on the left by $x$. 
 <h2>Conclusion</h2>
-What we just did in this post was build on our knowledge of groups to solve equations within those groups. The way to go about this is really no different than you used to in high school; it's just more general and a little more abstract. We didn't even know what the elements of $G$ were, or the operation for that matter. We didn't know if the group had a finite number of elements or an infinite number. We didn't even have commutativity. But we could still solve equations, and in a way that was almost like very elementary algebra. This is the power of algebra and abstraction. The goal is to take what we already knew, reduce it to its skeleton (the group structure), and see what we can still do with it. 
+What we just did in this post was build on our knowledge of groups to solve equations within those groups. The way to go ../about this is really no different than you used to in high school; it's just more general and a little more abstract. We didn't even know what the elements of $G$ were, or the operation for that matter. We didn't know if the group had a finite number of elements or an infinite number. We didn't even have commutativity. But we could still solve equations, and in a way that was almost like very elementary algebra. This is the power of algebra and abstraction. The goal is to take what we already knew, reduce it to its skeleton (the group structure), and see what we can still do with it. 
 
-Specific groups and operations can get messy. What if we have a molecule we can rotate, translate, or reflect about an axis? What if we do some combination of those actions to a molecule? What if we want to figure out if two molecules are actually the same or chiral[note]This is the notion of handedness. Your left and right hand are chiral: mirror images of the other, but no rotations or reflections will transform your left hand into your right hand. A more formal way to state it is that the object and its mirror image are not superimposable.[/note]? Instead of trying to figure out how to play with it, we can abstract the notion of these actions as elements of a group, and use group theory and algebra to answer that question in a very similar manner to the basic equations we just solved here. 
+Specific groups and operations can get messy. What if we have a molecule we can rotate, translate, or reflect ../about an axis? What if we do some combination of those actions to a molecule? What if we want to figure out if two molecules are actually the same or chiral[note]This is the notion of handedness. Your left and right hand are chiral: mirror images of the other, but no rotations or reflections will transform your left hand into your right hand. A more formal way to state it is that the object and its mirror image are not superimposable.[/note]? Instead of trying to figure out how to play with it, we can abstract the notion of these actions as elements of a group, and use group theory and algebra to answer that question in a very similar manner to the basic equations we just solved here. 
 
 Abstraction and generalization make our lives easier. We can rise above a messy, complicated space, and reduce the problem to one that looks as simple as high school algebra.
 </body>

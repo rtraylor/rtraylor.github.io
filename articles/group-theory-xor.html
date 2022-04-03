@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <title>Group Theory, XOR, and Binary Codes: Introducing Coding Theory</title>
 <link rel="stylesheet" href="style.css">
-<img src="../imgs/tmc_text.jpg" alt="The Math Citadel" width="252" height="122"
+<img src="imgs/tmc_text.jpg" alt="The Math Citadel" width="252" height="122"
 class="center"/>
 <br>
 
@@ -15,8 +15,8 @@ class="center"/>
         <i class="fa fa-caret-down"></i>
         </button>
     <div class="dropdown-content">
-        <a href="about.html">About Us</a>
-        <a href="people.html">People</a>
+        <a href="../about-us.html">About Us</a>
+        <a href="../people.html">People</a>
     </div>
     </div>
     <div class="dropdown">
@@ -24,15 +24,15 @@ class="center"/>
          <i class="fa fa-caret-down"></i>
          </button>
     <div class="dropdown-content">
-        <a href="research.html">Research</a>
-        <a href="consulting.html">Consulting</a>
+        <a href="../research.html">Research</a>
+        <a href="../consulting.html">Consulting</a>
         <a href="https://shop.spreadshirt.com/mathcitadel/">Shop</a>
         <a href="https://patreon.com/mathcitadel">Patreon</a>
     </div>
     </div>
-    <a href="projects.html">Projects</a>
-    <a href="articles.html">Papers/Articles</a>
-    <a href="contact.html">Contact</a>
+    <a href="../projects.html">Projects</a>
+    <a href="../articles.html">Papers/Articles</a>
+    <a href="../contact.html">Contact</a>
 
 
     
@@ -60,7 +60,7 @@ The <a href = "articles/concatenation-operation.html">previous post</a> discuss
 
 We currently (until the advent of quantum or DNA computers, or something else entirely) transmit information by coding it into binary strings - strings of 1s and 0s. We call these binary words. 100111 is a binary word, as are 001, 1, and 10110. A general binary word can have any length we want. When we send these binary words via some communication channel, we always run the risk of errors in transmission. This means we need to devise some way to detect and correct transmission errors in binary codes. One way to do this is the XOR operation.
 
-Let $\mathbf{a} = a_{1}a_{2}\ldots a_{n}$ and $\mathbf{b} = b_{1}b_{2}\ldots b_{n}$  be binary words of length $n$, where $a_{i},b_{i} \in \{0,1\}$ for $ i=1,...,n$. We define the XOR operation, which we will denote by the symbol $\oplus$, on each bit. For two bits $a_{i}, b_{i}$ in a word,
+Let $\mathbf{a} = a_{1}a_{2}\ldots a_{n}$ and $\mathbf{b} = b_{1}b_{2}\ldots b_{n}$  be binary words of length $n$, where $a_{i},b_{i} \in \{0,1\}$ for $ i=1,..,n$. We define the XOR operation, which we will denote by the symbol $\oplus$, on each bit. For two bits $a_{i}, b_{i}$ in a word,
 
 $$a_{i}\oplus b_{i} = (a_{i} + b_{i}) \bmod 2$$
 

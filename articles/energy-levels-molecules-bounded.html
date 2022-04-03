@@ -3,7 +3,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Energy Levels of Molecules are Bounded Below</title>
 <link rel="stylesheet" href="style.css">
-<img src="../imgs/tmc_text.jpg" alt="The Math Citadel" width="252" height="122"
+<img src="imgs/tmc_text.jpg" alt="The Math Citadel" width="252" height="122"
 class="center"/>
 <br>
 <div class="navbar">
@@ -13,7 +13,7 @@ class="center"/>
         <i class="fa fa-caret-down"></i>
         </button>
     <div class="dropdown-content">
-        <a href="../about.html">About Us</a>
+        <a href="../about-us.html">About Us</a>
         <a href="../people.html">People</a>
     </div>
     </div>
@@ -54,7 +54,7 @@ href="https://twitter.com/lisyarus?lang=en">Twitter</a>.</i>
 
 <h2>Are Molecules Perpetual Motion Machines?</h2>
 
-<p>Short answer: no, of course not. Perpetual motion machines do not exist. There are deep theoretical reasons for that, as well as less deep but nevertheless convincing experimental data. That's why we care so much about renewable energy and stuff: we know that energy supply is limited in any real physical system.</p>
+<p>Short answer: no, of course not. Perpetual motion machines do not exist. There are deep theoretical reasons for that, as well as less deep but nevertheless convincing experimental data. That's why we care so much ../about renewable energy and stuff: we know that energy supply is limited in any real physical system.</p>
 
 <p>From the perspective of mechanics (classical, relativistic, or quantum) when you take some energy from a system, it jumps to a state with lower energy. If there were a system with no lower bound on energy levels, we could withdraw energy forever, forcing the system to fall lower and lower on the energy ladder (this is roughly what forced Dirac to introduce the concept of the Dirac sea). Thus, a sufficiently good mechanical system should have a lower bound on possible energy states.</p>
 
@@ -67,7 +67,7 @@ $$E = \langle E \rangle = \langle T \rangle + \langle V \rangle = \frac{1}{2} \l
 
 <h2>Annoyingly Fast and Heavy Introduction to Quantum Mechanics</h2>
 
-<p>Let's dive into the (non-relativistic) quantum world. Unfortunately, we are immediately forced to accept an approximation; as of this writing, I'm unaware of a solution that doesn't use one. The <a href="https://en.wikipedia.org/wiki/Born-Oppenheimer_approximation">Born-Oppenheimer approximation</a> suggests that since the protons and neutrons are <a href="https://en.wikipedia.org/wiki/Proton-to-electron_mass_ratio">about 2000 times heavier</a> than electrons, they move much slower and can be considered static. Thus, we must now prove that a system of $N$ electrons moving in a field of $K$ fixed nuclei has a lower bound on possible values of energy. </p>
+<p>Let's dive into the (non-relativistic) quantum world. Unfortunately, we are immediately forced to accept an approximation; as of this writing, I'm unaware of a solution that doesn't use one. The <a href="https://en.wikipedia.org/wiki/Born-Oppenheimer_approximation">Born-Oppenheimer approximation</a> suggests that since the protons and neutrons are <a href="https://en.wikipedia.org/wiki/Proton-to-electron_mass_ratio">../about 2000 times heavier</a> than electrons, they move much slower and can be considered static. Thus, we must now prove that a system of $N$ electrons moving in a field of $K$ fixed nuclei has a lower bound on possible values of energy. </p>
 
 <p>Under this framework, a molecule is a carefully chosen separable Hilbert space of possible states together with a "nice" <em><a href="https://en.wikipedia.org/wiki/Self-adjoint_operator#Essential_self-adjointness">essentially self-adjoint</a> </em>operator acting on it. The Hilbert space we are will use is denoted $(L^2(\mathbb{R}^3))^{\otimes N} \cong L^2(\mathbb{R}^{3N})$, where $\cong$ denotes an <a href="https://www.themathcitadel.com/isomorphisms-making-mathematics-more-convenient/">isomorphism</a>. The notation indicates that we can represent an element of our Hilbert space in two equivalent ways; we'll use the second, which is a square-integrable function of $3N$ real variables which are coordinates of the electrons - 3 coordinates for each of the $N$ electrons. The inner product of two functions $\psi$ and $\phi$ is defined as an integral over the whole $3N$-dimensional space:</p>
 
@@ -113,7 +113,7 @@ $$H = -\sum\limits_i \frac{1}{2} \Delta_i-\sum\limits_{i,A} \frac{Z_A}{|r_i - R_
 
 <h3>Ignoring Repulsion</h3>
 
-<p>A good thing about the average energy is that it is linear in the energy operator. This means that, for a sum of two operators, we have $$\langle \psi, (H_1+H_2)\psi \rangle = \langle \psi, H_1\psi \rangle + \langle \psi, H_2\psi \rangle,$ which means that we can analyze the terms in the Hamiltonian separately.</p>
+<p>A good thing ../about the average energy is that it is linear in the energy operator. This means that, for a sum of two operators, we have $$\langle \psi, (H_1+H_2)\psi \rangle = \langle \psi, H_1\psi \rangle + \langle \psi, H_2\psi \rangle,$ which means that we can analyze the terms in the Hamiltonian separately.</p>
 
 <p>Now, the last term is electron-electron repulsion. Let's write it down again:
 $$\sum\limits_{i,j} \frac{1}{|r_i - r_j|}$$

@@ -17,7 +17,7 @@ margin-right: auto;
 
 </style>
 
-<img src="../imgs/tmc_text.jpg" alt="The Math Citadel" width="252" height="122"
+<img src="imgs/tmc_text.jpg" alt="The Math Citadel" width="252" height="122"
 class="center"/>
 <br>
 <div class="navbar">
@@ -27,8 +27,8 @@ class="center"/>
         <i class="fa fa-caret-down"></i>
         </button>
     <div class="dropdown-content">
-        <a href="about.html">About Us</a>
-        <a href="people.html">People</a>
+        <a href="../about-us.html">About Us</a>
+        <a href="../people.html">People</a>
     </div>
     </div>
     <div class="dropdown">
@@ -36,15 +36,15 @@ class="center"/>
          <i class="fa fa-caret-down"></i>
          </button>
     <div class="dropdown-content">
-        <a href="research.html">Research</a>
-        <a href="consulting.html">Consulting</a>
+        <a href="../research.html">Research</a>
+        <a href="../consulting.html">Consulting</a>
         <a href="https://shop.spreadshirt.com/mathcitadel/">Shop</a>
         <a href="https://patreon.com/mathcitadel">Patreon</a>
     </div>
     </div>
-    <a href="projects.html">Projects</a>
+    <a href="../projects.html">Projects</a>
     <a href="../articles.html">Papers/Articles</a>
-    <a href="contact.html">Contact</a>
+    <a href="../contact.html">Contact</a>
 
 
     
@@ -63,13 +63,13 @@ class="center"/>
 
 <i> This article examines the surprising richness in the field of two elements.</i>
 		
-See <a href="../article-appendices/all-the-same-opposites-supporting-proofs.pdf">this appendix</a> for supporting proofs.
+See <a href="article-appendices/all-the-same-opposites-supporting-proofs.pdf">this appendix</a> for supporting proofs.
 
 Fields are among the most convenient algebraic structures, preserving much of the arithmetic we know and love from familiar fields like the rationals  $\mathbb{Q} $ and the real numbers  $\mathbb{R} $.
 
 Now, it is unnecessary that a set possess infinitely many elements to possibly constitute a field (under the right binary operations). Indeed, Dr. Rachel Traylor recently invited readers to finite field theory by way of <a href="articles/welcome-to-gf4.html">GF(4)</a>, the field with four elements. In this post, I propose to discuss the simplest of all possible fields, namely  $\text{GF}(2) $.
 <h2>What <em>is </em> $\text{GF}(2) $?</h2>
-As Dr. Traylor explains in <a href="articles/welcome-to-gf4.html">her post on GF(4)</a>, a <em>field</em> is built via a nonempty set  $\mathbb{F} $ and two binary operations, typically denoted  $+ $ and  $\cdot $ when no further specifying is needed.  Speaking abstractly,  $\text{GF}(2) $ is the case when  $\mathbb{F} $ is taken to be any set of two elements, say,  $\{a,b\} $, satisfying the operation tables below. For proof that the triple $({a,b}, +, \cdot)$ with $+$ and $\cdot$ defined as in the tables satisfies all requirements of a field, see <a href="../article-appendices/all-the-same-opposites-supporting-proofs.pdf">this appendix</a>.  This is perhaps the easiest case proven exhaustively.
+As Dr. Traylor explains in <a href="articles/welcome-to-gf4.html">her post on GF(4)</a>, a <em>field</em> is built via a nonempty set  $\mathbb{F} $ and two binary operations, typically denoted  $+ $ and  $\cdot $ when no further specifying is needed.  Speaking abstractly,  $\text{GF}(2) $ is the case when  $\mathbb{F} $ is taken to be any set of two elements, say,  $\{a,b\} $, satisfying the operation tables below. For proof that the triple $({a,b}, +, \cdot)$ with $+$ and $\cdot$ defined as in the tables satisfies all requirements of a field, see <a href="article-appendices/all-the-same-opposites-supporting-proofs.pdf">this appendix</a>.  This is perhaps the easiest case proven exhaustively.
 \[\begin{array}{c|cc}
 + & a & b \\
 \hline
@@ -156,7 +156,7 @@ F & F & F \\
 T & F & T  \\
 \end{array}
 \] 
-<h2>Opposite... in Precisely the Same Way</h2>
+<h2>Opposite.. in Precisely the Same Way</h2>
 The only thing setting these examples apart is an exchange of symbols. Truly,
 <p style="text-align: center;"> $a $,  ${\bf e} $,  $0 $, and  ${\bf F} $,</p>
 are interchangeable, just as are
@@ -170,7 +170,7 @@ are <em>isomorphic</em>, that is, structurally equivalent.
 <blockquote><strong><em>Definition (Isomorphism of fields). </em></strong><em>We say two fields </em> $(\mathbb{F},+,\times) $ <em>and</em>  $(\mathbb{H},\boxplus,\boxtimes) $ <em>are </em>isomorphic<em> to mean there exists a function </em> $\varphi\mathrel{:}\mathbb{F}\to\mathbb{H} $ <em>such that </em> $\varphi $ <em>is one-to-one, onto, and, for all </em> $x,y\in\mathbb{F} $,
 $$\varphi(x+y)=\varphi(x)\boxplus\varphi(y);\quad\varphi(x\times y)=\varphi(x)\boxtimes\varphi(y). $$
 </blockquote>
-In the case of  $\text{GF}(2) $, proving isomorphism amounts to simply defining the function that swaps the symbols as needed.  For example, to show  $(\{{\bf e},{\bf o}\},+,\cdot) $ and  $(\{0,1\},+_2,\cdot) $ are isomorphic, define[note]I encourage all readers to prove this function is an isomorphism by definition. (The curious may find full proof in the <a href="../article-appendices/all-the-same-opposites-supporting-proofs.pdf">appendix</a> attached.) $\varphi\mathrel{:}\{{\bf e},{\bf o}\}\to\{0,1\} $ by putting  $\varphi({\bf e})=0 $ and  $\varphi({\bf o})=1 $.
+In the case of  $\text{GF}(2) $, proving isomorphism amounts to simply defining the function that swaps the symbols as needed.  For example, to show  $(\{{\bf e},{\bf o}\},+,\cdot) $ and  $(\{0,1\},+_2,\cdot) $ are isomorphic, define[note]I encourage all readers to prove this function is an isomorphism by definition. (The curious may find full proof in the <a href="article-appendices/all-the-same-opposites-supporting-proofs.pdf">appendix</a> attached.) $\varphi\mathrel{:}\{{\bf e},{\bf o}\}\to\{0,1\} $ by putting  $\varphi({\bf e})=0 $ and  $\varphi({\bf o})=1 $.
 <h2>Concluding Remarks</h2>
 Mathematics in many respects is the art[note]And purest science, by the way.[/note] of extension and generalization. The goal is frequently to take an existing object, assume an aerial viewpoint to learn its structure and what makes it work. (This is often carried out by seeing how few pieces of the whole are really needed to accomplish those key characteristics.)  
 

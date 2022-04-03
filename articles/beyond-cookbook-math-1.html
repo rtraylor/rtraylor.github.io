@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <title>Beyond Cookbook Mathematics, Part 1</title>
 <link rel="stylesheet" href="style.css">
-<img src="../imgs/tmc_text.jpg" alt="The Math Citadel" width="252" height="122"
+<img src="imgs/tmc_text.jpg" alt="The Math Citadel" width="252" height="122"
 class="center"/>
 <br>
 
@@ -15,7 +15,7 @@ class="center"/>
         <i class="fa fa-caret-down"></i>
         </button>
     <div class="dropdown-content">
-        <a href="../about.html">About Us</a>
+        <a href="../about-us.html">About Us</a>
         <a href="../people.html">People</a>
     </div>
     </div>
@@ -57,7 +57,7 @@ This post is due to the requests of several independent engineers and programmer
 This also reflects my observations of teaching university mathematics over the years. I started as a TA (and frequent substitute lecturer) in 2008, and have taught all levels of calculus, basic statistics, and advanced statistics at both the undergraduate and graduate level. I’ve certainly noticed even since 2008 a de-emphasis on proofs and “why” in favor of more examples, applications, and formulas in general. In fact, proofs were passed over in lectures in calculus courses meant for general engineers because “there wasn’t enough time”, or it was not considered something engineers needed to know. 
 </p>
 <p>
-This attitude is actually fairly recent. Many of the older calculus books in my library were written for engineers in an undergraduate program, and these books are quite proof-heavy. Some examples are F. Hildebrand's <em>Advanced Calculus for Engineers </em>(1949), Tom Apostol's <em>Calculus</em> (Volumes 1 and 2), and R. Courant's <em>Differential and Integral Calculus</em> (1938), to name a few. For a more modern text that still has some proof treatment, the 10th edition of <em>Calculus: One and Several Variables</em>, by Salas et al is a good resource. I used this one both as a student at Georgia Tech and an instructor. (I'm pretty sure I've done every single problem on every single page of that text...) However, when I taught at University of Texas at Arlington as a grad student from 2013-2015 and then Foothill College in early 2018, the texts they chose to use were woefully inadequate to suit a college-level calculus course; proofs were nonexistent, and reasoning was thrown away in favor of contrived examples. The course was designed to steer engineers away from any proofs or thorough reasoning, showing the experience is somewhat widespread.
+This attitude is actually fairly recent. Many of the older calculus books in my library were written for engineers in an undergraduate program, and these books are quite proof-heavy. Some examples are F. Hildebrand's <em>Advanced Calculus for Engineers </em>(1949), Tom Apostol's <em>Calculus</em> (Volumes 1 and 2), and R. Courant's <em>Differential and Integral Calculus</em> (1938), to name a few. For a more modern text that still has some proof treatment, the 10th edition of <em>Calculus: One and Several Variables</em>, by Salas et al is a good resource. I used this one both as a student at Georgia Tech and an instructor. (I'm pretty sure I've done every single problem on every single page of that text..) However, when I taught at University of Texas at Arlington as a grad student from 2013-2015 and then Foothill College in early 2018, the texts they chose to use were woefully inadequate to suit a college-level calculus course; proofs were nonexistent, and reasoning was thrown away in favor of contrived examples. The course was designed to steer engineers away from any proofs or thorough reasoning, showing the experience is somewhat widespread.
 </p>
 <p>
 I do not want to discuss the reasons for this departure; this isn’t an education site. What is important now is to discuss how to satisfy the desire of an engineer or other highly technical person using various mathematical topics/formulas to develop a deeper understanding of what he is doing. It wouldn’t be particularly helpful to simply suggest acquiring books and reading the proofs. 
@@ -83,7 +83,7 @@ You might see this definition of degree of a vertex:
 <hr>
 
 <img src="article-imgs/first-kind-digraph.jpg" alt = "First-kind digraph" width = "300" height = "300">
-This is fairly intuitive and straightforward. One way to go about understanding this definition is to find other equivalent ways to express it. For example, we know that if there’s an edge sticking out of a vertex  $v $, there must be something on the other end of the edge. (Graphs don’t allow dangling edges.) Thus, we might reframe this definition as 
+This is fairly intuitive and straightforward. One way to go ../about understanding this definition is to find other equivalent ways to express it. For example, we know that if there’s an edge sticking out of a vertex  $v $, there must be something on the other end of the edge. (Graphs don’t allow dangling edges.) Thus, we might reframe this definition as 
 <hr>
 <blockquote><em><strong>Def. 2:</strong></em>The <b>degree</b> of a vertex  $v $ is the number of vertices adjacent (connected to)  $v $. </blockquote>
 <hr>
@@ -116,7 +116,7 @@ For example, network engineers like to have resilient networks. By “resilient�
 Let’s try to frame that in mathematical terms. A network can be drawn as a graph, with circles representing nodes/switches/computers, and edges between nodes representing the physical links connecting them. We want to design a network so that a single link failure anywhere in the network will not isolate a node. 
 </p>
 <p>
-We can mathematically represent a link failure by the removal of an edge. So we can take our graph representing our network, and start testing edges by deleting them to see if a node ends up isolated with no edges emanating from it. Or...we could return to a definition from earlier and think about this mathematically. 
+We can mathematically represent a link failure by the removal of an edge. So we can take our graph representing our network, and start testing edges by deleting them to see if a node ends up isolated with no edges emanating from it. Or..we could return to a definition from earlier and think ../about this mathematically. 
 </p>
 <p>
 If a single link failure isolates a particular node, then that means only one edge sticks out from it. That means that node has degree 1, by our first definition of degree. Thus, we may now conclude that this node also fits the definition of an end-vertex. 

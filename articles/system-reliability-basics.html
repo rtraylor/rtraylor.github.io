@@ -15,8 +15,8 @@ class="center"/>
         <i class="fa fa-caret-down"></i>
         </button>
     <div class="dropdown-content">
-        <a href="about.html">About Us</a>
-        <a href="people.html">People</a>
+        <a href="../about-us.html">About Us</a>
+        <a href="../people.html">People</a>
     </div>
     </div>
     <div class="dropdown">
@@ -24,15 +24,15 @@ class="center"/>
          <i class="fa fa-caret-down"></i>
          </button>
     <div class="dropdown-content">
-        <a href="research.html">Research</a>
-        <a href="consulting.html">Consulting</a>
+        <a href="../research.html">Research</a>
+        <a href="../consulting.html">Consulting</a>
         <a href="https://shop.spreadshirt.com/mathcitadel/">Shop</a>
         <a href="https://patreon.com/mathcitadel">Patreon</a>
     </div>
     </div>
-    <a href="projects.html">Projects</a>
+    <a href="../projects.html">Projects</a>
     <a href="pubs.html">Papers/Articles</a>
-    <a href="contact.html">Contact</a>
+    <a href="../contact.html">Contact</a>
 
 
     
@@ -128,7 +128,7 @@ From Leemis <em>(Reliability: Probabilistic Models and Statistical Methods, Lawr
 
 <blockquote><b>Theorem. (Decomposition of Systems into Series/Parallel Subsystems)</b>
 
-<i>Let $P_{1},...,P_{s}$ be the minimal path sets for a system. Then
+<i>Let $P_{1},..,P_{s}$ be the minimal path sets for a system. Then
 $$\phi(\mathbf{x}) = 1-\prod_{i=1}^{s}\left(1-\prod_{j \in P_{i}}x_{j}\right)$$
  where $x_{j}$ is the component state vector.</i>
 
@@ -153,7 +153,7 @@ Last, here's an example of how we can take a given block diagram and rearrange i
 
 In the figure above, the top diagram represents a topology called a <em>bridge system</em>. The right side is the alternative version where I've arranged this into a parallel system of series subsystems. 
 
-Why do we actually care about this? Engineers will use block diagrams to help them design reliable systems. We can prove mathematically that the series system is the least reliable, and the parallel system is the most reliable, but that doesn't mean we should always put every component in parallel. An airplane with more landing gear than it needs can cause the airplane to weigh too much, for example.
+Why do we actually care ../about this? Engineers will use block diagrams to help them design reliable systems. We can prove mathematically that the series system is the least reliable, and the parallel system is the most reliable, but that doesn't mean we should always put every component in parallel. An airplane with more landing gear than it needs can cause the airplane to weigh too much, for example.
 
 This results in complex system designs, particularly for mechanical and electronic devices. These designs may become too difficult to study visually via block diagrams, but the structure function helps. Studying the form of the structure function in terms if the components can help us determine where a critical component is, for example. A <em>critical component</em> is a component that will fail the whole system if it fails. In a series system, every component is critical. In a parallel system, no one is. Since most system designs are mixtures of these two, identification of a critical component isn't always simple with the block diagram. The structure function allows us to simulate various components failing (having state 0), and quickly seeing its effect on the system.
 
