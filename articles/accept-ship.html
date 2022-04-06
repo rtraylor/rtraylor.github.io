@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Page Title</title>
+<link rel="stylesheet" href="style.css">
+<img src="../imgs/tmc_text.jpg" alt="The Math Citadel" width="252" height="122"
+class="center"/>
+<br>
+<div class="navbar">
+    <a href="../index.html">Home</a>
+    <div class="dropdown">
+        <button class="dropbtn">About 
+        <i class="fa fa-caret-down"></i>
+        </button>
+    <div class="dropdown-content">
+        <a href="../about-us.html">About Us</a>
+        <a href="../people.html">People</a>
+    </div>
+    </div>
+    <div class="dropdown">
+        <button class="dropbtn">Products and Services
+         <i class="fa fa-caret-down"></i>
+         </button>
+    <div class="dropdown-content">
+        <a href="../research.html">Research</a>
+        <a href="../consulting.html">Consulting</a>
+        <a href="https://shop.spreadshirt.com/mathcitadel/">Shop</a>
+        <a href="https://patreon.com/mathcitadel">Patreon</a>
+    </div>
+    </div>
+    <a href="../projects.html">Projects</a>
+    <a href="../articles.html">Papers/Articles</a>
+    <a href="../contact.html">Contact</a>
+
+
+    
+</div>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+<script 
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+<h2>Should I accept this shipment?</h2>
+<h4>R. Traylor</h4>
+
+<p>Suppose you work for an engineering or manufacturing firm, and you receive shipments of different parts from various suppliers. It's not good business practice to just blindly accept a shipment, because some parts in your batch may be defective. Too many defective parts, and you'll slow down manufacturing (in addition to wasting valuable time and money). You come up with a brilliant plan (which is used in industry already): you'll take a sample from the shipment, test the sample, and if the number of defective parts in the sample is below some predetermined number, you'll accept the shipment. Otherwise, you'll send it back and probably place an angry call to your supplier. </p>
+
+<h2>Considerations</h2>
+
+
+<h3>(1) Why not just test everything? </h3>
+
+
+
+<p>For one, shipments may contain thousands of parts. That will take forever. Secondly, some tests are <em>destructive</em>, meaning you push an item to its breaking point, which renders it unusable. (In these cases, you're testing to ensure the breaking point is high enough.) Thirdly, certain kinds of tests may be expensive or time-consuming. We have real costs -- time and money and physical scarcity -- we must consider now. </p>
+
+<h3>(2) How big should our sample be?</h3>
+
+
+<p>There are statistical considerations and business/cost considerations. There's no perfect answer here. Sampling theory is a large branch of statistics, and there are tools for analysis of optimal sample size. However, we must also consider the specific case. If we have a destructive test, the "statistically optimal" size may destroy too many. If the test is time-consuming, we may lack the time to perform the test on a large number of items. We can mitigate this in some ways via accelerated life testing, which is a different concept that involves "speeding up" tests to failure that still allows us to make conclusions about the normal operating conditions. </p>
+
+<h3>(3) What should be the "cutoff" for shipment rejection?</h3>
+
+
+<p>This discussion is the main focus of this article. We're going to take a pretty small and simplistic overview of it, just to illustrate how powerful even basic probability can be for engineering and business problems. To do this, we'll briefly describe the <em>hypergeometric distribution</em>, and then illustrate its use in an <strong>operating characteristic curve.</strong></p>
+
+
+<h2>The Hypergeometric Distribution<br></h2>
+
+<p>Suppose we have $N$ objects belonging to one of two classes, with $N_{1}$ in the first class, and $N_{2}$ in the second class, so $N = N_{1} + N_{2}$. (In this example, $N_{1}$ is the total number of defective parts in the batch, and $N_{2}$ is the number of good parts.) We select $n$ objects without replacement, meaning that once an object is selected, it's not put back in the bucket and cannot be selected again. We shall find the probability that exactly $x$ belong to the first class and $n-x$ to the second. </p>
+
+<p>We can select $x$ objects from the $N_{1}$ in class one in ${N_{1} \choose x} = \frac{N_{1}!}{x!(N_{1}-x)!}$ ways. This is called a combination. It's the number of ways we can select x objects from a set of n items when the order of selection doesn't matter. The exclamation point is the factorial sign. x! is computed by multiplying the natural numbers 1,2,...,x together. There are $n-x$ left and they must come from $N_{2}$ objects. We can select those in ${N_{2} \choose n-x}$ ways. Then 
+$$P(X=x) = \frac{{N_{1} \choose x}{N_{2} \choose n-x}}{{N \choose n}}.$$</p>
+
+<h2>Evaluating a shipment acceptance plan</h2>
+
+<p>We'll create a small example with manageable numbers to illustrate the use of the hypergeometric distribution in acceptance sampling. </p>
+
+<p>A supplier ships parts to another company in lots of 25. Some items in the shipment may be defective. The receiving company has an <em>acceptance sampling plan</em> to inspect $n=5$ parts from the lot without replacement. If none of the sample is defective, they accept the shipment, otherwise they reject it. Suppose we want to evaluate this plan.</p>
+
+<p>If $X$ is the random number of defectives in the sample, then $X$ has a hypergeometric distribution. Except this time, $N_{1}$ and $N_{2}$ (number of defective and nondefective parts respectively) is unknown. We only know $N_{1} + N_{2} = 25$. </p>
+
+<p>In designing an acceptance plan, we want the probability of accepting the lot to be large if $N_{1}$ is small. That is, we want to have a high probability of accepting the lot if the true number of defective parts is very small. We also want the probability of "falsely accepting" the lot to be low. (That is, we want the probability of acceptance to be low when $N_{1}$ is high). </p>
+
+<p>When we treat these probabilities as a function of $N_{1}$ (or equivalently, the fraction defective given by $p = \frac{N_{1}}{25}$ in the lot) we call this the <strong>operating characteristic curve. </strong>Mathematically, the operating characteristic curve, denoted $OC(p)$ is given in this case by:</p>
+
+<p>$$OC(p) = P(X=0) = \frac{{N_{1} \choose 0}{25-N_{1} \choose 5}}{{25 \choose 5}}$$</p>
+
+<p>Here, $OC(p) = P(X=0)$ because that's the plan in this fictional example. If the plan changed, the operating characteristic curve would be defined by something different. For example, if the plan was to accept shipments that contain 1 or fewer defects, then $OC(p) = P(X\leq 1)$ and we would recalculate those probabilities using the hypergeometric probability mass function given above.</p>
+
+<p>Let's look at some numerical values of $OC(p)$ for our fictional example. Remember that $p = \frac{N_{1}}{25}$.</p>
+
+$$\begin{array}{c|c}
+p & OC(p) \\
+\hline
+0 & 1\\
+0.04 & 0.8 \\
+0.08 & 0.633 \\
+0.12 & 0.496 \\
+0.16 & 0.383
+\end{array}$$
+
+<p>Is the acceptance plan satisfactory? With $N_{1} = 1$, $OC(0.04) = 0.8$ which may be considered too low (we may reject perfectly valid shipments), and with $N_{1} = 4$, $OC(0.16) = 0.383$ may be too high (we may not want that high a probability of accepting a shipment with that many defects).&nbsp;Thus, we may want to reconsider the number of items we test, or reconsider our acceptance plan.</p>
+
+<p>Usually lot sizes are far larger than the numbers seen here, and sample sizes are in the hundreds, so as the values get large, this computation becomes cumbersome. We can approximate the hypergeometric distribution with the Poisson distribution, which we won't cover here. </p>
+
+
+<h2>Conclusion</h2>
+
+<p>This is a small illustration of the very practical use of the hypergeometric distribution to devise an intelligent strategy for accepting/rejecting shipments of goods. This type of work falls within the purview of the services we offer. </p>
+</html>

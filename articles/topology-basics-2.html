@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title> Sequences and Tendency: Topology Basics Part 2</title>
+<link rel="stylesheet" href="style.css">
+<img src="../imgs/tmc_text.jpg" alt="The Math Citadel" width="252" height="122"
+class="center"/>
+<br>
+<div class="navbar">
+    <a href="../index.html">Home</a>
+    <div class="dropdown">
+        <button class="dropbtn">About 
+        <i class="fa fa-caret-down"></i>
+        </button>
+    <div class="dropdown-content">
+        <a href="../about-us.html">About Us</a>
+        <a href="../people.html">People</a>
+    </div>
+    </div>
+    <div class="dropdown">
+        <button class="dropbtn">Products and Services
+         <i class="fa fa-caret-down"></i>
+         </button>
+    <div class="dropdown-content">
+        <a href="../research.html">Research</a>
+        <a href="../consulting.html">Consulting</a>
+        <a href="https://shop.spreadshirt.com/mathcitadel/">Shop</a>
+        <a href="https://patreon.com/mathcitadel">Patreon</a>
+    </div>
+    </div>
+    <a href="../projects.html">Projects</a>
+    <a href="../articles.html">Papers/Articles</a>
+    <a href="../contact.html">Contact</a>
+
+
+    
+</div>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+<script 
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+<h2> Sequences and Tendency: Topology Basics Part 2</h2>
+<h4>J. Hathcock</h4>
+<br>
+		
+<h2>Introduction</h2>
+<p>
+In <a href="articles/topology-basics-1.html">my previous post</a> I presented abstract topological spaces by way of two special characteristics. These properties are enough to endow a given set with vast possibilities for analysis. Fundamental to mathematical analysis of all kinds (real, complex, functional, etc.) is the <em>sequence</em>.
+</p>
+<p>
+We have covered the concept of sequences in some of our other posts here at The Math Citadel. As pointed out in <a href="articles/cauchy-sequences-close.html">this post on Cauchy sequences</a>, one of the most important aspects of the character of a given sequence is convergence.
+</p>
+<p>
+In spaces like the real numbers, there is convenient framework available to quantify <em>closeness</em> and <em>proximity</em>, and which allows naturally for a definition of limit or tendency for sequences. In a general topological space missing this skeletal feature, convergence must be defined.
+</p>
+<p>
+This post will assume only some familiarity with sequences as mathematical objects and, of course, the concepts mentioned in Part 1. For a thorough treatment of sequences, I recommend <em>Mathematical Analysis</em> by Tom M. Apostol.
+</p>
+
+<h2>Neighborhoods</h2>
+
+<p>
+Suppose $(X,\mathscr{T})$ is a given topological space, and nothing more is known. At our disposal so far are only <em>open sets</em> (elements of $\mathscr{T}$), and so it is on these a concept of vicinity relies.
+<hr>
+<blockquote><strong>Definition. </strong>Given a topological space $(X,\mathscr{T})$, a <em>neighborhood</em> of a point $x\in X$ is an open set which contains $x$.</blockquote>
+<hr>
+That is, we say an element $T\in\mathscr{T}$ such that $x\in T$ is a neighborhood of $x$. An important distinction here is that a neighborhood, by design, is nonempty. At minimum, a neighborhood of<em>x</em> contains<em>x</em>itself. To illustrate, take the examples from my previous post.
+</p>
+
+<h4>The Trivial Topology</h4>
+<p>
+When the topology in question is the trivial one: $\{\emptyset,X\}$, the only nonempty open set is $X$ itself, hence it is the only neighborhood of any point $x\in X$.
+</p>
+
+<h4>The Discrete Topology</h4>
+<p>
+Take $X=\{2,3,5\}$ and $\mathscr{T}$ to be the collection of <em>all </em>subsets of $X$:
+<table style="width: 25%; background-color: #ffffff;" align="center">
+<tbody>
+<tr>
+<td></td>
+<td style="text-align: center;">$\emptyset$</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align: center;">$\{2\}$</td>
+<td style="text-align: center;">$\{3\}$</td>
+<td style="text-align: center;">$\{5\}$</td>
+</tr>
+<tr>
+<td style="text-align: center;">$\{2,3\}$</td>
+<td style="text-align: center;">$\{2,5\}$</td>
+<td style="text-align: center;">$\{3,5\}$</td>
+</tr>
+<tr>
+<td></td>
+<td style="text-align: center;">$\{2,3,5\}$</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+
+Then, for, say $x=5$, neighborhoods include $\{5\}$, $\{2,5\}$, $\{3,5\}$, and $\{2,3,5\}$.
+</p>
+
+<h4>The Standard Topology on $\mathbb{R}$</h4>
+<p>
+The standard topology on $\mathbb{R}$ is defined to be the family of all sets of real numbers containing an open interval around each of its points. In this case, there are infinitely (uncountably, in fact) many neighborhoods of every real number. Taking $x=\pi$ for instance, then $(3,4)$, $(-2\pi,2\pi)$, and even
+
+$$\bigcup_{n=1}^{\infty}\left(\pi-\frac{1}{n},\pi+\frac{1}{n}\right)$$
+
+are all neighborhoods of $\pi$.
+<blockquote><strong>Remark.</strong> A special type of neighborhood in the standard topology is the<em>symmetric</em> open interval. Given a point $x$ and a radius $r&gt;0$, the set
+
+$$(x-r,x+r)=\{y\in\mathbb{R}\mathrel{:}|x-y|&lt;r\}$$
+
+is a neighborhood of $x$. These sets form what is referred to as a<em>basis</em> for the standard topology and are important to definition of convergence in $\mathbb{R}$ as a metric space.</blockquote>
+</p>
+
+<h2>Convergence</h2>
+<hr>
+<blockquote>"...<em>the topology of a space can be described completely in terms of convergence</em>." —John L. Kelley, <a href="https://www.themathcitadel.com/book-reviews/general-topology-john-l-kelley/" target="_blank" rel="noopener noreferrer"><em>General Topology</em></a></blockquote>
+<hr>
+<p>
+At this point in our discussion of topological spaces, the only objects available for use are open sets and neighborhoods, and so it is with these that convergence of a sequence are built. (The phrase <em>a sequence</em> (<em>α<sub>n</sub></em>)<em> in a topological space </em>(<em>X</em>, 𝒯) means that for every <em>n</em> ∈ ℕ, it is true that <em>α<sub>n</sub></em> ∈ <em>X</em>. That is, the sequence takes its values in <em>X</em>.)
+</p>
+<hr>
+<blockquote><strong>Definition. </strong>A sequence $(\alpha_n)$ in a topological space $(X,\mathscr{T})$ <em>converges</em> to a point $L\in X$ if for every neighborhood $U$ of $L$, there exists an index $N\in\mathbb{N}$ such that $\alpha_n\in U$ whenever $n\geq N$. The point $L$ is referred to as the <em>limit</em> of the sequence $(\alpha_n)$.</blockquote>
+<hr>
+<p>
+Visually, this definition can be thought of as demanding the points of the sequence cluster around the limit point $L$. In order for the sequence $(\alpha_n)$ to converge to $L$, it must be the case that after finitely many terms, <em>every one that follows</em> is contained in the arbitrarily posed neighborhood $U$.
+</p>
+<p>
+As you might expect, the class of neighborhoods available has a dramatic effect on which sequences converge, as well as where they tend. Just how <em>close</em> to $L$ are the neighborhoods built around it in the topology?
+</p>
+<p>
+We will use the example topologies brought up so far to exhibit the key characteristics of this definition, and what these parameters permit of sequences.
+</p>
+
+<h4>The Trivial Topology</h4>
+<p>
+In case it was to this point hazy just how useful the trivial topology is, sequences illustrate the issue nicely. For the sake of this presentation, take the trivial topology on $\mathbb{R}$. There is precisely <em>one</em> neighborhood of any point, namely $\mathbb{R}$ itself. As a result, <strong>any</strong> sequence of real numbers converges, since every term belongs to $\mathbb{R}$. Moreover, <strong>every real number</strong> is a limit of any sequence. So, yes, the sequence $(5,5,5,\ldots)$ of all $5$'s converges to $\sqrt{2}$ here.
+</p>
+
+<h4>The Discrete Topology</h4>
+<p>
+Whereas with the trivial topology a single neighborhood exists, the discrete topology is as packed with neighborhoods as can be. So, as the trivial topology allows every sequence to converge to everything, we can expect the discrete topology to be comparatively restrictive. Taking the set $\{2,3,5\}$ with the discrete topology as mentioned above, we can pinpoint the new limitation: <em>every set containing exactly one point is a neighborhood of that point.</em> Notice the sets (known as<em>singletons.</em>) $\{2\}$, $\{3\}$, and $\{5\}$ are all open sets.
+</p>
+<p>
+What does this mean? <em>Any</em> sequence that converges to one of these points, say $3$, must eventually have all its terms in the neighborhood $\{3\}$. But that requires all convergent sequences to be eventually constant! This seems to be a minor issue with the finite set $\{2,3,5\}$, but it presents an undesirable, counter-intuitive problem in other sets.
+</p>
+<p>
+Take $\mathbb{R}$ with the discrete topology, for example. Under these rules, the sequence
+
+$$(\alpha_n)=\left(\frac{1}{n}\right)=\left(1,\frac{1}{2},\frac{1}{3},\frac{1}{4},\ldots\right),$$
+
+though expected to converge to $0$, does not converge at all.
+</p>
+<p>
+So, the discrete topology is <em>too</em> restrictive, and the trivial topology lets us get away with anything. Fortunately, a happy middle ground exists by being a little more selective with neighborhoods.
+</p>
+
+<h4>The Standard Topology</h4>
+<p>
+By requiring an open set to contain an open interval around each of its points, it is impossible that a singleton be an open set. Therefore a singleton cannot be a neighborhood, and we eliminate the trouble posed by the discrete topology. Yet every open interval around a real number $L$ contains a smaller one, and each of these is a neighborhood.
+</p>
+<p>
+This effectively corrals the points of any convergent sequence, requiring the distance between the terms and the limit to vanish as $n$ increases. Take again the sequence
+
+$$(\alpha_n)=\left(\frac{1}{n}\right)=\left(1,\frac{1}{2},\frac{1}{3},\frac{1}{4},\ldots\right).$$
+
+We suspect $(\alpha_n)$ converges to $0$, but this requires proof. Therefore, we must consider an arbitrary neighborhood of $0$, and expose the index $N\in\mathbb{N}$ such that all terms, from the $N$th onward, exist in that neighborhood.
+</p>
+<blockquote>Suppose $U$ is a given neighborhood of $0$, so that $U$ contains an open interval surrounding $0$. Without loss of generality, we may assume this interval is symmetric; that is, the interval has the form $(-r,r)$ for some radius $r&gt;0$. Take $N$ to be any integer greater than $\tfrac{1}{r}$. Then, whenever $n\geq N$,
+
+$$\alpha_n = \frac{1}{n} \leq \frac{1}{N} &lt; \frac{1}{1/r} = r.$$
+
+But this means $\alpha_n\in(-r,r)\subset U$ so long as $n\geq N$. Since we chose $U$ arbitrarily, it follows $(\alpha_n)$ converges to $0$.</blockquote>
+
+<h2>Conclusion</h2>
+<p>
+The behavior of a sequence in a given set can change rather drastically depending on the network of neighborhoods the topology allows. However, with careful construction, it is possible to have all the sequential comforts of metric spaces covered under a briefly put definition.
+
+My next post in this series will push the generalization of these concepts much further, by relaxing a single requirement. In order to define convergence in the preceding discussion, the set of indices $\mathbb{N}$ was important not for guaranteeing infinitely many terms, but instead for providing <em>order</em>. This allows us to speak of all terms subsequent to one in particular. It turns out that if we simply hold on to order, we can loosen the nature of the set on which it is defined. That is the key to Moore-Smith Convergence, to be visited next.
+</p>
+</html>
+							
