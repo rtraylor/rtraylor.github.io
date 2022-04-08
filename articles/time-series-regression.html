@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Regression and Time Series</title>
+<link rel="stylesheet" href="style.css">
+<img src="../imgs/tmc_text.jpg" alt="The Math Citadel" width="252" height="122"
+class="center"/>
+<br>
+<div class="navbar">
+    <a href="../index.html">Home</a>
+    <div class="dropdown">
+        <button class="dropbtn">About 
+        <i class="fa fa-caret-down"></i>
+        </button>
+    <div class="dropdown-content">
+        <a href="../about-us.html">About Us</a>
+        <a href="../people.html">People</a>
+    </div>
+    </div>
+    <div class="dropdown">
+        <button class="dropbtn">Products and Services
+         <i class="fa fa-caret-down"></i>
+         </button>
+    <div class="dropdown-content">
+        <a href="../research.html">Research</a>
+        <a href="../consulting.html">Consulting</a>
+        <a href="https://shop.spreadshirt.com/mathcitadel/">Shop</a>
+        <a href="https://patreon.com/mathcitadel">Patreon</a>
+    </div>
+    </div>
+    <a href="../projects.html">Projects</a>
+    <a href="../articles.html">Papers/Articles</a>
+    <a href="../contact.html">Contact</a>
+
+
+    
+</div>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+<script 
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+<h2>Regression and Time Series</h2>
+<h4>R. Traylor</h4>
+<br>
+		
+<p>
+We're surrounded by time series. It's one of the more common plots we see in day-to-day life. Finance and economics are full of them - stock prices, GDP over time, and 401K value over time to name a few. The plot looks deceptively simple; just a nice univariate squiggle. No crazy vectors, no surfaces, just one predictor - time. It turns out time is a tricky and fickle explanatory variable, which makes analysis of time series a bit more nuanced than first glance. This nuance is obscured by the ease of automatic implementation of time series modeling in languages like R. (For example, decomposition of time series into trend, seasonal, and noise is done automatically, and ARIMA modeling of that noise can also be done with a simple function call of auto.arima().) As nice as this is for practitioners, the mathematics behind this analysis is lost. Ignoring the mathematics can lead to improper use of these tools. This series will examine some of the mathematics behind stationarity and what is known as ARIMA (<strong>A</strong>uto-<strong>R</strong>egressive <strong>I</strong>ntegrated <strong>M</strong>oving <strong>A</strong>verage) modeling. Part 1 will examine the very basics, showing that time series modeling is really just regression with a twist.
+</p>
+<h2>Back to Basics: Regression Line</h2>
+
+We all know the basic equation for a line: $y = mx + b$. If I change the independent, or explanatory variable (sometimes called the input) to time and denote it $t$, then a basic equation for some phenomenon $ y$ that depends linearly with time can be written as
+
+$$ y = mt + b$$
+
+Perhaps $y = 2t + 4$. Next step: make it regular linear regression. That means there's some additional<strong>error terms</strong> that cause our line to be imperfect. These error terms can be due to all sort of things, but typically are attributed to natural variation. For each point in time we take a measurement, we get an error term $\epsilon_{t}$. Let's denote $y_{t}$ to be the value of $y$ at time $ t$. Then, with our error terms, the regression equation becomes
+
+$$ y_{t} = mt + b + \epsilon_{t}$$
+
+Traditional regression analysis typically uses the method of least squares to estimate $m$ and $b$, and assumes that the residuals $\epsilon_{t}$ are all just drawn randomly and independently from the same distribution (typically a normal distribution) with constant variance. That is, it's assumed that the $\epsilon_{t}$ are i.i.d. and don't form a<strong>random process</strong>that actually does depend on previous error terms.
+
+<h2>Time for the Twist</h2>
+<p>
+So what happens when those error terms aren't exactly just being drawn randomly out of a hat? As I mentioned in the introduction, time is a bit tricky. We can't assume that the residuals at each point in time are actually truly independent of each other. In time series analysis, we replace that $\epsilon_{t}$ with a<strong>random process</strong> we'll call $X_{t}$. That is, now we assume there is an actual order to the residuals, and there is some kind of process that governs them. A random process $\{X_{t}, t \geq 0\}$ is a sequence of random variables that may or may not be identically distributed, or even independent. To proceed further, we'll need to define a couple of things: the autocovariance function and the notion of stationarity.
+</p>
+
+<h3>Autocovariance Function</h3>
+
+If we take a random process $\{X_{t}\}$, it's really just a collection of random variables with an ordering or indexing. Just like with regular random variables, we can calculate the <a href="https://en.wikipedia.org/wiki/Covariance">covariance</a> between them, measuring the joint variability. Here, we call it the<strong>auto covariance</strong> between two random variables in the time series, and the formula is defined exactly as regular covariance. We denote by $\gamma_{X}$ the auto covariance function of the random process $\{X_{t}\}$, and define it for two points in the sequence $X_{r}, X_{s}$ as
+
+$$\begin{aligned}\gamma_{X}(r,s) &= \text{Cov}(X_{r}, X_{s})\\&= E[(X_{r}-E[X_{r}])(X_{s}-E[X_{s}])]\\&= E[X_{r}X_{s}]-E[X_{r}]E[X_{s}]\end{aligned}$$
+
+where $E[\cdot]$ is the expectation (or mean) of the random variable, and $r,s$ are indices. (See <a href="articles/uncorr-ind.html">this post</a> for an explanation of expectation.)
+
+<h3>Stationarity</h3>
+
+Stationarity is an important concept in the study of random processes, as its existence yields many mathematical properties we need to make inferences and forecasts later. It was important in discussing Poisson processes, and also shows up again here. The definition of stationarity for time series looks a little different, but the meaning is inherently the same.
+
+<hr>
+
+<em><strong>Definition: Stationarity</strong></em>
+
+A time series $\{X_{t}, t \in \mathbb{Z}\}$ is said to be<strong>stationary</strong>if the following hold:
+<ol>
+<li>$E[|X_{t}|^{2}] &lt; \infty$ for all $t$</li>
+<li>$E[X_{t}] = m$ for all $ t$</li>
+<li>$\gamma_{X}(r,s) = \gamma_{x}(r+t, s+t)$ for all $r,s,t$</li>
+</ol>
+<hr>
+<p>
+We'll pick apart each piece of the definition to understand the notion of stationarity. The first part just ensures we have a finite variance for all points in time. We prefer not to deal with infinity. The second part means that all variables in the random process must have the same mean. If the mean varies with time, it's not a stationary process.
+</p>
+<p>
+Finally, the third requirement of the definition may be viewed this way. Two random variables in the sequence $X_{r}$ and $X_{s}$ that are $r-s$ apart (WLOG (without loss of generality), we can assume $r > s$) have a certain autocovariance. If we shift both variables by the same amount in time $t$, then those two new random variables $X_{r+t}$ and $X_{s+t}$ should have the same autocovariance as the first pair $X_{s}, X_{t}$. That is, in a stationary process, the autocovariance only depends on the distance apart the variables are in the sequence, not on their location in time.
+</p>
+<p>
+This means we can actually write the autocovariance function of a stationary process in a special way, one that only shows the distance between the current point $X_{t}$ and some<strong>lag</strong>$X_{t+h}$:
+</p>
+$$\gamma_{X}(h) = \gamma_{x}(h,0) = \text{Cov}(X_{t+h}, X_{t})$$
+
+for all $t,h$.
+<p>
+Let's test an example of a random process for stationarity. If a random process is indeed stationary, than all parts of the definition should be satisfied, in particular that $\gamma_{X}(h)$ does not have any dependence on $t$ - only on $h$.
+</p>
+<hr>
+<p>
+<strong>Example:</strong>Let's assume $A$ and $B$ are two uncorrelated random variables. (That is, $\text{Cov}(A,B) = 0$). Assume the mean of both $A$ and $B$ is 0 ($E[A] = E[B] = 0$), and the variance of $A$ and $B$ is 1. ($\text{Var}[A] = \text{Var}[B] = 1$). Suppose the angle $\theta \in [-\pi, \pi]$, and the random process is given by $X_{t} = A\cos(\theta t) + B\sin(\theta t)$. Is $\{X_{t}\}$ stationary?
+</p>
+<p>
+First, note that $A$ and $B$ are the only random variables here. The mean of both is 0, and both cosine and sin stay between $\pm 1$, so we will definitely have part (i) of our definition. Next, we have to make sure the mean is the same for all $X_{t}$:
+</p>
+$$\begin{aligned}E[X_{t}] &= E[A\cos(\theta t) + B\sin(\theta t)]\end{aligned}$$
+<p>
+Now, $\cos(\theta t)$ and $\sin(\theta t)$ aren't random at all, so the expectation of them is just...well...them. We also know that the expectation is a linear operator, so
+
+$$\begin{aligned}E[X_{t}] &= E[A\cos(\theta t) + B\sin(\theta t)]\\&= E[A]\cos(\theta t) + E[B]\sin(\theta t)\\&= 0 + 0\end{aligned}$$
+
+because$E[A] = E[B] = 0$. Part (ii) is satisfied.
+
+Finally, we have to see if $\gamma_{X}(h)$ has any $t$ in it:
+
+$$\begin{aligned}\gamma_{X}(h) &= \text{Cov}(X_{t+h},X_{t})\\&=\text{Cov}[A\cos(\theta (t+h)) + B\sin(\theta(t+h)), A\cos(\theta t) + B\sin(\theta t)]\end{aligned}$$
+
+We're going to use the fact that $\text{Cov}(u+v, w+z) =\text{Cov}(u,w) +\text{Cov}(u,z) +\text{Cov}(v,w) +\text{Cov}(v,z)$. Now,
+
+$$\begin{aligned}\gamma_{X}(h) &= \text{Cov}(X_{t+h},X_{t})\\&=\text{Cov}[A\cos(\theta (t+h))+B\sin(\theta(t+h)), A\cos(\theta t)+B\sin(\theta t)]\\&=\text{Cov}(A\cos(\theta(t+h)),A\cos(\theta t))+\text{Cov}(A\cos(\theta(t+h)),B\sin(\theta t))\\&\qquad+\text{Cov}(B\sin(\theta(t+h)),A\cos(\theta t))+\text{Cov}(B\sin(\theta(t+h)),B\sin(\theta t))\end{aligned}$$
+
+Remember that the cosines and sines aren't random. That means they are just constants in terms of the covariance, so we can pull them out, multiplying them together. That is,
+
+$$\text{Cov}(A\cos(\theta(t+h)), A\cos(\theta t)) = \cos(\theta(t+h))\cos(\theta t)\text{Cov}(A,A)$$
+
+for the first term. We do the same with the other three terms:
+
+$$\begin{aligned}\gamma_{X}(h) &=\text{Cov}(X_{t+h},X_{t})\\&=\text{Cov}[A\cos(\theta (t+h)) + B\sin(\theta(t+h)), A\cos(\theta t)+B\sin(\theta t)]\\&=\text{Cov}(A\cos(\theta(t+h)),A\cos(\theta t))+\text{Cov}(A\cos(\theta(t+h)),B\sin(\theta t))\\&\qquad+\text{Cov}(B\sin(\theta(t+h)),A\cos(\theta t))+\text{Cov}(B\sin(\theta(t+h)),B\sin(\theta t))\\&=\cos(\theta(t+h))\cos(\theta t)\text{Cov}(A,A)+\cos(\theta(t+h))\sin(\theta t)\text{Cov}(A,B)\\&\qquad+\sin(\theta(t+h))\cos(\theta t)\text{Cov}(B,A)+\sin(\theta(t+h))\sin(\theta t)\text{Cov}(B,B)\end{aligned}$$
+
+Now, we already know that $\text{Cov}(A,B) = \text{Cov}(B,A) = 0$, and $\text{Cov}(A,A) = \text{Var}(A) = 1 = \text{Var}(B) = \text{Cov}(B,B)$. Then we get
+
+$$\begin{aligned}\gamma_{X}(h) &=\text{Cov}(X_{t+h},X_{t})\\&=\text{Cov}[A\cos(\theta (t+h))+B\sin(\theta(t+h)), A\cos(\theta t)+B\sin(\theta t)]\\&=\text{Cov}(A\cos(\theta(t+h)),A\cos(\theta t))+\text{Cov}(A\cos(\theta(t+h)),B\sin(\theta t))\\&\qquad+\text{Cov}(B\sin(\theta(t+h)),A\cos(\theta t))+\text{Cov}(B\sin(\theta(t+h)),B\sin(\theta t))\\&=\cos(\theta(t+h))\cos(\theta t)\text{Cov}(A,A)+\cos(\theta(t+h))\sin(\theta t)\text{Cov}(A,B)\\&\qquad+\sin(\theta(t+h))\cos(\theta t)\text{Cov}(B,A)+\sin(\theta(t+h))\sin(\theta t)\text{Cov}(A,A)\\&=\cos(\theta (t+h))\cos(\theta t)+\sin(\theta(t+h))\sin(\theta t)\end{aligned}$$
+
+Finally, we can recognize a <a href="http://www.sosmath.com/trig/Trig5/trig5/trig5.html">trigonometric identity</a>: $\cos(u-v) = \cos(u)\cos(v)+\sin(u)\sin(v)$, where $u = \theta t$ and $v = \theta(t+h)$. Then we end with
+
+$$\begin{aligned}\gamma_{X}(h) &=\text{Cov}(X_{t+h},X_{t})\\&=\text{Cov}[A\cos(\theta (t+h))+B\sin(\theta(t+h)), A\cos(\theta t)+B\sin(\theta t)]\\&=\text{Cov}(A\cos(\theta(t+h)),A\cos(\theta t))+\text{Cov}(A\cos(\theta(t+h)),B\sin(\theta t))\\&\qquad+\text{Cov}(B\sin(\theta(t+h)),A\cos(\theta t))+\text{Cov}(B\sin(\theta(t+h)),B\sin(\theta t))\\&=\cos(\theta(t+h))\cos(\theta t)\text{Cov}(A,A)+\cos(\theta(t+h))\sin(\theta t)\text{Cov}(A,B)\\&\qquad+\sin(\theta(t+h))\cos(\theta t)\text{Cov}(B,A)+\sin(\theta(t+h))\sin(\theta t)\text{Cov}(A,A)\\&=\cos(\theta (t+h))\cos(\theta t)+\sin(\theta(t+h))\sin(\theta t)\\&=\cos(\theta t-\theta(t+h)\\&=\cos(-\theta h)\\&=\cos(\theta h)\end{aligned}$$
+
+because cosine is an <a href="https://en.wikipedia.org/wiki/Even_and_odd_functions">even function</a>. Notice that the autocovariance function doesn't depend on $t$ so our process is indeed stationary.
+
+<hr>
+
+<h2>Conclusion</h2>
+<p>
+Now that we understand some terminology we'll need later, we can go to the most high-level definition of a time series. A time series $\{Y_{t}, t \geq 0\}$ is a random process given by the classical decomposition
+
+$$Y_{t} = m_{t} + s_{t} + X_{t}$$
+
+where $m_{t}$ is called the<strong>trend component</strong> (like our line $y = mt + b$), $s_{t}$ is called the<strong>seasonal component</strong>[note] We didn't discuss this bit in this article. This is just another function that has a seasonal period. It's typically used when we have to account for something like sales peaking at the beginning of a month, as an example[/note], and $X_{t}$ is a<strong>stationary process.</strong>
+</p>
+<p>
+There is one particular type of stationary process that we can study, called the ARIMA (<strong>A</strong>uto-<strong>R</strong>egressive <strong>I</strong>ntegrated <strong>M</strong>oving <strong>A</strong>verage) process. After removing the trend and seasonal components, we must still estimate $X_{t}$ and get some sort of equation for it (as it's no longer guaranteed to just be from a set of i.i.d. normal random variables). The next articles in this series will take a deeper dive into ARIMA modeling.
+</p>
+<p>
+Times series analysis can get quite mathematically heavy. However, it is important to at least have a working familiarity with the mathematics behind these models. The easier the implementation, the greater the danger in misuse, because a practitioner (and even some instructors) aren't required to understand the mathematical nuances that can pepper something as complicated as time series.
+</p>
+</html>
+teim0
