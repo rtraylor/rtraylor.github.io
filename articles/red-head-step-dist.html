@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Page Title</title>
+<link rel="stylesheet" href="style.css">
+<img src="../imgs/tmc_text.jpg" alt="The Math Citadel" width="252" height="122"
+class="center"/>
+<br>
+<div class="navbar">
+    <a href="../index.html">Home</a>
+    <div class="dropdown">
+        <button class="dropbtn">About 
+        <i class="fa fa-caret-down"></i>
+        </button>
+    <div class="dropdown-content">
+        <a href="../about-us.html">About Us</a>
+        <a href="../people.html">People</a>
+    </div>
+    </div>
+    <div class="dropdown">
+        <button class="dropbtn">Products and Services
+         <i class="fa fa-caret-down"></i>
+         </button>
+    <div class="dropdown-content">
+        <a href="../research.html">Research</a>
+        <a href="../consulting.html">Consulting</a>
+        <a href="https://shop.spreadshirt.com/mathcitadel/">Shop</a>
+        <a href="https://patreon.com/mathcitadel">Patreon</a>
+    </div>
+    </div>
+    <a href="../projects.html">Projects</a>
+    <a href="../articles.html">Papers/Articles</a>
+    <a href="../contact.html">Contact</a>
+
+
+    
+</div>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+<script 
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+<h2>The Red-Headed Step-Distributions</h2>
+<h4>R. Traylor</h4>
+<br>
+<p>
+Almost every textbook in probability or statistics will speak of classifying distributions into two different camps: discrete (singular in some older textbooks) and continuous. Discrete distributions have either a finite or a countable sample space (also known as a set of Lebesgue measure 0), such as the Poisson or binomial distribution, or simply rolling a die. The probability of each point in the sample space is nonzero. Continuous distributions have a continuous sample space, such as the normal distribution. A distribution in either of these classes is either characterized by a probability mass function (pmf) or probability distribution function (pdf) derived from the distribution function via taking a derivative. There is, however, a third kind.
+</p>
+<p>
+This class is one rarely talked about, or mentioned quickly and then discarded. This class of distributions is defined on a set of Lebesgue measure 0, yet the probability of any point in the set is 0, unlike discrete distributions. The distribution function is continuous, even uniformly continuous, but not absolutely continuous, meaning it's not a continuous distribution. The pdf doesn't exist, but one can still find moments of the distribution (e.g. mean, variance). They are almost never encountered in practice, and the only real example I've been able to find thus far is based on the Cantor set. This class is the set of red-headed step-distributions-- the singular continuous distributions.
+</p>
+
+<h2>What is Lebesgue measure?</h2>
+<p>
+Measure theory itself can get extremely complicated and abstract. The idea of measures is to give the "size" of subsets of a space. Lebesgue measure is one type of measure, and is actually something most people are familiar with: the "size" of subsets of Euclidean space in $n$ dimensions. For example, when $n=1$, we live in 1D space. Intervals. The Lebesgue measure of an interval $[a,b]$ on the real line is just the length of that interval: $b-a$. When we move to two dimensions, $\mathbb{R}\times \mathbb{R}$, the Cartesian product of 1D space with itself, our intervals combine to make rectangles. The Lebesgue measure in 2D space is area; so a rectangle built from $[a,b]\times [c,d]$ has Lebesgue measure $(b-a)(d-c)$. Lebesgue measure in 3D space is volume. And so forth.
+</p>
+<p>
+Now, points are 0-dimensional in Euclidean space. They have no size, no mass. They have Lebesgue measure 0. The proof for why this is true gets a bit abstract, dealing with first defining Lebesgue outer measure, and showing a point is covered by a sequence of closed intervals with measure as small as you want, with the smallest possible having outer measure 0. Intuitively, we can simply see that Lebesgue measure helps us see how much "space" something takes up in the Euclidean world, and points take up no space, and hence should have measure 0.
+</p>
+<p>
+In fact, any countable set of points has Lebesgue measure 0. Even an infinite but countable set. The union of disjoint Lebesgue measurable sets has a measure equal to the sum of the individual sets. Points are certainly disjoint, and they each have measure 0, and summing 0 forever still yields 0. This isn't a formal proof; it is merely a way to establish the intuition. The set $\{0,1,2\}$ has Lebesgue measure 0. But so do the natural numbers $\mathbb{N}$,<em>and the rational numbers</em>$\mathbb{Q}$, even though the rational numbers contain the set of natural numbers.
+</p>
+<p>
+It is actually possible to construct an uncountable infinite set that has Lebesgue measure 0, and we will need that in constructing our example of a singular continuous distribution. For now, we'll examine discrete and continuous distributions briefly.
+</p>
+
+<h2>Discrete (Singular) Distributions</h2>
+<p>
+These are the ones most probability textbooks begin with, and most of the examples that are familiar.
+</p>
+<h3>Roll a fair die.</h3>
+The sample space for a roll of a fair die $X$ is $S =\{1,2,3,4,5,6\}$. The PMF is $P(X = x) = 1/6$, where $x \in S$. The CDF is given by the function $P(X\leq x) = \sum_{j\leq x}P(X=j)$
+
+<strong>Example:</strong>
+$$P(X \leq 4) = \sum_{j\leq 4}\frac{1}{6} = \frac{2}{3}$$
+
+<h3>Binomial Distribution</h3>
+
+A binomial random variable $X$ counts the number of "successes" or 1s in a binary sequence of $n$ Bernoulli random variables. Think a sequence of coin tosses, and counting the number of heads. In this case, the sample space is infinite, but countable: $S = \{0,1,2,\ldots\}$. If the probability of a 1, or "success" is $p$, then the PMF of $X$ is given by
+
+$$P(X=x) = {n \choose x}p^{x}(1-p)^{n-x}$$
+
+Note here again that the sample space is of Lebesgue measure 0, but the probability of any point in that space is a positive number.
+
+<h2>Continuous Distributions</h2>
+
+Continuous distributions operate on a continuous sample space, usually an interval or Cartesian product of intervals or even a union of intervals. Continuous distribution functions $F$ are<em>absolutely continuous</em>, meaning that (in one equivalent definition), the distribution function has a derivative $f=F'$ almost everywhere that is Lebesgue integrable, and obeys the Fundamental Theorem of Calculus:
+
+$$F(b)-F(a) = \int_{a}^{b}f(x)dx$$
+
+for $a&lt; b$. This $f$ is the probability distribution function (PDF), derived by differentiating the distribution function. Let's mention some examples of these:
+
+<h3>The Continuous Uniform Distribution</h3>
+<p>
+Suppose we have a continuous interval $[a,b]$, and the probability mass is spread equally along this interval, meaning that the probability that our random variable $X$ lies in any subinterval of size $s$ has the same probability, regardless of location. Suppose we do not allow the random variable to take any values outside the interval. The sample space is continuous but over a finite interval. The distribution function for this $X$ is given by
+
+$$F(x) = \left\{\begin{array}{lr}0&amp;x&lt; a\\\frac{x-a}{b-a}&amp;a\leq x \leq b\\1&amp;x &gt; b\end{array}\right.$$
+
+This is an absolutely continuous function. Then we may easily derive the PDF by differentiating $F$:
+
+$$f(x) = \mathbb{1}_{x \in [a,b]}\frac{1}{b-a}$$
+
+where $\mathbb{1}_{x \in [a,b]}$ is the<em>indicator function</em> that takes value 1 if $x$ is in the interval, and 0 otherwise.
+</p>
+<p>
+This distribution is the continuous version of a die roll. The die roll is the discrete uniform distribution, and here we just allow for a die with uncountably many sides with values in $[a,b]$. The probability of any particular point is 0, however, even though it is possible to draw a random number from this interval. To see this, note that the probability that the random variable $X$ lies between two points in the interval, say $x_{1}$ and $x_{2}$ is given by multiplying the height of the PDF by the length (Lebesgue measure) of the subinterval. The Lebesgue measure of a point is 0, so even though a value for the PDF exists at that point, the probability is 0.
+</p>
+We don't run into issues here mathematically because we are on a continuous interval.
+
+<h3>The Normal Distribution</h3>
+
+Likely the most famous continuous distribution, the normal distribution is given by the famous "bell curve." In this case, the sample space is the entire real line. The probability that a normally distributed random variable $X$ lies between any two points $a$ and $b$ is given by
+
+$$P(a\leq X \leq b) = \int_{a}^{b}\frac{1}{\sqrt{2\pi\sigma^{2}}}\exp\left(-\frac{(x-\mu)^{2}}{2\sigma^{2}}\right)dx$$
+
+where $\mu$ is the mean and $\sigma^{2}$ is the variance.
+
+<h2>Singular Continuous Distributions</h2>
+
+We're going to begin this section by discussing everyone's favorite counterexample in mathematics: the Cantor set.
+
+<h3>The Cantor set</h3>
+
+The Cantor set is given by the limit of the following construction:
+<ol>
+ 	<li>Take the interval $[0,1]$.</li>
+ 	<li>Remove the middle third: $(1/3, 2/3)$, so you're left with $[0,1/3]\cup[2/3,1]$</li>
+ 	<li>Remove the middle third of each of the remaining intervals. So you remove $(1/9,2/9)$ from $[0,1/3]$ and $(7/9,8/9)$ from $[2/3,1]$, leaving you with the set $[0,1/9]\cup[2/9,1/3]\cup[2/3,7/9]\cup[8/9,1]$</li>
+</ol>
+Continue this process infinitely.
+<p>
+This is an example of a set that is uncountable, yet has Lebesgue measure 0. Earlier, when we discussed Lebesgue measure, we noted that all countable sets had measure 0. Thus we may conclude that only uncountable sets (like intervals) have nonzero Lebesgue measure. However, the Cantor set illustrates that not all uncountable sets have positive Lebesgue measure. To see why the Cantor set has Lebesgue measure 0, we will look at the measure of the sets that are removed (the complement of the Cantor set):
+</p>
+<p>
+At the first step, we have removed one interval of size 1/3. At the second step, we remove two intervals of size 1/9. At the third step, we remove four intervals of size 1/27. Let's call $S_{n}$ the subset removed from the interval [0,1] by the $n$th step. By the end of the third step, we have removed a set of size
+
+$$m(S_{3}) = \frac{1}{3} + \frac{2}{3^{2}} + \frac{4}{3^{3}}$$
+
+By the $n$th step,
+
+$$m(S_{n}) = \sum_{j=0}^{n}\frac{2^{j}}{3^{j+1}}$$
+
+This is the partial sum of a geometric series, so
+
+$$m(S_{n}) = 1-\left(\frac{2}{3}\right)^{n}$$
+
+Now, the Cantor set is formed when $n \to \infty$. The measure of the complement of the Cantor set, which we called $S_{\infty}$ then has measure
+
+$$m(S_{\infty}) = \lim_{n \to \infty}m(S_{n}) = \lim_{n \to \infty}1-\left(\frac{2}{3}\right)^{n} = 1$$
+
+But the original interval we started with had Lebesgue measure 1, and the union of the Cantor set with its complement $S_{\infty}$ is the interval [0,1]. That means that the measure of the Cantor set plus the measure of its complement must add to 1, which implies that the Cantor set is of measure 0. However, since we removed open intervals during the construction, there must be something left; in fact, there are uncountably many points left.
+</p>
+<p>
+Now we have an uncountable set of Lebesgue measure 0. We're going to use this set to construct the only example I could find of a singular continuous distribution. It is very important that the Cantor set is an uncountable set of Lebesgue measure 0.
+</p>
+
+<h3>Building the Cantor distribution</h3>
+
+<em>Update: Following a correction from an earlier version, I'm going to show how to construct this distribution directly and via the complement of the Cantor set. The latter was used in a textbook I found, and is a bit convoluted in its construction, but I'm going to leave it.</em>
+<p>
+The direct construction is to look at the intervals left behind at each stage $n$ of constructing the Cantor set. Assign a probability mass of $\frac{1}{2^{n}}$ to each of the $2^{n}$ intervals left behind, and this is your distribution function. It's basically a continuous uniform distribution, but on stages of the Cantor set construction. Sending $n \to \infty$ yields the Cantor set, but the probability distribution moves to 0 on a set of measure 0. Thus, unlike the continuous uniform distribution, where the probability of any single point was 0, but the support has positive measure, we essentially have the continuous uniform distribution occurring on a set of measure 0, which means we have a continuous distribution function on a singular support of measure 0 that is uncountable and thus not discrete. This distribution is therefore neither continuous nor discrete.
+</p>
+<p>
+Another way to construct this is by complement,via Kai Lai Chung's <em>A Course in Probability Theory.</em>
+
+<i>(Note: after a second glance at this, I found this to be a relatively convoluted way of constructing this distribution, since it can be fairly easily constructed directly. However, I imagine the author's purpose was to be very rigid and formal to cover all his bases, so I present a review of it here:)</i>
+
+Let's go back to the construction of the Cantor set. At each step $n$ we have removed in total $2^{n}-1$ disjoint intervals. Let's number those intervals, going from left to right as $J_{n,k}$, where $k = 1,2,\ldots, 2^{n}-1$.
+
+For example, at $n=2$ we have that $J_{2,1} = (1/9,2/9)$,$J_{2,2} = (1/3,2/3)$, and $J_{2,3} = (7/9,8/9)$.
+
+Now let the quantity $c_{n,k} = \frac{k}{2^{n}}$. This will be the probability mass assigned to interval $J_{n,k}$. So we define the distribution function as
+
+$$F(x) = c_{n,k}, x \in J_{n,k}$$
+</p>
+<p>
+Let $U_{n} = \cup_{k=1}^{2^{n}-1}J_{n,k}$, and $U = \lim_{n\to\infty}U_{n}$ The function $F$ is indeed a distribution function and can be shown to be uniformly continuous on the set $D = (-\infty,0)\cup U \cup (1,\infty)$. However, none of the points in $D$ is in the support of $F$, so the support of $F$ is contained in the Cantor set (and in fact is the Cantor set). The support (the Cantor set) has measure 0, so it is singular, but the distribution function is continuous, so it cannot be a discrete distribution. This distribution fits nowhere in our previous two classes, so we must now create a third class -- the singular continuous distribution.
+</p>
+<p>
+(By the way, even though the PDF doesn't exist, the Cantor distribution still has mean of 1/2 and a variance of 1/8, but no mode. It does have a moment generating function.)
+</p>
+
+<h2>Any other examples?</h2>
+<p>
+With some help, I spent some time poring through quite a few probability books to seek further study and other treatment of singular continuous distributions. Most said absolutely nothing at all, as if the class didn't exist.
+</p>
+One book,<em>Modern Probability Theory and Its Applications</em> has a rather grumpy approach:
+<hr>
+<blockquote>There also exists another kind of continuous distribution function, called singular continuous, whose derivative vanishes at almost all points. This is a somewhat difficult notion to picture, and examples have been constructed only by means of fairly involved analytic operations. From a practical point of view, one may act as if singular continuous distribution functions do not exist, since examples of these functions are rarely, if ever, encountered in practice.</blockquote>
+</hr>
+
+
+</html>
