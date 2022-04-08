@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Topologies v. sigma-algebras</title>
+<link rel="stylesheet" href="style.css">
+<img src="../imgs/tmc_text.jpg" alt="The Math Citadel" width="252" height="122"
+class="center"/>
+<br>
+<div class="navbar">
+    <a href="../index.html">Home</a>
+    <div class="dropdown">
+        <button class="dropbtn">About 
+        <i class="fa fa-caret-down"></i>
+        </button>
+    <div class="dropdown-content">
+        <a href="../about-us.html">About Us</a>
+        <a href="../people.html">People</a>
+    </div>
+    </div>
+    <div class="dropdown">
+        <button class="dropbtn">Products and Services
+         <i class="fa fa-caret-down"></i>
+         </button>
+    <div class="dropdown-content">
+        <a href="../research.html">Research</a>
+        <a href="../consulting.html">Consulting</a>
+        <a href="https://shop.spreadshirt.com/mathcitadel/">Shop</a>
+        <a href="https://patreon.com/mathcitadel">Patreon</a>
+    </div>
+    </div>
+    <a href="../projects.html">Projects</a>
+    <a href="../articles.html">Papers/Articles</a>
+    <a href="../contact.html">Contact</a>
+
+
+    
+</div>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+<script 
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+<h2>Topologies v. $\sigma$-algebras</h2>
+<h4>R. Traylor</h4>
+<br>
+
+<p>Both topologies and $\sigma-$algebras are collections of subsets of a set $X$. What exactly is the difference between the two, and is there a relationship? We explore these notions by noting the definitions first. Let $X$ be any set. </p>
+
+
+<h3>Topology</h3>
+
+<hr>
+<blockquote>
+<p>A <strong>topology </strong> $\tau$ is a collection of subsets of a set $X$ (also called a topology in $X$) that satisfies the following properties:</p><p>(1)  $\emptyset \in \tau$, and $X \in \tau$</p><p>(2) for any finite collection of sets in $\tau$, $\{V_{i}\}_{i=1}^{n}$, $\cap_{i=1}^{n}V_{i} \in \tau$</p><p>(3) for any arbitrary collection of sets $\{V_{\alpha}: \alpha \in I\}$ in $\tau$ (countable or uncountable index set $I$), $\cup_{\alpha}V_{\alpha} \in \tau$
+</p>
+</blockquote>
+<hr>
+
+<p>A topology is therefore a collection of subsets of a set $X$ that contains the empty set, the set $X$ itself, all possible finite intersections of the subsets in the topology, and all possible unions of subsets in the topology. </p>
+
+<p>The simplest topology is called the <em>trivial topology,</em> where for a set $X$, $\tau = \{\emptyset, X\}$. Notice that (1) above is satisfied by design. All intersections we can make with the sets in $\tau$ are finite ones. (There's just one, $X \cap \emptyset = \emptyset$.) Thus, (2) is satisfied. Any union here gives $X$, which is in $\tau$, so this is a topology.</p>
+
+<p>This isn't a very interesting topology, so let's create another one. <br></p>
+
+<p>Let's take $X = \{1,2,3,4\}$ as the set. Let's give a collection of subsets 
+$$\tau = \{\{1\},\{2\}, \{1,3\}, \{2,4\}, \{1,2,3\}, \{1,2,4\}, \emptyset, X\}.$$
+
+ Notice that I didn't include every single possible subset of $X$. There are two singleton sets, 4 pairs, and 1 set of triples missing. This example will illustrate that you can leave out subsets of a set and still have a topology. Notice that (1) is met. You can check all possible finite intersections of sets inside $\tau$, and notice that you either end up with $\emptyset$ or another of the sets in $\tau$. For example, $\{1,3\} \cap \{1,2,3\} = \{1,3\}$, $\{2\} \cap \{1\} = \emptyset$, etc. Lastly, we can only have finite unions here, since $\tau$ only has a finite number of things. You can check all possible unions, and notice that all of them result in a set already in $\tau$. For example, $\{1,3\} \cup \{2,4\} = X$, $\emptyset \cup \{1,2,4\} = \{1,2,4\}$, $\{1\} \cup \{1,3\} \cup \{2,4\} = X$, etc. Thus, $\tau$ is a topology on this set $X$.</p>
+
+
+<p>We'll look at one final example that's a bit more abstract. Let's take a totally ordered set $X$ (like the real line $\mathbb{R}$). Then the <em>order topology</em> on $X$ is the collection of subsets that look like one of the following:</p>
+
+
+<ul>
+<li>$\{x : a &lt; x\}$ for all $a$ in $X$</li>
+<li>$\{x : b > x \}$ for all $b \in X$</li>
+<li>$\{x : a &lt; b &lt; x\}$ for all $a,b \in X$</li><li>any union of sets that look like the above</li>
+</ul>
+
+<p>To put something concrete to this, let $X = \{1,2,3,4\}$, the same set as above. This is a totally ordered set, since we can write these numbers in increasing order. Then </p>
+
+<ul>
+<li>The sets that have the structure $\{x : a &lt; x\}$ for all $a \in X$ are
+	<ul><li>$\{x : 1 &lt; x\} = \{2,3,4\}$</li>
+		<li>$\{x : 2 &lt; x\} = \{3,4\}$</li>
+		<li>$\{x : 3 &lt; x\} = \{4\}$</li>
+		<li>$\{x : 4 &lt; x \} = \emptyset$</li>
+	</ul></li>
+<li>The sets that have the structure $\{x : b > x\}$ for all $b \in X$ are 
+	<ul><li>$\{x : 1 > x\} = \emptyset$ (which we already handled)</li>
+		<li>$\{x : 2 > x\} = \{1\}$</li>
+		<li>$\{x : 3 > x \} = \{1,2\}$</li>
+		<li>$\{x : 4 > x\} = \{1,2,3\}$</li>
+	</ul></li>
+<li>The sets that have the structure $\{x : a &lt; x &lt; b\}$ for all $a,b \in X$ are
+	<ul>
+		<li>$\{x : 1 &lt; x &lt; 3\} = \{2\}$</li>
+		<li>$\{x : 1 &lt; x &lt; 4\} = \{2,3\}$</li>
+		<li>$\{x : 2 &lt; x &lt; 4\} = \{3\}$</li>
+		<li>The remaining combinations yield $\emptyset$</li>
+	</ul></li>
+<li>The sets that are a union of the above sets (that aren't already listed) are 		<ul>
+		<li>$X = \{x : 1 &lt; x\} \cup \{x : 2 > x\}$ </li>
+		<li>$\{1,2,4\} = \{x : 3 > x\} \cup \{x : 3&lt; x \}$</li>
+		<li>$\{1,3,4\} = \{x : 2 &lt; x\} \cup \{x : 2 > x\}$</li>
+		<li>$\{1,3\} = \{x : 2 > x\} \cup \{x : 2&lt; x &lt; 4\}$</li>
+		<li>$\{1,4\} = \{x : 2 > x\} \cup \{x : 3 &lt; x\}$</li>
+		<li>$\{2,4\} = \{x : 1 &lt; x &lt; 3\} \cup \{x : 3 &lt; x \}$</li>
+	</ul></li>
+</ul>
+<!-- /wp:list -->
+
+<p>The astute reader will note that in this case, the order topology on $X = \{1,2,3,4\}$ ends up being the collections of all subsets of $X$, called the <em>power set.</em> </p>
+
+
+<h3>Sigma-Algebra</h3>
+
+
+<p>Let $X$ be a set. Then we define a $\sigma$-algebra. </p>
+
+<hr>
+<blockquote><p>A <strong>$\sigma$-algebra</strong> is a collection $\mathfrak{M}$ of subsets of a set $X$ such that the following properties hold:</p><p>(1) $X \in \mathfrak{M}$</p><p>(2) If $A \in \mathfrak{M}$, then $A^{c} \in \mathfrak{M}$, where $A^{c}$ is the complement taken relative to the set $X$.</p><p>(3) For a countable collection $\{A_{i}\}_{i=1}^{\infty}$ of sets that's in $\mathfrak{M}$, $\cup_{i=1}^{\infty}A_{i} \in \mathfrak{M}$.  </p></blockquote>
+<hr>
+
+
+<p>Let's look at some explicit examples:</p>
+
+
+<p>Again, take $X = \{1,2,3,4\}$. Let 
+$$\mathfrak{M} = \{\emptyset, X, \{1,2\}, \{3,4\}\}. $$
+ We'll verify that this is a $\sigma-$algebra. First, $X \in \mathfrak{M}$. Then, for each set in $\mathfrak{M}$, the complement is also present. (Remember that $X^{c} = \emptyset$.) Finally, any countable union will yield $X$, which is present in $\mathfrak{M}$, so we indeed have a $\sigma-$algebra. </p>
+
+<p>Taking another example, we'll generate a $\sigma$-algebra over a set from a single subset. Keep $X = \{1,2,3,4\}$. Let's generate a $\sigma-$algebra from the set $\{2\}$. 
+$$\mathfrak{M}(\{2\}) = \{X, \emptyset, \{2\},\{1,3,4\}\}$$
+ The singleton $\{2\}$ and its complement must be in $\mathfrak{M}(\{2\})$, and we also require $X$ and its complement $\emptyset$ to be present. Any countable union here results in the entire set $X$. </p>
+
+
+<h3>What's the difference between a topology and a $\sigma-$algebra?</h3>
+
+
+<p>Looking carefully at the definitions for each of a topology and a $\sigma-$algebra, we notice some similarities:</p>
+
+<ol>
+<li>Both are collections of subsets of a given set $X$.</li>
+<li>Both require the entire set $X$ and the empty set $\emptyset$ to be inside the collection. (The topology explicitly requires it, and the $\sigma-$algebra requires it implicitly by requiring the presence of $X$, and the presence of all complements.)</li>
+<li>Both will hold all possible finite intersections. The topology explicitly requires this, and the $\sigma-$algebra requires this implicitly by requiring countable unions to be present (which includes finite ones), and their complements. (The complement of a finite union is a finite intersection.)</li>
+<li>Both require countable unions. Here, the $\sigma-$algebra requires this explicitly, and the topology requires it implicitly, since all arbitrary unions--countable and uncountable--must be in the topology. </li>
+</ol>
+
+<p>That seems to be a lot of similarities. Let's look at the differences.</p>
+
+
+<ol>
+<li>A $\sigma-$algebra requires only countable unions of elements of the collection be present. The topology puts a stricter requirement --<strong>all</strong> unions, even uncountable ones. </li>
+<li>The $\sigma-$algebra requires that the complement of a set in the collection be present. The topology doesn't require anything about complements. </li>
+<li>The topology only requires the presence of all finite intersections of sets in the collection, whereas the $\sigma-$algebra requires all countable intersections (by combining the complement axiom and the countable union axiom).</li>
+</ol>
+
+<p>It is with these differences we'll exhibit examples of a topology that is not a $\sigma-$algebra, a $\sigma-$algebra that is not a topology, and a collection of subsets that is both a $\sigma-$algebra and a topology. </p>
+
+
+<h4>A topology that is not a $\sigma-$algebra</h4>
+
+<p>Let $X = \{1,2,3\}$, and $\tau = \{\emptyset, X, \{1,2\},\{2\}, \{2,3\}\}$. $\tau$ is a topology because </p>
+
+
+<ol>
+<li>$\emptyset, X \in \tau$</li>
+<li>Any finite intersection of elements in $\tau$ either yields the singleton $\{2\}$ or $\emptyset$.</li>
+<li>Any union generates $X$, $\{1,2\}$, or $\{2,3\}$, all of which are already in $\tau$</li>
+</ol>
+
+<p> However, because $\{2\}^{c} = \{1,3\} \not\in \tau$, we have a set in $\tau$ whose complement is not present, so $\tau$ cannot also be a $\sigma-$algebra. We used (2) in the list of differences to construct this example. </p>
+
+
+<h4>A $\sigma-$algebra that is not a topology</h4>
+
+
+<p>This example is a little trickier to construct. We need a $\sigma$-algebra, but not a topology, so we need to find a difference between the $\sigma-$algebra and the topology where the topology requirement is more strict than the $\sigma-$algebra's version. We focus on difference (1) here. </p>
+
+<p>Let $X = [0,1]$. Let $\mathfrak{M}$ be the collection of subsets of $X$ that are either themselves countable, or whose complements are countable. Some examples of things in $\mathfrak\{M\}:$</p>
+
+
+<ul>
+<li>all rational numbers between 0 and 1, represented as singleton sets. (countable)</li>
+<li>the entire collection of rational numbers between 0 and 1, represented as a set itself (countable)</li>
+<li>$\left\{\frac{1}{2^{x}}, x \in \mathbb{N}\right\}$. (countable)</li>
+<li>$[0,1] \setminus \{1/2, 1/4, 1/8\}$ (not countable, but its complement is $\{1/2, 1/4, 1/8\}$, which is countable)</li>
+<li>$\emptyset$ (countable)</li><li>$X = [0,1]$ (not countable, but its complement $\emptyset$ is countable)</li>
+</ul>
+
+<p>$\mathfrak{M}$ is a $\sigma-$algebra because:</p>
+
+
+<ul>
+<li> $X \in \mathfrak{M}$</li>
+<li> All complements of sets in $\mathfrak{M}$ are present, since we've designed the collection to be all pairs of countable sets with countable complements, and all uncountable sets with countable complements. </li>
+<li>Finally, all countable unions of countable sets are countable, so those are present. The countable union of uncountable sets with countable complements will have a countable complement. (This is a weird statement to parse. I recommend trying to prove this.) Thus, all countable unions of elements of $\mathfrak{M}$ are also in $\mathfrak{M}$, so we have a $\sigma-$algebra. </li>
+</ul>
+
+
+<p>n particular, every single point of $[0,1]$ is in $\mathfrak{M}$ as a singleton set. To be a topology, any arbitrary union of elements of $\mathfrak{M}$ must also be in $\mathfrak{M}$. Take every real number between 0 and 1/2, inclusive. Then the union of all these singleton points is the interval $[0,1/2]$. However, $[0,1/2]^{c} = (1/2,1]$, which is uncountable. Thus, we have an uncountable set with an uncountable complement, so $[0,1/2] \notin \mathfrak{M}$. Since it can be represented as the arbitrary union of sets in $\mathfrak{M}$, $\mathfrak{M}$ is not a topology.</p>
+
+<h4>A collection that is both a $\sigma-$algebra and a topology</h4>
+
+<p>Take any set $X$ that is countable, and let $2^{X}$ be the power set on $X$ (the collection of all subsets of $X$). Then all subsets of $X$ are countable. We have that $\emptyset$ and $X$ are present, since both are subsets of $X$. Since the finite intersection of some subcollection of subsets of $X$ is a subset of $X$, it is in the collection. The arbitrary union of subsets of $X$ is either a proper subset of $X$ or $X$ itself. Thus $2^{X}$ is a topology (called the discrete topology). </p>
+
+<p>The complement of a subset of $X$ is still a subset, and if all arbitrary unions are in $2^{X}$, then certainly countable unions are. Thus $2^{X}$ is also a $\sigma-$algebra. </p>
+
+<p>To be explicit, return to the above where $X = \{1,2,3,4\}$. Write out all possible subsets of $X$, including singletons, $\emptyset$, and $X$ itself, and notice that all axioms in both the $\sigma-$algebra and the topology definitions are satisfied. </p>
+		
+</html>
