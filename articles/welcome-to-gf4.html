@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Welcome to GF(4)</title>
+<link rel="stylesheet" href="style.css">
+<img src="../imgs/tmc_text.jpg" alt="The Math Citadel" width="252" height="122"
+class="center"/>
+<br>
+<div class="navbar">
+    <a href="../index.html">Home</a>
+    <div class="dropdown">
+        <button class="dropbtn">About 
+        <i class="fa fa-caret-down"></i>
+        </button>
+    <div class="dropdown-content">
+        <a href="../about-us.html">About Us</a>
+        <a href="../people.html">People</a>
+    </div>
+    </div>
+    <div class="dropdown">
+        <button class="dropbtn">Products and Services
+         <i class="fa fa-caret-down"></i>
+         </button>
+    <div class="dropdown-content">
+        <a href="../research.html">Research</a>
+        <a href="../consulting.html">Consulting</a>
+        <a href="https://shop.spreadshirt.com/mathcitadel/">Shop</a>
+        <a href="https://patreon.com/mathcitadel">Patreon</a>
+    </div>
+    </div>
+    <a href="../projects.html">Projects</a>
+    <a href="../articles.html">Papers/Articles</a>
+    <a href="../contact.html">Contact</a>
+
+
+    
+</div>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+<script 
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+<h2>Welcome to GF(4)</h2>
+<h4>R. Traylor</h4>
+<br>
+		
+Everyone has solved some version of a linear system in either high school or college mathematics. If you've been keeping up with some of my other posts on algebra, you know that I'm about to either take something familiar away, or twist it into a different form. This time is no different; we're going to change the field we operate over, and solve a basic linear system in a Galois field called GF(4).
+<h2>Linear Systems</h2>
+Let's start with an example of a regular, simple linear system in two variables:
+
+$$ \begin{aligned}2x+y&=3\\x+2y&=3\end{aligned}$$
+
+The goal here is to figure out all the possible $(x,y)$ pairs that satisfy both of these equations at the same time. Both high school and college algebra teach several different methods to solve these types of equations. We can use substitution-- solving perhaps the top equation for $y$ to express $y$ in terms of $x$, then substituting that expressing in the second equation to get an equation with all $x$. From there, we know how to solve for $x$. When we get a numeric answer, we can plug it back into our expression for $y$ and get our full solution.
+
+Let's solve the above system this way just to refresh. First, solve the top equation for $y$
+
+$$y = 3-2x$$
+
+Now substitute the right-hand side of this equation wherever we see $y$ in the second equation:
+
+$$x + 2(3-2x) = 3$$
+
+Now, solve this equation for $x$ to get $x=1$. Substitute this back and get $y = 3-2 = 1$.
+
+<h3>Matrix form - a different way to express</h3>
+
+We can actually express this equation in<strong>matrix form.</strong>This will look like $A\mathbf{x} = \mathbf{v}$, where $\mathbf{x}$ and $\mathbf{v}$ are vectors. The coefficients of the system of equations form the matrix $A$. The variables we want to solve for are the vector $\mathbf{x}$, and the vector $\mathbf{v}$ represents the right hand sides of the equations. Our system in matrix form is
+
+$$\begin{bmatrix}2&1\\1&2\end{bmatrix}\begin{bmatrix}x\\y\end{bmatrix} = \begin{bmatrix}3\\3\end{bmatrix}$$
+
+Multiplying the left-hand side out will return the original form we saw earlier. This is simply a different way to express the same system of equations. We typically like to use matrix form because arithmetic and algebra on matrices yields many useful properties and methods for solving systems much larger than our example here.
+
+<h2>Solving linear systems in matrix form</h2>
+
+There are several different methods for solving linear systems once we have them in matrix form. Linear algebra courses will discuss a technique called<em>row reduction</em>, which is incredibly useful. We won't discuss that one in this post. We're going to use a really handy rule called<a href="https://en.wikipedia.org/wiki/Cramer%27s_rule"><strong>Cramer's rule</strong></a>. Basically, if we take a linear system with as many equations as we have variables, and a unique solution exists, then we actually have an explicit formula that gives us the numerical answer for each variable in our system. We'll quickly discuss how to compute a determinant of a $2\times 2$ matrix so we can use Cramer's rule.
+
+<h3>Computing a $2\times 2$ determinant</h3>
+
+The entries of a matrix $A$ are written as $a_{ij}$, where $i$ tells you the row it's in, and $j$ tells you the column. A general $2\times 2$ matrix looks like this:
+
+$$A = \begin{bmatrix}a_{11} & a_{12}\\a_{21}&a_{22}\end{bmatrix}$$
+
+The<strong>determinant</strong> of a $2\times 2$ matrix is a number, and is calculated as
+
+$$\text{det}(A) = a_{11}\cdot a_{22} - a_{12}\cdot a_{21}$$
+
+Back to our linear system, $\text{det}(A) = 2\cdot 2 - 1\cdot 1 = 4-1=3$.
+
+<h3>Back to Cramer's rule</h3>
+
+Now, the two variables we need to solve for are $x$ and $y$. We put them in that order for a reason. The right-hand side was given as the vector $\mathbb{v} =\begin{bmatrix}3\\3\end{bmatrix}$. We're going to substitute this column in to either the first or second column of $A$ when we're computing the answer for $x$ and $y$, respectively.
+
+Let's say we're focusing on $x$, the first variable. Put that $\mathbb{v}$ where the first column of $A$ was. Then we'll get a new matrix
+
+$$A_{x} = \begin{bmatrix}3 & 1\\ 3 & 2\end{bmatrix}$$
+
+Let's do the same for $y$, only this time we'll put $\mathbb{v}$ in for the 2nd column, since it's our 2nd variable.
+
+$$A_{y} = \begin{bmatrix}2 & 3\\1&3\end{bmatrix}$$
+
+Now, Cramer's rule tells us that
+
+$$x = \text{det}(A)^{-1}\cdot\text{det}(A_{x}) \text{ and } y =\text{det}(A)^{-1}\cdot\text{det}(A_{y})$$
+
+<p>
+We already know how to compute the determinant of a $2\times 2$ matrix, so we're basically done. Now, I used very particular notation. I wrote $\text{det}(A)^{-1}$ instead of $\frac{1}{\text{det}(A)}$ on purpose. I wanted to indicate that it is the <a href="articles/elementary-properties-groups.html">multiplicative inverse</a> of the number that is $\text{det}(A)$. We have to be careful when discussing multiplication and division, because division as an operation doesn't always exist. This will be important when I twist around addition and multiplication soon.
+</p>
+<p>
+Using Cramer's rule, we can solve our equation this way. The multiplicative inverse of 3 is the fraction 1/3, because multiplying these two together gives us 1, the multiplicative identity of the real numbers.
+</p>
+$$x = \frac{1}{3}\cdot \text{det}(A_{x}) = \frac{1}{3}\cdot 3 = 1$$
+
+$$y = \frac{1}{3}\cdot\text{det}(A_{y}) = \frac{1}{3}\cdot 3 = 1$$
+
+And we have our answer again, just obtained in a different way.
+
+<h2>GF(4): our first sighting of a Galois field</h2>
+
+We've seen <a href="articles/concatenation-operation.html">groups</a> before in <a href="articles/group-theory-xor.html">several</a> <a href="articles/maximum-likelihood-decoding.html">posts</a>. We know that a group is a set of things combined with an operation that satisfies certain <a href="articles/mod-add-groups-integers.html">properties</a>. I'm no longer satisfied with having just one operation on a set anymore. I want two operations - I want addition<em>and</em> multiplication. (Addition and multiplication are just the things we're going to name our two operations. They don't have to mean exactly the same thing as addition and multiplication on real numbers, as we'll see shortly.) Now, we'll call these two operations $+$ and $\cdot$. I'm going to jump ahead a bit of building groups into rings then fields and just go ahead and define a field:
+
+<hr>
+
+A<strong>field</strong> is a set $F$ together with two operations $+$ and $\cdot$ that satisfy the following properties:
+
+<ol>
+<li>$(F,+)$ is an abelian group (a group where a+b = b+a.)</li>
+<li>$F$ is closed under multiplication.(The product of two elements doesn't leave the set F)</li>
+<li>The nonzero elements of $F$ form an abelian group under $\cdot$. (0 is the identity element for the operation +)</li>
+<li> We get the distributive law: $(a+b)\cdot c = (a\cdot c) + (b\cdot c)$</li>
+</ol>
+<hr>
+<p>
+We just added an operation and some requirements to make sure nothing too weird happens. We can create addition and multiplication tables just like we did here. We're going to take a look at an example of a very specific field called a<strong>Galois field.</strong>This is simply a finite field with $q$ elements, if it exists.[note]Fun fact: Galois fields only exist if the number of elements is a prime or a power of a prime. So there is no Galois field with 6 elements. We denote a Galois field with $q$ elements $\text{GF}(q)$.
+</p>
+The field $\text{GF}(4)$ has addition and multiplication tables that look like this. Right now, just work with them as given. There is a way to generate the arithmetic over Galois fields in general, but we'll begin tackling that in later posts. We just want to get used to the idea that numbers don't add and multiply the same way anymore. They're just symbols now. 2+3 in GF(4) doesn't have a tactile interpretation like "2 things and three more things".
+
+$$\begin{array}{l|rrrr}+&0&1&2&3\\0&0&1&2&3\\1&1&0&3&2\\2&2&3&0&1\\3&3&2&1&0\end{array}\qquad\begin{array}{l|rrrr}\cdot&0&1&2&3\\0&0&0&0&0\\1&0&1&2&3\\2&0&2&3&1\\3&0&3&1&2\end{array}$$
+
+Let's note that the additive identity is indeed the "number" 0--when you add it to anything, you get that anything back. The multiplicative identity is the "number" 1. Multiplying it by anything gives the anything back.
+
+<h3>(1) What's the additive inverse of each element?</h3>
+
+For each of 0, 1, 2, and 3, which element returns the additive identity 0 when we add it to 0, 1, 2, and 3?
+<ul>
+ 	<li>0 is clearly its own additive inverse. 0+0 = 0</li>
+ 	<li>For 1, which element added to 1 returns 0? Looking at the addition table, we see that 1+1 = 0. Thus, 1 is its own additive inverse. Another way to write it is that -1 = 1, where $-x$ denotes the additive inverse of the element $x$ and<strong>not</strong> the number $-1$ multiplied by $x$</li>
+ 	<li>Continuing this exercise, we find that each element of GF(4) is its own additive inverse.</li>
+</ul>
+
+<h3>(2) What's the multiplicative inverse of each element?</h3>
+
+We'll repeat the same exercise as in (1), except using the multiplication table. The multiplicative identity is 1, so to find the multiplicative inverse of each element $x$, we find another element $y$ such that $x\cdot y = y\cdot x = 1$. We can read this off our nice multiplication table:
+
+<ul>
+ 	<li>0 has no multiplicative inverse. Is GF(4) broken? No. Recall part (3) of the field definition above. The elements<em>excluding</em>0 must form an abelian group under multiplication. That means it's totally ok for 0 times everything to return 0, and for 0 to have no multiplicative inverse. We did this on purpose. If we didn't have this definition, the real numbers wouldn't be a field either. When generalizing mathematics, we don't want to break what we already have.</li>
+ 	<li>1 is its own multiplicative inverse. Makes sense. It's the multiplicative identity.</li>
+ 	<li>The multiplicative inverse of 2 is 3 from the table, so the multiplicative inverse of 3 is 2. $2\cdot 3 = 3\cdot 2 = 1$.</li>
+</ul>
+
+This is fine. We're defining it this way, and we are allowed to do that, provided anything we define fits the definition of a field. We aren't in the real numbers anymore, friends. The symbols look like real numbers, but they no longer act like real numbers. When we are in GF(4), this is how these numbers behave under addition and multiplication as we define it for GF(4).
+
+<h2>Solving our earlier system, but now in GF(4)</h2>
+
+Let's return to our earlier system of equations that we solved using Cramer's rule. The equations look the same, but will we get the same solution if we solve it over GF(4), with our new addition and multiplication tables?
+
+Here's our equation again in matrix form.
+
+$$\begin{bmatrix}2&1\\1&2\end{bmatrix}\begin{bmatrix}x\\y\end{bmatrix} = \begin{bmatrix}3\\3\end{bmatrix}$$
+
+$A_{x}$ and $A_{y}$ are also the same.
+
+$$A_{x}=\begin{bmatrix}3&1\\3&2\end{bmatrix}~\qquad~A_{y}=\begin{bmatrix}2&3\\1&3\end{bmatrix}$$
+
+To apply Cramer's rule, we need the determinant of $A$, $A_{x}$, and $A_{y}$<em>under the rules of arithmetic in GF(4).</em> The method of computing a $2\times 2$ determinant has not changed, but our answers will.
+
+<h3>Compute $\text{det}(A)$,$\text{det}(A_{x})$, and$\text{det}(A_{y})$</h3>
+$$\text{det}(A)=2\cdot 2-1\cdot 1$$
+
+Be careful here, and let's use our addition and multiplication tables for reference. $2\cdot 2 = 3$ now, and $1\cdot 1 = 1$. So
+
+$$\text{det}(A)=2\cdot 2-1\cdot 1=3-1$$
+
+We need to read carefully again here too. $a-b$ in abstract algebra is $a$ plus the<em>additive inverse</em>of $b$, which isn't the number $-a$ here. Remember, in GF(4) we only get 4 elements: 0, 1, 2, and 3. No negative numbers here. They don't exist. Check above to note that the additive inverse of 1 is 1, so
+
+$$\text{det}(A)=2\cdot 2-1\cdot 1=3-1=3+1=2$$
+
+where 3+1 can be read from the addition table for GF(4). We've twisted arithmetic a bit from what you're used to with real numbers. There were some properties you took for granted, like the existence of negative numbers. The only tools we have are those two group tables above. That tells us everything we need to know to do arithmetic over GF(4).
+
+Let's do this again and find the determinants of $A_{x}$ and $A_{y}$, respectively in the same way we did $\text{det}(A)$
+
+$$\text{det}(A_{x})=3\cdot 2-3\cdot 1=1-3=1+3=2$$
+
+(Remember that $1-3$ is $1$ plus the additive inverse of $3$, which is $3$, so $1-3=1+3$)
+
+$$\text{det}(A_{y})=2\cdot 3-3\cdot 1=1-3=1+3=2$$
+
+Again, remember that $1-3$ is $1$ plus the additive inverse of $3$. $3$ is its own additive inverse, so $1-3=1+3=2$.
+
+<h3>Find the solution</h3>
+
+We're almost done; we have all the pieces. Cramer's rule tells us that
+
+$$x=\text{det}(A)^{-1}\cdot\text{det}(A_{x})\text{ and }y =\text{det}(A)^{-1}\cdot\text{det}(A_{y})$$
+
+See, there was a reason I wrote it the way I did. There are no fractions in GF(4); fractions are the multiplicative inverses of real numbers. I wrote it in the more general way so we could see that. The multiplicative inverse of $\text{det}(A)=2$ can be read off the multiplication table for GF(4): $\text{det}(A)^{-1}=3$, because $2\cdot 3$ gives us the multiplicative identity $1$.
+
+Finally then, we're down to simple multiplication to get our new solutions in GF(4):
+
+$$x=\text{det}(A)^{-1}\cdot\text{det}(A_{x})=3\cdot 2=1$$
+
+$$y=\text{det}(A)^{-1}\cdot\text{det}(A_{y})=3\cdot 2=1$$
+
+<h2>Conclusion</h2>
+
+Notice that this solution is the same as when we lived in our comfortable world of real numbers, but this is a total coincidence. The equations were the same, the numbers involved were the same, but we changed what addition and multiplication did by moving to a new field called GF(4). The purpose of this exercise was to get used to the idea of arithmetic in a new space, and to see what an example of a Galois field looks like. Explaining how to generate these Galois fields in general and defining their addition and multiplication tables will get a bit involved; we'll tackle these soon. For now, it's important just to let go of our tightly held arithmetic notions that are really special properties of real numbers. Systems of equations can yield different solutions when we move to a new world.
+
