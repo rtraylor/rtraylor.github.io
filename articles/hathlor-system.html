@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Hathlor Classification System</title>
+<link rel="stylesheet" href="style.css">
+<img src="../imgs/tmc_text.jpg" alt="The Math Citadel" width="252" height="122"
+class="center"/>
+<br>
+<div class="navbar">
+    <a href="../index.html">Home</a>
+    <div class="dropdown">
+        <button class="dropbtn">About 
+        <i class="fa fa-caret-down"></i>
+        </button>
+    <div class="dropdown-content">
+        <a href="../about-us.html">About Us</a>
+        <a href="../people.html">People</a>
+    </div>
+    </div>
+    <div class="dropdown">
+        <button class="dropbtn">Products and Services
+         <i class="fa fa-caret-down"></i>
+         </button>
+    <div class="dropdown-content">
+        <a href="../research.html">Research</a>
+        <a href="../consulting.html">Consulting</a>
+        <a href="https://shop.spreadshirt.com/mathcitadel/">Shop</a>
+        <a href="https://patreon.com/mathcitadel">Patreon</a>
+    </div>
+    </div>
+    <a href="../projects.html">Projects</a>
+    <a href="../articles.html">Papers/Articles</a>
+    <a href="../contact.html">Contact</a>
+
+
+    
+</div>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+<script 
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+<h2>The Hathlor Classification System</h2>
+<h4>J. Hathcock and R. Traylor</h4>
+<br>
+
+<p>		
+Many researchers have their own libraries, and The Math Citadel is no different. Both Jason and I have spent many hours buried in the shelves of bookstores new and used, the stacks of university library shelves, and the rows of books in public libraries across four states now. During this time, we've amassed our own collection of new, used, out-of-print, and rare math and engineering texts. We acquired some as part of our formal studies, but most are acquired tangentially and sometimes haphazardly.
+</p>
+<p>
+We're both very interested in organization and cataloguing in general and we noticed the different methods libraries tend to use to shelve their vast collections, particularly the technical books. Most university libraries we've visited utilize the more modern Library of Congress classification system, while public libraries tend to be a mix of the Dewey Decimal System and the Library of Congress system, varying by library.
+</p>
+<p>
+What we ultimately realized in our time exploring these shelves is that both of these methods for cataloguing books are insufficient for our needs. One of our biggest desires in a classification system was a way to determine some of the content of the text in a database or card catalogue listing, without necessarily having to pull the book from the shelf (which may be in storage). One other shortcoming we noticed is that neither system accounts for a "continuum-style" classification. As an example, many abstract algebra texts contain chapters on number theory, but some do not. Perhaps two different abstract algebra texts have different focus topics; one may focus more heavily on group theory, while another spends much of its pages discussing advanced matrix theory. The titles do not always reflect this, nor do the classification codes used by either the Dewey Decimal System nor the Library of Congress system.
+</p>
+<p>
+So, we invented our own. Born of months of discussion and trial, we finally settled on a new one that takes the best aspects of both original systems, and also expands to include additional information. We'll begin by briefly describing the two original classification systems, then describe our new Hathlor system. Our system is customizable to suit anyone's needs, and we're excited to share a passion project of ours.
+</p>
+
+<h2>The Dewey Decimal System</h2>
+<p>
+This system is the one most are familiar with from school libraries. It was created by Melvil Dewey in 1876, and introduced a relative index that allowed for library expansion. Wikipedia has a great account of the history and development of the system, so we'll not dive too deeply here; we'll merely describe it. The system separates books by discipline, ten major classes overall, each divided into ten sections. It's a hierarchical classification system that endeavors to classify a book as specifically as possible by adding classes after the decimal points.
+</p>
+Wikipedia gives an example of a book on Finsler geometry:
+<ol>
+ 	<li>The book's broadest class is 500-Natural Sciences and Mathematics</li>
+ 	<li>Next, it's specifically a mathematics text (not physics or biology), which is the first section, so we are at 510</li>
+ 	<li>Within mathematics, its topic is geometry, the 6th topic listen, thus 516</li>
+ 	<li>Now we may move to decimal places to further classify as specifically as we like. This text is an analytic geometry, the third subtopic in geometry. Thus, we may now list the text as 516.3</li>
+ 	<li>We wish to further classify, so among analytic geometries, this one discusses metric differential geometries, the 7th subdivision of analytic geometry. If the library classes the books to two decimal places, the code is 516.37</li>
+ 	<li>We may even wish to subdivide metric differential geometry and move to three decimal places, finishing with 516.375--its final classification code.</li>
+</ol>
+
+<h3>Pros</h3>
+
+This system allows very fine granularity and specificity in classification; one could decide to divide further and move to four, five, or more decimal places. It provides a total ordering, so shelving is sensical.
+
+<h3>Cons</h3>
+
+One thing I personally don't like about this system is the length the codes can reach without really offering tons more information. It breaks single topics down into very fine divisions if desired, but one would need to know the possible subdivisions to look at the code of a book and discern all that information. One other issue is that the book is restricted to one and only one class. Many mathematics and engineering texts don't fit neatly into one class, division, or subdivision. A book on algebraic statistics would span abstract algebra and statistics, yet under the Dewey Decimal system, I'm not only forced to classify it under one or the other, but the "other" I don't use disappears, and the text can get lost. A statistician might not always just browse the algebra shelf, yet this text might be of interest to him.
+
+<h2>Library of Congress</h2>
+<p>
+The LCC was developed by the Library of Congress, and is the most common system deployed in academic and research libraries in the United States. Herbert Putnam invented the system in 1897. For additional history, check <a href="https://www.mhpbooks.com/a-library-classification-system-thats-older-than-the-dewey-decimal-and-library-of-congress-models/">here</a>. This system has a larger number of broad classes, and uses letters to denote general classes and narrower topics. There are 21 broad classes, using all letters of the alphabet excepting I, O, W, X, and Y. Each broad class is divided into subclasses, though the number of subclasses may vary. For example, Class B (Philosophy, Psychology, and Religion) is divided into 15 subclasses, one of which is BV-Practical Theology. Class Q (Science) is divided into 12 subclasses, one of which is QA-Mathematics.
+</p>
+<p>
+Underneath these broad classes is a narrower topic of 4 digits, then a cutter number that represents the author, corporation, or title, and finally the last line notes the year of publication.
+</p>
+As an example, from the <a href="http://home.olemiss.edu/~tharry/LC/lccguide.pdf">University of Mississippi library</a>:
+<br>
+<strong>Title: Price Control under Fair Trade Legislation</strong>
+<br>
+<strong>Author: Ewald T. Grether</strong>
+<br>
+<ol>
+ 	<li>This text falls under HF (Social Sciences → Commerce).</li>
+ 	<li>The library codes it 5415, signaling Business→ Marketing→ General Works</li>
+ 	<li>Next, the cutter number for Grether is .G67, and finally, the year of publication is 1939.</li>
+</ol>
+In summary, the LCC call number would look like this:
+
+<hr>
+<p style="text-align: center;">HF
+5415
+.G67
+1939</p>
+
+
+<hr>
+
+
+<h3>Pros:</h3>
+
+There are more classes than the Dewey Decimal system.
+
+<h3>Cons:</h3>
+<p>
+We thoroughly dislike this system for a number of reasons. The primary concern is that looking at the call number on the spine of the book tells very little useful information, and gives some information that is irrelevant to evaluation of the content, such as the cutter number and publication year. It also shares the same issue as the Dewey Decimal system in that multiple subjects contained in a text are lost by forcing the text into one class.
+</p>
+<p>
+In both of these systems, it's difficult to determine where some more multidisciplinary or multi-topic texts might be found without knowing the exact name of the text. It would be impossible to use either of these systems to locate some text that discusses graph theory and algorithms, but also mentions applications to chemistry. It is with this motivation that we devised our new system.
+</p>
+
+<h2>The Hathlor Classification Codes</h2>
+
+The main goal of the new system was to allow a user without intimate familiarity with the minutest details of the scheme, but with knowledge of the specific subjects, to discern information from the spine or given code of a text. Neither LCC nor DDC give this benefit. We describe our system and reasoning here.
+
+<h3>Hierarchical Yet Lateral</h3>
+
+We have divided material in the library into a hierarchical set of groups. The largest group a text can be a member of is the<strong>Subject</strong>. Our library currently contains 5 subjects, each given a sensical one or two-letter code:
+<br>
+<center>
+<table>
+  <tr>
+    <th>Subject</th>
+    <th>Code</th>
+  </tr>
+  <tr>
+    <td>Chemistry</td>
+    <td>C</td>
+  </tr>
+  <tr>
+    <td>Computer Science</td>
+    <td>CS</td>
+  </tr>
+  <tr>
+    <td>Engineering</td>
+    <td>E</td>
+  </tr>
+  <tr>
+    <td>Mathematics</td>
+    <td>M</td>
+  </tr>
+  <tr>
+    <td>Physics</td>
+    <td>P</td>
+  </tr>
+</table>
+</center>
+<br>
+
+Within each <strong>Subject</strong> are a number of<strong>Topics,</strong>where each topic has a three letter code. Again, these codes were designed sensibly, so that one can infer the topic from the three letter code (as opposed to needing to know that QA is Mathematics in the LCC system, for example).To illustrate, the table below shows how we divided<strong>Mathematics</strong>into ten<strong>Topics</strong>
+
+<br>
+<center>
+<table>
+  <tr>
+    <th>Topic</th>
+    <th>Code</th>
+  </tr>
+  <tr>
+    <td>Applied and Engineering Mathematics</td>
+    <td>AEM</td>
+  </tr>
+  <tr>
+    <td>Algebra</td>
+    <td>ALG</td>
+  </tr>
+  <tr>
+    <td>Analysis</td>
+    <td>ANA</td>
+  </tr>
+  <tr>
+    <td>Differential and Integral Equations</td>
+    <td>DIE</td>
+  </tr>
+  <tr>
+    <td>Discrete Mathematics</td>
+    <td>DSC</td>
+  </tr>
+  <tr>
+    <td>Fundamentals</td>
+    <td>FUN</td>
+  </tr>
+  <tr>
+    <td>Geometry</td>
+    <td>GEO</td>
+  </tr>
+  <tr>
+    <td>History of Mathematics</td>
+    <td>HIST</td>
+  </tr>
+  <tr>
+    <td>Number Theory</td>
+    <td>NUT</td>
+  </tr>
+  <tr>
+    <td>Probability</td>
+    <td>PRB</td>
+  </tr>
+  <tr>
+    <td>Recreational Mathematics</td>
+    <td>REC</td>
+  </tr>
+  <tr>
+    <td>Rudimentary Mathematics</td>
+    <td>RUD</td>
+  </tr>
+  <tr>
+    <td>Statistics</td>
+    <td>STS</td>
+  </tr>
+  <tr>
+    <td>Topology</td>
+    <td>TOP</td>
+  </tr>
+</table>
+</center>
+<br>
+<p>
+Finally, within each<strong>Topic</strong> are a varying number of <strong>Subtopics</strong>. Texts can contain many <strong>Subtopics</strong>, and in the spirit of the MAC address, we give a variable length binary code that indicates which<strong>Subtopics</strong> are contained. For example, the<strong>Topic</strong> of<strong>Fundamentals</strong> contains four<strong>Subtopics</strong>: Calculus in bit 1, Logic in bit 2, Set Theory in bit 3, and Trigonometry in bit 4.
+</p>
+A general code will look like this:
+
+<strong>Subject - Topic.XXXX</strong>
+
+where the single-letter subject code is given, the three letter topic code is given, and the X is an indicator of whether or not a particular subtopic is contained in the work. Note that the number of X's may vary by topic.
+
+<hr>
+<p>
+<em>Example: </em>Strang's<em> Linear Algebra and its Applications</em> is a basic linear algebra text covering fundamental matrix theory, Gaussian elimination, linear systems, orthogonal projections, determinants, eigenvalues and eigenvectors, and positive-definite matrices. Subtopics in Algebra are<strong>Abstract Algebra, Category Theory, Linear Algebra,</strong>and<strong>Matrix Theory</strong>, in that order (alphabetically).
+</p>
+<p>
+To code this book, we note that its subject is<strong>Mathematics,</strong> with topic<strong>Algebra</strong>, and containing <strong>linear algebra</strong> and <strong>matrix theory</strong>, but not<strong>Abstract Algebra,</strong>or <strong>Category Theory.</strong>
+
+Thus, the Hathlor code for the book is
+
+<strong>M-ALG.0011</strong>
+
+<hr>
+</p>
+
+<h3>Cross-Topic Texts</h3>
+<p>
+Many texts in mathematics contain material that spans topics. Our codes reflect this, and may be extended to include those additional topics in descending order of importance or inclusion to the work, separating the<strong>Topic.Subtopic</strong> codes by a colon. One may do this as many times as necessary to encapsulate all appropriate topics. Thus, we see that now the code may take the form of
+</p>
+<strong>Subject-PrimaryTopic.XXXX:SecondaryTopic.XX:...</strong>
+
+<hr>
+
+<em>Example:</em>Apostol's<em> Linear Algebra: A First Course with Applications to Differential Equations</em>is primarily a linear algebra text, but does have a significant discussion of differential equations. Thus, the subject is still clearly <strong>Mathematics,</strong> but now we have a primary topic of<strong>Algebra</strong> and a secondary topic of<strong>Differential/Integral Equations.</strong>Differential/Integral Equations has three subtopics: integral equations, ordinary differential equations, and partial differential equations. Apostol only addresses the second of these in his text.
+
+Thus, the Hathlor code for this book is
+
+<strong>M-ALG.0010:DIE.010</strong>
+
+<hr>
+
+As a note, one can have as many topics indicated as necessary. Joyner's <em>Adventures in Group Theory</em> is an engaging, multi-topic text that touches on many fundamental areas of mathematics, presenting abstract algebra matrix theory, logic, set theory, and a tiny bit of graph theory through the lens of recreational mathematics. Its Hathlor code is <strong>M-ALG.1001:FUN.0110:DSC.0100.</strong>
+
+<h3>Final Generalization: Cross-Subject Texts</h3>
+
+We also noticed in reading many technical works that authors may span entire subjects. Some texts in analysis focus only on the pure mathematics, and others discuss applications of analysis to physics or electrical engineering. The Hathlor codes account for this as well, giving the book a primary subject and as many subsequent subjects as necessary. One finishes the entire subject-topic-subtopic classification prior to moving onto the next, noting a new subject by the set <strong>&lt;&gt;</strong> of symbols. The final general Hathlor code thus takes on the following form:
+<hr>
+<strong>PrimarySubject-PrimaryTopic.XXX:SecondaryTopic.XXXX:...&lt;&gt;SecondarySubject.PrimaryTopic.XXXX:...</strong>
+
+<hr>
+
+<em>Example: </em>Hohn's<em> Applied Boolean Algebra</em> discusses Boolean algebra and some of its applications, particularly in electrical engineering and relay circuits.The text is primarily a mathematical treatment, but it would be foolish not to note its electrical engineering motivations. Thus is spans the subjects of mathematics and engineering. Its Hathlor code is
+<br>
+<strong>M-DSC.1000&lt;&gt;E-ELE.1</strong>
+<br>
+<hr>
+
+<h3>Shelving: Simple Lexicographic Order</h3>
+
+Shelving books by the Hathlor classification code is done in lexicographic order, moving left to right, maintaining a simple, unambiguous shelving system. Thus, all chemistry books are shelved before all computer science books. Within each subject, we move by alphabetical order by topic according to the three letter codes. All (Primary) Algebra (ALG) books come before all (primary) Analysis (ANA) books. Within each topic, we shelve by the binary indicators. Thus,<strong>M-ALG.1000</strong>comes before<strong>M-ALG.0100</strong> (using reverse lexicographic order for the binary blocks). If the text contains secondary/tertiary topics, we file those after those with no subsequent topics, the same way that "can" precedes "candle" in a dictionary. The secondary topics are filed in alphabetical order, and so forth. The texts that span subjects then follow those that do not span subjects, still shelved by their primary subject.
+
+
+<h2>Why Reinvent the Wheel?</h2>
+<p>
+As mentioned before, we felt that the current systems in use both omit useful information regarding the content of the works and add extra information a user doesn't typically care about, such as the LCC's cutter number. In addition, a researcher or browser may simply have a general idea of the types of things he would like a text to contain, but neither the DDC nor the LCC provides a simple way to search for such things. Ours provides a way to search via a simple regular expression query, returning a set of texts previously unknown to the user that fit the subjects, topics, and subtopics he seeks, particularly books that contain all he seeks.
+</p>
+Though neither of us have formally worked in a library, nor do either of us hold any formal degrees in library science, we both have a deep and abiding passion for reading, mathematics, organization, and classification. Beyond that, our collection now spans over 220 books, so we definitely needed a better way to shelve our library. We both think it's a pity that very few technical libraries outside of universities exist anymore, particularly in the private sector. Company libraries for engineers and scientists such as the (highly underrated and unknown) library at NASA Ames Research Center should be cared for, revitalized, and restarted. 
+</p>
+
+
+
+
+
