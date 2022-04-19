@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Simulating Soundscapes Using Convolutions</title>
+<link rel="stylesheet" href="style.css">
+<img src="../imgs/tmc_text.jpg" alt="The Math Citadel" width="252" height="122"
+class="center"/>
+<br>
+<div class="navbar">
+    <a href="../index.html">Home</a>
+    <div class="dropdown">
+        <button class="dropbtn">About 
+        <i class="fa fa-caret-down"></i>
+        </button>
+    <div class="dropdown-content">
+        <a href="../about-us.html">About Us</a>
+        <a href="../people.html">People</a>
+    </div>
+    </div>
+    <div class="dropdown">
+        <button class="dropbtn">Products and Services
+         <i class="fa fa-caret-down"></i>
+         </button>
+    <div class="dropdown-content">
+        <a href="../research.html">Research</a>
+        <a href="../consulting.html">Consulting</a>
+        <a href="https://shop.spreadshirt.com/mathcitadel/">Shop</a>
+        <a href="https://patreon.com/mathcitadel">Patreon</a>
+    </div>
+    </div>
+    <a href="../projects.html">Projects</a>
+    <a href="../articles.html">Papers/Articles</a>
+    <a href="../contact.html">Contact</a>
+
+
+    
+</div>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+<script 
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+<h2>Simulating Soundscapes Using Convolutions</h2>
+<h4>K. Gibson</h4>
+<br>
+		
+		
+<p>
+One of the most powerful areas of electrical engineering that flourished in the 20th century is the field of signal processing. The field is broad and rich in some beautiful mathematics, but by way of introduction, here we'll take a look at some basic properties of signals and how we can use these properties to find a nice compact representation of operations on them. As a motivating application, we'll use what we study today to apply certain effects to audio signals. In particular, we'll take a piece of audio, and be able to make it sound like it's being played in a cathedral, or in a parking garage, or even through a metal spring.
+</p>
+<p>
+First things first: what is a signal? For this discussion we'll limit ourselves to looking at the space $\ell = \{x :\mathbb{Z} \rightarrow \mathbb{R}\}$ - the set of functions which take an integer and return a real number. Another way to think of a signal then is as an infinite sequence of real numbers. We're limiting ourselves to functions where the domain is discrete (the integers), rather than continuous (the real numbers), since in many applications we're looking at signals that represent some measurement taken at a bunch of different times. In this post, the results for continuous functions are largely the same, just replacing the sums with integrals, and the Kronecker delta signal with the Dirac delta distribution; however, the proofs for these statements are much more involved in the continuous setting. It's worth noting that any signal that's been defined on a countable domain $\{..., t_{n-1}, t_n, t_{n+1},...\}$ can be converted to one defined on the integers via an isomorphism. We like to place one further restriction on the signals, in order to make certain operations possible. We restrict the space to so-called finite-energy signals:
+</p>
+$$\ell_2 = \left\{x \in \ell : \sum_{n = -\infty}^{\infty} |x(n)|^2 &lt; \infty\right\}.$$
+<p>
+This restriction makes it much easier to study and prove things around these functions, while still giving us lots of useful signals to study, without having to deal with messy things like infinities. In practice, when dealing with audio we usually have a signal with a finite length and range, so this finite-energy property is trivially true.
+</p>
+<p>
+Studying signals is only as useful if we can also define operations on them. We'll study the interaction of signals with <em>systems</em>, which take one signal and transform it into another - essentially, a function operating on signals. Here, we'll say that a system $H : \ell_2 \rightarrow \ell_2$ takes an input signal $x(t)$ and produces output signal $H\{x(t)\} = y(t)$.
+</p>
+
+<h2>Linearity and Time Invariance</h2>
+<p>
+There are certain properties that are useful for systems to have. The first is linearity. A system $H$ is considered linear if for every pair of inputs $x_1, x_2 \in \ell_2$, and for any scalar values $\alpha, \beta \in R$, we have
+
+$$ H\{\alpha x_1 + \beta x_2\} = \alpha H\{x_1\} + \beta H\{x_2\}$$
+</p>
+This is very useful, because it allows us to break down a signal into simpler parts, study the response of the system to each of those parts, and understand the response to the more complex original signal.
+</p>
+The next property we're going to impose on our systems is time-invariance:
+
+$$\forall s \in \mathbb{Z}, H\{x(n)\} = y(n) \Rightarrow H\{x(n-s)\} = y(n-s)$$
+<p>
+This means that shifting the input by $s$ corresponds to a similar shift in the output. In our example of playing music in a cathedral, we expect our system to be time-invariant, since it shouldn't matter whether we play our music at noon or at midnight, we'd expect it to sound the same. However, if we were playing in a building that, for example, lowered a bunch of sound-dampening curtains at 8pm every night, then the system would no longer be time-invariant.
+</p>
+<p>
+So what are some more concrete examples of systems that are linear and time-invariant?
+Let's consider an audio effect which imitates an echo - it outputs the original signal, plus a quieter, delayed version of that signal. We might express such a system as
+
+$$H_{\Delta, k}\{x(n)\} = x(n) + kx(n-\Delta)$$
+
+where $\Delta \in \mathbb{Z}$ is the time delay of the echo (in terms of the number of samples), and $k \in \mathbb{R}$ is the relative volume of the echoed signal. We can see that this signal is time-invariant, because there is no appearance of the time variable outside of the input. If we replaced $k$ by a function $k(n) = \sin(n)$, for example, we would lose this time invariance. Additionally, the system is plainly linear:
+
+$$\begin{aligned}H_{\Delta, k}\{\alpha x_1(n) + \beta x_2(n)\}  &= \alpha x_1(n) + \beta x_2(n) + k x_1(n-\Delta) +k x_2(n-\Delta) \\ &= H_{\Delta, k}\{x_1(n)\} + H_{\Delta, k}\{x_2(n)\}\end{aligned}$$
+
+A common non-linearity in audio processing is called clipping -- we limit the output to be between -1 and 1: $H\{x(n)\} = \max(\min(x(n), 1), -1)$. This is clearly non-linear since doubling the input will not generally double the output.
+</p>
+
+<h2>The Kronecker delta signal</h2>
+
+There is a very useful signal that I would be remiss not to mention here: the Kronecker delta signal. We define this signal as
+
+$$ \delta(n) = \begin{cases} 1  & n = 0 \\ 0  & n \neq 0 \end{cases}$$
+
+The delta defines an impulse, and we can use it to come up with a nice compact description of linear, time-invariant systems. One property of the delta is that it can be used to "extract" a single element from another signal, by multiplying:
+
+$$ \forall s \in \mathbb{Z}, \delta(n-s)x(s) = \begin{cases} x(n)  & n=s \\ 0  & n \neq s\end{cases}$$
+
+Similarly, we can then write any signal as an infinite sum of these multiplications:
+
+$$ x(n) = \sum_{s=-\infty}^{\infty} \delta(n-s)x(s) = \sum_{s=-\infty}^{\infty}\delta(s)x(n-s)$$
+
+Why would we want to do this? Let $H$ be a linear, time-invariant system, and let $h(t) = H\{\delta(t)\}$, the response of the system to the delta signal. Then we have
+
+$$\begin{aligned} H\{x(n)\}  &= H\left\{\sum_{s=-\infty}^{\infty} \delta(n-s)x(s)\right\}\\ &=\sum_{s=-\infty}^{\infty}H\{\delta(n-s)\}x(s) \text{ by linearity}\\ &=\sum_{s=-\infty}^{\infty}h(n-s)x(s) \text{ by time-invariance}\end{aligned}$$
+
+We can write any linear, time-invariant system in this form. We call the function $h$ the <em>impulse response</em> of the system, and it fully describes the behaviour of the system. This operation where we're summing up the product of shifted signals is called a <em>convolution</em>, and appears in lots of different fields of math. You may have seen the phrase convolution in the context of machine learning. Convolutional neural networks are a popular tool in image processing, and make heavy use of convolution defined on 2-dimensional signals.
+
+<h2>Firing a Gun in The Math Citadel</h2>
+
+The power of this representation of a system is that if we want to understand how it will act on any arbitrary signal, it is sufficient to understand how it responds to an impulse. To demonstrate this, we'll look at the example of how audio is affected by the environment it is played in. Say we were a sound engineer, and we wanted to get an instrument to sound like it was being played in a big, echoing cathedral. We could try to find such a place, and actually record the instrument, but that could be expensive, requiring a lot of setup and time. Instead, if we could record the impulse response of that space instead, we could apply the convolution to a recording we did back in a studio. How do we capture an impulse response? We just need a loud, very short audio source - firing a pistol or popping a balloon are common. To demonstrate, here are some example impulse responses, taken from <a href="http://www.openairlib.net/auralizationdb">OpenAirLib</a>, and their effects on different audio signals.
+
+First, here is the unprocessed input signal - a short piece of jazz guitar:
+<br><center>
+<audio controls="controls" src="article-audio/jazz_guitar.wav">
+    Your browser does not support the HTML5 Audio element.
+</audio></center>
+<br>
+Here is the same clip, as if it were played in a stairwell at the University of York. First, the impulse response, then the processed audio.
+
+<br><center>
+<audio controls="controls" src="article-audio/stairwell.wav">
+    Your browser does not support the HTML5 Audio element.
+</audio><br>Impulse (stairwell)</center>
+
+<br>
+<br><center>
+<audio controls="controls" src="article-audio/jazz_stairwell.wav">
+    Your browser does not support the HTML5 Audio element.
+</audio> <br>Processed Guitar (stairwell)</center>
+<br>
+
+That sounds a little different, but we can try a more extreme example: the gothic cathedral of York Minster. Again, here is the impulse response, followed by the processed signal.
+
+<br><center>
+<audio controls="controls" src="article-audio/ir_church-1.wav">
+    Your browser does not support the HTML5 Audio element.
+</audio><br>Impulse (cathedral)</center>
+
+<br>
+<br><center>
+<audio controls="controls" src="article-audio/jazz_church.wav">
+    Your browser does not support the HTML5 Audio element.
+</audio> <br>Processed Guitar (cathedral) </center>
+<br>
+
+
+In this case, we have a much more extreme reverberation effect, and we get the sound of a guitar in a large, ringing room. For our last example, we'll note that impulse responses don't have to be natural recordings, but instead could be entirely synthetic. Here, I've simply reversed the first impulse response from the stairwell, which creates this pre-echo effect, which doesn't exist naturally.
+
+<br><center>
+<audio controls="controls" src="article-audio/stairwell_reverse.wav">
+    Your browser does not support the HTML5 Audio element.
+</audio><br>Impulse (stairwell, reverse)</center>
+
+<br>
+<br><center>
+<audio controls="controls" src="article-audio/jazz_reverse.wav">
+    Your browser does not support the HTML5 Audio element.
+</audio> <br>Processed Guitar (stairwell,reverse) </center>
+<br>
+
+
+This is just one of the most basic examples of what can be done with signal processing, but I think it's a particularly good one - by defining some reasonable properties for signals and systems, we're able to derive a nice compact representation that also makes a practical application very simple.		
+
+							
