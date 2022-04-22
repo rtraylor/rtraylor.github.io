@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Review: Counterexamples in Probability, 3rd ed. (Stoyanov)</title>
+<link rel="stylesheet" href="book-review-style.css">
+<img src="../imgs/tmc_text.jpg" alt="The Math Citadel" width="252" height="122"
+class="center"/>
+<br>
+<div class="navbar">
+    <a href="../index.html">Home</a>
+    <div class="dropdown">
+        <button class="dropbtn">About 
+        <i class="fa fa-caret-down"></i>
+        </button>
+    <div class="dropdown-content">
+        <a href="../about-us.html">About Us</a>
+        <a href="../people.html">People</a>
+    </div>
+    </div>
+    <div class="dropdown">
+        <button class="dropbtn">Products and Services
+         <i class="fa fa-caret-down"></i>
+         </button>
+    <div class="dropdown-content">
+        <a href="../research.html">Research</a>
+        <a href="../consulting.html">Consulting</a>
+        <a href="https://shop.spreadshirt.com/mathcitadel/">Shop</a>
+        <a href="https://patreon.com/mathcitadel">Patreon</a>
+    </div>
+    </div>
+    <a href="../projects.html">Projects</a>
+    <a href="../articles.html">Papers/Articles</a>
+    <a href="../contact.html">Contact</a>
+
+
+    
+</div>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+<script 
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+<div class="header">
+  <h2>Book Review: Counterexamples in Probability, 3rd edition </h2>
+<h3>Author: <i>J. Stoyanov</i></h3>
+<h4>Reviewed by: R. Traylor</h4>
+</div>
+
+<hr>
+
+<div class="row">
+  <div class="column side"> 
+      <img src="book-reviews-imgs/counterexamples-probability-stoyanov.jpeg" width = "400" height = "520" />
+  </div>
+  
+  <div class="column middle">
+    <h2>ISBN</h2>
+	<h3>978-0-486-49998-7</h3>
+<hr>
+    <h2>Classification: Probability Theory</h2>
+
+	<h3>Hathlor code: M-PRB.01011</h3>
+	<hr>
+	<h2>Prerequisites</h2>
+	<h3>probability theory, measure theory, real analysis, some stochastic analysis</h3>
+	<hr>
+    <h2>Ranking</h2>
+	All ranking is done on a scale of 1-5, with 5 as the best.
+
+
+	<table>
+  	<tr>
+   	 <th>Attribute</th>
+    	<th>Rank</th>
+  	</tr>
+  	<tr>
+	    <td>Difficulty</td>
+    	<td> 5</td>
+ 	 </tr>
+  	<tr>
+   	 <td>Proof Quality</td>
+    	<td> 3</td>
+  	</tr>
+ 	 <tr>
+    	<td>Readability</td>
+    	<td> 2</td>
+  	</tr>
+  	<tr>
+    	<td>Self-Study</td>
+    	<td>2 </td>
+  	</tr>
+  <tr>
+    <td>Good for Teaching?</td>
+    <td> 3</td>
+  </tr>
+  <tr>
+    <td>Quality of Exercises</td>
+    <td> NA</td>
+  </tr>
+</table>
+  </div>
+  
+  <div class="column side">
+    <h2>Topics Covered</h2> 
+
+Counterexamples in
+
+<ul>
+ 	<li>classes of random events</li>
+ 	<li>probability measures</li>
+ 	<li>independence of random events, notably
+	<ul>
+ 		<li>pairwise independence doesn't imply mutual independence</li>
+ 		<li>independent classes of random events can generate $\sigma$-fields which are not independent</li>
+	</ul>
+	</li>
+ 	<li>distribution functions, such as
+	<ul>
+ 		<li>identically distributed random variables are not necessarily equivalent</li>
+ 		<li>continuous 2D probability density with discontinuous marginal densities</li>
+	</ul>
+	</li>
+ 	<li>expectations and conditional expectations</li>
+ 	<li>independence of random variables
+	<ul>
+ 		<li>absolutely continuous random variables which are pairwise but not mutually independent</li>
+	</ul>
+	</li>
+ 	<li>characteristic and generating functions
+	<ul>
+ 		<li>a characteristic function whose absolute value is not a characteristic function</li>
+	</ul>
+	</li>
+ 	<li>normal distribution studies</li>
+ 	<li>moments</li>
+ 	<li>other probability distributions
+<ul>
+ 	<li>properties that do not characterize various distributions</li>
+</ul>
+</li>
+ 	<li>convergence</li>
+ 	<li>law of large numbers</li>
+ 	<li>central limit theorem
+<ul>
+ 	<li>sequences of random variables that do not obey the CLT</li>
+</ul>
+</li>
+ 	<li>stochastic processes, martingales, and Poisson processes</li>
+</ul>
+
+
+  </div>
+</div>
+<hr>
+<div class="footer">
+  <center><h2>Review</h2></center>
+<p>It is important to learn the theorems, lemmata, proofs, etc of what make a subject work. However, of equal importance is learning how to break something. Knowing under which conditions a theorem is valid is only half the battle. Studying counterexamples helps us better understand why theorems have the hypotheses they do, and why other possible notions may not exist. For example, is it always true that pairwise independence of a set of random variables implies mutual independence (that is, the variables are independent as a set)? The answer is actually no, which has serious implications for multiple inference testing in statistics. Stoyanov's text is a compilation of many good counterexamples in probability, many of which are surprising and subtle, but with very large implications for application in statistics and machine learning. There are some drawbacks, though. The book is very heavy, requiring a solid background in probability theory and measure theory to really get everything out of this book. Explanations are decent, though it uses more "it's easy to see..." justifications than I prefer when evaluating a book for a more general audience. It would make a supplementary text, and an excellent one, for a graduate course in probability, and could provide plenty of evil test material. All in all, I do not recommend this for a general audience or for self-study if the reader isn't already a mathematician. 
+
+ </p>
+</div>
+  
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Review: Computer Networking Problems and Solutions: An Innovative Approach to Building Resilient, Modern Networks (White and Banks)</title>
+<link rel="stylesheet" href="book-review-style.css">
+<img src="../imgs/tmc_text.jpg" alt="The Math Citadel" width="252" height="122"
+class="center"/>
+<br>
+<div class="navbar">
+    <a href="../index.html">Home</a>
+    <div class="dropdown">
+        <button class="dropbtn">About 
+        <i class="fa fa-caret-down"></i>
+        </button>
+    <div class="dropdown-content">
+        <a href="../about-us.html">About Us</a>
+        <a href="../people.html">People</a>
+    </div>
+    </div>
+    <div class="dropdown">
+        <button class="dropbtn">Products and Services
+         <i class="fa fa-caret-down"></i>
+         </button>
+    <div class="dropdown-content">
+        <a href="../research.html">Research</a>
+        <a href="../consulting.html">Consulting</a>
+        <a href="https://shop.spreadshirt.com/mathcitadel/">Shop</a>
+        <a href="https://patreon.com/mathcitadel">Patreon</a>
+    </div>
+    </div>
+    <a href="../projects.html">Projects</a>
+    <a href="../articles.html">Papers/Articles</a>
+    <a href="../contact.html">Contact</a>
+
+
+    
+</div>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+<script 
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+<div class="header">
+  <h2>Book Review: Computer Networking Problems and Solutions: An Innovative Approach to Building Resilient, Modern Networks</h2>
+<h3>Author: <i>R. White and E. Banks</i></h3>
+<h4>Reviewed by: R. Traylor</h4>
+</div>
+
+<hr>
+
+<div class="row">
+  <div class="column side">
+	
+      <img src="book-reviews-imgs/computer-networking-problems-solutions-white.jpeg" width = "400" height = "520"/>
+  </div>
+  
+  <div class="column middle">
+    <h2>ISBN</h2>
+	<h3>978-0134767734</h3>
+<hr>
+    <h2>Classification: Engineering: Industrial and Network Engineering</h2>
+
+	<h3>Hathlor code: N/A (purged) </h3>
+	<hr>
+	<h2>Prerequisites</h2>
+	<h3>none</h3>
+	<hr>
+    <h2>Ranking</h2>
+	All ranking is done on a scale of 1-5, with 5 as the best.
+
+
+	<table>
+  	<tr>
+   	 <th>Attribute</th>
+    	<th>Rank</th>
+  	</tr>
+  	<tr>
+	    <td>Difficulty</td>
+    	<td> 2</td>
+ 	 </tr>
+  	<tr>
+   	 <td>Proof Quality</td>
+    	<td> NA</td>
+  	</tr>
+ 	 <tr>
+    	<td>Readability</td>
+    	<td> 3</td>
+  	</tr>
+  	<tr>
+    	<td>Self-Study</td>
+    	<td>2 </td>
+  	</tr>
+  <tr>
+    <td>Good for Teaching?</td>
+    <td> 1</td>
+  </tr>
+  <tr>
+    <td>Quality of Exercises</td>
+    <td>1 </td>
+  </tr>
+</table>
+  </div>
+  
+  <div class="column side">
+    <h2>Topics Covered</h2> 
+
+<ul>
+ 	<li>digital grammars/marshaling</li>
+ 	<li>error detection</li>
+ 	<li>multiplexing/flow control</li>
+ 	<li>various historical sundries</li>
+ 	<li>Protocols (IP, TCP, QUIC, ICMP, OSPF, IS-IS, BGP)</li>
+ 	<li>Interlayer discovery</li>
+ 	<li>packet switching</li>
+ 	<li>quality of service</li>
+ 	<li>virtualization</li>
+ 	<li>transport security</li>
+ 	<li>topology discovery (reachability)</li>
+ 	<li>loop-free paths (unicast)</li>
+ 	<li>distance vector control planes</li>
+ 	<li>failure domains</li>
+ 	<li>redundancy and resilience</li>
+ 	<li>current topics (hyper convergence, IoT)</li>
+</ul>
+
+
+  </div>
+</div>
+<hr>
+<div class="footer">
+  <center><h2>Review</h2></center>
+<p>"This book was my first introduction to the technical aspects of network engineering, and unfortunately was likely the worst. Since I was not steeped in networking mythology and jargon prior to reading this, I have a unique ability to evaluate “cleanly”, and the result is abysmal. From useless figures that illustrate nothing or are outright misleading to poor descriptions to a complete lack of rigorous definitions to actual technical errors, this book should be relegated to the pop-business section along with other “management” books. Concepts are loosely introduced before they’re defined (which is a generous term for the repetition of lore), figures are misleading (How can “networking complexity” be guaranteed to be represented as a plane? You can’t just draw a pretty picture and declare your “model” to have that geometry.), and the authors repeatedly state that terms may vary in the “real world” and excuse this as just a fact of network engineering being more of an “art”.</p>
+<p>
+As a mathematician, the attempts to explain the clearly mathematical influences on networking were absolutely cringeworthy. The text attempts to make an explanation of cyclic redundancy checking (which uses polynomials over finite spaces), and only succeeds in wasting page space. The example has no motivation, doesn’t mention that the polynomial coefficients are in GF(2), and simply picks a CRC polynomial at random to illustrate. (Why that one? Where does it come from? Moreover, if networking engineers “don’t need math”, why was this even included?) The example is given in an overly complicated fashion, likely due to the  authors' inability to comprehend the mathematics at hand. 
+</p>
+<p>
+A second example of this phenomenon is in the explanation of Dijkstra’s Shortest Path algorithm. This illustration was likely the worst I’ll ever see[note]I hope.[/note]. It’s poorly written and demonstrates no understanding of what is actually happening, choosing instead to use an overly complicated “example” to show “how it works” where the reader is forced to keep up with convoluted text and left empty-handed for understanding. Authors should familiarize themselves with actual mathematics before attempting to write about it. The book managed to simultaneously hint at the vast amount of mathematics underlying networking while quickly throwing mud on it to cover it up.
+</p>
+My biggest complaint with this book is the “pop” style of it. It presents jargon without context (2-connected has an actual definition), while claiming to be an introductory book. Even in the chapters that purport to visit the topics more deeply, it reads more like someone’s “best guess” from folklore in the field about the topics than actual scholarly knowledge. Save your money; the bibliography isn’t even useful. It’s full of Yahoo articles, IETF comments, and opinions of others from conferences.
+</p>
+<p>
+There are plenty of scholarly engineering books on networking; this isn’t one of them. Set aside this pretentious title and look for some classic texts written by actual engineers and mathematicians. The specific technology described in those works may be a little out of date, but the principles never will be. " </p>
+</div>
+  
+
+
+
+
+</body>
+</html>
