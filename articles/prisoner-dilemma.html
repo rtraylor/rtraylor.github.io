@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8">
+<title>An Interesting Prisoner's Dilemma</title>
+<link rel="stylesheet" href="style.css">
+<style>
+
+img{
+
+display: block;
+
+margin-left: auto;
+
+margin-right: auto;
+
+}
+
+</style>
+<img src="../imgs/tmc_text.jpg" alt="The Math Citadel" width="252" height="122"
+class="center"/>
+<br>
+<div class="navbar">
+    <a href="../index.html">Home</a>
+    <div class="dropdown">
+        <button class="dropbtn">About 
+        <i class="fa fa-caret-down"></i>
+        </button>
+    <div class="dropdown-content">
+        <a href="../about-us.html">About Us</a>
+        <a href="../people.html">People</a>
+    </div>
+    </div>
+    <div class="dropdown">
+        <button class="dropbtn">Products and Services
+         <i class="fa fa-caret-down"></i>
+         </button>
+    <div class="dropdown-content">
+        <a href="../research.html">Research</a>
+        <a href="../consulting.html">Consulting</a>
+        <a href="https://shop.spreadshirt.com/mathcitadel/">Shop</a>
+        <a href="https://patreon.com/mathcitadel">Patreon</a>
+    </div>
+    </div>
+    <a href="../projects.html">Projects</a>
+    <a href="../articles.html">Papers/Articles</a>
+<a href="../book-reviews-category.html">Book Reviews</a>
+    <a href="../contact.html">Contact</a>
+
+
+    
+</div>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<h2> An Interesting Prisoner's Dilemma </h2>
+<h4> R. Traylor </h4>
+<br>
+<i> This article will explore a generalization of a problem I found in S. Ross's "Applied Probability Models with Optimization Applications". </i>
+
+
+<h3>Introduction</h3>
+
+Sometimes there are some interesting hidden gems in compact textbooks on "basic" ideas. One such example came from Sheldon Ross's <i>Applied Probability Models with Optimization Applications</i>. We'll consider the simple problem presented in the text, then look at some generalizations that will involve Pascal's Triangle and the partition function of an integer. 
+
+<h3>Original Problem</h3>
+
+The original problem posits the following scenario:
+
+<hr>
+<blockquote>
+A prisoner is put in a cell containing three doors. If he exits the first door, he is immediately free. If he exits the second door, he will enter a tunnel that will return him to his cell in one day's travel. If he exits the third door, he will enter another tunnel that returns him to his cell after three days time. At any stage of this process, he is equally likely to choose any of the three doors. What is the expected time to freedom?
+</blockquote>
+<hr>
+
+The solution is given as follows:
+
+
+Designate the (random) time to freedom as $Y$, and the door chosen as $X$. Then
+$$
+\begin{aligned}
+E[Y|X=1] &= 0 \text { because he is immediately free} \\
+E[Y|X=2] &= 1 + E[Y] \text{ because he moves through the tunnel in 1 day and then is right back where he started} \\
+E[Y|X=3] &= 3 + E[Y] \text{ by similar reasoning as above }
+\end{aligned}
+$$
+
+Then, we may use the following formula from basic probability:
+\[E[Y] = \sum_{x}E[Y|X=x]P(X=x)\]
+
+In our case, we get (since $P(X=x) = 1/3$ for all $x$ from the problem description)
+\[E[Y] = \frac{1}{3}(0 + 1 + E[Y] + 3 + E[Y])\]
+Solving this algebraic equation for $E[Y]$, we get that $E[Y] = 4$ days. That is, the expected time to escape is 4 days. 
+\end{sol}
+
+Note that it is possible to be in this loop for a very long time; if the prisoner keeps picking door 3, his time spent in the prison will be quite long indeed. The expectation given above is the "typical" or mean time to escape. 
+
+<h3>The First Generalization</h3>
+
+I decided to kick this problem up a notch. Suppose now there are $n$ doors, numbered $0,\ldots, n-1$. Door 0 is the "immediate freedom" door. Door $i$, $i \geq 1$, leads to a tunnel that takes $i$ days to traverse before putting the prisoner back in the cell. So, Door 5 will lead to a 5 day tunnel, and Door 8 an 8 day tunnel. The longest single tunnel will thus be Door $n-1$ with the $n-1$ day tunnel. Let's keep all other aspects of the problem the same--the probability of choosing any door at any time is equal (and thus $\frac{1}{n}$). Now what is the expected time of escape?
+
+
+Here, $E[Y|X=0] = 0$, since that's the door to immediate freedom. For $i \geq 1$, as before and by the same reasoning, $E[Y|X=i] = i + E[Y]$. Now the equation becomes
+\[
+\begin{aligned}
+E[Y] &= \frac{1}{n}(0 + (1 + E[Y]) + (2 + E[Y]) + \ldots + (n-1 + E[Y])) \\
+&= \frac{1}{n}((n-1)E[Y] + \sum_{i=1}^{n-1}i) \\
+&= \frac{1}{n}((n-1)E[Y] + \frac{n(n-1)}{2} \text{ where we've used $\sum_{i=1}^{k}i = \frac{k(k+1)}{2}$}
+\end{aligned}
+\]
+Solving again for $E[Y]$, we get $E[Y] = \frac{n-1}{2}$. 
+
+
+Now we have a nice closed-form solution for the expected time to escape for any $n$. For instance, if we have $n=87$ doors, then the expected time to escape is $E[Y] = \frac{86}{2} = 43$ days. 
+
+<h3>What's the probability the prisoner will never escape?</h3>
+
+The astute reader will notice that even with only 2 doors, it is possible for the prisoner to never escape. If he perpetually chooses any door but door 0, then he will never escape. What is the probability of this event?
+
+In order to determine this probability, we need the distribution of $Y$, the escape time.
+
+First, $P(Y=0) = \frac{1}{n}$ is obvious. We get out instantly by choosing Door 0. For $P(Y=1)$, the only way this can occur is for the prisoner to first go through Door 1, then through Door 0, so
+\[P(Y=1) = P(X=0)P(X=1) = \frac{1}{n^{2}}\]
+since we assume independence of door choices. 
+We'll try a few more to establish a pattern:
+\[P(Y=2) = P(X=1)P(X=1)P(X=0) + P(X=2)P(X=0) = \frac{1}{n^{3}} + \frac{1}{n^{2}}\]
+since the escape time is 2 days if the prisoner either
+<ul>
+<li> goes through Door 1 twice, before exiting Door 0 </li>
+<li> goes through Door 2, the Door 0 </li>
+</ul>
+
+\[
+\begin{aligned}
+P(Y=3) &= P(X=1)^{3}P(X=0) + P(X=1)P(X=2)P(X=0) + P(X=2)P(X=1)P(X=0) + P(X=3)P(X=0) \\
+&= P(X=0)[P(X=1)^{3} + 2P(X=1)P(X=2) + P(X=3)] \\
+&= P(X=0)[\frac{1}{n^{3}} + \frac{2}{n^{2}} + \frac{1}{n}] \\
+&= \frac{1}{n^{4}} + \frac{2}{n^{3}} + \frac{1}{n^{2}}
+\end{aligned}
+\]
+
+\[
+\begin{aligned}
+P(Y=4) &= P(X=1)^{4}P(X=0)  + 3P(X=1)^{2}P(X=2)P(X=0) + 2P(X=3)P(X=1)P(X=0) + P(X=2)^{2}P(X=0) +P(X=4)P(X=0) \\
+&= \frac{1}{n^{5}} + \frac{3}{n^{4}} + \frac{3}{n^{3}} + \frac{1}{n^{2}}
+\end{aligned}
+\]
+
+Here we note that there are three ways to go through Door 1 twice, then Door 2 prior to exiting. We also note that we can combine $2P(X=3)P(X=1)P(X=0) + P(X=2)^{2}P(X=0)$ because they have the same number of terms, and the same probability. 
+
+At this point, it's worth pausing to really examine the patterns that are appearing. First, we notice that the numerators of the terms in $P(Y=i)$ seem to match the row number of Pascal's triangle (if you start numbering at 1 instead of 0). Secondly, we notice that the denominators increase up to the number of partitions of the integer $i$, which is how we're devising each of these terms implicitly. We're ultimately partitioning the number of days to the prisoner's exit by the different ways he can move through the doors.
+
+For instance, we can look at $Y=4$ in the following visual way:
+\[\circ \circ \circ \circ\]
+Going through Door 3, then Door 1 looks like this:
+\[\circ\circ\circ|\circ\]
+Then all of the partitions (equivalently, the ways to get out of the prison in 4 days) look like this:
+\[\begin{array}{c|c}
+\circ\circ\circ\circ &  \circ\circ|\circ|\circ   \\
+\circ\circ\circ|\circ &   \circ|\circ\circ|\circ  \\
+\circ|\circ\circ\circ &    \circ|\circ|\circ\circ  \\
+\circ\circ|\circ\circ &   \circ|\circ|\circ|\circ
+\end{array}\]
+
+If we don't care about order (and we don't, because we're multiplying probabilities), then 3|1 and 1|3 are equivalent partitions. Then, if we look at the number of \textit{distinct} partitions of 4, we get
+
+\[\begin{array}{c|c}
+\circ\circ\circ\circ &  \circ\circ|\circ|\circ   \\
+\circ\circ\circ|\circ &   \circ|\circ|\circ|\circ \\
+\circ\circ|\circ\circ &   
+\end{array}\]
+
+For our purposes, the number of terms in each partition will yield the same probability of occurring. One can quickly tell by looking at the number of vertical lines. One vertical line--all the same probability, since there will be only two terms to multiply, and each term is identical. Thus, $P(X=1)^{2}P(X=2)P(X=0) =   P(X=2)^{2}P(X=0) = \frac{1}{n^{3}}$. There are three of these, because there are ${3 \choose 1}$ places to put the vertical line. Similarly, there are ${3 \choose 2}$ ways to put two vertical lines in three spaces between the dots. This is where Pascal's triangle comes in. The largest denominator matches the number of /textit{distinct} partitions of $Y=i$. 
+
+In general, we then have that 
+\begin{equation}
+P(Y=k) = \sum_{i=1}^{k}{k \choose i-1}\frac{1}{n^{i+1}}
+\end{equation}
+
+What we were ultimately interested in was the probability the prisoner would never escape. Put mathematically, we seek $P(Y = \infty)$ or $\lim_{k \to \infty}P(Y=k)$. Recall that $n$ is fixed. Then
+\[\lim_{k \to \infty}P(Y=k) = \lim_{k \to \infty}\sum_{i=1}^{k}{k \choose i-1}\frac{1}{n^{i+1}} = 0\]
+That is, with probability 1, the prisoner will escape in finite time. 
+
+\section{What if the prisoner eliminates "bad doors" as he tries them?}
+
+Let us now give the prisoner memory. If he tries a door that doesn't lead to freedom, he will mark that door and eliminate it from further consideration. He still chooses doors under consideration with equal probability. What's the expected time to escape now?
+
+This one will be calculated directly, as it's more informative. 
+
+First, the probability $Y=0$ is still $P(Y=0) = \frac{1}{n}$. For $P(Y=1)$, we note that he must choose Door 1, then Door 0. He chooses Door 1 with probability $\frac{1}{n}$, and Door 0 with probability $\frac{1}{n-1}$, since he eliminates Door 1 upon return to the prison from Tunnel 1. $P(Y=2)$ is similar. This time, he can't go through Door 1 twice, then Door 0. If he went through Door 1, he'd eliminate it from further tries. The only way for him to take 2 days to get out is to go through Door 2, then Door 0. This is also done with probability $\frac{1}{n-1}\frac{1}{n}$. The same holds for all other options. No doors can be repeated under this model, so the only way to get out in $i$ days is to go through Door i first, then Door 0. Thus
+\[P(Y=i) = \frac{1}{n-1}\frac{1}{n-1}, i \geq 1\]
+Then
+\begin{equation*}
+\begin{aligned}
+E[Y] &= \sum_{i=0}^{n-1}iP(Y=i)\\
+ &= \sum_{i=1}^{n-1}iP(Y=i)\\
+ &= \frac{1}{n}\frac{1}{n-1}\sum_{i=1}^{n-1}i \\
+ &=\frac{n(n-1)}{2}\frac{1}{n(n-1)} \\
+ &= \frac{1}{2}
+ \end{aligned}
+ \end{equation*}
+
+<h3>Another variation on the prison</h3>
+
+Suppose we change the scenario up a bit. Instead of tunnels leading back, we'll devise a new prison. There is one door leading to freedom, and the prisoner is given $n$ keys. He tries a key with equal probability, but this time we'll allow him to set aside keys that don't work as he tries them. What is the expected number of keys $N$ he will have to try to get out?
+
+Here we'll just calculate this one directly:
+\[E[N] = \sum_{i=0}^{n}P(N=i)\]
+This time, he cannot take more than $n$ tries to get out, since we won't allow repeated keys. 
+$P(N=1) = \frac{1}{n}$, as in the previous version. $P(N=2) = \frac{n-1}{n}\frac{1}{n-1} = \frac{1}{n}$, since we would have to pick the wrong key with probability $\frac{n-1}{n}$, and then the right key with probability $\frac{1}{n-1}$ since he eliminated the bad key. Similarly
+\[P(N=3) = \frac{n-1}{n}\frac{n-2}{n-1}\frac{1}{n-2} = \frac{1}{n}\]
+In general,
+\[P(N=i) = \frac{n-1}{n}\frac{n-2}{n-1}\cdots\frac{n-(i-1)}{n-(i-2)}\frac{1}{n-(i-2)} = \frac{1}{n}\]
+Thus, 
+\[E[N] = \sum_{i=1}^{n}i\frac{1}{n} = \frac{1}{n}\frac{n(n+1)}{2} = \frac{n+1}{2}\]
+Thus, the prisoner will expect to try $\frac{n+1}{2}$ keys. Despite the "memory" involved in eliminating keys, the probability of him getting the correct key on the $i$th try is the same for all $i$. 
+</html>
