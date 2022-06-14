@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Markov Decision Process Basics</title>
+<link rel="stylesheet" href="style.css">
+<img src="../imgs/tmc_text.jpg" alt="The Math Citadel" width="252" height="122"
+class="center"/>
+<br>
+<div class="navbar">
+    <a href="../index.html">Home</a>
+    <div class="dropdown">
+        <button class="dropbtn">About 
+        <i class="fa fa-caret-down"></i>
+        </button>
+    <div class="dropdown-content">
+        <a href="../about-us.html">About Us</a>
+        <a href="../people.html">People</a>
+    </div>
+    </div>
+    <div class="dropdown">
+        <button class="dropbtn">Products and Services
+         <i class="fa fa-caret-down"></i>
+         </button>
+    <div class="dropdown-content">
+        <a href="../research.html">Research</a>
+        <a href="../consulting.html">Consulting</a>
+        <a href="https://shop.spreadshirt.com/mathcitadel/">Shop</a>
+        <a href="https://patreon.com/mathcitadel">Patreon</a>
+    </div>
+    </div>
+    <a href="../projects.html">Projects</a>
+    <a href="../articles.html">Papers/Articles</a>
+<a href="../book-reviews-category.html">Book Reviews</a>
+    <a href="../contact.html">Contact</a>
+
+
+    
+</div>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+<script 
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+<h2> Markov Decision Process Basics</h2>
+<h4>R. Traylor</h4>
+<br>
+<h2> 1. Introduction</h2>
+
+The Markov decision process is a popular model used for making decisions over time while incorporating uncertainty, cost, and reward. Various applications include fruit tree frost protection, inventory management, and the dispatch of emergency services. This particular article will give the intuitive and mathematical foundations of its use.
+
+The author will assume the reader has a familiarity with basic Markov processes, but small reminders will be given throughout the article.
+
+<h3>1.1 Markov Reward Processes</h3>
+
+
+With a basic Markov process, we have a state space $S$ that, for our purposes, we will take to be discrete. We will allow for either finite or countable numbers of states $S$. The state space will be used to describe the condition of whatever phenomenon we are observing. For example, if we are studying the condition of the soil of our garden at the beginning of each year, we may choose the state space $S = \{0,1,2\}$, where 
+\[\begin{cases} 0 &= \text{Poor Condition} \\
+				1 &= \text{Fair Condition} \\
+				2 &= \text{Good Condition} 
+				\end{cases} 
+\]
+Attached to a state space is a matrix of one-step transition probabilities $P$, whose entries $p_{ij}$ give the probability of transitioning from state $i$ to state $j$ in one (discrete) timestep. For our garden example, the transition probabilities describe moving from good to fair soil condition, or fair to poor, etc. In practice, these probabilities will have to be estimated. This will be addressed in a later article. For now we will assume we know these. 
+
+The Markov process is defined by a specific type of conditional probability. As the process evolves in time, we gain a "history". Mathematically, we call this a <i>filtration</i>. All random processes have a history, and what distinguishes the Markov process from other random processes is that the probability of moving to state $j$ in the next timestep given everything that has happened thus far is simply the probability of moving to state $j$ given where we are currently. Mathematically, this is written 
+\[P(X_{t+1} = j | X_{t} = i, X_{t-1} = a_{1},\ldots, X_{0} = a_{t}) = P(X_{t+1} = j |X_{t} = i)\]
+That is, we can "forget" about everything in the past except the most recent event when we're looking at the probability of transitioning to a new state next. This formally is called the <i>Markov property</i>. We then have that 
+\[p_{ij} = P(X_{t+1} = j | X_{t} =i)\]
+for all timesteps $t$. This also allows us to begin observing the Markov process at any time without having to worry that we may be entering observation in the middle of the process's evolution. We may not even know when it began, but the Markov property allows us to pretend that the process began when we began observing it. 
+
+To create a contrived example with our garden, we will suppose that our actions do allow for soil improvement via companion planting or fertilizer/compost addition. Perhaps we have a transition matrix that looks like this, where a timestep is one year.
+\[P = \begin{bmatrix} 0.5 & 0.3 & 0.2 \\
+					  0.3 & 0.6 & 0.1 \\
+					  0.3 & 0.3 & 0.4 
+					  \end{bmatrix}\]
+In this example, $p_{ij}$ represents the probability that next year's soil condition will be $j$ given that this year's soil condition is $i$. For example, $p_{21} = 0.3$ is the probability that the soil will be in fair condition (state 1) next year given that it is in good condition (state 2) this year, and $p_{11} = 0.6$ is the probability that the soil will be in fair condition next year given that is in fair condition this year. 
+
+We can extend this model by incorporating <i>rewards</i> given when the Markov process transitions from one state to the next. The reader should not attach himself to the word "reward" too heavily. We can absolutely have "rewards" that are negative (representing costs). These rewards are collected in the reward matrix $R$ with entries $r_{ij}$ representing the reward (or cost) accrued when a transition from state $i$ to state $j$ is made. In the garden example, a possible reward matrix might be 
+\[R = \begin{bmatrix} -5 & 2 & 3 \\
+					  -1 & 0 & 3 \\
+					  -3 & -1 & 6 
+					  \end{bmatrix}\]
+measured in hundreds of dollars. $r_{00} = -5$, indicating that the garden remaining with poor soil from one year to the next will cost us $\$500$. In contrast, $r_{22} = 6$, representing a gain of $\$600$ if we maintain the soil in good condition from one year to the next. In practice, $R$ is meant to encapsulate <i>net rewards</i> after factoring in costs and profits. 
+
+With a Markov reward process, we are interested typically in the expected cumulative profit (or cost) in the next $n$ timesteps given that the process is currently in state $i$. That is, if the garden soil is currently in state $i$, what is the expected total profit over the next $n$ years?
+
+We will denote $v_{n}(i)$ as the expected cumulative return in the next $n$ timesteps given that the process is currently in state $i$. $r_{ij}$ can be called the "immediate reward" for transitioning from $i$ to $j$ in one step. There are $N$ of these, one for each $j = 1,\ldots,N$. The reward when there are $k$ transitions left to be made is a random variable, and we'll call it $\mathcal{R}_{k}$. $\mathcal{R}_{0}$ is the reward obtained when we move from the penultimate state to the last state, for example. The total reward in $n$ timesteps (which is a random variable) given that we are currently in state $i$ is then
+\[\mathcal{R}_{n} + \mathcal{R}_{n-1} + \ldots + \mathcal{R}_{2} + \mathcal{R}_{1} + \mathcal{R}_{0}|s_{n} = i\]
+We wish to find the expected cumulative return, so 
+\[
+\begin{aligned}
+v_{n}(i) &= E[\mathcal{R}_{n} + \mathcal{R}_{n-1} + \ldots + \mathcal{R}_{2} + \mathcal{R}_{1} + \mathcal{R}_{0}|s_{n} = i] \\
+	&= E[\mathcal{R}_{n} |s_{n}=i] + E[\sum_{k=0}^{n-1}\mathcal{R}_{k}|s_{n}=i] \\
+	&= \sum_{j=1}^{N}p_{ij}r_{ij} + \sum_{j=1}^{N}p_{ij}v_{n-1}(j)  
+\end{aligned}
+\]
+
+The first equality takes advantage of the linearity of (conditional) expectation and allows us to split the expectation of sums into a sum of expectations. Looking at the first term, $E[\mathcal{R}_{n}|s_{n} = i]$ is the expected return when $n$ timesteps remain given that we are currently in state $i$. Put more intuitively, $n$ timesteps remain after we've made a single transition to the next state. If we transition from $i$ to $j$ in one step, then the reward is $r_{ij}$ and we obtain this reward with probability $p_{ij}$. To get the expected immediate reward in one timestep, we sum over all possible $j$ that we can transition to, so 
+\[E[\mathcal{R}_{n}|s_{n} = i] = \sum_{j=1}^{N}r_{ij}p_{ij}\]
+
+Putting numbers to this example, suppose we want to know the expected total reward for our garden example for the next 5 years, and our soil is currently in fair condition (state 1). The expected immediate return for next year is 
+\[E[\mathcal{R}_{5}|s_{n} = 1] = \sum_{j=0}^{2}r_{1j}p_{1j} = -1(0.3) + 0(0.6) + 3(0.1) = 0\]
+
+The second sum represents the expected total reward remaining in the $n-1$ transitions after the first, given that we began in state $i$. This is represented recursively by noting that when we transition from $i$ to $j$, we are now looking at the expected total reward for $n-1$ transitions given that we "restarted" in state $j$ (taking advantage of the Markov property). We move to state $j$ from $i$ with probability $p_{ij}$, so the expected total reward is obtained by summing over all possible states we can transition to in one timestep. 
+
+The solution can be mathematically obtained using $z-$transforms, but isn't particularly practical to use, so we'll push its discussion to another article. We will continue by developing the model further into the full Markov decision process. The next article will discuss practical computational solutions to these problems.
+
+<h2>2. Markov Decision Process</h2>
+
+We make another extension of the Markov reward process to the Markov Decision process. We now imagine a situation in which there is a finite set of possible actions we can take at each timestep $A = \{a_{1},\ldots,a_{K}\}$. To each action is associated a separate Markov reward process, complete with its own transition matrix and reward matrix. For the working garden example, actions may be tilling, fertilizing, crop rotation, or just doing nothing. (We could also define actions as combinations of these, but that would need to be classified as a new action with its own Markov process. We can't guarantee mathematically that actions can combine. For example, the action "till and fertilize" may not yield a reward matrix that is the sum of "till" and "fertilize" reward matrices.) 
+
+<h3>2.1 Notation</h3>
+
+Let us pause to lay out some notation to make bookkeeping easier. 
+
+<ul>
+<li> $S = \{1,2,\ldots, N\}$ - the state space for the phenomenon. The soil conditions are still our states in the working example. </li>
+<li> $A = \{a_{1},\ldots, a_{K}\}$ - the set of possible actions we can take, such as tilling. </li>
+<li> $R_{a_{l}} = [r_{ij}^{a_{l}}]$- the reward matrix corresponding to action $a_{l}$. $r_{ij}^{a_{l}}$ is the reward obtained when the process moves from state $i$ to state $j$ when action $a_{l}$ is taken. For example, if $a_{l}$ is "till the soil", then $r_{12}^{a_{l}}$ is the reward we get when the soil condition improves from fair to good in the next year once we've tilled the soil this year. </li>
+<li> $P_{a_{l}} = [p_{ij}^{a_{l}}]$ - the transition matrix corresponding to action $a_{l}$. $p_{ij}^{a_{l}}$ is the probability of transitioning from state $i$ to state $j$ in one timestep when action $a_{l}$ is taken. Again, using "tilling the soil" as the action, $p_{12}^{a_{l}}$ is the probability that the soil condition improves from fair to good in the next year once we've tilled the soil this year. </li>
+</ul>
+
+We also define a <b>policy</b> $D$ that helps us choose actions. Formally, a policy $D$ maps the state space $S$ to the set of actions $A$. $D$ is a rule for taking actions $a_{l}$ from $A$ based on the current state $s_{i}$ in $S$. Mathematically, we require $D$ to be a <i>stationary</i> policy; that is, the policy can only depend on the current state and not on the time of the state. For instance, a policy $d$ may tell us to till when in fair condition. Since time is not mentioned, this would be a stationary policy. "Till when in fair condition unless it's past June" is time dependent and is not considered a stationary policy. These sorts of complications must be handled differently, since the underlying mathematical theory would be violated in this case. 
+
+Policies map the entire state space to the set of actions. For the garden, let us define some actions:
+<ol>
+<li> $a_{1}:$ Till the soil. </li>
+<li> $a_{2}:$ Fertilize with anhydrous ammonia and potash. </li>
+<li> $a_{3}:$ Do nothing. </li>
+</ol>
+
+An example of a policy would be 
+<blockquote>
+ Till the soil if the soil condition is poor or fair. Do nothing if it's good.
+</blockquote>
+
+This corresponds to the map
+\[D(s) = \begin{cases}
+a_{1}, & s = 0,1 \\
+a_{3}, & s = 2
+\end{cases}\]
+
+
+<h3>2.2 Optimization</h3>
+
+Our goal in using a Markov decision process is to perform the "best" action at each timestep. This is an optimization problem, but we must carefully define what precisely we are optimizing. The typical way to frame this problem is to maximize the expected total return over some period of time (either a finite time horizon or an infinite time horizon). We pick this because the Markov reward process gave us a nice formula for this expected total return. 
+
+As a practical consideration, the astute reader should notice that we are optimizing for a mean total return. This is a single point, and does not encapsulate any other distributional characteristics of the Markov process such as variation. With this caution in mind, the reader should be aware of this limitation when implementing this model. 
+
+Since we now have $K$ actions we can take, we have $K$ separate Markov reward processes to consider. The function $v_{n}(i,d)$ from Section 1.1 now refers to the expected total return in the next $n$ timestamps, given the process is currently in state $i$ and the policy taken is $d$. Most of the literature calls this the <i>value function</i>. 
+
+Using the same reasoning as for the reward process in Section 1.1, we get a recursive relationship for each policy $d$:
+
+\[v_{n}(i,d) = \sum_{j=1}^{N}p_{ij}(d)r_{ij}(d) + \sum_{j=1}^{N}p_{ij}(d)v_{n-1}(j,d)\]
+with the same interpretation as before. The optimization goal is to maximize total expected return over all the policies $d$. 
+
+<h2>3. Detailed Examples</h2>
+This section will detail explicit examples to demonstrate the breadth of problems to which we can apply this framework. No computations will be done in this article. We will save that for a later discussion. The focus is on understanding the problem and deriving the transition and reward matrices. 
+
+<h3>3.1 A Chainsaw Repair Model</h3>
+
+We adapt a model from Ibe~\cite{Ibe2013} involving machine repair. Suppose we have a landscaping business, and we inspect our chainsaws daily. We have three possible states for a chainsaw: <i>Good</i>, <i>Fair</i>, and <i>Poor</i>. We've noticed through experience that the state of the chainsaw at inspection on a given day depends on its state at inspection the previous day. Given that the chainsaw was <i>Good</i> yesterday, the probability that it will be in state $j$ today is 
+<ul>
+<li> $0.7$ $j=$ <i>Good</i> </li>
+<li> $0.2$ $j= $ <i>Fair</i> </li>
+<li> $0.1$ $j=$ <i>Poor</i> </li>
+</ul>
+
+Given that a chainsaw is <i>Fair</i> yesterday, the probability that it will be in state $j$ today is 
+<ul>
+<li> $0$ $j=$ <i>Good</i> </li> 
+<li> $0.6$ $j=$ <i>Fair</i> </li>
+<li> $0.4$ $j=$ <i>Poor</i> </li>
+</ul>
+
+Given that a chainsaw is <i>Poor</i> yesterday, the probability that it will be in state $j$ today is 
+<ul>
+<li> $0$ $j=$ <i>Good</i> </li>
+<li> $0$ $j=$ <i>Fair</i> </li>
+<li> $1$ $j=$ <i>Poor</i> </li>
+</ul>
+
+We can go ahead and put these transition probabilities into a matrix $P$
+
+\[P = \begin{bmatrix}
+0.7 & 0.2 & 0.1 \\
+0 & 0.6 & 0.4 \\
+0 & 0 & 1
+\end{bmatrix}\]
+
+There are three maintenance actions we can take:
+<ol>
+<li> Do nothing. This would force the process to follow the transition probabilities above. </li>
+<li> Overhaul/repair the chainsaw. The overhaul will bring the chainsaw to the good condition with probability 0.7 and fair with probability 0.3. It costs $\$200$ to overhaul a chainsaw in parts and labor. </li>
+<li> Replace the chainsaw. This automatically brings the state to <i>Good</i>. A new chainsaw is $\$500$. </li>
+</ol>
+
+When the chainsaw is in <i>Good</i> condition, our landscaping company makes $\$300$ per day off it. We earn $\$100$ per day for a chainsaw in <i>Fair</i> condition, and we lose $\$300$ per day when the chainsaw is in poor condition. 
+
+Management has asked us to evaluate the following policies:
+<ol>
+<li> Do nothing regardless of the state of the chainsaw. </li>
+<li> Replace the equipment when its state is <i>Poor.</i> Do nothing in the other states. </li>
+<li> Replace the chainsaw when it is in <i>Poor</i> condition, and overhaul it when it's in <i>Fair</i> condition. Do nothing when it is in <i>Good</i> condition. </li>
+<li> Replace the chainsaw when it is either in <i>Poor</i> or <i>Fair</i> condition. Do nothing when it is in <i>Good</i> condition. </li>
+<li> Repair the chainsaw when it is in either <i>Poor</i> or <i>Fair</i> condition. </li>
+</ol>
+
+We want to determine the optimal operating cost of the equipment over the summer season (120 days). 
+
+
+We can choose to formulate this either as maximizing profit or as minimizing cost. I will choose to formulate the problem as a maximization problem, which means that we simply assign negative values to all costs. We'll assign the states $\{0,1,2\}$ to <i>Good, Fair, Poor</i>. To formulate the reward matrix, we can choose whatever units we like. We will formulate ours in terms of hundreds of dollars. 
+
+In the interest of helping the reader develop a familiarity with these sorts of problems, we will develop each reward matrix and each transition matrix in detail. 
+
+<ol>
+<li> <b>Do nothing regardless of the state.</b> <br>
+The transition probability matrix $P(1)$ is given by $P$ above already. The reward matrix is 
+\[R(1) = \begin{bmatrix} 3 & 1 & -3 \\0 & 1 & -3 \\ 0 & 0 & -3\end{bmatrix}\]
+Yesterday, the chainsaw was in the state of the row. Today, it will be in the state of the column entry. For the first row, the chainsaw was <i>Good</i> yesterday. $r_{00}$ is the net profit for today when we inspect the chainsaw and find it is still <i>Good</i>. The policy tells us that we need to do nothing, so there is no cost. We will use the chainsaw and make $\$300$ with it, so $r_{00} = 3$. If we instead find it was fair, we will again take no action. We will make $\$100$ today using the chainsaw in such a condition. If today the chainsaw is in <i>Poor</i> condition, we lose $\$300$. 
+
+For the second row, we were in <i>Fair</i> condition yesterday. The transition matrix does not allow a spontaneous improvement from <i>Fair</i> to <i>Good</i>, and the policy does not dictate an action of repair or replace that would change the state by action, so $r_{10} = 0$ because nothing can happen. The remaining two entries follow the same reasoning as before. 
+
+The third row is calculated similarly. </li>
+<li> <b>Replace the equipment when its state is <i>Poor</i>.</b> <br>
+The transition matrix $P(2)$ will change slightly, because we immediately replace a chainsaw that was <i>Poor</i> yesterday with a new one, so we have a <i>Good</i> one today. This is done with probability 1 according to the policy. This means that only the bottom row of the transition matrix $P$ will change, and $P(2)$ is 
+\[P(2) = \begin{bmatrix}
+0.7 & 0.2 & 0.1 \\
+0 & 0.6 & 0.4 \\
+1 & 0 & 0
+\end{bmatrix}\]
+The reward matrix under this policy must take into account the cost of replacing the chainsaw. The policy changed nothing about any state other than <i>Poor</i>, so the reward matrix will be identical to $R(1)$ in the first two rows. For the final row, we only have one nonzero entry $r_{20}$. We will make $\$300$ today with the brand new chainsaw we replaced yesterday, but the chainsaw cost $\$500$, so we net $-\$200$ for today. Thus, 
+\[R(2) =  \begin{bmatrix} 3 & 1 & -3 \\0 & 1 & -3 \\ -2 & 0 & 0\end{bmatrix}\]
+\item \textbf{Replace when <i>Poor</i>. Overhaul when <i>Fair</i>.} \\
+The first row of the transition matrix again does not change. This time, if it was <i>Fair</i> yesterday, it was overhauled and either ended up in <i>Good</i> condition with probability 0.7, or <i>Fair</i> with probability 0.3. The final row matches the final row of $P(2)$, since we replaced a <i>Poor</i> chainsaw with a <i>Good</i> one. Thus,
+\[P(3) = \begin{bmatrix}
+0.7 & 0.2 & 0.1 \\
+0.7 & 0.3 & 0 \\
+1 & 0 & 0\end{bmatrix}\]
+For the reward matrix, the first row of $R(3)$ equals the first row of $R(1)$. The second row of $R(3)$ needs to take the cost of repair into account. $r_{10}$ is the net profit of repairing the chainsaw yesterday and using it in <i>Good</i> condition today. The chainsaw repair cost $\$200$, but we made $\$300$ on the transition from <i>Fair</i> to <i>Good</i> for a net $\$100$. Thus, $r_{10} = 1$. Similarly, $r_{11} = -1$, taking into account that operating a repaired chainsaw that stayed in <i>Fair</i> condition only netted us $-\$100$ in one day. The third row of $R(3)$ matches the third row of $R(2)$. 
+\[R(3) = \begin{bmatrix} 3 & 1 & -3 \\1 & -1 & 0 \\ -2 & 0 & 0\end{bmatrix}\] </li>
+<li> <b>Replace the chainsaw in either <i>Poor</i> or <i>Fair</i> condition.</b><br>
+The transition matrix $P(4)$ will have the first row equal to $P$, and the second and third row equal the third row of $P(2)$, as dictated by the policy. The reward matrix can be reasoned similarly. Thus
+\[P(4) = \begin{bmatrix}
+0.7 & 0.2 & 0.1 \\
+1 & 0 & 0 \\
+1 & 0 & 0\end{bmatrix} \qquad R(4) = \begin{bmatrix} 3 & 1 & -3 \\-2 & 0 & 0 \\ -2 & 0 & 0\end{bmatrix}\] </li>
+<li> <b>Repair when the chainsaw is in either <i>Poor</i> or <i>Fair</i> condition}.</b> <br>
+The transition and reward matrices can be derived in the exact same manner as for $P(3)$ and $R(3)$, respectively. 
+\[P(4) = \begin{bmatrix}
+0.7 & 0.2 & 0.1 \\
+0.7 & 0.3 & 0 \\
+0.7 & 0.3 & 0\end{bmatrix} \qquad R(4) = \begin{bmatrix} 3 & 1 & -3 \\1 & -1 & 0 \\ 1 & -1 & 0\end{bmatrix}\]
+</li>
+</ol>
+
+The objective is to find which policy (1)-(5) is optimal for maximizing total expected return from the chainsaw over 120 days. <br>
+
+<i>Remark: This particular application can be adapted to any "repair/replace" type of decision problem. One can also incorporate additional policies looking at different replacements (replacing with a new or used chainsaw, or perhaps a fancier v. basic model) and different modes of repair (full overhaul v. basic repair). A case study that implemented this type of model can be found in~\cite{Mahon_1975} involving the maintenance of a fleet of army vehicles for the British army.</i>
+
+
+<h3>3.2 A Garden Example</h3>
+
+We return to the original working example of a home garden. We will again define the state space as the overall condition of the garden in early spring prior to any planting. The condition of the soil can be measured in many different ways including the earthworm population, soil compaction, soil respiration, pH, and soil type (e.g. sandy or clay soil). We will presume that these measurement methods can be aggregated to give a qualitative condition of the soil as <i>Excellent</i>, <i>Good</i>, <i>Fair</i>, or <i>Poor</i>. We also will assume that either through experience or through looking at agricultural data, we have the following base transition matrix from one year to the next, assuming nothing more than basic garden planting is done.
+\[P = \begin{bmatrix} 0.8 & 0.15 & 0.05 & 0 \\ 0.1 & 0.7 & 0.1 & 0.1 \\ 0 & 0.15 & 0.6 & 0.25  \\ 0 & 0 & 0.5 & 0.5\end{bmatrix}\]
+
+We want to optimize for yield in pounds of produce. We know from experience that <i>Excellent</i> soil will yield 20 lbs. per square foot, <i>Good</i> soil will yield 15 lbs. per square foot, <i>Fair</i> soil will yield 10 lbs. per square foot, and <i>Poor</i> soil will yield 5 lbs. per square foot. The value of produce per square foot will be measured in money saved at the grocery store from not buying the produce and will be averaged at \$2/lb. 
+
+Each spring, there are several actions we can take prior to planting:
+<ol>
+</li> Fertilize the soil with anhydrous ammonia (standard commercial fertilizers) at a cost of $\$5$ per square foot.This action will improve the soil health by one state with probability 0.6, improve the soil health by two states with probability 0.2, have no effect with probability 0.1, and decrease the soil health by one state with probability 0.1. </li>
+<li> Fertilize the soil with natural compost at a cost of $\$7$ per square foot. This action will improve the soil health by one state with probability 0.7, improve the soil health by two states with probability 0.2, have no effect with probability 0.1 and decrease the soil health by one state with probability 0. </li>
+<li> Do nothing. This costs nothing and changes nothing. </li>
+</ol>
+
+We also will incorporate a modern consideration that anhydrous ammonia will not be available to us in a given year with probability 0.4. 
+
+We wish to consider the following policies
+<ol>
+<li> Do nothing in any state. </li>
+<li> Fertilize the soil with anhydrous ammonia regardless of state. If the fertilizer cannot be found, buy compost to fertilize only if the garden soil is in <i>Poor</i> or <i>Fair</i> condition. The soil cannot be improved past <i>Excellent</i> or depleted past <i>Poor</i>. </li>
+<li> Fertilize the soil with compost regardless of state. </li>
+<li> Fertilize the soil with whatever is the cheapest available fertilizer, but fertilize only if the garden is not in <i>Excellent</i> condition. </li>
+</ol>
+
+The reader will notice that the format of this problem is very similar to the previous machine repair problem. Dollars make a convenient standard unit, so we retained it here. We will again derive the set of transition and reward matrices. 
+
+<ol>
+<li> <b>Do nothing in any state.</b> <br>
+Here, we remember that we need to convert pounds of produce into dollars. 
+\[P(1) = \begin{bmatrix} 0.8 & 0.15 & 0.05 & 0 \\ 0.1 & 0.7 & 0.1 & 0.1 \\ 0 & 0.15 & 0.6 & 0.25  \\ 0 & 0 & 0.5 & 0.5\end{bmatrix} \qquad R(1) = \begin{bmatrix} 40 & 30 & 20 & 10 \\40 & 30 & 20 & 10 \\ 40 & 30 & 20 & 10 \\ 40 & 30 & 20 & 10 \end{bmatrix}\]
+The rows of $R(1)$ are the same, because the yield is static to the current state, and has no dependence on the previous state. </li>
+<li> <b>Fertilize the soil with anhydrous ammonia regardless of state. If the fertilizer cannot be found, buy compost to fertilize only if the garden soil is in <i>Poor</i> or <i>Fair</i> condition.</b> <br>
+This one is a bit trickier. We need to account for the fact that anhydrous ammonia may not be able to be found with probability 0.4. Thus, there are two transition and reward matrices, one each for when anhydrous ammonia can and cannot be found respectively, which we denote $P(2)^{a}$ and $P(2)^{na}$. Each one occurs with probability 0.6 and 0.4, so the overall transition matrix $P(2)$ is 
+\[P(2) = 0.6P(2)^{a} + 0.4P(2)^{na}\]
+The reward matrices can be calculated similarly:
+\[R(2) = 0.6R(2)^{a} + 0.4R(2)^{na}\]
+We will not go into quite as much detail in deriving these matrices as in the prior example, counting on the reader to apply himself. Assuming anhydrous ammonia is available, and we are currently in excellent condition, we will choose to aggregate the soil improvement probabilities for $p_{00}^{a}$ since we cannot improve the soil past <i>Excellent</i>. Thus, $p_{00}^{a} = 0.6 + 0.2 + 0.1 = 0.9$. Similar calculations for the other transitions yield 
+\[P(2)^{a} = \begin{bmatrix}0.9 & 0.1 & 0 & 0 \\0.8 & 0.1 & 0.1 & 0 \\ 0.2 & 0.6 & 0.1 & 0.1 \\ 0 & 0.2 & 0.6 & 0.2\end{bmatrix}\]
+For the reward matrix, we account for the $\$5$ per square foot static cost. (We are assuming we apply the same amount of fertilizer per square foot regardless of the soil condition.)
+\[R(2)^{a} = \begin{bmatrix} 35 & 25 & 0 & 0 \\35 & 25 & 15 & 5 \\ 35 & 25 & 15 & 5 \\ 0 & 25 & 15 & 5 \end{bmatrix}\]
+If the anhydrous ammonia is not available, we do nothing if the soil is <i>Excellent</i> or <i>Good</i>. Otherwise, we buy and use the compost at a cost of $\$7$ per square foot. The transition and reward matrices in this case are 
+\[P(2)^{na} = \begin{bmatrix} 0.8 & 0.15 & 0.05 & 0 \\ 0.1 & 0.7 & 0.1 & 0.1 \\ 0.2 & 0.7 & 0.1 & 0  \\ 0 & 0.2 & 0.7 & 0.1\end{bmatrix} \qquad R(2)^{na} = \begin{bmatrix} 40 & 30 & 20 & 10 \\40 & 30 & 20 & 10 \\ 33 & 23 & 13 & 3 \\ 33 & 23 & 13 & 3 \end{bmatrix}\] </li>
+<li> <b>Fertilize the soil with compost regardless of state.</b><br>
+This calculation should be straightforward to the reader by now. The matrices are 
+\[P(3) = \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0.9 & 0.1 & 0 & 0 \\ 0.2 & 0.7 & 0.1 & 0\\  0.2 & 0.7 & 0.1 & 0  \end{bmatrix} \qquad R(3) = \begin{bmatrix} 33 & 23 & 13 & 3 \\ 33 & 23 & 13 & 3 \\ 33 & 23 & 13 & 3 \\33 & 23 & 13 & 3\end{bmatrix}\] </li>
+<li> <b>Fertilize the soil with whatever is the cheapest available fertilizer, but fertilize only if the garden is not in <i>Excellent</i> condition.</b> <br>
+The transition and reward matrices here are derived in a similar fashion to policy 2. Obviously we will use anhydrous ammonia if available, and compost otherwise, so we can retain the same notation. 
+	\[P(4) = 0.6P(4)^{a} + 0.4 P(4)^{na} \qquad R(4) = 0.6R(4)^{a} + 0.4 P(4)^{na}\]
+	Then we have that 
+	\[
+	\begin{aligned}P(4)^{a} = \begin{bmatrix}0.8 & 0.15 & 0.05 & 0 \\ 0.8 & 0.1 & 0.1 & 0 \\ 0.2 & 0.6 & 0.1 & 0.1 \\ 0 & 0.2 & 0.6 & 0.2\end{bmatrix} &\qquad R(4)^{a} = \begin{bmatrix} 40 & 30 & 20 & 10 \\ 35 & 25 & 15 & 0 \\ 35 & 25 & 15 & 5 \\ 0 & 25 & 15 & 5\end{bmatrix}\\
+	P(4)^{na} = \begin{bmatrix}0.8 & 0.15 & 0.05 & 0 \\ 0.9 & 0.1 & 0 & 0 \\ 0.2 & 0.7 & 0.1 & 0 \\ 0 & 0.2 & 0.7 & 0.1  \end{bmatrix} &\qquad R(4)^{na} = \begin{bmatrix} 40 & 30 & 20 & 10 \\ 33 & 23 & 13 & 0 \\ 33 & 23 & 13 & 3 \\ 0 & 23 & 13 & 3\end{bmatrix}
+	\end{aligned}
+	\]</li>
+</ol>
+
+In this case, our objective is to maximize yield (profit).
+
+<h2>4. Conclusion</h2>
+
+This article familiarized the reader with the necessary basics of the Markov decision process with a couple detailed examples. In applied mathematics, setting up the model is typically far more difficult than the mathematics itself. One should be aware of limitations (mathematically or otherwise) of any model, as well as potential "blind spots" where information is left out of the model that is pertinent. For example, if we did not account for the possible unavailability of anhydrous ammonia when designing policies, and a shortage did arise, we'd be left scrambling to make a heuristic decision. The expected profit calculated from the model would no longer be relevant or usable to us. 
+
+We did not focus on computing solutions yet. There are several approaches depending on the time horizon (finite or infinite), and future articles will explore these in detail. We will also survey in detail various other uses for this process. 
+
+<h2>References</h2>
+<ol>
+<li> Ibe, O. <i>Markov Processes for Stochastic Modeling</i>. Elsevier, 2013. doi: 10.1016/c2012-0-06106-6.</li>
+<li> Mahon, B. H. and Bailey, R. J. M. “A Proposed Improved Replacement Policy for Army Vehicles”. In: Journal
+of the Operational Research Society 26.3 (Oct. 1975), pp. 477–494. doi: 10.1057/jors.1975.108.</li>
+</ol>
+</html>
