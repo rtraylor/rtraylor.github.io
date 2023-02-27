@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>An Illustration of Applied Stochastic Geometry: Coverage Probability in a Simple ALOHA MANET</title>
+<link rel="stylesheet" href="style.css">
+<img src="../imgs/tmc_text.jpg" alt="The Math Citadel" width="252" height="122"
+class="center"/>
+<br>
+<div class="navbar">
+    <a href="../index.html">Home</a>
+    <div class="dropdown">
+        <button class="dropbtn">About 
+        <i class="fa fa-caret-down"></i>
+        </button>
+    <div class="dropdown-content">
+        <a href="../about-us.html">About Us</a>
+        <a href="../people.html">People</a>
+    </div>
+    </div>
+    <div class="dropdown">
+        <button class="dropbtn">Products and Services
+         <i class="fa fa-caret-down"></i>
+         </button>
+    <div class="dropdown-content">
+        <a href="../research.html">Research</a>
+        <a href="../consulting.html">Consulting</a>
+        <a href="https://shop.spreadshirt.com/mathcitadel/">Shop</a>
+        <a href="https://patreon.com/mathcitadel">Patreon</a>
+    </div>
+    </div>
+    <a href="../projects.html">Projects</a>
+    <a href="../articles.html">Papers/Articles</a>
+<a href="../book-reviews-category.html">Book Reviews</a>
+    <a href="../contact.html">Contact</a>
+
+
+    
+</div>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+<script 
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+<h2>An Illustration of Applied Stochastic Geometry: Coverage Probability in a Simple ALOHA MANET</h2>
+<h4>R. Traylor</h4>
+<br>
+<h2> 1. Introduction and Scenario</h2>
+
+This article will illustrate a practical example of applied mathematics, showcasing the interplay between physics, engineering, and several branches of mathematics including stochastic geometry. 
+
+Suppose we have a collection of transmitters scattered in 2D space, such as cell towers. Our goal is to keep the scenario simple enough to illustrate, so we will be making several assumptions to help. First, we're going to assume the transmitter locations are fixed. We also chose 2D space to avoid discussing the effects of transmitter heights and geographic altitudes on the signal fading models we'll employ. Some other aspects of the scenario are as follows:
+
+<ul>
+<li> Each transmitter has one and only one receiver located at a fixed distance $r$ from the transmitter. This avoids the need to discuss routing for now.</li>
+<li> No two transmitters share the same receiver.</li>
+<li> Each transmitter is omni-directional (the signal is sent out in all directions, rather than focused), and we assign a <i>fading condition</i> to take into account the variation of signal power over distance and the effective transmission power. </li>
+<li> We allow for thermal noise, which is random. </li>
+<li> We consider the slotted Aloha medium access protocol. </li>
+</ul>
+
+The goal of this model is to answer the following two questions:
+
+<ol>
+<li> What is the probability of a successful transmission for a typical transmitter to its receiver?</li>
+<li> What should the medium access probability $p$ be in order to guarantee that the probability of a successful transmission is at least some given $1-\epsilon$, where $\epsilon$ is the outage probability?</li>
+</ol>
+
+The reader who works in the networking space may consider this model quite limiting, but there are generalizations that can be made. The purpose is to understand some of the mathematical concepts first. For the reader outside this engineering field, we will explain the basics of all concepts in the list above. 
+
+
+<h3>Aloha Medium Access Protocol</h3>
+
+We illustrate the concept of medium access protocol in general, then specifically discuss the Aloha protocol we will employ in our wireless network scenario. 
+
+<hr>
+<b>Example 1: </b> Suppose the reader himself is the receiver, and the transmitters are other people who wish to speak to him. If multiple people wish to speak to him, and all start talking to him at once, he will be overwhelmed and understand none of the messages. He will need to employ some rule to determine who will talk to him at any given moment (or who he'll actually pay attention to). 
+<hr>
+
+<hr>
+<b>Example 2:</b>
+Now suppose two people are eating dinner in a restaurant and trying to have a nice conversation. If the restaurant is crowded and loud, the people at the table will be unable to understand each other unless they raise their voices. The conversations at the other tables constitute interference to this couple's conversation. The entire restaurant is composed of such tables, and we'd like to come up with some kind of protocol to govern people talking to each other that is <i>distributed</i> -- not centrally scheduled.
+<hr>
+
+<hr>
+<b>Example 3: </b>Finally, consider a neighborhood of houses on a sunny weekend, all of whom are having backyard BBQs and wanting to play music for their guests in their own backyard. If everyone plays their music at the same time too loudly, everyone will be miserable. Music played at one end of the street won't be heard very well at the other end of the street, so it's not an issue if these two houses play music at the same time, but two immediate neighbors playing music at the same time will always interfere with each other and end up angry.  The neighborhood may want some kind of decentralized rule to allow for plenty of music to be played.
+<hr>
+
+
+These are casual examples of the need for a <i>medium access protocol</i>, which is a rule that governs when and how transmitters will access the medium (in our case, air) in order to send their messages. In the first example, the reader may schedule meeting times for each person who wishes to speak to him. This is an example of the TDMA (Time Division Multiple Access) protocol. For wireless networks using this protocol, the time slots and schedules must be distributed to all nodes, which gets cumbersome if nodes can come and go, or move around. This protocol was used in 2G cellular networks, and is still used for some satellite communications. 
+
+In the latter two examples, suppose we give each transmitter (person speaking or house with music) a coin with probability $p$ of flipping heads. Each time slot (minute, hour), every transmitter flips its coin. If heads, it sends its message. If tails, it remains silent. This is called the <i>(slotted) Aloha protocol</i>. The coins are all flipped independently of one another, and it is certainly possible that two neighboring transmitters will transmit at the same time and (if they're close enough) interfere. The more crowded the network (or restaurant, neighborhood), the lower $p$ must be to avoid clashing transmissions. On the other hand, a $p$ too low will result in an inefficient network with too few transmissions. Balancing this $p$ with quality-of-service guarantees and network optimization is a large engineering question. We'll only address part of this in this article. 
+
+<h2> 2. Mathematical Model</h2>
+
+In this section, we return to our collection of fixed transmitters scattered at random in the plane, each with a fixed receiver under the slotted Aloha protocol. We develop the mathematical description of the scenario introduced in the previous section. 
+
+<ol>
+<li> <b>Locations of Transmitters.</b>  We denote the collection of transmitters with random locations by  $\{X_{i}\}$, and model their locations by a \textit{Poisson point process}. This point process $\Phi = \{X_{i}\}$ is a random and countable collection of points. Specific realizations (observations) are denoted $\phi = \{x_{i}\}$. Mathematical details can be found in the appendix. 
+
+ We now call the set of transmitter locations $\{X_{i}\}$. The intensity $\lambda$ (see the appendix) is the density of transmitters per unit area. For example, in a circular area $B$ of radius $r$, $\Lambda(B) = \lambda|B| = \lambda\cdot \pi r^{2}$. Then the number of transmitters in this circular area $B$ is random and distributed according to the Poisson distribution:
+\[P(\Phi(B) = k) = \frac{(\lambda\pi r^{2})^{k}e^{-\lambda \pi r^{2}}}{k!}\]
+
+For an explicit numerical example, set $\lambda = 3, r=2, k=25$. Then
+\[P(\Phi(B) = 25) = \frac{(12\pi)^{25}e^{-12\pi}}{25!} \approx 0.007\]
+The probability that there are 25 transmitters in a circle of radius 2 with a density of 3 transmitters per unit area is 0.007. We can also compute 
+\[P(\Phi(B) = 0 )= e^{-12\pi} = 4.24 \times 10^{-17}\]
+giving us a miniscule probability that a circle of radius 2 with transmitter density 3 is empty. If we change $\lambda = 0.3$, then
+\[P(\Phi(B) = 0) = 0.023\]
+which is a much larger probability. This corresponds to our intuition that higher densities should correspond to more crowded networks and smaller probabilities of empty areas or isolated points.  
+
+We will now augment the Poisson point process describing transmitter locations by attaching <i>marks</i> to each point. Practically, marks are tuples or vectors containing additional information about each point in the process. Mathematically, the marks are random vectors in a different space from the space of point locations. The marks we will attach to each transmitter are the following:</li>
+<li> <b>Medium Access Indicator.</b> $\{e_{i}\}$ will denote the medium access indicator of transmitter $i$. $e_{i} = 1$ means the transmitter is allowed to transmit its message in the time slot, and $e_{i} = 0$ means that the transmitter is not allowed to transmit. Since we are using the slotted Aloha protocol, $P(e_{i} = 1) = p$ (the medium access probability) for all transmitters $X_{i}$.  </li>
+<li> <b>Receiver location.</b> $\{y_{i}\}$ denotes the location of the receiver for $X_{i}$. Recall that no two transmitters will share the same receiver. $y_{i}$ is allowed to be a random location, but we're using a model that fixes the distance from its corresponding transmitter to a set amount $r$, so $|X_{i} - y_{i}| = r$ for all $i$, where here were are taking the standard Euclidean distance. </li>
+<li> <b>Virtual Power vector.</b> $\{\vec{F}_{i}\} = \{[F_{i}^{j}]_{j}\}$ will denote the vector describing the <i>virtual power</i> emitter by transmitter $i$ toward receiver $j$. There is one vector for each transmitter, and each vector has one component for each receiver $j$. It would be a distraction to have a full discussion of the physics of virtual power for our purposes, so we will satisfy ourselves by understanding it as a quantity made of the effective power of the signal transmitted by transmitter $i$ and some "random fading" of the signal. What's important for us mathematically is that $F_{i}^{j}$ are all independent and identically distributed with some distribution $F$. Thankfully there is a physical model that allows us to use $F \sim \exp(\mu)$, which corresponds to a constant effective power transmission $1/\mu$ and Rayleigh fading, so we can justify its use. </li>
+</ol>
+
+We may now describe our MANET as the <i>marked Poisson point process</i> $\tilde{\Phi} = \{(X_{i},e_{i},y_{i},\vec{F}_{i})\}$ where the set of points $\{X_{i}\}$ live in $\mathbb{R}^{2}$, and the set of marks $\{(e_{i},y_{i},\vec{F}_{i})\}$ lives in $\{0,1\} \times \mathbb{R}^{2} \times \mathbb{R}^{l}$, where $l$ depends on the number of points in the process. (Recall that we have one component of $\vec{F}_{i}$ for each receiver $y_{j}$.)
+
+We will also add a random variable $W$ to model thermal noise that is separate from and completely independent of the marked Poisson point process. 
+
+<h2> 3. Thinning of a Poisson Point Process</h2>
+
+Houses that aren't playing any music, or transmitters that aren't transmitting signals don't affect other receivers, so we'd like to focus only on those transmitters for which the MAC indicator $e_{i} = 1$. Thus, we will filter the Poisson point process by $e_{i}$, which will create a new random process we'll call $\Phi^{1} = \{(X_{i},e_{i},y_{i},\vec{F}_{i}) : e_{i} = 1\}$. One of the reasons we chose to model the MANET with a Poisson point process is because this filtration $\Phi^{1}$ (called <i>thinning</i> in the stochastic geometry literature) remains a Poisson point process, so we've lost none of the nice properties of this special process we will need later. The <i>retention probability</i> is the probability that a point of $\tilde{\Phi}$ will be kept in $\Phi^{1}$ after the thinning operation is complete. In our case, the thinning probability corresponds to the probability that the transmitter is allowed to transmit according to the slotted Aloha protocol, so $P(e_{i}=1) = p$, the medium access probability, is our retention probability. 
+
+With our model fundamentals laid clear, we are ready to begin answering some practical questions about the MANET.
+
+
+<h2> 4. What is the coverage probability for a typical node in the MANET?</h2>
+
+To answer this question, we need to clearly define two things:
+<ul>
+<li> coverage </li>
+<li> typical node </li>
+</ul>
+
+We'll begin by defining coverage.
+
+<h3> Node Coverage</h3>
+
+We consider a transmitter $i$ to <i>cover</i> its receiver $y_{i}$ if the signal-to-interference-and-noise ratio (SINR) is greater than some given threshold $T$ measured in decibels. 
+
+The simplest expression for SINR is 
+
+\[\text{SINR} = \frac{P}{N+I}\]
+
+where $P$ is the signal power from the transmitter, $N$ is some kind of external noise, and $I$ represents interference from other transmitters. A small SINR indicates that either the signal is too weak, or the interference plus noise is too strong. 
+
+We have that a successful transmission (coverage) from transmitter $i$ to receiver $i$ is 
+\[\text{SINR}_{i} = \frac{\tfrac{F_{i}^{i}}{l(|X_{i} - y_{i}|)}}{W+I_{i}^{1}} \geq T\]
+
+We will specify these pieces a bit more thoroughly. Many simplifying assumptions (and explanations) are given here; there are chapters of books discussing the physical principles at work which we will be omitting for conciseness and to avoid unnecessary tangents. 
+
+The formula we will use for SINR is the following:
+\[\text{SINR} = \frac{\tfrac{F_{i}^{i}}{l(|X_{i} - y_{i}|)}}{W+I_{i}^{1}}\]
+
+where
+
+<ul>
+<li> $F_{i}^{i}$ is the $i$th component of $\vec{F}_{i}$, giving the virtual power emitted by transmitter $i$ towards its own receiver located at $y_{i}$. </li>
+<li> $l(|X_{i} - y_{i}|)$ is the \textit{path loss function} modeling the decay of the signal as it travels through air (or other medium). There are several choices we can make for this function; we will pick the simplest one when we are ready to make explicit calculations. $|X_{i}-y_{i}|$ is the Euclidean distance between the transmitter $i$ and its receiver. Recall that for this model, we fixed this distance at some $r$, so the path loss function is a function of $r$. Thus, the received signal power at receiver $i$ from transmitter $i$ is $\frac{F_{i}^{i}}{l(r)}$ </li>
+<li> $W$ is the random variable representing thermal noise. </li>
+<li> $I_{i}^{1}$ is the total interference at receiver $i$ from all other transmitters $X_{j} \neq X_{i}$ (that are actually transmitting). For each $j \neq i$, $\frac{F_{j}^{i}}{l(|X_{j}-y_{i}|)}$ is the received signal power from transmitter $j$ to receiver $i$ and constitutes interference. Note that we cannot write $l(r)$ for the denominator here, because receiver $i$ is a different distance from any transmitter not its own. The total interference is then
+\[I_{i}^{1} = \sum_{j \neq i, X_{j} \in \Phi^{1}}\frac{F_{j}^{i}}{l(|X_{j}-y_{i}|)}\]
+where we are only summing over such transmitters that have a MAC indicator $e_{j} = 1$. Mathematically, since $F_{j}^{i}$ is random, $I_{i}^{1}$ constitutes another special kind of point process called a \textit{shot noise process}. Such processes are used to model random events with some kind of decay factor. </li>
+</ul>
+
+
+<h3> Typical Node</h3>
+Now that we have a definition of coverage, we now need to define what we mean by a "typical node". There is some subtlety at work here in the underlying mathematics to be sure we are actually doing what we say we're doing. We want to be certain that the conclusion we come to doesn't depend on which node someone points at to call "typical". We also want to ensure that the labeling scheme for nodes doesn't matter, or that location of the typical node doesn't matter. The mathematics that ensure these things is called Palm theory. In this article, we will give a very intuitive look at this mathematics and reserve deeper discussions for another paper. 
+
+The goal of a <i>Palm distribution</i> is to give the perspective of the stochastic process from the point of view of a randomly chosen node. It may be considered the conditional distribution of a point process $\Phi$ given that $\Phi$ has a point at some location $x$. If the process is stationary (no statistical properties are harmed by shifting the coordinate system), then without loss of generality, we may take $x=0$. This generates a Palm distribution $\mathbb{P}^{0}$ for this conditional distribution of $\Phi$ given that $0 \in \Phi$. 
+
+Let us return to the MANET. Let $\delta_{i} = 1(\text{SINR}_{i} \geq t)$ be the random indicator that $y_{i}$ is covered by its transmitter $X_{i}$. This introduces a new mark on $X_{i}$ and augments the marked process $\tilde{\Phi}$ with the set $\{\delta_{i}\}$. This process is still stationary, which is good. However, receivers in more crowded areas will have a smaller coverage probability than isolated points; just as it's harder to hear your dinner partner in a crowded restaurant than an empty one. Thus, due to the interference terms $I_{i}^{1}$, $\{\delta_{i}\}$ are <i>not</i> independent or identically distributed, so we can't just model this augmented process $\tilde{\Phi} \cup \{\delta_{i}\}$ with the same type of marked point process we had before. Therefore, we need a new probability law to talk about coverage probabilities. 
+
+Since $\tilde{\Phi} \cup \{\delta_{i}\}$ is still stationary, we may pose our coverage question mathematically as 
+\[P(\text{typical node covers its receiver}) = \mathbb{P}^{0}(\delta_{0} = 1| e_{0} = 1) = \mathbb{E}^{0}[\delta_{0}|e_{0} =1]\]
+$\mathbb{P}^{0}$ is the Palm probability of $\tilde{\Phi}$ given that it has a point $X_{0} = 0$ with mark $\delta_{0}$. This is the probability law we will be using to calculate the probability that this particular $\delta_{0} = 1$ given that $X_{0}$ (our typical point) is a transmitter ($e_{0} = 1$).
+
+Thanks to a formula called the Campbell-Mecke formula (see the appendix for a short discussion on this), we may express $\mathbb{P}^{0}(\delta_{0} = 1|e_{0} = 1)$ in the following intuitive way:
+\[ \mathbb{P}^{0}(\delta_{0} = 1|e_{0} = 1) = \frac{\mathbb{E}[\sum_{i}\delta_{i}1(X_{i} \in B)]}{p\lambda|B|}\]
+for some bounded set $B \in \mathbb{R}^{2}$. The particular choice of $B$ doesn't matter. This formula is saying that the mean number of transmitters which cover their receiver in some set $B$ is equal to the expected number of transmitters which cover their receiver in $B$ divided by the expected number of transmitters in the set $B$. This formula averages over all possible realizations of the process (numerator) and the spatial average of all nodes (denominator). This "double average" eliminated the choice of and size of $B$ by leaving us with a unitless probability. 
+
+Since we chose an independently marked Poisson point process (without the $\delta_{i}$), we may conclude that $\tilde{\Phi}$ is \textit{ergodic}, a mathematically property that allows us to claim further that $\mathbb{P}^{0}(\delta_{0} = 1|e_{0} = 1)$ is the spatial average of the number of transmitters which cover their receiver in almost every realization of the MANET with the set $B$ large (and, with some caveats, extending to the whole space $\mathbb{R}^{2}$). This means that the coverage probability conclusions we make can be applied anywhere in the MANET, or for as large or small a spatial observation window as we like. 
+
+<h3>Constructing a specific $\mathbb{P}^{0}$ for our MANET</h3>
+
+Under the probability law $\mathbb{P}^{0}$, the nodes of our independently marked Poisson MANET follows the same law as $\tilde{\Phi} \cup \{(X_{0} = 0, e_{0}, y_{0}, \vec{F}_{0})\}$; that is, the original process under the original probability law $\mathbb{P}$ augmented by a single additional point at 0 with its corresponding marks. The new copy of marks for $X_{0}$ are independently and identically distributed with all the others. This is entirely due to our choice of the Poisson process with independent marks. In general, the Palm distribution $\mathbb{P}^{0}$ will not be this straightforward. 
+
+The node at $0$ is allows to transmit its signal with the medium access probability $p$, so $P(e_{0} = 1) = p$. Denote the coverage probability by $p_{c}(r,\lambda p, T)$. The coverage probability only depends on the distance $r$ of the receiver from the transmitter, the medium access probability $p$, the density of transmitters $\lambda$, and the threshold $T$. Then
+\[
+\begin{aligned}
+p_{c}(r,\lambda p, T) &= \mathbb{P}^{0}(\delta_{0} = 1|e_{0} = 1) \\
+	&= \mathbb{E}^{0}[\delta_{0}] \\
+	&= \mathbb{P}^{0}(\text{SINR}_{0} \geq T | e_{0} = 1) \\
+	&= \mathbb{P}^{0}\left(\frac{\tfrac{F_{0}^{0}}{l(r)}}{W+I_{0}^{1}} \geq T | e_{0} = 1\right) \\
+	&= \mathbb{P}^{0}(F_{0}^{0} \geq l(r)T(W+I_{0}^{1})|e_{0}=1)
+\end{aligned}
+\]
+Since we assume independent marks, we can take $F_{0}^{0}, W,$ and $I_{0}^{1}$ (the virtual power from the typical node, the thermal noise, and the random interference at the typical receiver) as independent random variables, each with respective distributions $F, W, I^{1}$. 
+
+We will take the simplest case of Rayleigh fading for $F$ to keep calculations manageable. This means $F$ has an exponential distribution with mean $\frac{1}{\mu}$ for some $\mu$. We have
+
+\[
+\begin{aligned}
+p_{c}(r, p\lambda,T) &= \mathbb{P}^{0}(F_{0}^{0} \geq l(r)T(W+I_{0}^{1})|e_{0}=1) \\
+					 &= E[P\left(F \geq Tl(r)(I^{1} + W)\right)]  \qquad
+					 \text{ where expectation is taken over the other random variables $I^{1}$ and $W$} \\
+					 &= E[1-P(F < Tl(r)(I^{1} + W))] \\
+					 &= E\left[e^{-\mu T l(r)(I^{1} + W)}\right] \\
+					 &= E\left[e^{-\mu Tl(r)I^{1}}\right]E\left[e^{-\mu T l(r)W}\right] \qquad \text{due to the independence of $I^{1}$ and $W$} \\
+					 &= \mathcal{L}_{I^{1}}(\mu T l(r))\mathcal{L}_{W}(\mu T l(r))
+\end{aligned}
+\]
+where $\mathcal{L}(\cdot)$ denotes the Laplace transform (or moment generating function) of the respective random variable. 
+
+The above formula gives the coverage probability for a general interference distribution and general thermal noise distribution. Some distributions will not allow for closed forms of this probability. The simplest one that does is by taking $I^{1}$ to be a Poisson shot noise process, thermal noise $W$ to be identically (thus eliminating that Laplace transform altogether), and path loss function $l(u) = (Au)^{\beta}$ where $\beta > 2, A =1$. Then, after some calculations (relegated to the Appendix), we finally get
+
+\[p_{c}(r, \lambda p, T) = \exp\left(-\lambda p r^{2}T^{2/\beta}K(\beta)\right), \qquad K(\beta) = \frac{2\pi^{2}}{\beta \sin(2\pi/\beta)}\]
+
+Let us pause and give an explicit numerical example. Suppose we require the receiver distance $r=2$, set the medium access probability $p = 0.01$, have density of transmitters $\lambda = 2$, put threshold $T = 10$ dB, and take $\beta = 4$ in the path loss function. Then 
+\[p_{c}(2, 1/5, 10) = \exp(-0.02\cdot 4\sqrt{10}\cdot(\pi^{2}/2)) = 0.287\]
+is the coverage probability of a typical node. Notice the different effects the inputs have: The larger the threshold $T$, the smaller the coverage probability. Larger densities of transmitters also yield smaller coverage probabilities, as does a higher medium access probability. We explore this in the next section.
+
+<h2> 5. Quality of Service</h2>
+
+We are now ready for a simple exercise in requirements. Suppose we are told to set the medium access probability $p$ such that a typical transmitter is guaranteed a SINR $\geq T$ for some given $T$ with probability $1-\epsilon$. Stated another way, we want the <i>outage probability</i> for a typical transmitter to be less than a given $\epsilon$. 
+
+Mathematically stated, we require 
+\[p_{c}(r, \lambda p, T) \geq 1-\epsilon\]
+
+Solving for $p$, we get 
+\[
+\begin{aligned}
+\exp\left(-\lambda p r^{2}T^{2/\beta}K(\beta)\right) &= 1-\epsilon \\
+-\lambda p r^{2}T^{2/\beta}K(\beta) &= \ln(1-\epsilon) \\
+p &= \frac{-\ln(1-\epsilon)}{\lambda r^{2}T^{2/\beta}K(\beta)}
+\end{aligned}
+\]
+
+Supposing we set the threshold at 10 dB, with $r=1, \beta = 4, A=1$. Then
+\[p \approx \min(1, 0.064\epsilon/\lambda)\]
+where we use the $\min(\cdot)$ function to ensure we don't accidentally end up with a probability greater than 1. Now, imagine the requirement for the outage probability is 0.001, and the density of transmitters is 3 per unit area. Solving for $p$, we get $p= 2.13 \times 10^{-5}$, which is an extremely tiny medium access probability. To ensure a quality of service greater than 0.999 ("three 9's of reliability" in industry terms) at this density of transmitters under this MANET model, the coin that each transmitter flips in order to "talk" would almost never come up "heads". 
+
+What if the density changes? Suppose now we have a density of $\lambda = 0.3$, which is 1/10 the density of the previous network. Everything else, including the QoS requirement, remains the same. Then $p = 2.13 \times 10^{-4}$, which is an order of magnitude larger, but still extremely small. We can ask the following question:
+
+What would the network density $\lambda$ have to be to achieve a particular QoS requirement $\epsilon$ and specified medium access probability $p$, keeping all modeling aspects the same as before? Then we can rearrange $p \approx 0.064\epsilon/\lambda$ to get an equation in $\lambda$:
+\[\lambda = \frac{0.064\epsilon}{p}\]
+
+If the requirement is $\epsilon = 0.001$, but management also wants a medium access probability $p=0.5$, then $\lambda = 0.000128$, or $1.28 \times 10^{-4}$ transmitters per unit area -- a very sparse network indeed. The required density only decreases further with increasing $p$. If we must have a denser network, then we will either have to decrease the medium access probability $p$ or increase our acceptable outage probability $\epsilon$. For instance, $\epsilon = 0.3$ and $p = 0.01$ gives $\lambda = 1.92$ transmitters per unit area. 
+
+We have neglected to mention the other controllable aspects of network design: the receiver distance $r$ and the SINR threshold $T$. Let us return to our original equation 
+
+\[p = \frac{-\ln(1-\epsilon)}{\lambda r^{2}T^{2/\beta}K(\beta)}\]
+
+Let us keep the threshold $T$ at 10 dB, $\beta = 4$ and $A = 1$. Then 
+
+\[p = \frac{-ln(1-\epsilon)}{15.6052\lambda r^{2}}\]
+
+Suppose we return to a density $\lambda = 3$, with requirements $\epsilon = 0.001$ and $p=0.5$. What would the receiver distance $r$ have to be to fit these requirements?
+
+Solving for $r$ with these numbers, we get $r=0.006$ units from the receiver. Perhaps this is a good time to tell management that these requirements are just not practical under this model. 
+
+<h2> 6. Conclusion and Remarks</h2>
+
+This article gave an intuitive overview of a simple mobile area network model, discussing how stochastic geometry can be used to make some practical decisions. We take the time to review the limitations and assumptions made.
+
+On the networking side,
+
+<ol>
+<li> Transmitters
+	<ul>
+	<li> have a fixed location once the point process is realized. We used the Poisson point process to model transmitter locations </li>
+	<li> transmit in an omnidirectional fashion </li>
+	<li> have a fading condition assigned, and all random fading is independent and identically distributed. We used Rayleigh fading in our calculations. </li>
+	<li> are allowed to transmit according to the slotted Aloha protocol with medium access probability $p$ </li>
+	<li> transmit to one and only one receiver set in a random location $y_{i}$ at a fixed distance $r$ from the transmitter, which eliminates any routing concerns. </li>
+	</ul>
+</li>
+<li> Thermal noise is random and independent of everything else in the model, including interference. In our explicit examples, we completely omitted thermal noise. </li>
+<li> The path loss function was taken to be $l(r) = (Ar)^{\beta}$. This much simpler model for signal power loss does have some issues with its use as $r$ approaches 0 and should be used with caution. </li>
+<li> Interference was the simplest shot-noise process we could take -- the transmitter locations were distributed according to a Poisson point process with exponential fading (Rayleigh). </li>
+<li> No probabilistic aspect of the network changed with time. Once set, the locations, medium access probability, and random fading all remained constant with time. </li>
+<li> There was no multicasting involved. </li>
+</ol>
+
+
+On the mathematical side:
+
+<ol>
+<li> The use of the Poisson point process gave us a simple stationary and ergodic point process that allowed us to make well-defined conclusions about what a typical node was in a way that allowed for a relatively straightforward mathematical expression. It also allowed us to make conclusions about the interpretation of the coverage probability for the entire space on which the network lives. </li>
+<li> Keeping the marks independent and identically distributed simplified calculations (and in some cases, made such calculations possible at all).</li>
+<li> We used a "double averaging" to get a "typical" coverage probability for a typical node. This smooths over spatial and shot noise variation. Obtaining a measure of variance would require higher order Campbell measures, which we do not discuss here. It's useful to consider the obtained coverage probability $p_{c}$ in the same way as the application of Little's Law to conventional queueing.  </li>
+</ol>
+
+The literature on both the mathematics of spatial point processes and engineering applications of such processes is both vast and deep, despite the developments being recent (within the last 30 years or so). This article simply scratched the surface of the topic. For a deeper look, I recommend the two-volume set <i>Stochastic Geometry and Wireless Networks</i> by Baccelli and Blaszczyszyn.  
+ 
+ 
+<h2> 7. Appendix</h2>
+ 
+<h3>Poisson point process</h3>
+ A point process $\Phi = \{X_{i}\}$ is a random and countable collection of points. We may view a realization $\phi$ as a counting measure that lives on the space ($\mathbb{R}^{2}$ in this case) of possible locations. For a bounded set $A \subset \mathbb{R}^{2}$, 
+\[\phi(A) = \sum_{i}\epsilon_{x_{i}}(A)\]
+where $\epsilon_{x_{i}}(A) = \begin{cases}1, x_{i} \in A \\
+										  0, x_{i} \notin A
+										  \end{cases}
+										  $	. Then $\phi(A)$ counts the numbers of observed transmitters in the set $A$. If we have yet to realize the locations of the transmitters, then $\Phi(A) = \sum_{i}\epsilon_{X_{i}}(A)$ is the <i>random count</i> of transmitters in $A$, so $\Phi$ is a <i>random measure</i>. This characterization is used in most of the mathematical proofs using point processes.
+										  
+A <i>Poisson point process</i> is a special category of point processes. There are several different ways to define a Poisson point process in general $\mathbb{R}^{d}$ space, but we'll pick the most intuitive characterization: given a locally finite measure $\Lambda$ on $\mathbb{R}^{2}$, $\Phi(A)$ has a Poisson distribution with parameter $\Lambda(A)$ for $A \subset \mathbb{R}^{2}$ bounded.
+
+Locally finite simply means that the measure of a bounded set is finite. For our purposes, we're going to stick with a <i>homogenous</i> Poisson process, meaning that $\Lambda(\cdot) = \lambda| \cdot |$ for some <i>intensity</i> $\lambda$ and where $| \cdot |$ is classic Lebesgue measure (area/volume of a set). 
+
+<h3>Campbell-Mecke formula</h3>
+
+We'll concentrate on the Campbell-Mecke formula for the class of stationary point processes, to which the Poisson point process belongs. The formula is generally stated as follows:
+
+\[\mathbb{E}[\sum_{x \in \Phi}f(x)] = \lambda\int f(x) dx\]
+
+for any non-negative measurable function $f$. What this version is saying is that if we impose a function $f$ on the points of a stationary process, getting a collection of values $\{f(x)\}$ for $x \in \Phi$, the expected value of the sum of such $f(x)$ over all possible realizations of the point process can be expressed as the integral of the function $f$ over the "mean measure" (which in our case is a density $\lambda$ times Lebesgue measure) in space. This means that we can find an otherwise complicated expected value spatially.
+
+For a marked point process, there is a larger version of the Campbell-Mecke formula that takes into account the random marks:
+
+\[\mathbb{E}[\sum_{(x, m_{x}) \in \Psi}f(x,m(x))] = \lambda\int\int f(x,m)M(dm)dx\]
+where $M$ is the distribution on the space of marks (which could be multivariate), and $\Psi$ is a stationary marked point process. The interpretation of this formula is the same as before, with the added requirement of integrating over the mark distribution as well. 
+
+Finally, there is a refined version that makes use of the Palm distribution which is used in the article above: 
+
+\[\mathbb{E}[\sum_{x \in \Phi}h(x,\Phi)] = \lambda\int\int h(x,\phi_{x})P_{o}(d\phi)dx\]
+
+The specific application in the article rearranges this formula for $h(x_{i},\phi) = \delta_{i}1(X_{i} \in B)$. The interpretation of this formula for the MANET application can be found in the article.
+
+</html>
